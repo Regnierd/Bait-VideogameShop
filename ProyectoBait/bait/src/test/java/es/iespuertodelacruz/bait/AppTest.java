@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.javier;
+package es.iespuertodelacruz.bait;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
