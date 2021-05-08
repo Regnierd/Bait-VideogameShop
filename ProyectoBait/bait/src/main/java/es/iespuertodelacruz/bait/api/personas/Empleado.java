@@ -1,41 +1,41 @@
 package es.iespuertodelacruz.bait.api.personas;
 
 public class Empleado extends Persona{
-    private String idEmpleado; 
-    private float Sueldo;
+    private float sueldo;
     private String fechaInicio;
     private String fechaFin;
     private String cargo;
 
-
+    /**
+     * Constructor basico de la clase
+     */
     public Empleado() {
     }
 
-
-    public Empleado(String dni, String nombre, String apellidos, String direccion, float Sueldo, String fechaInicio, String fechaFin, String cargo) {
+    /**
+     * Constructor con los parametros basicos de la clase
+     * @param dni del empleado
+     * @param nombre del empleado 
+     * @param apellidos del empleado
+     * @param direccion del empleado 
+     * @param sueldo del empleado
+     * @param fechaInicio del empleado
+     * @param cargo del empleado
+     */
+    public Empleado(String dni, String nombre, String apellidos, String direccion, float sueldo, String fechaInicio, String cargo) {
         super(dni, nombre, apellidos, direccion);
-        //this.idEmpleado = idEmpleado;
-        this.Sueldo = Sueldo;
+        this.sueldo = sueldo;
         this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.cargo = cargo;
     }
 
     //GETTERS Y SETTERS 
-    public String getIdEmpleado() {
-        return this.idEmpleado;
-    }
-
-    public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
     public float getSueldo() {
-        return this.Sueldo;
+        return this.sueldo;
     }
 
-    public void setSueldo(float Sueldo) {
-        this.Sueldo = Sueldo;
+    public void setSueldo(float setsueldo) {
+        this.sueldo = setsueldo;
     }
 
     public String getFechaInicio() {
@@ -65,16 +65,11 @@ public class Empleado extends Persona{
 
     @Override
     public String toString() {
-        return getIdEmpleado() + DELIMITADOR
-        + getSueldo() + DELIMITADOR
+        return getSueldo() + DELIMITADOR
         + getFechaInicio() + DELIMITADOR
         + getFechaFin() + DELIMITADOR
         + getCargo() + DELIMITADOR
-        + getIdPersona();
+        + getDni();
     }
-
-
-
-
 
 }

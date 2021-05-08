@@ -1,8 +1,7 @@
 package es.iespuertodelacruz.bait.api.personas;
 
-public class Persona {
+public abstract class Persona {
     protected static final String DELIMITADOR = ",";
-    private String idPersona;
     private String dni;
     private String nombre;
     private String apellidos;
@@ -16,33 +15,51 @@ public class Persona {
     /**
      * Constructor basico de la clase persona
      */
-    public Persona() {
+    protected Persona() {
     }
 
     /**
      * Constructor con todos los parametros de la clase persona
-     * @param dni de la persona 
-     * @param nombre de la persona 
-     * @param apellidos de la persona 
-     * @param direccion de la persona 
+     * 
+     * @param dni       de la persona
+     * @param nombre    de la persona
+     * @param apellidos de la persona
+     * @param direccion de la persona
      */
-    public Persona(String dni, String nombre, String apellidos, String direccion) {
-        //this.idPersona = idpersona;
+    protected Persona(String dni, String nombre, String apellidos, String direccion) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
     }
 
-    //GETTERS Y SETTERS
-    public String getIdPersona() {
-        return this.idPersona;
+    /**
+     * Cosntructor con todos los parametros
+     * 
+     * @param dni             de la persona
+     * @param nombre          de la persona
+     * @param apellidos       de la persona
+     * @param direccion       de la persona
+     * @param telefono        de la persona
+     * @param codigoPostal    de la persona
+     * @param provincia       de la persona
+     * @param nombreUsuariode la persona
+     * @param password        de la persona
+     */
+    protected Persona(String dni, String nombre, String apellidos, String direccion, String telefono,
+            String codigoPostal, String provincia, String nombreUsuario, String password) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.codigoPostal = codigoPostal;
+        this.provincia = provincia;
+        this.nombreUsuario = nombreUsuario;
+        this.password = password;
     }
 
-    public void setIdPersona(String idPersona) {
-        this.idPersona = idPersona;
-    }
-
+    // GETTERS Y SETTERS
     public String getDni() {
         return this.dni;
     }
@@ -115,20 +132,11 @@ public class Persona {
         this.password = password;
     }
 
-
     @Override
     public String toString() {
-        return getIdPersona() + DELIMITADOR
-        + getDni() + DELIMITADOR
-        + getNombre() + DELIMITADOR
-        + getApellidos() + DELIMITADOR
-        + getDireccion() + DELIMITADOR
-        + getTelefono() + DELIMITADOR
-        + getCodigoPostal() + DELIMITADOR
-        + getProvincia() + DELIMITADOR
-        + getNombreUsuario() + DELIMITADOR
-        + getPassword();
+        return getDni() + DELIMITADOR + getNombre() + DELIMITADOR + getApellidos() + DELIMITADOR + getDireccion()
+                + DELIMITADOR + getTelefono() + DELIMITADOR + getCodigoPostal() + DELIMITADOR + getProvincia()
+                + DELIMITADOR + getNombreUsuario() + DELIMITADOR + getPassword();
     }
-
 
 }
