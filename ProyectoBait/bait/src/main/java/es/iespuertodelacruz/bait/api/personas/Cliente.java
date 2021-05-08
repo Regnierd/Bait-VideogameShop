@@ -51,8 +51,7 @@ public class Cliente extends Persona{
 
     @Override
     public String toString() {
-        return getSaldo() + DELIMITADOR
-        + getDni();
+        return super.toString() + DELIMITADOR + getSaldo();
     }
 
 }
