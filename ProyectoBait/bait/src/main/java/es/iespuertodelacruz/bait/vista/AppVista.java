@@ -1,45 +1,50 @@
 package es.iespuertodelacruz.bait.vista;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class App{
-    static MenuAdministrador menuAdministrador;
-    static MenuPersona menuPersona;
+public class AppVista{
+    static MenuEmpleado menuEmpleado;
+    static MenuCliente menuCliente;
     public static void main( String[] args ){
-        if(menuAdministrador == null){
-            menuAdministrador = new MenuAdministrador();
+        if(menuEmpleado == null){
+            menuEmpleado = new MenuEmpleado();
         }
-        if(menuPersona == null){
-            menuPersona = new MenuPersona();
+        if(menuCliente == null){
+            menuCliente = new MenuCliente();
         }
 
+        menuPrincipal();
+    }
+
+    private static void menuPrincipal() {   
         boolean salir = false;
         int opcion;
         Scanner sn = new Scanner(System.in);
-        
         try{
             while(!salir){
-                System.out.println("1. Administrador");
-                System.out.println("2. Persona normal");
+                System.out.println("1. Empleado.");
+                System.out.println("2. Cliente.");
                 System.out.println("3. Salir");
                 System.out.println("¿Quien eres?");
                 opcion = sn.nextInt();
+                sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        menuAdministrador.menu();
+                        menuEmpleado.menu();
                         break;
                     case 2:
-                        menuPersona.menu();
+                        menuCliente.menuLogin();
                         break;
                     case 3:
                         salir = true;
                         break;
                     default:
-                        System.err.println("Tiene que elegir una de las opciones del menu: 1-3");
+                        System.err.println("Tiene que elegir una de las opciones del menu: 1 al 3");
                 }
             }
-        }catch(){
-
+        }catch(InputMismatchException ex){
+            System.out.println("El tipo de dato introducido es incorrecto.");
         }
-    }
+    }   
 }

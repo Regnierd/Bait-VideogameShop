@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.vista;
 
-public class MenuAdministrador {
+public class MenuEmpleado {
 
     public void menu() {
     }
