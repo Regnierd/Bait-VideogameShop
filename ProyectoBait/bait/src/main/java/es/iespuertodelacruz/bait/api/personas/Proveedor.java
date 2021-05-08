@@ -18,7 +18,6 @@ public class Proveedor extends Persona{
      * @param idProveerdor del proveedor
      */
     public Proveedor(String dni, String nombre, String apellidos, String direccion, String idProveerdor) {
-        super(dni, nombre, apellidos, direccion);
         this.idProveerdor = idProveerdor;
     }
 
@@ -34,7 +33,7 @@ public class Proveedor extends Persona{
     @Override
     public String toString() {
         return getIdProveerdor() + DELIMITADOR
-        + getIdPersona();
+        + getDni();
     }
 
 }

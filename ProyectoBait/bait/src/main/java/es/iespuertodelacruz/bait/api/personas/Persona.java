@@ -1,8 +1,7 @@
 package es.iespuertodelacruz.bait.api.personas;
 
-public class Persona {
+public abstract class Persona {
     protected static final String DELIMITADOR = ",";
-    private String idPersona;
     private String dni;
     private String nombre;
     private String apellidos;
@@ -16,7 +15,7 @@ public class Persona {
     /**
      * Constructor basico de la clase persona
      */
-    public Persona() {
+    protected Persona() {
     }
 
     /**
@@ -26,100 +25,115 @@ public class Persona {
      * @param apellidos de la persona 
      * @param direccion de la persona 
      */
-    public Persona(String dni, String nombre, String apellidos, String direccion) {
-        //this.idPersona = idpersona;
+    protected Persona(String dni, String nombre, String apellidos, String direccion) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
     }
 
+    /**
+     * Cosntructor con todos los parametros
+     * @param dni de la persona 
+     * @param nombre de la persona 
+     * @param apellidos de la persona 
+     * @param direccion de la persona 
+     * @param telefono de la persona 
+     * @param codigoPostal de la persona 
+     * @param provincia de la persona 
+     * @param nombreUsuariode la persona 
+     * @param password de la persona 
+     */
+    protected Persona(String dni, String nombre, String apellidos, String direccion, String telefono, String codigoPostal, String provincia, String nombreUsuario, String password) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.codigoPostal = codigoPostal;
+        this.provincia = provincia;
+        this.nombreUsuario = nombreUsuario;
+        this.password = password;
+    }
+
+
     //GETTERS Y SETTERS
-    public String getIdPersona() {
-        return this.idPersona;
-    }
-
-    public void setIdPersona(String idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    public String getDni() {
+    protected String getDni() {
         return this.dni;
     }
 
-    public void setDni(String dni) {
+    protected void setDni(String dni) {
         this.dni = dni;
     }
 
-    public String getNombre() {
+    protected String getNombre() {
         return this.nombre;
     }
 
-    public void setNombre(String nombre) {
+    protected void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
+    protected String getApellidos() {
         return this.apellidos;
     }
 
-    public void setApellidos(String apellidos) {
+    protected void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
-    public String getDireccion() {
+    protected String getDireccion() {
         return this.direccion;
     }
 
-    public void setDireccion(String direccion) {
+    protected void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
+    protected String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(String telefono) {
+    protected void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public String getCodigoPostal() {
+    protected String getCodigoPostal() {
         return this.codigoPostal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
+    protected void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
-    public String getProvincia() {
+    protected String getProvincia() {
         return this.provincia;
     }
 
-    public void setProvincia(String provincia) {
+    protected void setProvincia(String provincia) {
         this.provincia = provincia;
     }
 
-    public String getNombreUsuario() {
+    protected String getNombreUsuario() {
         return this.nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
+    protected void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getPassword() {
+    protected String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password) {
+    protected void setPassword(String password) {
         this.password = password;
     }
 
 
     @Override
     public String toString() {
-        return getIdPersona() + DELIMITADOR
-        + getDni() + DELIMITADOR
+        return getDni() + DELIMITADOR
         + getNombre() + DELIMITADOR
         + getApellidos() + DELIMITADOR
         + getDireccion() + DELIMITADOR

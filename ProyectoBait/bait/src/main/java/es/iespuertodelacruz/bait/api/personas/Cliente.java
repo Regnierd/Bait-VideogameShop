@@ -1,9 +1,7 @@
 package es.iespuertodelacruz.bait.api.personas;
 
 public class Cliente extends Persona{
-    private String idCliente;
     private float saldo;
-
     /**
      * Constructor basico de la clase
      */
@@ -11,29 +9,38 @@ public class Cliente extends Persona{
     }
 
     /**
-     * Constructor con parametros basicos de la calse
-     * @param dni de la cliente 
-     * @param nombre de la cliente 
-     * @param apellidos de la cliente 
-     * @param direccion de la cliente 
+     * Constructor con parametros basicos de la clase
+     * @param dni del cliente 
+     * @param nombre del cliente 
+     * @param apellidos del cliente 
+     * @param direccion del cliente 
      * @param saldo del cliente
      */
     public Cliente(String dni, String nombre, String apellidos, String direccion, float saldo) {
         super(dni, nombre, apellidos, direccion);
-        //this.idCliente = idCliente;
         this.saldo = saldo;
     }
 
+    /**
+     * Constructor con todos los parametros de la clase
+     * @param dni del cliente 
+     * @param nombre del cliente
+     * @param apellidos del cliente
+     * @param direccion del cliente
+     * @param telefono del cliente
+     * @param codigoPostal del cliente
+     * @param provincia del cliente
+     * @param nombreUsuario del cliente
+     * @param password del cliente
+     * @param saldo del cliente
+     */
+    public Cliente(String dni, String nombre, String apellidos, String direccion, String telefono, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo) {
+        super(dni, nombre, apellidos, direccion, telefono, codigoPostal, provincia, nombreUsuario, password);
+        this.saldo = saldo;
+    }
+
+
     //GETTERS Y SETTERS 
-
-    public String getIdCliente() {
-        return this.idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
-
     public float getSaldo() {
         return this.saldo;
     }
@@ -44,9 +51,8 @@ public class Cliente extends Persona{
 
     @Override
     public String toString() {
-        return getIdCliente() + DELIMITADOR
-        + getSaldo() + DELIMITADOR
-        + getIdPersona();
+        return getSaldo() + DELIMITADOR
+        + getDni();
     }
 
 }
