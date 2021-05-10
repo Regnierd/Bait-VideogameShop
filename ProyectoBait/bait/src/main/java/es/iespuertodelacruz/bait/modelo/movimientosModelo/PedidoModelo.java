@@ -1,5 +1,5 @@
 package es.iespuertodelacruz.bait.modelo.movimientosModelo;
 
-public class DetalleCompraModelo {
+public class PedidoModelo {
     
 }

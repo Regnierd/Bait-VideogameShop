@@ -1,75 +1,61 @@
 package es.iespuertodelacruz.bait.api.movimientos;
 
-import es.iespuertodelacruz.bait.api.personas.Empleado;
-import es.iespuertodelacruz.bait.api.personas.Proveedor;
-
 public class Compra {
     private String DELIMITADOR = ",";
-    private String fechaCompra;
-    private float costeCompra;
-    Empleado empleado;
-    Proveedor proveedor;
+    private String idCompra;
+    private Pedido pedido;
+    private float totalCompra;
+    
 
     /**
-     * Contructor basico de la clase
+     * Constructor basico de la clase
      */
     public Compra() {
     }
 
     /**
-     * Contructor con todos los parametros de la calse
-     * @param fechaCompra fecha en la que se realiza la compra
-     * @param costeCompra coste de la compra
-     * @param empleado empleados que realiza la compra
-     * @param proveedor proveedor que nos vende el producto
+     * Constructor con todos los parametros 
+     * @param idCompra de la compra
+     * @param pedido de la compra
      */
-    public Compra(String fechaCompra, float costeCompra, Empleado empleado, Proveedor proveedor) {
-        this.fechaCompra = fechaCompra;
-        this.costeCompra = costeCompra;
-        this.empleado = empleado;
-        this.proveedor = proveedor;
+    public Compra(String idCompra, Pedido pedido, float totalCompra) {
+        this.idCompra = idCompra;
+        this.pedido = pedido;
+        this.totalCompra = totalCompra;
     }
+
 
     //GETTERS Y SETTERS 
 
-    public String getFechaCompra() {
-        return this.fechaCompra;
+    public String getIdCompra() {
+        return this.idCompra;
     }
 
-    public void setFechaCompra(String fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public void setIdCompra(String idCompra) {
+        this.idCompra = idCompra;
     }
 
-    public float getCosteCompra() {
-        return this.costeCompra;
+    public Pedido getPedido() {
+        return this.pedido;
     }
 
-    public void setCosteCompra(float costeCompra) {
-        this.costeCompra = costeCompra;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
-    public Empleado getEmpleado() {
-        return this.empleado;
+    public float getTotalCompra() {
+        return this.totalCompra;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public Proveedor getProveedor() {
-        return this.proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setTotalCompra(float totalCompra) {
+        this.totalCompra = totalCompra;
     }
 
     @Override
     public String toString() {
-        return getFechaCompra() + DELIMITADOR + 
-        getCosteCompra() + DELIMITADOR +
-        getEmpleado().getDni() + DELIMITADOR + 
-        getProveedor().getDni();
+        return getIdCompra() + DELIMITADOR + 
+        getPedido().getIdPedido() + DELIMITADOR +
+        getTotalCompra();
     }
 
 }

@@ -1,10 +1,10 @@
 package es.iespuertodelacruz.bait.api.personas;
 
-public class Empleado extends Persona{
-    private float sueldo;
-    private String fechaInicio;
-    private String fechaFin;
-    private String cargo;
+public class Empleado{
+    protected static final String DELIMITADOR = ",";
+    private String idEmpleado;
+    private String nombreAcceso;
+    private String password;
 
     /**
      * Constructor basico de la clase
@@ -13,63 +13,46 @@ public class Empleado extends Persona{
     }
 
     /**
-     * Constructor con los parametros basicos de la clase
-     * @param dni del empleado
-     * @param nombre del empleado 
-     * @param apellidos del empleado
-     * @param direccion del empleado 
-     * @param sueldo del empleado
-     * @param fechaInicio del empleado
-     * @param cargo del empleado
+     * Constructor con todos los parametros
+     * @param idEmpleado del empleado
+     * @param nombreAcceso del empleado
+     * @param password del empleado
      */
-    public Empleado(String dni, String nombre, String apellidos, String direccion, float sueldo, String fechaInicio, String cargo) {
-        super(dni, nombre, apellidos, direccion);
-        this.sueldo = sueldo;
-        this.fechaInicio = fechaInicio;
-        this.cargo = cargo;
+    public Empleado(String idEmpleado, String nombreAcceso, String password) {
+        this.idEmpleado = idEmpleado;
+        this.nombreAcceso = nombreAcceso;
+        this.password = password;
     }
 
     //GETTERS Y SETTERS 
-    public float getSueldo() {
-        return this.sueldo;
+    public String getIdEmpleado() {
+        return this.idEmpleado;
     }
 
-    public void setSueldo(float setsueldo) {
-        this.sueldo = setsueldo;
+    public void setIdEmpleado(String idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
-    public String getFechaInicio() {
-        return this.fechaInicio;
+    public String getNombreAcceso() {
+        return this.nombreAcceso;
     }
 
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setNombreAcceso(String nombreAcceso) {
+        this.nombreAcceso = nombreAcceso;
     }
 
-    public String getFechaFin() {
-        return this.fechaFin;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public String getCargo() {
-        return this.cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
 
     @Override
     public String toString() {
-        return getSueldo() + DELIMITADOR
-        + getFechaInicio() + DELIMITADOR
-        + getFechaFin() + DELIMITADOR
-        + getCargo() + DELIMITADOR
-        + getDni();
+        return getIdEmpleado() + DELIMITADOR +
+        getNombreAcceso() + DELIMITADOR +
+        getPassword();
     }
-
 }

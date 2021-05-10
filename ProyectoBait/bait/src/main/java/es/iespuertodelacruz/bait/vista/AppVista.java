@@ -4,11 +4,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AppVista{
-    static MenuEmpleado menuEmpleado;
+    static MenuAdmin menuAdmin;
     static MenuCliente menuCliente;
     public static void main( String[] args ){
-        if(menuEmpleado == null){
-            menuEmpleado = new MenuEmpleado();
+        if(menuAdmin == null){
+            menuAdmin = new MenuAdmin();
         }
         if(menuCliente == null){
             menuCliente = new MenuCliente();
@@ -17,6 +17,9 @@ public class AppVista{
         menuPrincipal();
     }
 
+    /**
+     * Menu basico para preguntar si es un cliente o un administrador
+     */
     private static void menuPrincipal() {   
         boolean salir = false;
         int opcion;
@@ -31,10 +34,10 @@ public class AppVista{
                 sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        menuEmpleado.menu();
+                        menuAdmin.menuPrincial();
                         break;
                     case 2:
-                        menuCliente.menuLogin();
+                        menuCliente.menuPrincial();
                         break;
                     case 3:
                         salir = true;

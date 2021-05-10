@@ -11,11 +11,23 @@ import es.iespuertodelacruz.bait.controlador.productosController.ProductoControl
  * Menu que permite a un cliente registrarse o iniciar sesion
  */
 public class MenuCliente {
-    Scanner sn = new Scanner(System.in);
-    ClienteController clienteController = new ClienteController();
-    ProductoController productoController = new ProductoController();
+    Scanner sn;
+    ClienteController clienteController;
+    ProductoController productoController;
 
-    public void menuLogin() {
+    /**
+     * Constructor basico de la clase
+     */
+    public MenuCliente() {
+        clienteController = new ClienteController();
+        productoController = new ProductoController();
+        sn = new Scanner(System.in);
+    }
+
+    /**
+     * Menu basico para el cliente
+     */
+    public void menuPrincial() {
         boolean salir = false;
         int opcion;
         try {
@@ -38,7 +50,7 @@ public class MenuCliente {
                         break;
                     case 2:
                         try {
-                            Cliente cliente = menuInicio();
+                            Cliente cliente = validarCliente();
                             System.out.println("Sesion iniciada correctamente.");
                             menuOpciones(cliente);
                         } catch (Exception e) {
@@ -59,14 +71,14 @@ public class MenuCliente {
 
     /**
      * Menu de opciones que tiene el cliente tras iniciar sesion
-     * @param cliente cliente que ha iniciado sesion
+     * @param cliente que esta en la sesion actual
      */
     private void menuOpciones(Cliente cliente) {
         boolean salir = false;
         int opcion;
         try {
             while (!salir) {
-                System.out.println("1. Comprar Producto.");
+                System.out.println("1. Realizar pedido");
                 System.out.println("2. Buscar producto por tipo.");
                 System.out.println("3. Buscar producto por marca.");
                 System.out.println("4. Buscar producto por nombre.");
@@ -111,7 +123,7 @@ public class MenuCliente {
      * pasados por el usuario
      * @return el cliente si existe
      */
-    private Cliente menuInicio() {
+    private Cliente validarCliente() {
         String nombreUsuario;
         String password;
         Cliente cliente;
@@ -229,7 +241,7 @@ public class MenuCliente {
 
     /**
      * Metodo que devuelve todas las facturas del cliente
-     * @param cliente con sesion acutal
+     * @param cliente con sesion actual
      */
     private void verFacturas(Cliente cliente) {
 

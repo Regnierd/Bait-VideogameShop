@@ -2,12 +2,12 @@ package es.iespuertodelacruz.bait.api.productos;
 
 public abstract class Producto {
     protected static final String DELIMITADOR = ",";
+    private String idProducto;
     private String nombre;
-    protected enum Categoria {FIGURA, CONSOLA, PERIFERICO, ROPA, ORDENADOR, VIDEOJUEGO};
-    private Categoria categoria;
     private float precio;
     private String descripcion;
     private int stock;
+    private Categoria categoria;
     private Marca marca;
 
     /**
@@ -26,7 +26,8 @@ public abstract class Producto {
      * @param categoria del producto 
      * @param marca del producto
      */
-    protected Producto(String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {
+    protected Producto(String idProducto, String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {
+        this.idProducto = idProducto;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -36,6 +37,15 @@ public abstract class Producto {
     }
 
     //Getters y Setters
+
+    public String getIdProducto() {
+        return this.idProducto;
+    }
+
+    public void setIdProducto(String idProducto) {
+        this.idProducto = idProducto;
+    }
+
     public String getNombre() {
         return this.nombre;
     }
@@ -86,12 +96,14 @@ public abstract class Producto {
     
     @Override
     public String toString() {
-        return getNombre() + DELIMITADOR + 
-                getCategoria().toString() + DELIMITADOR +
-                getPrecio() + DELIMITADOR +
-                getDescripcion() + DELIMITADOR +
-                getStock() + DELIMITADOR +
-                getCategoria() + DELIMITADOR + getMarca().getNombre();
+        return getIdProducto() + DELIMITADOR +
+            getNombre() + DELIMITADOR + 
+            getCategoria().toString() + DELIMITADOR +
+            getPrecio() + DELIMITADOR +
+            getDescripcion() + DELIMITADOR +
+            getStock() + DELIMITADOR +
+            getCategoria().getIdCategoria() + DELIMITADOR + 
+            getMarca().getIdMarca();
     }
 
 }

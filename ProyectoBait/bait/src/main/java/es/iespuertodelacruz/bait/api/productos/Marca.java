@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.bait.api.productos;
 
 public class Marca {
+    private final String DELIMITADOR = ",";
+    private String idMarca;
     private String nombre;
 
     /**
@@ -18,6 +20,14 @@ public class Marca {
     }
 
     //Getters y Setters
+    public String getIdMarca() {
+        return this.idMarca;
+    }
+
+    public void setIdMarca(String idMarca) {
+        this.idMarca = idMarca;
+    }
+
     public String getNombre() {
         return this.nombre;
     }
@@ -29,7 +39,7 @@ public class Marca {
 
     @Override
     public String toString() {
-        return  getNombre();
+        return getIdMarca() + DELIMITADOR + getNombre();
     }
 
 }
