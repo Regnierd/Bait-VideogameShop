@@ -8,13 +8,9 @@ import es.iespuertodelacruz.bait.api.personas.Cliente;
 import es.iespuertodelacruz.bait.exceptions.BbddException;
 
 public class SQLCliente extends Bbdd{
-    private String INSERTPERSONA = "INSERT INTO Persona (dni, nombre, apellidos, direccion" +
-    ", telefono, codigoPostal, provincia, nombreUsuario, password) VALUES (?,?,?,?,?,?,?,?,?);";
-    private String INSERTCLIENTE = "INSERT INTO Cliente (idCliente, saldo, dni) VALUES ( ?, ? ,? );";
-    private String DELETE = "DELETE FROM Persona WHERE dni= ?;";
-    private String UPDATE = "UPDATE Cliente SET saldo = ? WHERE dni= ?;";
-    private String SELECTALL = "SELECT * FROM Cliente ";
-    private String SELECTONE = "SELECT * FROM Cliente WHERE dni= ?";
+    private static Prueba prueba = new Prueba("Cliente", "dni, nombre, apellidos, direccion" +
+    ", telefono, codigoPostal, provincia, nombreUsuario, password");
+    
 
     /**
      * Constructor basico de la clase 
@@ -35,7 +31,8 @@ public class SQLCliente extends Bbdd{
         PreparedStatement preparedStatement;
 
         connection = getConnection();
-        preparedStatement = connection.prepareStatement(INSERTPERSONA);
+        preparedStatement = connection.prepareStatement(prueba.getINSERT());
+        //preparedStatement = connection.prepareStatement(INSERTPERSONA);
         preparedStatement.setString(1, cliente.getDni());
         preparedStatement.setString(2, cliente.getNombre());
         preparedStatement.setString(3, cliente.getApellidos());
@@ -58,17 +55,21 @@ public class SQLCliente extends Bbdd{
         PreparedStatement preparedStatement;
 
         connection = getConnection();
-        preparedStatement = connection.prepareStatement(DELETE);
+        preparedStatement = connection.prepareStatement(prueba.setDelete("dni"));
         preparedStatement.setString(1, dni);
-
+        
         preparedStatement.executeUpdate();
 
         closeConnection(connection, preparedStatement, null);
     }
 
-    public void modificar(){}
+    public void modificar(){
+
+    }
 
     public void buscar(String dni){}
 
-    public ArrayList<Cliente> obtenerListado(){}
+    public ArrayList<Cliente> obtenerListado(){
+
+    }
 }
