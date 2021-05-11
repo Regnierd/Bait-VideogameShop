@@ -34,6 +34,7 @@ public abstract class Cliente {
      * @param provincia del cliente
      * @param nombreUsuario del cliente
      * @param password del cliente
+     * @param saldo del cliente
      */
     public Cliente(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo) {
         this.dni = dni;
