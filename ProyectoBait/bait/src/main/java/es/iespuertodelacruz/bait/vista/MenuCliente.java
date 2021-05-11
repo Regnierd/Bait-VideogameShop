@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.bait.vista;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import es.iespuertodelacruz.bait.api.personas.Cliente;
 import es.iespuertodelacruz.bait.api.productos.Producto;
@@ -46,7 +48,6 @@ public class MenuCliente {
                         } catch (Exception e) {
                             System.out.println("Error al realizar el registro");
                         }
-
                         break;
                     case 2:
                         try {
@@ -71,6 +72,7 @@ public class MenuCliente {
 
     /**
      * Menu de opciones que tiene el cliente tras iniciar sesion
+     * 
      * @param cliente que esta en la sesion actual
      */
     private void menuOpciones(Cliente cliente) {
@@ -78,13 +80,14 @@ public class MenuCliente {
         int opcion;
         try {
             while (!salir) {
-                System.out.println("1. Realizar pedido");
-                System.out.println("2. Buscar producto por tipo.");
-                System.out.println("3. Buscar producto por marca.");
-                System.out.println("4. Buscar producto por nombre.");
-                System.out.println("5. Ver compras");
-                System.out.println("6. Ver facturas");
-                System.out.println("7. Salir.");
+                System.out.println("1. Añadir saldo");
+                System.out.println("2. Realizar pedido");
+                System.out.println("3. Buscar producto por categoria.");
+                System.out.println("4. Buscar producto por marca.");
+                System.out.println("5. Buscar producto por nombre.");
+                System.out.println("6. Ver pedidos");
+                System.out.println("7. Ver compras");
+                System.out.println("8. Salir.");
                 opcion = sn.nextInt();
                 sn.nextLine();
                 switch (opcion) {
@@ -101,16 +104,19 @@ public class MenuCliente {
                         buscarPorNombre();
                         break;
                     case 5:
-                        verCompras(cliente);
+                        verPedidos(cliente);
                         break;
                     case 6:
-                        verFacturas(cliente);
+                        verCompras(cliente);
                         break;
                     case 7:
+                        verCompras(cliente);
+                        break;
+                    case 8:
                         salir = true;
                         break;
                     default:
-                        System.err.println("Tiene que elegir una de las opciones del menu: 1 al 7");
+                        System.err.println("Tiene que elegir una de las opciones del menu: 1 al 8");
                 }
             }
         } catch (InputMismatchException ex) {
@@ -119,44 +125,46 @@ public class MenuCliente {
     }
 
     /**
-     * Funcion que devuelve un cliente si exite a partir del nombreUsuario y contraseña
-     * pasados por el usuario
+     * Funcion que devuelve un cliente si exite a partir del nombreUsuario y
+     * contraseña pasados por el usuario
+     * 
      * @return el cliente si existe
      */
     private Cliente validarCliente() {
         String nombreUsuario;
         String password;
-        Cliente cliente;
+        Cliente cliente = null;
 
         System.out.println("Introduce el nombre de usuario");
         nombreUsuario = sn.nextLine();
         System.out.println("Introduce la contraseña");
         password = sn.nextLine();
 
-        cliente = clienteController.buscarCliente(nombreUsuario, password);
+        // cliente = clienteController.buscarCliente(nombreUsuario, password);
 
         return cliente;
     }
-
-    /**
-     * Metodo que registra un nuevo cliente solicitando los datos al usuario
-     */
-    private void menuRegistro() {
-        String dni, nombre, apellidos, direccion, telefono, codigoPostal, provincia, nombreUsuario, password;
+    
+    private Cliente menuRegistro() {
+        String dni, nombre, apellidos, direccion, telefono, codigoPostal, pais, provincia, nombreUsuario, password,
+                email;
         Cliente cliente;
 
         System.out.println("Datos para Registrarse");
-
         System.out.println("Introduce tu dni:");
         dni = sn.nextLine();
         System.out.println("Introduce tu nombre:");
         nombre = sn.nextLine();
         System.out.println("Introduce tu apellidos:");
         apellidos = sn.nextLine();
+        System.out.println("Introduce tu email:");
+        email = sn.nextLine();
         System.out.println("Introduce tu direccion:");
         direccion = sn.nextLine();
         System.out.println("Introduce tu telefono: ");
         telefono = sn.nextLine();
+        System.out.println("Introduce tu pais:");
+        pais = sn.nextLine();
         System.out.println("Introduce tu codigo postal: ");
         codigoPostal = sn.nextLine();
         System.out.println("Introduce tu provincia:");
@@ -165,16 +173,17 @@ public class MenuCliente {
         nombreUsuario = sn.nextLine();
         System.out.println("Introduce tu contraseña:");
         password = sn.nextLine();
-        System.out.println("Introduce tu saldo:");
-        password = sn.nextLine();
 
-        cliente = new Cliente(dni, nombre, apellidos, direccion, telefono, codigoPostal, provincia, nombreUsuario, password, 0f);
-        clienteController.insertar(cliente);
+        cliente = new Cliente(){
+            
+        };
+        return cliente;
     }
 
     /**
-     * Metodo realiza un compra a partir del identificar del producto pasado por teclado
-     * por el usuario
+     * Metodo realiza un compra a partir del identificar del producto pasado por
+     * teclado por el usuario
+     * 
      * @param cliente con sesion actual
      */
     private void comprarProducto(Cliente cliente) {
@@ -182,12 +191,12 @@ public class MenuCliente {
         System.out.println("Introduce el identificador del producto.");
         idProducto = sn.nextLine();
 
-        clienteController.comprar(idProducto, cliente);
+        // clienteController.comprar(idProducto, cliente);
     }
 
     /**
-     * Metodo que busca y devuelve una lista de productos filtrados
-     * por una categoria que se pasa por teclado
+     * Metodo que busca y devuelve una lista de productos filtrados por una
+     * categoria que se pasa por teclado
      */
     private void buscarPorCategoria() {
         String categoria;
@@ -204,8 +213,8 @@ public class MenuCliente {
     }
 
     /**
-     * Metodo que busca y devuelve una lista de productos filtrados 
-     * por la marca que se pasa por teclado
+     * Metodo que busca y devuelve una lista de productos filtrados por la marca que
+     * se pasa por teclado
      */
     private void buscarPorMarca() {
         String marca;
@@ -222,8 +231,8 @@ public class MenuCliente {
     }
 
     /**
-     * Metodo que busca y devuelve una lista de productos filtrados por 
-     * una nombre pasado por parametros
+     * Metodo que busca y devuelve una lista de productos filtrados por una nombre
+     * pasado por parametros
      */
     private void buscarPorNombre() {
         String nombre;
@@ -240,18 +249,21 @@ public class MenuCliente {
     }
 
     /**
-     * Metodo que devuelve todas las facturas del cliente
+     * Metodo que devuelve todos pedidos del cliente
+     * 
      * @param cliente con sesion actual
      */
-    private void verFacturas(Cliente cliente) {
-
+    private void verPedidos(Cliente cliente) {
+        //
     }
 
     /**
      * Metodo que devuelve todas las compras del cliente
+     * 
      * @param cliente con sesion actual
      */
     private void verCompras(Cliente cliente) {
+        //
     }
 
 }

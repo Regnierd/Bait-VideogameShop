@@ -13,6 +13,7 @@ public abstract class Cliente {
     private String provincia;
     private String nombreUsuario;
     private String password;
+    private float saldo;
 
     /**
      * Consturctor vacio de la clase
@@ -34,7 +35,7 @@ public abstract class Cliente {
      * @param nombreUsuario del cliente
      * @param password del cliente
      */
-    public Cliente(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password) {
+    public Cliente(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -46,6 +47,7 @@ public abstract class Cliente {
         this.provincia = provincia;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
+        this.saldo = saldo;
     }
     
 
@@ -140,6 +142,13 @@ public abstract class Cliente {
         this.password = password;
     }
 
+    public float getSaldo() {
+        return this.saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
 
     @Override
     public String toString() {
@@ -153,7 +162,8 @@ public abstract class Cliente {
         + getCodigoPostal() + DELIMITADOR 
         + getProvincia() + DELIMITADOR 
         + getNombreUsuario() + DELIMITADOR 
-        + getPassword();
+        + getPassword() + DELIMITADOR
+        + getSaldo();
     }
 
 }

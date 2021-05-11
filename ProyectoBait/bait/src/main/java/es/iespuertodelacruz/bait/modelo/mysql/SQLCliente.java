@@ -64,12 +64,15 @@ public class SQLCliente extends Bbdd{
     }
 
     public void modificar(){
-
+        //
     }
 
-    public void buscar(String dni){}
+    public void buscar(String dni){
+        //
+    }
 
     public ArrayList<Cliente> obtenerListado(){
-
+        return null;
+        //
     }
 }
