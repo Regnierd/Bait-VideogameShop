@@ -224,7 +224,7 @@ public class MenuCliente {
         String nombreUsuario = obtenerDato("el nombre usuario");
         String password = obtenerDato("la password");
 
-        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f);
+        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f, "CLiente");
         return cliente;
     }
 
