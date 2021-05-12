@@ -4,10 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import es.iespuertodelacruz.bait.api.personas.Cliente;
-import es.iespuertodelacruz.bait.api.productos.Producto;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.ClienteController;
-import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ClienteException;
 
 public class MenuCliente {
@@ -16,7 +14,6 @@ public class MenuCliente {
     Scanner sn;
     ClienteController clienteController;
     PedidoController pedidoController;
-    ProductoController productoController;
 
     /**
      * Constructor basico del menu del cliente
@@ -25,7 +22,6 @@ public class MenuCliente {
         sn = new Scanner(System.in);
         clienteController = new ClienteController();
         pedidoController = new PedidoController();
-        productoController = new ProductoController();
     }
 
     /**
@@ -34,6 +30,7 @@ public class MenuCliente {
     public void menuPrincial() {
         boolean salir = false;
         int opcion;
+        Cliente cliente;
         try {
             while (!salir) {
                 System.out.println("1. Registrarse.");
@@ -45,7 +42,7 @@ public class MenuCliente {
                 sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        Cliente cliente = registrar();
+                        cliente = registrar();
                         try {
                             clienteController.insertar(cliente);
                             System.out.println("Se ha registrado correctamente.");
@@ -56,7 +53,7 @@ public class MenuCliente {
                         break;
                     case 2:
                         try {
-                            Cliente cliente = validarCliente();
+                            cliente = validarCliente();
                             System.out.println("Sesion iniciada correctamente.");
                             menuOpciones(cliente);
                         } catch (ClienteException e) {
@@ -206,7 +203,6 @@ public class MenuCliente {
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
         pedidoController.realizarPedido(idProducto, unidades);
-
     }
 
     /**
