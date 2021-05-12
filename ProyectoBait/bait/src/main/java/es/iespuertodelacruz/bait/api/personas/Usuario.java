@@ -13,7 +13,9 @@ public class Usuario {
     private String provincia;
     private String nombreUsuario;
     private String password;
+    private String rol;
     private float saldo;
+
 
     /**
      * Consturctor vacio de la clase
@@ -23,20 +25,21 @@ public class Usuario {
 
     /**
      * Constructor con todos los parametros
-     * @param dni del cliente
-     * @param nombre del cliente
-     * @param apellidos del cliente
-     * @param email del cliente
-     * @param direccion del cliente
-     * @param telefono del cliente
-     * @param pais del cliente
-     * @param codigoPostal del cliente
-     * @param provincia del cliente
-     * @param nombreUsuario del cliente
-     * @param password del cliente
-     * @param saldo del cliente
+     * @param dni del usuario
+     * @param nombre del usuario
+     * @param apellidos del usuario
+     * @param email del usuario
+     * @param direccion del usuario
+     * @param telefono del usuario
+     * @param pais del usuario
+     * @param codigoPostal del usuario
+     * @param provincia del usuario
+     * @param nombreUsuario del usuario
+     * @param password del usuario
+     * @param saldo del usuario
+     * @param rol del usuario
      */
-    public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo) {
+    public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo, String rol) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -49,6 +52,7 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
         this.saldo = saldo;
+        this.rol = rol;
     }
     
 
@@ -151,6 +155,15 @@ public class Usuario {
         this.saldo = saldo;
     }
 
+    public String getRol() {
+        return this.rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+
     @Override
     public String toString() {
         return getDni() + DELIMITADOR 
@@ -164,7 +177,8 @@ public class Usuario {
         + getProvincia() + DELIMITADOR 
         + getNombreUsuario() + DELIMITADOR 
         + getPassword() + DELIMITADOR
-        + getSaldo();
+        + getSaldo() + DELIMITADOR 
+        + getRol();
     }
 
 }
