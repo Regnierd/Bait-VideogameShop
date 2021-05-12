@@ -35,8 +35,8 @@ public class MenuCliente {
             while (!salir) {
                 System.out.println("1. Registrarse.");
                 System.out.println("2. Iniciar sesion.");
-                System.out.println("4. Accerder sin cuenta");
-                System.out.println("5. Salir");
+                System.out.println("3. Accerder sin cuenta");
+                System.out.println("4. Salir");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
