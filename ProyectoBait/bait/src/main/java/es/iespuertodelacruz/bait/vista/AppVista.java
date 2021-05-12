@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class AppVista{
     static MenuAdmin menuAdmin;
     static MenuCliente menuCliente;
+
     public static void main( String[] args ){
         if(menuAdmin == null){
             menuAdmin = new MenuAdmin();

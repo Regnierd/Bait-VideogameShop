@@ -57,7 +57,7 @@ public class MenuCliente {
                             System.out.println("Sesion iniciada correctamente.");
                             menuOpciones(cliente);
                         } catch (ClienteException e) {
-                            System.out.println("El usuario o la contraseñas no son correctos.");
+                            System.out.println("El usuario o la password no son correctos.");
                         }
                         break;
                     case 3:
@@ -76,7 +76,7 @@ public class MenuCliente {
     }
 
     /**
-     * Funcion que busca un cliente a partir de un nombre de usuario y contraseña y
+     * Funcion que busca un cliente a partir de un nombre de usuario y password y
      * lo devuevle si existe
      * 
      * @return el cliente si existe
@@ -84,15 +84,15 @@ public class MenuCliente {
      */
     private Cliente validarCliente() throws ClienteException {
         String nombreUsuario;
-        String contraseña;
+        String password;
         Cliente cliente;
 
         System.out.println("Introduce el nombre de usuario:");
         nombreUsuario = sn.nextLine();
-        System.out.println("Intrduce la contraseña:");
-        contraseña = sn.nextLine();
+        System.out.println("Intrduce la password:");
+        password = sn.nextLine();
 
-        cliente = clienteController.buscarCliente(nombreUsuario, contraseña);
+        cliente = clienteController.buscarCliente(nombreUsuario, password);
 
         return cliente;
     }
@@ -219,13 +219,12 @@ public class MenuCliente {
         String direccion = obtenerDato("la direccion.");
         String telefono = obtenerDato("el telefono");
         String pais = obtenerDato("el pais.");
-        String codigoPostal = obtenerDato("el codigo posta");
+        String codigoPostal = obtenerDato("el codigo postal");
         String provincia = obtenerDato("la provincia.");
         String nombreUsuario = obtenerDato("el nombre usuario");
-        String contraseña = obtenerDato("la contraseña");
+        String password = obtenerDato("la password");
 
-        cliente = new Cliente(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia,
-                nombreUsuario, contraseña, 0f);
+        cliente = new Cliente(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f);
         return cliente;
     }
 

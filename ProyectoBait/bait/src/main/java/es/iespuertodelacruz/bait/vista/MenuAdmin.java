@@ -21,22 +21,22 @@ public class MenuAdmin {
     }
 
     /**
-     * Metodo que valida nombre y contraseña del admin
+     * Metodo que valida nombre y contrasenia del admin
      */
     public void menuPrincial() {
         String nombreAcceso;
-        String contraseña;
+        String password;
 
         System.out.println("Introduce nombre acceso.");
         nombreAcceso = sn.nextLine();
-        System.out.println("Introduce la contraseña");
-        contraseña = sn.nextLine();
+        System.out.println("Introduce la password");
+        password = sn.nextLine();
 
         try {
-            empleadoController.buscarEmpleado(nombreAcceso, contraseña);
+            empleadoController.buscarEmpleado(nombreAcceso, password);
             menuOpciones();
         } catch (EmpleadoException ex) {
-            System.err.println("El nombre de acceso o la contraseña son incorrectos.");
+            System.err.println("El nombre de acceso o la password son incorrectos.");
         }
     }
 

@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.api.personas;
 
-public abstract class Cliente {
+public class Cliente {
     protected static final String DELIMITADOR = ",";
     private String dni;
     private String nombre;
