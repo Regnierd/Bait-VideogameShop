@@ -3,16 +3,16 @@ package es.iespuertodelacruz.bait.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import es.iespuertodelacruz.bait.api.personas.Cliente;
+import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
-import es.iespuertodelacruz.bait.controlador.personasController.ClienteController;
-import es.iespuertodelacruz.bait.exceptions.ClienteException;
+import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
+import es.iespuertodelacruz.bait.exceptions.UsuarioException;
 
 public class MenuCliente {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
     private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 1 al ";
     Scanner sn;
-    ClienteController clienteController;
+    UsuarioController usuarioController;
     PedidoController pedidoController;
 
     /**
@@ -20,7 +20,7 @@ public class MenuCliente {
      */
     public MenuCliente() {
         sn = new Scanner(System.in);
-        clienteController = new ClienteController();
+        usuarioController = new UsuarioController();
         pedidoController = new PedidoController();
     }
 
@@ -30,7 +30,7 @@ public class MenuCliente {
     public void menuPrincial() {
         boolean salir = false;
         int opcion;
-        Cliente cliente;
+        Usuario cliente;
         try {
             while (!salir) {
                 System.out.println("1. Registrarse.");
@@ -44,10 +44,10 @@ public class MenuCliente {
                     case 1:
                         cliente = registrar();
                         try {
-                            clienteController.insertar(cliente);
+                            usuarioController.insertar(cliente);
                             System.out.println("Se ha registrado correctamente.");
                             menuOpciones(cliente);
-                        } catch (ClienteException e) {
+                        } catch (UsuarioException e) {
                             System.out.println("Error al realizar el registro");
                         }
                         break;
@@ -56,7 +56,7 @@ public class MenuCliente {
                             cliente = validarCliente();
                             System.out.println("Sesion iniciada correctamente.");
                             menuOpciones(cliente);
-                        } catch (ClienteException e) {
+                        } catch (UsuarioException e) {
                             System.out.println("El usuario o la password no son correctos.");
                         }
                         break;
@@ -80,19 +80,19 @@ public class MenuCliente {
      * lo devuevle si existe
      * 
      * @return el cliente si existe
-     * @throws ClienteException error a controlar
+     * @throws UsuarioException error a controlar
      */
-    private Cliente validarCliente() throws ClienteException {
+    private Usuario validarCliente() throws UsuarioException {
         String nombreUsuario;
         String password;
-        Cliente cliente;
+        Usuario cliente;
 
         System.out.println("Introduce el nombre de usuario:");
         nombreUsuario = sn.nextLine();
         System.out.println("Intrduce la password:");
         password = sn.nextLine();
 
-        cliente = clienteController.buscarCliente(nombreUsuario, password);
+        cliente = usuarioController.buscarUsuario(nombreUsuario, password, "Cliente");
 
         return cliente;
     }
@@ -140,7 +140,7 @@ public class MenuCliente {
      * 
      * @param cliente con la sesion actual
      */
-    private void menuOpciones(Cliente cliente) {
+    private void menuOpciones(Usuario cliente) {
         boolean salir = false;
         int opcion;
         try {
@@ -159,8 +159,8 @@ public class MenuCliente {
                         System.out.println("Introdusca la cantidad que quiere añadir.");
                         float saldo = sn.nextFloat();
                         try {
-                            clienteController.añadirSaldo(saldo);
-                        } catch (ClienteException e) {
+                            usuarioController.añadirSaldo(saldo);
+                        } catch (UsuarioException e) {
                             System.err.println("Error al añadir el saldo");
                         }
                         break;
@@ -177,10 +177,10 @@ public class MenuCliente {
                         // codigo para ver las compras
                         break;
                     case 6:
-                        Cliente nuevoCliente = registrar();
+                        Usuario nuevoCliente = registrar();
                         try {
-                            clienteController.modificar(nuevoCliente);
-                        } catch (ClienteException e) {
+                            usuarioController.modificar(nuevoCliente);
+                        } catch (UsuarioException e) {
                             System.err.println("No se han podido registrar los cambios");
                         }
                         break;
@@ -210,8 +210,8 @@ public class MenuCliente {
      * 
      * @return el cleinte creado
      */
-    private Cliente registrar() {
-        Cliente cliente = null;
+    private Usuario registrar() {
+        Usuario cliente = null;
         String dni = obtenerDato("el dni.");
         String nombre = obtenerDato("el nombre");
         String apellidos = obtenerDato("los apellidos.");
@@ -224,7 +224,7 @@ public class MenuCliente {
         String nombreUsuario = obtenerDato("el nombre usuario");
         String password = obtenerDato("la password");
 
-        cliente = new Cliente(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f);
+        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f);
         return cliente;
     }
 

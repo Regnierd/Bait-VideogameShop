@@ -3,21 +3,21 @@ package es.iespuertodelacruz.bait.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import es.iespuertodelacruz.bait.controlador.personasController.EmpleadoController;
-import es.iespuertodelacruz.bait.exceptions.EmpleadoException;
+import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
+import es.iespuertodelacruz.bait.exceptions.UsuarioException;
 
 public class MenuAdmin {
     private static final String ERROR_OPCION_ELEGIDA = "Tiene que elegir una de las opciones del menu: 1 al ";
     private static final String ERROR_TIPO_DATO = "El tipo de dato introducido es incorrecto.";
     Scanner sn;
-    EmpleadoController empleadoController;
+    UsuarioController usuarioController;
 
     /**
      * Constructir basico de la clase
      */
     public MenuAdmin() {
         sn = new Scanner(System.in);
-        empleadoController = new EmpleadoController();
+        usuarioController = new UsuarioController();
     }
 
     /**
@@ -33,9 +33,9 @@ public class MenuAdmin {
         password = sn.nextLine();
 
         try {
-            empleadoController.buscarEmpleado(nombreAcceso, password);
+            usuarioController.buscarUsuario(nombreAcceso, password, "Admin");
             menuOpciones();
-        } catch (EmpleadoException ex) {
+        } catch (UsuarioException ex) {
             System.err.println("El nombre de acceso o la password son incorrectos.");
         }
     }
