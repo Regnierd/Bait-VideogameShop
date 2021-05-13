@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuAdmin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.vista</a> &gt; <span class="el_source">MenuAdmin.java</span></div><h1>MenuAdmin.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.vista;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import es.iespuertodelacruz.bait.controlador.personasController.EmpleadoController;
+import es.iespuertodelacruz.bait.exceptions.EmpleadoException;
+
+public class MenuAdmin {
+    private static final String ERROR_OPCION_ELEGIDA = &quot;Tiene que elegir una de las opciones del menu: 1 al &quot;;
+    private static final String ERROR_TIPO_DATO = &quot;El tipo de dato introducido es incorrecto.&quot;;
+    Scanner sn;
+    EmpleadoController empleadoController;
+
+    /**
+     * Constructir basico de la clase
+     */
+<span class="nc" id="L18">    public MenuAdmin() {</span>
+<span class="nc" id="L19">        sn = new Scanner(System.in);</span>
+<span class="nc" id="L20">        empleadoController = new EmpleadoController();</span>
+<span class="nc" id="L21">    }</span>
+
+    /**
+     * Metodo que valida nombre y contrasenia del admin
+     */
+    public void menuPrincial() {
+        String nombreAcceso;
+        String password;
+
+<span class="nc" id="L30">        System.out.println(&quot;Introduce nombre acceso.&quot;);</span>
+<span class="nc" id="L31">        nombreAcceso = sn.nextLine();</span>
+<span class="nc" id="L32">        System.out.println(&quot;Introduce la password&quot;);</span>
+<span class="nc" id="L33">        password = sn.nextLine();</span>
+
+        try {
+<span class="nc" id="L36">            empleadoController.buscarEmpleado(nombreAcceso, password, &quot;Admin&quot;);</span>
+<span class="nc" id="L37">            menuOpciones();</span>
+<span class="nc" id="L38">        } catch (EmpleadoException ex) {</span>
+<span class="nc" id="L39">            System.err.println(&quot;El nombre de acceso o la password son incorrectos.&quot;);</span>
+<span class="nc" id="L40">        }</span>
+<span class="nc" id="L41">    }</span>
+
+    private void menuOpciones() {
+<span class="nc" id="L44">        boolean salir = false;</span>
+        int opcion;
+
+        try {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            while (!salir) {</span>
+<span class="nc" id="L49">                System.out.println(&quot;1. Modificar clientes.&quot;);</span>
+<span class="nc" id="L50">                System.out.println(&quot;2. Modificar productos.&quot;);</span>
+<span class="nc" id="L51">                System.out.println(&quot;3. Modificar categorias.&quot;);</span>
+<span class="nc" id="L52">                System.out.println(&quot;4. Modificar marcas&quot;);</span>
+<span class="nc" id="L53">                System.out.println(&quot;5. Modificar pedidos&quot;);</span>
+<span class="nc" id="L54">                System.out.println(&quot;6. Modificar Administradores&quot;);</span>
+<span class="nc" id="L55">                System.out.println(&quot;7. Salir&quot;);</span>
+<span class="nc" id="L56">                opcion = sn.nextInt();</span>
+<span class="nc" id="L57">                sn.nextLine();</span>
+<span class="nc bnc" id="L58" title="All 8 branches missed.">                switch (opcion) {</span>
+                    case 1:
+<span class="nc" id="L60">                        menuClientes();</span>
+<span class="nc" id="L61">                        break;</span>
+                    case 2:
+<span class="nc" id="L63">                        menuProductos();</span>
+<span class="nc" id="L64">                        break;</span>
+                    case 3:
+<span class="nc" id="L66">                        menuCategorias();</span>
+<span class="nc" id="L67">                        break;</span>
+                    case 4:
+<span class="nc" id="L69">                        menuMarcas();</span>
+<span class="nc" id="L70">                        break;</span>
+                    case 5:
+<span class="nc" id="L72">                        menuPedidos();</span>
+<span class="nc" id="L73">                        break;</span>
+                    case 6:
+<span class="nc" id="L75">                        menuAdministradores();</span>
+<span class="nc" id="L76">                        break;</span>
+                    case 7:
+<span class="nc" id="L78">                        salir = true;</span>
+<span class="nc" id="L79">                        break;</span>
+                    default:
+<span class="nc" id="L81">                        System.err.println(ERROR_OPCION_ELEGIDA + &quot;7&quot;);</span>
+<span class="nc" id="L82">                        break;</span>
+                }
+            }
+<span class="nc" id="L85">        } catch (InputMismatchException ex) {</span>
+<span class="nc" id="L86">            System.out.println(ERROR_TIPO_DATO);</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * Menu para relizar el CRUD de clientes
+     */
+    private void menuClientes() {
+        int opcion;
+<span class="nc" id="L95">        boolean salir = false;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L97">            opcion = obtenerOpcion(&quot;cliente&quot;);</span>
+<span class="nc bnc" id="L98" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un cliente
+<span class="nc" id="L101">                    break;</span>
+                case 2:
+                    // codigo para eliminar un cliente
+<span class="nc" id="L104">                    break;</span>
+                case 3:
+                    // codigo para modificar un cliente
+<span class="nc" id="L107">                    break;</span>
+                case 4:
+                    // codigo para buscar un cliente
+                case 5:
+<span class="nc" id="L111">                    salir = true;</span>
+<span class="nc" id="L112">                    break;</span>
+                default:
+<span class="nc" id="L114">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L117">    }</span>
+
+    /**
+     * Funcion que obtiene una opcion para realizar un CRUD en la tabla que se pasa
+     * el nombre en los parametros
+     * 
+     * @param tabla nombre de la tabla en que se va a realizar el CRUD
+     * @return la opcion del CRUD a realizar
+     */
+    private int obtenerOpcion(String tabla) {
+<span class="nc" id="L127">        int opcion = -1;</span>
+<span class="nc" id="L128">        Scanner sn = new Scanner(System.in);</span>
+        try {
+<span class="nc" id="L130">            System.out.println(&quot;1. Insertar &quot; + tabla);</span>
+<span class="nc" id="L131">            System.out.println(&quot;2. Eliminar &quot; + tabla);</span>
+<span class="nc" id="L132">            System.out.println(&quot;3. Modificar &quot; + tabla);</span>
+<span class="nc" id="L133">            System.out.println(&quot;4. Buscar &quot; + tabla);</span>
+<span class="nc" id="L134">            System.out.println(&quot;5. Salir.&quot;);</span>
+<span class="nc" id="L135">            opcion = sn.nextInt();</span>
+<span class="nc" id="L136">            sn.nextLine();</span>
+<span class="nc" id="L137">        } catch (InputMismatchException ex) {</span>
+<span class="nc" id="L138">            System.out.println(ERROR_TIPO_DATO);</span>
+<span class="nc" id="L139">        }</span>
+
+<span class="nc" id="L141">        return opcion;</span>
+    }
+
+    /**
+     * Menu para realizar el CRUD de productos
+     */
+    private void menuProductos() {
+        int opcion;
+<span class="nc" id="L149">        boolean salir = false;</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L151">            opcion = obtenerOpcion(&quot;productos&quot;);</span>
+<span class="nc bnc" id="L152" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un producto
+<span class="nc" id="L155">                    break;</span>
+                case 2:
+                    // codigo para eliminar un producto
+<span class="nc" id="L158">                    break;</span>
+                case 3:
+                    // codigo para modificar un producto
+<span class="nc" id="L161">                    break;</span>
+                case 4:
+                    // codigo para buscar un producto
+                case 5:
+<span class="nc" id="L165">                    salir = true;</span>
+<span class="nc" id="L166">                    break;</span>
+                default:
+<span class="nc" id="L168">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L171">    }</span>
+
+    /**
+     * Menu para realizar el CRUD categorias
+     */
+    private void menuCategorias() {
+        int opcion;
+<span class="nc" id="L178">        boolean salir = false;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L180">            opcion = obtenerOpcion(&quot;categoria&quot;);</span>
+<span class="nc bnc" id="L181" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un categoria
+<span class="nc" id="L184">                    break;</span>
+                case 2:
+                    // codigo para eliminar un categoria
+<span class="nc" id="L187">                    break;</span>
+                case 3:
+                    // codigo para modificar un categoria
+<span class="nc" id="L190">                    break;</span>
+                case 4:
+                    // codigo para buscar un categoria
+                case 5:
+<span class="nc" id="L194">                    salir = true;</span>
+<span class="nc" id="L195">                    break;</span>
+                default:
+<span class="nc" id="L197">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L200">    }</span>
+
+    /**
+     * Menu para realizar el CRUD de marcas
+     */
+    private void menuMarcas() {
+        int opcion;
+<span class="nc" id="L207">        boolean salir = false;</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L209">            opcion = obtenerOpcion(&quot;marca&quot;);</span>
+<span class="nc bnc" id="L210" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un marca
+<span class="nc" id="L213">                    break;</span>
+                case 2:
+                    // codigo para eliminar un marca
+<span class="nc" id="L216">                    break;</span>
+                case 3:
+                    // codigo para modificar un marca
+<span class="nc" id="L219">                    break;</span>
+                case 4:
+                    // codigo para buscar un marca
+                case 5:
+<span class="nc" id="L223">                    salir = true;</span>
+<span class="nc" id="L224">                    break;</span>
+                default:
+<span class="nc" id="L226">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L229">    }</span>
+
+    /**
+     * Menu para realizar el CRUD pedidos
+     */
+    private void menuPedidos() {
+        int opcion;
+<span class="nc" id="L236">        boolean salir = false;</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L238">            opcion = obtenerOpcion(&quot;pedido&quot;);</span>
+<span class="nc bnc" id="L239" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un pedido
+<span class="nc" id="L242">                    break;</span>
+                case 2:
+                    // codigo para eliminar un pedido
+<span class="nc" id="L245">                    break;</span>
+                case 3:
+                    // codigo para modificar un pedido
+<span class="nc" id="L248">                    break;</span>
+                case 4:
+                    // codigo para buscar un pedido
+                case 5:
+<span class="nc" id="L252">                    salir = true;</span>
+<span class="nc" id="L253">                    break;</span>
+                default:
+<span class="nc" id="L255">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L258">    }</span>
+
+    /**
+     * Menu para realizar el CRUD adminsitradores
+     */
+    private void menuAdministradores() {
+        int opcion;
+<span class="nc" id="L265">        boolean salir = false;</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L267">            opcion = obtenerOpcion(&quot;administradores&quot;);</span>
+<span class="nc bnc" id="L268" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+                    // Codigo para insertar un administradores
+<span class="nc" id="L271">                    break;</span>
+                case 2:
+                    // codigo para eliminar un administradores
+<span class="nc" id="L274">                    break;</span>
+                case 3:
+                    // codigo para modificar un administradores
+<span class="nc" id="L277">                    break;</span>
+                case 4:
+                    // codigo para buscar un administradores
+                case 5:
+<span class="nc" id="L281">                    salir = true;</span>
+<span class="nc" id="L282">                    break;</span>
+                default:
+<span class="nc" id="L284">                    System.err.println(ERROR_OPCION_ELEGIDA + &quot;5&quot;);</span>
+            }
+        }
+<span class="nc" id="L287">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

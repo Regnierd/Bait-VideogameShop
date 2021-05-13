@@ -7,18 +7,18 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import es.iespuertodelacruz.bait.api.personas.Cliente;
+import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.BbddException;
-import es.iespuertodelacruz.bait.modelo.mysql.SQLCliente;
+import es.iespuertodelacruz.bait.modelo.mysql.SQLUsuario;
 
 public class AppTest {
-    SQLCliente sqlCliente;
-    Cliente cliente;
+    SQLUsuario sqlCliente;
+    Usuario cliente;
 
     @BeforeEach
     public void setUp() {
         if (sqlCliente == null) {
-            sqlCliente = new SQLCliente("org.sqlite.JDBC", "jdbc:sqlite:bait.db", null, null);
+            sqlCliente = new SQLUsuario("org.sqlite.JDBC", "jdbc:sqlite:bait.db", null, null);
         }
     }
 

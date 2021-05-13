@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.api.movimientos;
 
-import es.iespuertodelacruz.bait.api.personas.Cliente;
+import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
 public class Pedido {
@@ -9,7 +9,7 @@ public class Pedido {
     private int unidades;
     private float total;
     private String fechaPedido;
-    private Cliente cliente;
+    private Usuario cliente;
     private Producto producto;
 
     /**
@@ -27,7 +27,7 @@ public class Pedido {
      * @param cliente del pedido
      * @param producto del pedido
      */
-    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Cliente cliente, Producto producto) {
+    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario cliente, Producto producto) {
         this.idPedido = idPedido;
         this.unidades = unidades;
         this.total = total;
@@ -70,11 +70,11 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
         return this.cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 

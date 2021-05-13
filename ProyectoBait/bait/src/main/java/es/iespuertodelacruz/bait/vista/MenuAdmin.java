@@ -3,21 +3,21 @@ package es.iespuertodelacruz.bait.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import es.iespuertodelacruz.bait.controlador.personasController.EmpleadoController;
-import es.iespuertodelacruz.bait.exceptions.EmpleadoException;
+import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
+import es.iespuertodelacruz.bait.exceptions.UsuarioException;
 
 public class MenuAdmin {
-    private static final String ERROR_OPCION_ELEGIDA = "Tiene que elegir una de las opciones del menu: 1 al ";
+    private static final String ERROR_OPCION_ELEGIDA = "Tiene que elegir una de las opciones del menu: 0 al ";
     private static final String ERROR_TIPO_DATO = "El tipo de dato introducido es incorrecto.";
     Scanner sn;
-    EmpleadoController empleadoController;
+    UsuarioController usuarioController;
 
     /**
      * Constructir basico de la clase
      */
     public MenuAdmin() {
         sn = new Scanner(System.in);
-        empleadoController = new EmpleadoController();
+        usuarioController = new UsuarioController();
     }
 
     /**
@@ -26,16 +26,16 @@ public class MenuAdmin {
     public void menuPrincial() {
         String nombreAcceso;
         String password;
-
+        System.out.println("Login Admin");
         System.out.println("Introduce nombre acceso.");
         nombreAcceso = sn.nextLine();
         System.out.println("Introduce la password");
         password = sn.nextLine();
 
         try {
-            empleadoController.buscarEmpleado(nombreAcceso, password);
+            usuarioController.buscarUsuario(nombreAcceso, password, "Admin");
             menuOpciones();
-        } catch (EmpleadoException ex) {
+        } catch (UsuarioException ex) {
             System.err.println("El nombre de acceso o la password son incorrectos.");
         }
     }
@@ -46,13 +46,14 @@ public class MenuAdmin {
 
         try {
             while (!salir) {
-                System.out.println("1. Modificar clientes.");
-                System.out.println("2. Modificar productos.");
-                System.out.println("3. Modificar categorias.");
+                System.out.println("Menu opciones administrador");
+                System.out.println("1. Modificar clientes");
+                System.out.println("2. Modificar productos");
+                System.out.println("3. Modificar categorias");
                 System.out.println("4. Modificar marcas");
                 System.out.println("5. Modificar pedidos");
                 System.out.println("6. Modificar Administradores");
-                System.out.println("7. Salir");
+                System.out.println("0. Salir");
                 opcion = sn.nextInt();
                 sn.nextLine();
                 switch (opcion) {
@@ -74,11 +75,11 @@ public class MenuAdmin {
                     case 6:
                         menuAdministradores();
                         break;
-                    case 7:
+                    case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println(ERROR_OPCION_ELEGIDA + "7");
+                        System.err.println(ERROR_OPCION_ELEGIDA + "6");
                         break;
                 }
             }
@@ -107,11 +108,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un cliente
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
@@ -127,11 +128,12 @@ public class MenuAdmin {
         int opcion = -1;
         Scanner sn = new Scanner(System.in);
         try {
+            System.out.println("Menu de opciones "+ tabla);
             System.out.println("1. Insertar " + tabla);
             System.out.println("2. Eliminar " + tabla);
             System.out.println("3. Modificar " + tabla);
             System.out.println("4. Buscar " + tabla);
-            System.out.println("5. Salir.");
+            System.out.println("0. Salir");
             opcion = sn.nextInt();
             sn.nextLine();
         } catch (InputMismatchException ex) {
@@ -161,11 +163,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un producto
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
@@ -190,11 +192,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un categoria
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
@@ -219,11 +221,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un marca
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
@@ -248,11 +250,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un pedido
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
@@ -277,11 +279,11 @@ public class MenuAdmin {
                     break;
                 case 4:
                     // codigo para buscar un administradores
-                case 5:
+                case 0:
                     salir = true;
                     break;
                 default:
-                    System.err.println(ERROR_OPCION_ELEGIDA + "5");
+                    System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
     }
