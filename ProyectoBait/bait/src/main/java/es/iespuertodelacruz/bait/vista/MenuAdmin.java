@@ -47,9 +47,9 @@ public class MenuAdmin {
         try {
             while (!salir) {
                 System.out.println("Menu opciones administrador");
-                System.out.println("1. Modificar clientes.");
-                System.out.println("2. Modificar productos.");
-                System.out.println("3. Modificar categorias.");
+                System.out.println("1. Modificar clientes");
+                System.out.println("2. Modificar productos");
+                System.out.println("3. Modificar categorias");
                 System.out.println("4. Modificar marcas");
                 System.out.println("5. Modificar pedidos");
                 System.out.println("6. Modificar Administradores");
@@ -133,7 +133,7 @@ public class MenuAdmin {
             System.out.println("2. Eliminar " + tabla);
             System.out.println("3. Modificar " + tabla);
             System.out.println("4. Buscar " + tabla);
-            System.out.println("0. Salir.");
+            System.out.println("0. Salir");
             opcion = sn.nextInt();
             sn.nextLine();
         } catch (InputMismatchException ex) {

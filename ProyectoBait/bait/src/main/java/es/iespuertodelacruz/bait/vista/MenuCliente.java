@@ -34,8 +34,8 @@ public class MenuCliente {
         try {
             while (!salir) {
                 System.out.println("Menu principal del cliente");
-                System.out.println("1. Registrarse.");
-                System.out.println("2. Iniciar sesion.");
+                System.out.println("1. Registrarse");
+                System.out.println("2. Iniciar sesion");
                 System.out.println("3. Accerder sin cuenta");
                 System.out.println("0. Salir");
                 System.out.println("Selecciona opcion:");
@@ -107,10 +107,10 @@ public class MenuCliente {
         try {
             while (!salir) {
                 System.out.println("Buscar producto");
-                System.out.println("1. Buscar producto por nombre.");
-                System.out.println("2. Buscar producto por categoria.");
-                System.out.println("3. Buscar producto por marca.");
-                System.out.println("0. Salir.");
+                System.out.println("1. Buscar producto por nombre");
+                System.out.println("2. Buscar producto por categoria");
+                System.out.println("3. Buscar producto por marca");
+                System.out.println("0. Salir");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -153,8 +153,8 @@ public class MenuCliente {
                 System.out.println("3. Buscar productos");
                 System.out.println("4. Ver pedidos");
                 System.out.println("5. Ver compras");
-                System.out.println("6. Editar mis datos.");
-                System.out.println("0. Salir.");
+                System.out.println("6. Editar mis datos");
+                System.out.println("0. Salir");
                 opcion = sn.nextInt();
                 sn.nextLine();
                 switch (opcion) {

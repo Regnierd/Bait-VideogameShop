@@ -28,8 +28,8 @@ public class AppVista{
         try{
             while(!salir){
                 System.out.println("Menu principal");
-                System.out.println("1. Empleado.");
-                System.out.println("2. Cliente.");
+                System.out.println("1. Empleado");
+                System.out.println("2. Cliente");
                 System.out.println("0. Salir");
                 System.out.println("¿Quien eres?");
                 opcion = sn.nextInt();
