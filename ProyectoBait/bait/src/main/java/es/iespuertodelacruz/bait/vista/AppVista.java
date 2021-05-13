@@ -27,9 +27,10 @@ public class AppVista{
         Scanner sn = new Scanner(System.in);
         try{
             while(!salir){
+                System.out.println("Menu principal");
                 System.out.println("1. Empleado.");
                 System.out.println("2. Cliente.");
-                System.out.println("3. Salir");
+                System.out.println("0. Salir");
                 System.out.println("¿Quien eres?");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -40,11 +41,11 @@ public class AppVista{
                     case 2:
                         menuCliente.menuPrincial();
                         break;
-                    case 3:
+                    case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println("Tiene que elegir una de las opciones del menu: 1 al 3");
+                        System.err.println("Tiene que elegir una de las opciones del menu: 0 al 2");
                 }
             }
         }catch(InputMismatchException ex){

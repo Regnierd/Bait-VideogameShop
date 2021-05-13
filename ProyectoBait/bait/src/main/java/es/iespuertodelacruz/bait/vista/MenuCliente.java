@@ -10,7 +10,7 @@ import es.iespuertodelacruz.bait.exceptions.UsuarioException;
 
 public class MenuCliente {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
-    private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 1 al ";
+    private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 0 al ";
     Scanner sn;
     UsuarioController usuarioController;
     PedidoController pedidoController;
@@ -33,10 +33,11 @@ public class MenuCliente {
         Usuario cliente;
         try {
             while (!salir) {
+                System.out.println("Menu principal del cliente");
                 System.out.println("1. Registrarse.");
                 System.out.println("2. Iniciar sesion.");
                 System.out.println("3. Accerder sin cuenta");
-                System.out.println("4. Salir");
+                System.out.println("0. Salir");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -63,11 +64,11 @@ public class MenuCliente {
                     case 3:
                         menuProductos();
                         break;
-                    case 4:
+                    case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println(ELEGIR_OPCION_DEL_MENU + "4");
+                        System.err.println(ELEGIR_OPCION_DEL_MENU + "3");
                 }
             }
         } catch (InputMismatchException ex) {
@@ -86,7 +87,7 @@ public class MenuCliente {
         String nombreUsuario;
         String password;
         Usuario cliente;
-
+        System.out.println("Login Cliente");
         System.out.println("Introduce el nombre de usuario:");
         nombreUsuario = sn.nextLine();
         System.out.println("Intrduce la password:");
@@ -105,10 +106,11 @@ public class MenuCliente {
         int opcion;
         try {
             while (!salir) {
+                System.out.println("Buscar producto");
                 System.out.println("1. Buscar producto por nombre.");
                 System.out.println("2. Buscar producto por categoria.");
                 System.out.println("3. Buscar producto por marca.");
-                System.out.println("4. Salir.");
+                System.out.println("0. Salir.");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -123,11 +125,11 @@ public class MenuCliente {
                     case 3:
                         // codigo para mostrar los productos por marca
                         break;
-                    case 4:
+                    case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println(ELEGIR_OPCION_DEL_MENU + "4");
+                        System.err.println(ELEGIR_OPCION_DEL_MENU + "3");
                 }
             }
         } catch (InputMismatchException ex) {
@@ -145,13 +147,14 @@ public class MenuCliente {
         int opcion;
         try {
             while (!salir) {
+                System.out.println("Menu de opciones cliente");
                 System.out.println("1. Añadir saldo");
                 System.out.println("2. Realizar pedido");
                 System.out.println("3. Buscar productos");
                 System.out.println("4. Ver pedidos");
                 System.out.println("5. Ver compras");
                 System.out.println("6. Editar mis datos.");
-                System.out.println("7. Salir.");
+                System.out.println("0. Salir.");
                 opcion = sn.nextInt();
                 sn.nextLine();
                 switch (opcion) {
@@ -184,11 +187,11 @@ public class MenuCliente {
                             System.err.println("No se han podido registrar los cambios");
                         }
                         break;
-                    case 7:
+                    case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println(ELEGIR_OPCION_DEL_MENU + "7");
+                        System.err.println(ELEGIR_OPCION_DEL_MENU + "6");
                 }
             }
         } catch (InputMismatchException ex) {
@@ -200,6 +203,7 @@ public class MenuCliente {
      * Metodo que obtienes los datos y realiza un pedido
      */
     private void realizarPedido() {
+        System.out.println("Introdusca datos para relalizar el pedido.");
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
         pedidoController.realizarPedido(idProducto, unidades);
@@ -212,6 +216,7 @@ public class MenuCliente {
      */
     private Usuario registrar() {
         Usuario cliente = null;
+        System.out.println("Datos para el registro");
         String dni = obtenerDato("el dni.");
         String nombre = obtenerDato("el nombre");
         String apellidos = obtenerDato("los apellidos.");
