@@ -10,12 +10,8 @@ import es.iespuertodelacruz.bait.exceptions.UsuarioException;
 
 public class MenuCliente {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
-<<<<<<< HEAD
     private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 0 al ";
-    
-=======
-    private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 0 al ";
->>>>>>> features/jonay
+
     Scanner sn;
     UsuarioController usuarioController;
     PedidoController pedidoController;

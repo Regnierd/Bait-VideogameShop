@@ -40,6 +40,9 @@ public class MenuAdmin {
         }
     }
 
+    /**
+     * Metodo que muestra el menu de opciones que puede realizar el administrador
+     */
     private void menuOpciones() {
         boolean salir = false;
         int opcion;

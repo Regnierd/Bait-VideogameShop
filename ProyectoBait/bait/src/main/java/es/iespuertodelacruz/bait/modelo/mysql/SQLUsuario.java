@@ -8,7 +8,7 @@ import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.BbddException;
 
 public class SQLUsuario extends Bbdd{
-    private static Prueba prueba = new Prueba("Cliente", "dni, nombre, apellidos, direccion" +
+    private static UtilidadesSQL prueba = new UtilidadesSQL("Cliente", "dni, nombre, apellidos, direccion" +
     ", telefono, codigoPostal, provincia, nombreUsuario, password");
     
 
@@ -24,7 +24,7 @@ public class SQLUsuario extends Bbdd{
      * Metodo que inserta un Usuario en la base de datos
      * @param usuario que va a insertar en la base de datos
      * @throws BbddException error a controlar
-     * @throws SQLException
+     * @throws SQLException error a controlar
      */
     public void insertar(Usuario usuario) throws BbddException, SQLException{
         Connection connection;
@@ -48,7 +48,12 @@ public class SQLUsuario extends Bbdd{
     }
 
     
-
+    /**
+     * Metodo encargado de eliminar un usuario en la base de datos
+     * @param dni del usuario
+     * @throws SQLException error a controlar
+     * @throws BbddException error a controlar
+     */
     public void eliminar(String dni) throws SQLException, BbddException{
         Connection connection;
         PreparedStatement preparedStatement;
