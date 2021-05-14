@@ -8,3 +8,5 @@
 <p>Hemos optado por realizar un programa incluyendo una base de datos para tiendas
    online dirigidas para el ámbito gamer. Esto incluye videojuegos, ordenadores,
    periféricos y merchandising</p>
+   
+https://github.com/regnierd/Bait-VideogameShop/wiki
