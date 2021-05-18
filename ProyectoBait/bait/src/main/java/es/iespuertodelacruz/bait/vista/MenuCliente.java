@@ -181,7 +181,7 @@ public class MenuCliente {
                         // codigo para ver las compras
                         break;
                     case 6:
-                        Usuario nuevoCliente = registrar();
+                        Usuario nuevoCliente = registrar();// modificarDatos()
                         try {
                             usuarioController.modificar(nuevoCliente);
                         } catch (UsuarioException e) {
@@ -230,7 +230,7 @@ public class MenuCliente {
         String nombreUsuario = obtenerDato("el nombre usuario");
         String password = obtenerDato("la password");
 
-        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, 0f, "CLiente");
+        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, "Cliente", 0f);
         return cliente;
     }
 

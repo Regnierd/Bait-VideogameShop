@@ -36,10 +36,10 @@ public class Usuario {
      * @param provincia del usuario
      * @param nombreUsuario del usuario
      * @param password del usuario
-     * @param saldo del usuario
      * @param rol del usuario
+     * @param saldo del usuario
      */
-    public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, float saldo, String rol) {
+    public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, String rol, float saldo ) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -51,8 +51,8 @@ public class Usuario {
         this.provincia = provincia;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
-        this.saldo = saldo;
         this.rol = rol;
+        this.saldo = saldo;  
     }
     
 
