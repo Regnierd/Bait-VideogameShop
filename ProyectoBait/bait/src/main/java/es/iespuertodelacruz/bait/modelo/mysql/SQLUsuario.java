@@ -80,19 +80,19 @@ public class SQLUsuario extends Bbdd {
 
         connection = getConnection();
         preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());
-        preparedStatement.setString(2, usuario.getNombre());
-        preparedStatement.setString(3, usuario.getApellidos());
-        preparedStatement.setString(4, usuario.getEmail());
-        preparedStatement.setString(5, usuario.getDireccion());
-        preparedStatement.setString(6, usuario.getTelefono());
-        preparedStatement.setString(7, usuario.getPais());
-        preparedStatement.setString(8, usuario.getCodigoPostal());
-        preparedStatement.setString(9, usuario.getProvincia());
-        preparedStatement.setString(10, usuario.getNombreUsuario());
-        preparedStatement.setString(11, usuario.getPassword());
-        preparedStatement.setString(12, usuario.getRol());
-        preparedStatement.setFloat(13, usuario.getSaldo());
-        preparedStatement.setString(14, usuario.getDni());
+        preparedStatement.setString(1, usuario.getNombre());
+        preparedStatement.setString(2, usuario.getApellidos());
+        preparedStatement.setString(3, usuario.getEmail());
+        preparedStatement.setString(4, usuario.getDireccion());
+        preparedStatement.setString(5, usuario.getTelefono());
+        preparedStatement.setString(6, usuario.getPais());
+        preparedStatement.setString(7, usuario.getCodigoPostal());
+        preparedStatement.setString(8, usuario.getProvincia());
+        preparedStatement.setString(9, usuario.getNombreUsuario());
+        preparedStatement.setString(10, usuario.getPassword());
+        preparedStatement.setString(11, usuario.getRol());
+        preparedStatement.setFloat(12, usuario.getSaldo());
+        preparedStatement.setString(13, usuario.getDni());
 
         preparedStatement.executeUpdate();
         closeConnection(connection, preparedStatement, null);
