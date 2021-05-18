@@ -74,12 +74,19 @@ public class SQLUsuario extends Bbdd {
         closeConnection(connection, preparedStatement, null);
     }
 
+    /**
+     * Metodo que modifica un campo en conreto de la base datos
+     * @param usuario usuario con los nuevos cambios
+     * @throws BbddException error a controlar
+     * @throws SQLException error a controlar
+     */
     public void modificar(Usuario usuario) throws BbddException, SQLException {
         Connection connection;
         PreparedStatement preparedStatement;
 
         connection = getConnection();
         preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());
+        preparedStatement.setString(1, usuario.getDni());
         preparedStatement.setString(2, usuario.getNombre());
         preparedStatement.setString(3, usuario.getApellidos());
         preparedStatement.setString(4, usuario.getEmail());
@@ -99,7 +106,7 @@ public class SQLUsuario extends Bbdd {
     }
 
     /**
-     * Funcion que busca un usuario en la base de datos y lo deveulve
+     * Funcion que busca un usuario en la base de datos y lo devuelve
      * @param dni del usuario que se va a buscar
      * @return 
      * @throws BbddException
@@ -134,7 +141,7 @@ public class SQLUsuario extends Bbdd {
     }
 
     /**
-     * Funcion que obtiene un listado de los usuario y los deveuvle
+     * Funcion que obtiene un listado de los usuarios y los devuelve
      * @return la lista de usaurio
      * @throws SQLException error a controlar
      * @throws BbddException error a controlar
