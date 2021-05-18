@@ -13,36 +13,42 @@ import es.iespuertodelacruz.bait.modelo.mysql.SQLUsuario;
 
 public class AppTest {
     SQLUsuario sqlCliente;
-    Usuario cliente;
+    Usuario usuario;
 
     @BeforeEach
     public void setUp() {
         if (sqlCliente == null) {
             sqlCliente = new SQLUsuario("org.sqlite.JDBC", "jdbc:sqlite:bait.db", null, null);
         }
+        usuario = new Usuario("dni", "nombre", "apellidos", "email", "direccion", "telefono","pais","codigoPostal","provincia","nombreUsuario", "password", "rol", 0f);
     }
 
     @Test
     public void insertarTest() {
-        /** 
-        cliente = new Cliente("78648922P", "Jonay", "Hernandez Izquierdo", "Ubr La Arbeja nº8", 0f);
         try {
-            sqlCliente.insertar(cliente);
+            sqlCliente.insertar(usuario);
         } catch (BbddException | SQLException e) {
             fail(e.getMessage());
         }
-        */
     }
 
     @Test
     public void eliminarTest() {
-        /**
-        String dni = "78648922P";
+        String dni = "dni";
         try {
             sqlCliente.eliminar(dni);
         } catch (SQLException | BbddException e) {
             fail(e.getMessage());
         }
-        */
+    }
+
+    @Test
+    public void modificar() {
+        usuario.setNombre("Pepe");
+        try {
+            sqlCliente.modificar(usuario);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 }
