@@ -123,7 +123,7 @@ public class SQLProducto extends Bbdd {
         String idCategoria = resultSet.getString("idCategoria ");
         String idMarca = resultSet.getString("idMarca");
 
-        producto = new Producto(idProducto, nombre, precio, descripcion, stock, idCategoria, idMarca);
+        producto = new Producto(idProducto, nombre, precio, descripcion, stock, idCategoria, idMarca); //Producto() esta en rojo
 
         closeConnection(connection, statement, resultSet);
 
@@ -158,7 +158,7 @@ public class SQLProducto extends Bbdd {
             String idCategoria = resultSet.getString("idCategoria ");
             String idMarca = resultSet.getString("idMarca");
 
-            Producto producto = new Producto(idProducto, nombre, precio, descripcion, stock, idCategoria, idMarca);
+            Producto producto = new Producto(idProducto, nombre, precio, descripcion, stock, idCategoria, idMarca); //Producto() esta en rojo
 
             productos.add(producto);
         }
