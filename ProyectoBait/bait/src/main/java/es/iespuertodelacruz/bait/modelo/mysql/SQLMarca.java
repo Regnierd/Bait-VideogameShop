@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.productos.Marca;
-import es.iespuertodelacruz.bait.exceptions.BbddException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class SQLMarca extends Bbdd{
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Marca", "idMarca, nombre");
@@ -28,7 +28,7 @@ public class SQLMarca extends Bbdd{
      * @throws BbddException error a controlar
      * @throws SQLException  error a controlar
      */
-    public void insertar(Marca marca) throws BbddException, SQLException {
+    public void insertar(Marca marca) throws PersistenciaException {
         Connection connection;
         PreparedStatement preparedStatement;
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import es.iespuertodelacruz.bait.api.productos.Categoria;
 import es.iespuertodelacruz.bait.api.productos.Marca;
 import es.iespuertodelacruz.bait.api.productos.Producto;
-import es.iespuertodelacruz.bait.exceptions.BbddException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class SQLProducto extends Bbdd {
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Producto","idProducto, nombre, precio, descripcion "
@@ -35,7 +35,7 @@ public class SQLProducto extends Bbdd {
      * @throws BbddException error a controlar
      * @throws SQLException  error a controlar
      */
-    public void insertar(Producto producto) throws BbddException, SQLException {
+    public void insertar(Producto producto) throws PersistenciaExceptionn {
         Connection connection;
         PreparedStatement preparedStatement;
         connection = getConnection();
@@ -60,7 +60,7 @@ public class SQLProducto extends Bbdd {
      * @throws SQLException  error a controlar
      * @throws BbddException error a controlar
      */
-    public void eliminar(String idProducto) throws SQLException, BbddException {
+    public void eliminar(String idProducto) throws PersistenciaException {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -79,7 +79,7 @@ public class SQLProducto extends Bbdd {
      * @throws BbddException error a controlar
      * @throws SQLException error a controlar
      */
-    public void modificar(Producto producto) throws BbddException, SQLException {
+    public void modificar(Producto producto) throws PersistenciaException {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -106,7 +106,7 @@ public class SQLProducto extends Bbdd {
      * @throws BbddException error a controlar
      * @throws SQLException error a controlar
      */
-    public Producto buscar(String idProducto) throws BbddException, SQLException {
+    public Producto buscar(String idProducto) throws PersistenciaException {
         Connection connection;
         Statement statement;
         ResultSet resultSet;
@@ -137,7 +137,7 @@ public class SQLProducto extends Bbdd {
      * @throws SQLException  error a controlar
      * @throws BbddException error a controlar
      */
-    public ArrayList<Producto> obtenerListado() throws SQLException, BbddException {
+    public ArrayList<Producto> obtenerListado() throws PersistenciaException {
         Connection connection;
         ArrayList<Producto> productos = new ArrayList<>();
         ResultSet resultSet;
