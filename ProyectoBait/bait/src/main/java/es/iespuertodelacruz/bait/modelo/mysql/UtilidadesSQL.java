@@ -3,7 +3,7 @@ package es.iespuertodelacruz.bait.modelo.mysql;
 import java.util.Arrays;
 import java.util.List;
 
-public class UtilidadesSQL {
+public class UtilidadesSQL  {
     private String tabla;
     private String parametros;
     private String atributos;
@@ -105,5 +105,7 @@ public class UtilidadesSQL {
     private String where(String atributo) {
         return " WHERE " + atributo + " = ?";
     }
+
+    
 
 }

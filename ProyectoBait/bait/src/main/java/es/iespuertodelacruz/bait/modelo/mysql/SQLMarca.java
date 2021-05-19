@@ -5,35 +5,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
 
-import es.iespuertodelacruz.bait.api.personas.Usuario;
-import es.iespuertodelacruz.bait.exceptions.BbddException;
+import es.iespuertodelacruz.bait.api.productos.Marca;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
-public class SQLUsuario extends Bbdd {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Cliente", "dni, nombre, apellidos, email, direccion"
-            + ", telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo");
+public class SQLMarca extends Bbdd{
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Marca", "idMarca, nombre");
 
     /**
-     * Constructor basico de la clase
+     * Constructor basico de la clase 
      */
-    public SQLUsuario(String driver, String url, String usuario, String password) {
-        super(driver, url, usuario, password);
+    public SQLMarca(String driver, String url, String usuario, String password) {
+        super(driver, url, usuario, password);       
     }
 
+    
     /**
-     * Metodo que inserta un Usuario en la base de datos
+     * Metodo que inserta una marca en la base de datos
      * 
-     * @param usuario que va a insertar en la base de datos
+     * @param marca que va a insertar en la base de datos
      * @throws BbddException error a controlar
      * @throws SQLException  error a controlar
      */
-    public void insertar(Usuario usuario) throws BbddException, SQLException {
+    public void insertar(Marca marca) throws PersistenciaException {
         Connection connection;
         PreparedStatement preparedStatement;
 
         connection = getConnection();
         preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());
+        /**
         preparedStatement.setString(1, usuario.getDni());
         preparedStatement.setString(2, usuario.getNombre());
         preparedStatement.setString(3, usuario.getApellidos());
@@ -46,7 +47,7 @@ public class SQLUsuario extends Bbdd {
         preparedStatement.setString(10, usuario.getNombreUsuario());
         preparedStatement.setString(11, usuario.getPassword());
         preparedStatement.setString(12, usuario.getRol());
-        preparedStatement.setFloat(13, usuario.getSaldo());
+        preparedStatement.setFloat(13, usuario.getSaldo());*/
         
 
         preparedStatement.executeUpdate();
@@ -55,19 +56,19 @@ public class SQLUsuario extends Bbdd {
     }
 
     /**
-     * Metodo encargado de eliminar un usuario en la base de datos
+     * Metodo encargado de eliminar una marca en la base de datos
      * 
-     * @param dni del usuario
+     * @param idMarca de la marca
      * @throws SQLException  error a controlar
      * @throws BbddException error a controlar
      */
-    public void eliminar(String dni) throws SQLException, BbddException {
+    public void eliminar(String idMarca) throws SQLException, BbddException {
         Connection connection;
         PreparedStatement preparedStatement;
 
         connection = getConnection();
-        preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("dni"));
-        preparedStatement.setString(1, dni);
+        preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idMarca"));
+        preparedStatement.setString(1, idMarca);
 
         preparedStatement.executeUpdate();
 
@@ -75,17 +76,18 @@ public class SQLUsuario extends Bbdd {
     }
 
     /**
-     * Metodo que modifica un campo en conreto de la base datos
-     * @param usuario usuario con los nuevos cambios
+     * Metodo que modifica un campo en concreto de la base datos
+     * @param marca con los nuevos cambios
      * @throws BbddException error a controlar
      * @throws SQLException error a controlar
      */
-    public void modificar(Usuario usuario) throws BbddException, SQLException {
+    public void modificar(Marca marca) throws BbddException, SQLException {
         Connection connection;
         PreparedStatement preparedStatement;
 
         connection = getConnection();
         preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());
+        /**
         preparedStatement.setString(1, usuario.getDni());
         preparedStatement.setString(2, usuario.getNombre());
         preparedStatement.setString(3, usuario.getApellidos());
@@ -99,56 +101,45 @@ public class SQLUsuario extends Bbdd {
         preparedStatement.setString(11, usuario.getPassword());
         preparedStatement.setString(12, usuario.getRol());
         preparedStatement.setFloat(13, usuario.getSaldo());
-        preparedStatement.setString(14, usuario.getDni());
+        preparedStatement.setString(14, usuario.getDni());*/
 
         preparedStatement.executeUpdate();
         closeConnection(connection, preparedStatement, null);
     }
 
     /**
-     * Funcion que busca un usuario en la base de datos y lo devuelve
-     * @param dni del usuario que se va a buscar
-     * @return 
+     * Funcion que busca una marca en la base de datos y lo devuelve
+     * @param idMarca que se va a buscar
+     * @return Marca
      * @throws BbddException
      * @throws SQLException
      */
-    public Usuario buscar(String dni) throws BbddException, SQLException {
+    public Marca buscar(String idMarca) throws BbddException, SQLException {
         Connection connection;
         Statement statement;
         ResultSet resultSet;
 
         connection = getConnection();
         statement = connection.createStatement();
-        resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));
+        resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idMarca));
 
         String nombre = resultSet.getString("nombre ");
-        String apellidos = resultSet.getString("apellidos");
-        String email = resultSet.getString("email");
-        String direccion = resultSet.getString("direccion");
-        String telefono = resultSet.getString("telefono");
-        String pais = resultSet.getString("pais");
-        String codigoPostal = resultSet.getString("codigoPostal");
-        String provincia = resultSet.getString("provincia");
-        String nombreUsuario = resultSet.getString("nombreUsuario");
-        String password = resultSet.getString("password");
-        String rol = resultSet.getString("rol");
-        Float saldo = resultSet.getFloat("saldo");
-        Usuario usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo);
+        Marca marca = new Marca(idMarca, nombre);
 
         closeConnection(connection, statement, resultSet);
 
-        return usuario;
+        return marca;
     }
 
     /**
-     * Funcion que obtiene un listado de los usuarios y los devuelve
-     * @return la lista de usaurio
+     * Funcion que obtiene un listado de las marcas y los devuelve
+     * @return la lista de marcas
      * @throws SQLException error a controlar
      * @throws BbddException error a controlar
      */
-    public ArrayList<Usuario> obtenerListado() throws SQLException, BbddException {
+    public ArrayList<Marca> obtenerListado() throws SQLException, BbddException {
         Connection connection;
-        ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Marca> marcas = new ArrayList<>();
         ResultSet resultSet;
         Statement statement;
 
@@ -158,26 +149,16 @@ public class SQLUsuario extends Bbdd {
 
         resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
         while (resultSet.next()) {
-            String dni = resultSet.getString("dni");
+            String idMarca = resultSet.getString("idMarca");
             String nombre = resultSet.getString("nombre ");
-            String apellidos = resultSet.getString("apellidos");
-            String email = resultSet.getString("email");
-            String direccion = resultSet.getString("direccion");
-            String telefono = resultSet.getString("telefono");
-            String pais = resultSet.getString("pais");
-            String codigoPostal = resultSet.getString("codigoPostal");
-            String provincia = resultSet.getString("provincia");
-            String nombreUsuario = resultSet.getString("nombreUsuario");
-            String password = resultSet.getString("password");
-            String rol = resultSet.getString("rol");
-            Float saldo = resultSet.getFloat("saldo");
-            Usuario usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal,
-                    provincia, nombreUsuario, password, rol, saldo);
-            usuarios.add(usuario);
+            
+            Marca marca = new Marca(idMarca, nombre);
+            marcas.add(marca);
         }
 
         closeConnection(connection, statement, resultSet);
         
-        return usuarios;
+        return marcas;
     }
+    
 }

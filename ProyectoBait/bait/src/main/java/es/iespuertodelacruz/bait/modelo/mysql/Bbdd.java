@@ -1,14 +1,23 @@
 package es.iespuertodelacruz.bait.modelo.mysql;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-import es.iespuertodelacruz.bait.exceptions.BbddException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class Bbdd {
     private String driver;
     private String url;
     private String usuario;
     private String password;
+    private static final String TABLE = "TABLE";
+    private static final String USUARIO = "USUARIO";
+    private static final String PRODUCTO = "PRODUCTO";
+    private static final String CATEGORIA = "CATEGORIA";
+    private static final String MARCA = "MARCA";
+    private static final String COMPRA = "COMPRA";
+    private static final String PEDIDO = "PEDIDO";
+    private static final String ENVIO = "ENVIO";
 
     /**
      * Constructor basico de la clase Bbdd
@@ -25,13 +34,56 @@ public class Bbdd {
         this.password = password;
     }
 
+    private void init() throws PersistenciaException {
+        DatabaseMetaData databaseMetaData;
+        Connection connection = null;
+        ResultSet resultSet = null;
+        ArrayList<String> listaTablas = new ArrayList<>();
+
+        try {
+            connection = getConnection();
+            databaseMetaData = connection.getMetaData();
+            resultSet = databaseMetaData.getTables(null, null, null, new String[] {TABLE});
+            while (resultSet.next()) {
+                listaTablas.add(resultSet.getString("TABLE_NAME"));
+            }
+
+            crearTabla(USUARIO, listaTablas);
+            crearTabla(PRODUCTO, listaTablas);
+            crearTabla(CATEGORIA, listaTablas);
+            crearTabla(MARCA, listaTablas);
+            crearTabla(COMPRA, listaTablas);
+            crearTabla(PEDIDO, listaTablas);
+            crearTabla(ENVIO, listaTablas);
+
+        } catch (Exception e) {
+            throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
+        } finally {
+            closeConnection(connection, null, resultSet);
+        }
+    }
+
+    private void crearTabla(String tabla, ArrayList<String> listaTablas){
+        if (!listaTablas.contains(tabla)) {
+            //leer el fichero ./resorce/tabla+".sql"
+            //update informacion
+
+            //leer el fichero ./resorce/Insert+tabla+.sql
+            //update informacion
+        }
+    }
+
+    private void leer(){
+        
+    }
+
     /**
      * Funcion encargada de crear y devolver una conexion a la base de datos
      * 
      * @return Connection
-     * @throws BbddException error a controlar en caso de que falle la conexion
+     * @throws PersistenciaException error a controlar en caso de que falle la conexion
      */
-    protected Connection getConnection() throws BbddException {
+    protected Connection getConnection() throws PersistenciaException {
         Connection connection = null;
         try {
             Class.forName(driver);
@@ -41,7 +93,7 @@ public class Bbdd {
                 DriverManager.getConnection(url, usuario, password);
             }
         } catch (Exception exception) {
-            throw new BbddException("Se ha producido un error al conectar a la base de datos ", exception);
+            throw new PersistenciaException("Se ha producido un error al conectar a la base de datos ", exception);
         }
 
         return connection;
@@ -54,9 +106,10 @@ public class Bbdd {
      * @param connection
      * @param statement
      * @param resultSet
-     * @throws BbddException error a controlar al cerrar la conexion
+     * @throws PersistenciaException error a controlar al cerrar la conexion
      */
-    protected void closeConnection(Connection connection, Statement statement, ResultSet resultSet) throws BbddException {
+    protected void closeConnection(Connection connection, Statement statement, ResultSet resultSet)
+            throws PersistenciaException {
         try {
             if (resultSet != null) {
                 resultSet.close();
@@ -68,7 +121,7 @@ public class Bbdd {
                 connection.close();
             }
         } catch (Exception e) {
-            throw new BbddException("Se ha producido un error cerrando la conexion");
+            throw new PersistenciaException("Se ha producido un error cerrando la conexion");
         }
 
     }
@@ -77,9 +130,9 @@ public class Bbdd {
      * Metodo encargado de realizar la actualizacion de la BBDD
      * 
      * @param sql a ejecutar
-     * @throws BbddException error controlado
+     * @throws PersistenciaException error controlado
      */
-    protected void actualizar(String sql) throws BbddException {
+    protected void actualizar(String sql) throws PersistenciaException {
         Statement statement = null;
         Connection connection = null;
         try {
@@ -87,7 +140,7 @@ public class Bbdd {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch (Exception exception) {
-            throw new BbddException("Se ha producido un error realizando la consulta", exception);
+            throw new PersistenciaException("Se ha producido un error realizando la consulta", exception);
         } finally {
             closeConnection(connection, statement, null);
         }

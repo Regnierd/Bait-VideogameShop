@@ -181,7 +181,7 @@ public class MenuCliente {
                         // codigo para ver las compras
                         break;
                     case 6:
-                        Usuario nuevoCliente = registrar();
+                        Usuario nuevoCliente = registrar();// modificarDatos()
                         try {
                             usuarioController.modificar(nuevoCliente);
                         } catch (UsuarioException e) {
