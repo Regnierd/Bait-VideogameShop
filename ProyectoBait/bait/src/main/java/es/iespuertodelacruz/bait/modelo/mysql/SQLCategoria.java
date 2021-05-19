@@ -28,8 +28,8 @@ public class SQLCategoria extends Bbdd {
      * @throws BbddException error controlado
      */
     public void inserta(Categoria categoria) throws PersistenciaException {
-        Connection connection;
-        PreparedStatement preparedStatement;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
         connection = getConnection();
         try {
@@ -40,9 +40,11 @@ public class SQLCategoria extends Bbdd {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al insertar la categoria.", e);
+        }finally{
+            closeConnection(connection, preparedStatement, null);
         }
 
-        closeConnection(connection, preparedStatement, null);
+        
     }
 
     /**
@@ -52,8 +54,8 @@ public class SQLCategoria extends Bbdd {
      * @param PersistenciaException error en caso de no poder eliminar
      */
     public void eliminar(String idCategoria) throws PersistenciaException {
-        Connection connection;
-        PreparedStatement preparedStatement;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
@@ -63,9 +65,11 @@ public class SQLCategoria extends Bbdd {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al eliminar la categoria", e);
+        }finally{
+            closeConnection(connection, preparedStatement, null);
         }
 
-        closeConnection(connection, preparedStatement, null);
+        
     }
 
     /**
@@ -75,21 +79,23 @@ public class SQLCategoria extends Bbdd {
      * @throws PersistenciaException error controlado
      */
     public void modificar(Categoria categoria) throws PersistenciaException {
-        Connection connection;
-        PreparedStatement preparedStatement;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());
             preparedStatement.setString(1, categoria.getIdCategoria());
             preparedStatement.setString(2, categoria.getNombre());
-
+            preparedStatement.setString(3, categoria.getIdCategoria());
+            
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistenciaException("Ha courrido un error al modificar la categoria", e);
+        }finally{
+            closeConnection(connection, preparedStatement, null);
         }
-
-        closeConnection(connection, preparedStatement, null);
+        
     }
 
     /**
@@ -112,8 +118,8 @@ public class SQLCategoria extends Bbdd {
             String nombre = resultSet.getString("idCategoria");
             String apellidos = resultSet.getString("nombre");
             categoria = new Categoria(idCategoria, nombre);
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar la categoira", e);
+        } catch (SQLException e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar la categoria", e);
         } finally {
             closeConnection(connection, statement, resultSet);
         }
@@ -130,28 +136,29 @@ public class SQLCategoria extends Bbdd {
      * @throws SQLException  error controlado
      * @throws BbddException error controlado
      */
-    public ArrayList<Categoria> obtenerListado() throws SQLException, BbddException {
-        Connection connection;
+    public ArrayList<Categoria> obtenerListado() throws PersistenciaException{
+        Connection connection = null;
         ArrayList<Categoria> categorias = new ArrayList<>();
-        ResultSet resultSet;
-        Statement statement;
+        ResultSet resultSet = null;
+        Statement statement = null;
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            statement.setMaxRows(30);
 
-        connection = getConnection();
-        statement = connection.createStatement();
-        statement.setMaxRows(30);
+            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
+            while (resultSet.next()) {
+                String idCategoria = resultSet.getString("dni");
+                String nombre = resultSet.getString("nombre");
 
-        resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
-        while (resultSet.next()) {
-            String idCategoria = resultSet.getString("dni");
-            String nombre = resultSet.getString("nombre");
-
-            Categoria categoria = new Categoria(idCategoria, nombre);
-            categorias.add(categoria);
-            ;
+                Categoria categoria = new Categoria(idCategoria, nombre);
+                categorias.add(categoria);
+            }               
+        } catch (SQLException e) {
+            throw new PersistenciaException("Ha ocurrido un error al obtener el listado la categoria", e);
+        }finally{
+            closeConnection(connection, statement, resultSet);
         }
-
-        closeConnection(connection, statement, resultSet);
-
         return categorias;
     }
 
