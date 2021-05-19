@@ -18,7 +18,7 @@ public class Compra {
      * @param idCompra de la compra
      * @param pedido de la compra
      */
-    public Compra(String idCompra, Pedido pedido, float totalCompra) {
+    public Compra(String idCompra, float totalCompra, Pedido pedido) {
         this.idCompra = idCompra;
         this.pedido = pedido;
         this.totalCompra = totalCompra;

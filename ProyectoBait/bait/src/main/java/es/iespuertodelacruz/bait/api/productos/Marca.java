@@ -12,6 +12,17 @@ public class Marca {
     }
 
     /**
+     * Constructor con todos los atributos de la clase
+     * @param idMarca de la marca
+     * @param nombre de la marca
+     */
+    public Marca(String idMarca, String nombre) {
+        this.idMarca = idMarca;
+        this.nombre = nombre;
+    }
+
+
+    /**
      * Constructor con todos los atributos 
      * @param nombre de la marca
      */
