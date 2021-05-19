@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.Fichero;
 
 public class Bbdd {
     private String driver;
@@ -34,7 +35,12 @@ public class Bbdd {
         this.password = password;
     }
 
-    private void init() throws PersistenciaException {
+    /**
+     * Metodo que crear la base de datos con sus correspondientes tablas 
+     * si no existen
+     * @throws PersistenciaException error a controlar
+     */
+    public void init() throws PersistenciaException {
         DatabaseMetaData databaseMetaData;
         Connection connection = null;
         ResultSet resultSet = null;
@@ -63,18 +69,26 @@ public class Bbdd {
         }
     }
 
-    private void crearTabla(String tabla, ArrayList<String> listaTablas){
+    /**
+     * Metodo que lee el fichero con la informacion para crear la tabla
+     * y la lanza en la base datos
+     * @param tabla que se va a crear
+     * @param listaTablas lista de tablas que hay actualmente en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    private void crearTabla(String tabla, ArrayList<String> listaTablas) throws PersistenciaException{
+        Fichero fichero = new Fichero();
+        String tablaFichero = "resorce/tables/"+ tabla +".sql";
+        String insertFichero = "resorce/insert/"+ tabla +"_INSERT.sql";
+        String informacion;
+
         if (!listaTablas.contains(tabla)) {
-            //leer el fichero ./resorce/tabla+".sql"
-            //update informacion
+            informacion = fichero.leer(tablaFichero);
+            actualizar(informacion);
 
-            //leer el fichero ./resorce/Insert+tabla+.sql
-            //update informacion
+            //informacion = fichero.leer(insertFichero);
+            //actualizar(informacion);
         }
-    }
-
-    private void leer(){
-        
     }
 
     /**
