@@ -134,9 +134,9 @@ public class SQLCompra extends Bbdd {
     }
 
     /**
-     * Funcion que obtiene un listado de las marcas y los devuelve
+     * Funcion que obtiene un listado de las compras y los devuelve
      * 
-     * @return la lista de marcas
+     * @return la lista de compras
      * @throws PersistenciaException error a controlar
      */
     public ArrayList<Compra> obtenerListado() throws PersistenciaException {
@@ -155,6 +155,42 @@ public class SQLCompra extends Bbdd {
                 String idCompra = resultSet.getString("idCompra");
                 float totalCompra = resultSet.getFloat("totalCompra ");
                 String idPedido = resultSet.getString("idPedido");
+
+                Pedido pedido = sqlPedido.buscar(idPedido);
+
+                compra = new Compra(idCompra, totalCompra, pedido);
+                compras.add(compra);
+            }
+        } catch (Exception e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
+        } finally {
+            closeConnection(connection, statement, resultSet);
+        }
+
+        return compras;
+    }
+
+    /**
+     * Funcion que obtiene un listado de las compras de un pedido
+     * 
+     * @return la lista de compras
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Compra> obtenerListadoPorPedido(String idPedido) throws PersistenciaException {
+        Connection connection = null;
+        ArrayList<Compra> compras = new ArrayList<>();
+        ResultSet resultSet = null;
+        Statement statement = null;
+        Compra compra;
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            statement.setMaxRows(30);
+
+            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
+            while (resultSet.next()) {
+                String idCompra = resultSet.getString("idCompra");
+                float totalCompra = resultSet.getFloat("totalCompra ");
 
                 Pedido pedido = sqlPedido.buscar(idPedido);
 

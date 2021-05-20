@@ -171,4 +171,40 @@ public class SQLEnvio extends Bbdd{
              
         return envios;
     }
+
+    /**
+     * Funcion que obtiene un listado de los envios de un pedido
+     * @return la lista de los envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Envio> obtenerListadoPorPedido(String idPedido) throws PersistenciaException {
+        Connection connection = null;
+        ArrayList<Envio> envios = new ArrayList<>();
+        ResultSet resultSet = null;
+        Statement statement = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            statement.setMaxRows(30);
+
+            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
+            while (resultSet.next()) {
+                String idEnvio = resultSet.getString("idEnvio");
+                String fechaEnvio = resultSet.getString("fechaEnvio");
+                String estado = resultSet.getString("estado");
+
+                Pedido pedido = sqlPedido.buscar(idPedido);
+                
+                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
+                envios.add(envio);
+            }
+        } catch (Exception e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar un envio", e);
+        }finally{
+            closeConnection(connection, statement, resultSet);
+        }
+             
+        return envios;
+    }
 }

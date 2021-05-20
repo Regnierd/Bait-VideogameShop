@@ -33,7 +33,7 @@ public class SQLPedido extends Bbdd {
      * @param pedido que va a insertar en la base de datos
      * @throws PersistenciaException error a controlar
      */
-    public void inserta(Pedido pedido) throws PersistenciaException {
+    public void insertar(Pedido pedido) throws PersistenciaException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
