@@ -3,6 +3,7 @@ package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -107,14 +108,15 @@ public class SQLCompra extends Bbdd {
      */
     public Compra buscar(String idCompra) throws PersistenciaException {
         Connection connection = null;
-        Statement statement = null;
         ResultSet resultSet = null;
         Compra compra;
-
+        PreparedStatement preparedStatement = null;
+      
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idCompra));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idCompra"));
+            preparedStatement.setString(1, idCompra);
+            resultSet = preparedStatement.executeQuery();
 
             float totalCompra = resultSet.getFloat("totalCompra ");
             String idPedido = resultSet.getString("idPedido");
@@ -122,10 +124,10 @@ public class SQLCompra extends Bbdd {
             Pedido pedido = sqlPedido.buscar(idPedido);
 
             compra = new Compra(idCompra, totalCompra, pedido);
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
+        } catch (SQLException e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar la compra", e);
         } finally {
-            closeConnection(connection, statement, resultSet);
+            closeConnection(connection, preparedStatement, resultSet);
         }
 
         return compra;

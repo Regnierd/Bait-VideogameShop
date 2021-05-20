@@ -3,6 +3,7 @@ package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
@@ -125,14 +126,16 @@ public class SQLUsuario extends Bbdd {
      * @throws PersistenciaException error a controlar
      */
     public Usuario buscar(String dni) throws PersistenciaException{
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection = null;    
         ResultSet resultSet = null;
-        Usuario usuario;
+        Usuario usuario;    
+        PreparedStatement preparedStatement = null;
+
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("dni"));
+            preparedStatement.setString(1, dni);
+            resultSet = preparedStatement.executeQuery();
 
             String nombre = resultSet.getString("nombre ");
             String apellidos = resultSet.getString("apellidos");
@@ -147,11 +150,12 @@ public class SQLUsuario extends Bbdd {
             String rol = resultSet.getString("rol");
             Float saldo = resultSet.getFloat("saldo");
             usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo);
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar un usuario", e);
-        }finally{
-            closeConnection(connection, statement, resultSet);
-        }  
+            
+        } catch (SQLException e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar al usuario", e);
+        } finally {
+            closeConnection(connection, preparedStatement, resultSet);
+        }
 
         return usuario;
     }

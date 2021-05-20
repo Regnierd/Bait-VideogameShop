@@ -3,6 +3,7 @@ package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -109,14 +110,15 @@ public class SQLEnvio extends Bbdd{
      */
     public Envio buscar(String idEnvio) throws PersistenciaException {
         Connection connection = null;
-        Statement statement = null;
         ResultSet resultSet = null;
         Envio envio;
-
+        PreparedStatement preparedStatement = null;
+      
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idEnvio));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idEnvio"));
+            preparedStatement.setString(1, idEnvio);
+            resultSet = preparedStatement.executeQuery();
 
             String idPedido = resultSet.getString("idPedido");
             String fechaEnvio = resultSet.getString("fechaEnvio");
@@ -124,10 +126,10 @@ public class SQLEnvio extends Bbdd{
 
             Pedido pedido = sqlPedido.buscar(idPedido);
             envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar el envio", e);
-        }finally{
-            closeConnection(connection, statement, resultSet);
+        } finally {
+            closeConnection(connection, preparedStatement, resultSet);
         }
 
         return envio;
@@ -143,6 +145,7 @@ public class SQLEnvio extends Bbdd{
         ArrayList<Envio> envios = new ArrayList<>();
         ResultSet resultSet = null;
         Statement statement = null;
+        
         try {
             connection = getConnection();
             statement = connection.createStatement();

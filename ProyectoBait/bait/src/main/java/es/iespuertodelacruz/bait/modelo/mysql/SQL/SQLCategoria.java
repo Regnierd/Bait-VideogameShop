@@ -107,20 +107,22 @@ public class SQLCategoria extends Bbdd {
      */
     public Categoria buscar(String idCategoria) throws PersistenciaException {
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Categoria categoria = null;
 
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idCategoria));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idCategoria"));
+            preparedStatement.setString(1, idCategoria);
+            resultSet = preparedStatement.executeQuery();
+
             String nombre = resultSet.getString("nombre");
             categoria = new Categoria(idCategoria, nombre);
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar la categoria", e);
         } finally {
-            closeConnection(connection, statement, resultSet);
+            closeConnection(connection, preparedStatement, resultSet);
         }
 
         return categoria;

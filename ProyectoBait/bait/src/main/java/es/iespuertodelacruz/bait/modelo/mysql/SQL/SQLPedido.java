@@ -14,7 +14,6 @@ import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class SQLPedido extends Bbdd {
-    private static final String ID_PEDIDO = "idPedido";
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Pedido", "idPedido,unidades,total,fechaPedido,idCliente,idProducto");
     SQLUsuario sqlUsuario;
     SQLProducto sqlProducto;
@@ -70,7 +69,7 @@ public class SQLPedido extends Bbdd {
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_PEDIDO));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idPedido"));
             preparedStatement.setString(1, idPedido);
 
             preparedStatement.executeUpdate();
@@ -120,17 +119,18 @@ public class SQLPedido extends Bbdd {
      * @return el pedido buscado
      * @throws persistenciaException error controlado
      */
-    public Pedido buscar(String IdPedido) throws PersistenciaException {
+    public Pedido buscar(String idPedido) throws PersistenciaException {
         Connection connection = null;
-        Statement statement = null;
         ResultSet resultSet = null;
         Pedido pedido = null;
+        PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(IdPedido));
-            String idPedido = resultSet.getString(ID_PEDIDO);
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idPedido"));
+            preparedStatement.setString(1, idPedido);
+            resultSet = preparedStatement.executeQuery();
+
             int unidades = resultSet.getInt("unidades");
             float total = resultSet.getFloat("total");
             String fechaPedido = resultSet.getString("fechaPedido");
@@ -141,10 +141,11 @@ public class SQLPedido extends Bbdd {
             Producto producto = sqlProducto.buscar(idProducto);
 
             pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
+            
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar el pedido", e);
         } finally {
-            closeConnection(connection, statement, resultSet);
+            closeConnection(connection, preparedStatement, resultSet);
         }
 
         return pedido;
@@ -170,7 +171,7 @@ public class SQLPedido extends Bbdd {
 
             resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));
             while (resultSet.next()) {
-                String idPedido = resultSet.getString(ID_PEDIDO);
+                String idPedido = resultSet.getString("idPedido");
                 int unidades = resultSet.getInt("unidades");
                 float total = resultSet.getFloat("total");
                 String fechaPedido = resultSet.getString("fechaPedido");
