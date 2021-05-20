@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.modelo.mysql;
+package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.productos.Categoria;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class SQLCategoria extends Bbdd {
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Categoria", "idCategoria,nombre");
-
     /**
      * Contructor basico de la clase
      */
@@ -115,16 +115,13 @@ public class SQLCategoria extends Bbdd {
             connection = getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idCategoria));
-            String nombre = resultSet.getString("idCategoria");
-            String apellidos = resultSet.getString("nombre");
+            String nombre = resultSet.getString("nombre");
             categoria = new Categoria(idCategoria, nombre);
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar la categoria", e);
         } finally {
             closeConnection(connection, statement, resultSet);
         }
-
-        
 
         return categoria;
     }

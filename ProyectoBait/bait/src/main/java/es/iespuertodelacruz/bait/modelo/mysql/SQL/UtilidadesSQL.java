@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.modelo.mysql;
+package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
 import java.util.Arrays;
 import java.util.List;

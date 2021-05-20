@@ -58,9 +58,9 @@ public class Bbdd {
             crearTabla(PRODUCTO, listaTablas);
             crearTabla(CATEGORIA, listaTablas);
             crearTabla(MARCA, listaTablas);
-            crearTabla(COMPRA, listaTablas);
-            crearTabla(PEDIDO, listaTablas);
-            crearTabla(ENVIO, listaTablas);
+            //crearTabla(COMPRA, listaTablas);
+            //crearTabla(PEDIDO, listaTablas);
+            //crearTabla(ENVIO, listaTablas);
 
         } catch (Exception e) {
             throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
@@ -86,8 +86,8 @@ public class Bbdd {
             informacion = fichero.leer(tablaFichero);
             actualizar(informacion);
 
-            //informacion = fichero.leer(insertFichero);
-            //actualizar(informacion);
+            informacion = fichero.leer(insertFichero);
+            actualizar(informacion);
         }
     }
 

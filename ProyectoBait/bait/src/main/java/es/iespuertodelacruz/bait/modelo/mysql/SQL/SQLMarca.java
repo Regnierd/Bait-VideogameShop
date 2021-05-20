@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.modelo.mysql;
+package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.productos.Marca;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class SQLMarca extends Bbdd{
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Marca", "idMarca, nombre");
