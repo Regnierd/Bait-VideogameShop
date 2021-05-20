@@ -3,7 +3,7 @@ package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -123,15 +123,15 @@ public class SQLProducto extends Bbdd {
      */
     public Producto buscar(String idProducto) throws PersistenciaException {
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Producto producto;
-        SQLCategoria sqlCategoria = new SQLCategoria(driver, url, usuario, password);
-        SQLMarca sqlMarca;
+        Categoria categoria = null;
+        Producto producto = null;
         try {
             connection = getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(idProducto));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idProducto"));
+            preparedStatement.setString(1, idProducto);
+            resultSet = preparedStatement.executeQuery();
 
             String nombre = resultSet.getString("nombre ");
             float precio = resultSet.getFloat("precio ");
@@ -140,18 +140,17 @@ public class SQLProducto extends Bbdd {
             String idCategoria = resultSet.getString("idCategoria ");
             String idMarca = resultSet.getString("idMarca");
 
-            Categoria categoria = sqlCategoria.buscar(idCategoria);
+            categoria = sqlCategoria.buscar(idCategoria);
             Marca marca = sqlMarca.buscar(idMarca);
-
 
             producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);
 
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar un producto", e);
-        }finally{
-            closeConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new PersistenciaException("Ha ocurrido un error al buscar el producto", e);
+        } finally {
+            closeConnection(connection, preparedStatement, resultSet);
         }
-    
+   
         return producto;
     }
 
