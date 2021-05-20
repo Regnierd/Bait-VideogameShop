@@ -58,9 +58,9 @@ public class Bbdd {
             crearTabla(PRODUCTO, listaTablas);
             crearTabla(CATEGORIA, listaTablas);
             crearTabla(MARCA, listaTablas);
-            //crearTabla(COMPRA, listaTablas);
-            //crearTabla(PEDIDO, listaTablas);
-            //crearTabla(ENVIO, listaTablas);
+            crearTabla(COMPRA, listaTablas);
+            crearTabla(PEDIDO, listaTablas);
+            crearTabla(ENVIO, listaTablas);
 
         } catch (Exception e) {
             throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
@@ -80,14 +80,15 @@ public class Bbdd {
         Fichero fichero = new Fichero();
         String tablaFichero = "resorce/tables/"+ tabla +".sql";
         String insertFichero = "resorce/insert/"+ tabla +"_INSERT.sql";
-        String informacion;
+        String informacionTablas;
+        String informacionInsert;
 
-        if (!listaTablas.contains(tabla)) {
-            informacion = fichero.leer(tablaFichero);
-            actualizar(informacion);
+        informacionTablas = fichero.leer(tablaFichero);
+        informacionInsert = fichero.leer(insertFichero);
 
-            informacion = fichero.leer(insertFichero);
-            actualizar(informacion);
+        if (!listaTablas.contains(tabla) && !informacionInsert.isEmpty() ) { 
+            actualizar(informacionTablas);
+            actualizar(informacionInsert);
         }
     }
 
