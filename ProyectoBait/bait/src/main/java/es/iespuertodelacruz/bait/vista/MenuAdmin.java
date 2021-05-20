@@ -3,14 +3,25 @@ package es.iespuertodelacruz.bait.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
+import es.iespuertodelacruz.bait.controlador.productosController.CategoriaController;
+import es.iespuertodelacruz.bait.controlador.productosController.MarcaController;
+import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class MenuAdmin {
     private static final String ERROR_OPCION_ELEGIDA = "Tiene que elegir una de las opciones del menu: 0 al ";
     private static final String ERROR_TIPO_DATO = "El tipo de dato introducido es incorrecto.";
     Scanner sn;
     UsuarioController usuarioController;
+    ProductoController productoController;
+    CategoriaController categoriaController;
+    MarcaController marcaController;
+    PedidoController pedidoController;
+    Usuario cliente;
 
     /**
      * Constructir basico de la clase
@@ -18,6 +29,10 @@ public class MenuAdmin {
     public MenuAdmin() {
         sn = new Scanner(System.in);
         usuarioController = new UsuarioController();
+        productoController = new ProductoController();
+        categoriaController = new CategoriaController();
+        marcaController = new MarcaController();
+        pedidoController = new PedidoController();
     }
 
     /**
@@ -33,9 +48,9 @@ public class MenuAdmin {
         password = sn.nextLine();
 
         try {
-            usuarioController.buscarUsuario(nombreAcceso, password, "Admin");
-            menuOpciones();
-        } catch (ApiException ex) {
+            cliente = usuarioController.login(nombreAcceso, password, "Admin");
+            menuOpciones(cliente);
+        } catch (ApiException | PersistenciaException ex) {
             System.err.println("El nombre de acceso o la password son incorrectos.");
         }
     }
@@ -43,7 +58,7 @@ public class MenuAdmin {
     /**
      * Metodo que muestra el menu de opciones que puede realizar el administrador
      */
-    private void menuOpciones() {
+    private void menuOpciones(Usuario admin) {
         boolean salir = false;
         int opcion;
 
@@ -61,7 +76,7 @@ public class MenuAdmin {
                 sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        menuClientes();
+                        menuClientes(cliente);
                         break;
                     case 2:
                         menuProductos();
@@ -94,16 +109,22 @@ public class MenuAdmin {
     /**
      * Menu para relizar el CRUD de clientes
      */
-    private void menuClientes() {
+    private void menuClientes(Usuario cliente) {
         int opcion;
         boolean salir = false;
         while (!salir) {
             opcion = obtenerOpcion("cliente");
             switch (opcion) {
                 case 1:
-                    // Codigo para insertar un cliente
+                    try {
+                        //PEDIR DATOS?
+                        usuarioController.insertar(cliente);
+                    } catch (ApiException | PersistenciaException e) {
+                        System.out.println("Error al insertar al cliente en la base de datos");
+                    }
                     break;
                 case 2:
+                    usuarioController.eliminar(cliente.getDni());
                     // codigo para eliminar un cliente
                     break;
                 case 3:

@@ -4,9 +4,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.controlador.movimientosController.CompraController;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class MenuCliente {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
@@ -15,7 +17,7 @@ public class MenuCliente {
     Scanner sn;
     UsuarioController usuarioController;
     PedidoController pedidoController;
-
+    CompraController compraController;
     /**
      * Constructor basico del menu del cliente
      */
@@ -23,6 +25,7 @@ public class MenuCliente {
         sn = new Scanner(System.in);
         usuarioController = new UsuarioController();
         pedidoController = new PedidoController();
+        compraController = new CompraController();
     }
 
     /**
@@ -38,7 +41,7 @@ public class MenuCliente {
                 System.out.println("1. Registrarse");
                 System.out.println("2. Iniciar sesion");
                 System.out.println("3. Accerder sin cuenta");
-                System.out.println("0. Salir");
+                System.out.println("4. Salir");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -49,7 +52,7 @@ public class MenuCliente {
                             usuarioController.insertar(cliente);
                             System.out.println("Se ha registrado correctamente.");
                             menuOpciones(cliente);
-                        } catch (ApiException e) {
+                        } catch (ApiException | PersistenciaException e) {
                             System.out.println("Error al realizar el registro");
                         }
                         break;
@@ -65,7 +68,7 @@ public class MenuCliente {
                     case 3:
                         menuProductos();
                         break;
-                    case 0:
+                    case 4:
                         salir = true;
                         break;
                     default:
@@ -87,14 +90,18 @@ public class MenuCliente {
     private Usuario validarCliente() throws ApiException {
         String nombreUsuario;
         String password;
-        Usuario cliente;
+        Usuario cliente = null;
         System.out.println("Login Cliente");
         System.out.println("Introduce el nombre de usuario:");
         nombreUsuario = sn.nextLine();
         System.out.println("Intrduce la password:");
         password = sn.nextLine();
 
-        cliente = usuarioController.buscarUsuario(nombreUsuario, password, "Cliente");
+        try {
+            cliente = usuarioController.login(nombreUsuario, password, "Cliente");
+        } catch (PersistenciaException | ApiException e) {
+            System.out.println(e.getMessage());
+        }
 
         return cliente;
     }
@@ -160,11 +167,11 @@ public class MenuCliente {
                 sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        System.out.println("Introdusca la cantidad que quiere añadir.");
+                        System.out.println("Introduzca la cantidad que quiere añadir.");
                         float saldo = sn.nextFloat();
                         try {
-                            usuarioController.añadirSaldo(saldo);
-                        } catch (ApiException e) {
+                            usuarioController.añadirSaldo(cliente, saldo);
+                        } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al añadir el saldo");
                         }
                         break;
@@ -174,19 +181,27 @@ public class MenuCliente {
                     case 3:
                         menuProductos();
                         break;
-                    case 4:
-                        // codigo para ver los pedidos
+                    case 4:        
+                        try {
+                            pedidoController.obtenerListado(cliente.getDni());
+                        } catch (PersistenciaException e1) {
+                            System.out.println("Error al obtener la lista de todos los pedidos");
+                        }
                         break;
                     case 5:
-                        // codigo para ver las compras
+                        try {
+                            compraController.obtenerListado();
+                        } catch (PersistenciaException e1) {
+                            System.out.println("Error al obtener la lista de todas las compras");
+                        }
                         break;
                     case 6:
                         Usuario nuevoCliente = registrar();// modificarDatos()
                         try {
                             usuarioController.modificar(nuevoCliente);
-                        } catch (ApiException e) {
+                        } catch (ApiException | PersistenciaException e) {
                             System.err.println("No se han podido registrar los cambios");
-                        }
+                        } 
                         break;
                     case 0:
                         salir = true;
@@ -207,7 +222,7 @@ public class MenuCliente {
         System.out.println("Introdusca datos para relalizar el pedido.");
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
-        pedidoController.realizarPedido(idProducto, unidades);
+        pedidoController.realizarPedido(idProducto, unidades);                          //CHECKING
     }
 
     /**

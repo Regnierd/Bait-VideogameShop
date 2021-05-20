@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.movimientos.Compra;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -101,5 +103,17 @@ public class CompraController {
         }
         
         return encontrada;
+    }
+
+    /**
+     * Funcion encargada de mostrar todos las compras
+     * @return ArrayList de Compras
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Compra> obtenerListado() throws PersistenciaException{
+        ArrayList<Compra> compras;
+        compras = compraModelo.obtenerListado();
+        return compras;
+
     }
 }

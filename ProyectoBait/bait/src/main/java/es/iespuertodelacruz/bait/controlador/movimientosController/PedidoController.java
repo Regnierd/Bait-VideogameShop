@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -124,38 +126,18 @@ public class PedidoController {
         return encontrada;
     }
 
+    /**
+     * Funcion encargada de mostrar todos los pedidos de un usuario
+     * @param dni del usuario
+     * @return ArrayList de Pedidos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Pedido> obtenerListado(String dni) throws PersistenciaException{
+        ArrayList<Pedido> pedidos;
+        pedidos = pedidoModelo.obtenerListado(dni);
+        return pedidos;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
     public void realizarPedido(String idProducto, int unidades) {
         //codigo

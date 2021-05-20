@@ -69,6 +69,11 @@ public class UsuarioModelo {
         persistencia.modificar(usuario);
     }
 
+    /**
+     * Funcion encargada de obtener 
+     * @return
+     * @throws PersistenciaException
+     */
     public ArrayList<Usuario> obtenerListado() throws PersistenciaException {
         ArrayList<Usuario> usuarios;
         usuarios = persistencia.obtenerListado();
