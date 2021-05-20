@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.movimientosModelo.PedidoModelo;
 
 public class PedidoController {
@@ -15,7 +17,7 @@ public class PedidoController {
      * Metodo encargado de validar un pedido
      * @param pedido a validar
      */
-    public void validar(Pedido pedido) ApiException{
+    public void validar(Pedido pedido) throws ApiException{
         String mensaje = "";
 
         if(pedido == null){

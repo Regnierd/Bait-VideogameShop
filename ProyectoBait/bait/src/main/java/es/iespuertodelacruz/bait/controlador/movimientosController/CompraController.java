@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
 import es.iespuertodelacruz.bait.api.movimientos.Compra;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.movimientosModelo.CompraModelo;
 
 public class CompraController {
@@ -10,7 +12,7 @@ public class CompraController {
         compraModelo = new CompraModelo();
     }
 
-    public void validar(Compra compra){
+    public void validar(Compra compra) throws ApiException{
         String mensaje = "";
 
         if(compra == null){

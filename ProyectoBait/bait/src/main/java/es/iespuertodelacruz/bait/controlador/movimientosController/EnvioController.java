@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
 import es.iespuertodelacruz.bait.api.movimientos.Envio;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.movimientosModelo.EnvioModelo;
 
 public class EnvioController {
@@ -10,7 +12,7 @@ public class EnvioController {
         envioModelo = new EnvioModelo();
     }
 
-    public void validar(Envio envio) ApiException{
+    public void validar(Envio envio) throws ApiException{
         String mensaje = "";
 
         if(envio == null){
