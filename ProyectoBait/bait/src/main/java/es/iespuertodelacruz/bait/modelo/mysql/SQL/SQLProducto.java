@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.modelo.mysql;
+package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +11,13 @@ import es.iespuertodelacruz.bait.api.productos.Categoria;
 import es.iespuertodelacruz.bait.api.productos.Marca;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class SQLProducto extends Bbdd {
     private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Producto","idProducto, nombre, precio, descripcion "
                              + ", stock, idCategoria, idMarca");
-
+    SQLCategoria sqlCategoria;
+    SQLMarca sqlMarca;
     /**
      * Constructor basico de la clase
     * @param driver de la conexion
@@ -24,8 +26,9 @@ public class SQLProducto extends Bbdd {
     * @param password de la base de datos
     */
     public SQLProducto(String driver, String url, String usuario, String password) {
-        super(driver, url, usuario, password);
-
+        super(driver, url, usuario, password);  
+        sqlCategoria = new SQLCategoria(driver, url, usuario, password);
+        sqlMarca = new SQLMarca(driver, url, usuario, password);
     }
 
     /**
@@ -139,8 +142,10 @@ public class SQLProducto extends Bbdd {
 
             Categoria categoria = sqlCategoria.buscar(idCategoria);
             Marca marca = sqlMarca.buscar(idMarca);
-            
+
+
             producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);
+
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar un producto", e);
         }finally{
@@ -178,8 +183,11 @@ public class SQLProducto extends Bbdd {
                 String idCategoria = resultSet.getString("idCategoria ");
                 String idMarca = resultSet.getString("idMarca");
 
-                Producto producto = new Producto(idProducto, nombre, idCategoria, precio, descripcion, stock, idMarca); 
+                Categoria categoria = sqlCategoria.buscar(idCategoria);
+                Marca marca = sqlMarca.buscar(idMarca);
 
+                Producto producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);
+                
                 productos.add(producto);
             }
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.modelo.mysql;
+package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,17 +7,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.movimientos.Compra;
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class SQLCompra extends Bbdd {
-    UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Compra", "idCompra, totalCompra, pedido");
+    UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Compra", "idCompra, totalCompra, idPedido");
+    SQLPedido sqlPedido;
 
     /**
-     * Constructor basico de la clase 
+     * Constructor basico de la clase
      */
     public SQLCompra(String driver, String url, String usuario, String password) {
         super(driver, url, usuario, password);
-        
+        sqlPedido = new SQLPedido(driver, url, usuario, password);
     }
 
     /**
@@ -38,7 +41,7 @@ public class SQLCompra extends Bbdd {
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al insertar una compra", e);
-        }finally{
+        } finally {
             closeConnection(connection, preparedStatement, null);
         }
 
@@ -63,7 +66,7 @@ public class SQLCompra extends Bbdd {
 
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al eliminar una compra", e);
-        }finally{
+        } finally {
             closeConnection(connection, preparedStatement, null);
         }
 
@@ -71,6 +74,7 @@ public class SQLCompra extends Bbdd {
 
     /**
      * Metodo que modifica un campo en concreto de la base datos
+     * 
      * @param compra con los nuevos cambios
      * @throws PersistenciaException error a controlar
      */
@@ -87,16 +91,16 @@ public class SQLCompra extends Bbdd {
 
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al modificar una marca", e);
-        }finally{
+            throw new PersistenciaException("Ha ocurrido un error al modificar una compra", e);
+        } finally {
             closeConnection(connection, preparedStatement, null);
         }
-        
-        
+
     }
 
     /**
      * Funcion que busca una compra en la base de datos y lo devuelve
+     * 
      * @param idCompra que se va a buscar
      * @return Compra
      * @throws PersistenciaException error a controlar
@@ -114,10 +118,13 @@ public class SQLCompra extends Bbdd {
 
             float totalCompra = resultSet.getFloat("totalCompra ");
             String idPedido = resultSet.getString("idPedido");
-            compra = new Compra(idCompra, totalCompra, idPedido);
+
+            Pedido pedido = sqlPedido.buscar(idPedido);
+
+            compra = new Compra(idCompra, totalCompra, pedido);
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
-        }finally{
+        } finally {
             closeConnection(connection, statement, resultSet);
         }
 
@@ -126,12 +133,13 @@ public class SQLCompra extends Bbdd {
 
     /**
      * Funcion que obtiene un listado de las marcas y los devuelve
+     * 
      * @return la lista de marcas
      * @throws PersistenciaException error a controlar
      */
     public ArrayList<Compra> obtenerListado() throws PersistenciaException {
         Connection connection = null;
-        ArrayList<Compra> marcas = new ArrayList<>();
+        ArrayList<Compra> compras = new ArrayList<>();
         ResultSet resultSet = null;
         Statement statement = null;
         Compra compra;
@@ -142,20 +150,22 @@ public class SQLCompra extends Bbdd {
 
             resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
             while (resultSet.next()) {
-                String idCompra = resultSet.getString("idMarca");
-                String totalCompra = resultSet.getString("nombre ");
+                String idCompra = resultSet.getString("idCompra");
+                float totalCompra = resultSet.getFloat("totalCompra ");
                 String idPedido = resultSet.getString("idPedido");
-                
-                compra = new Compra(idCompra, totalCompra, idPedido);
-                marcas.add(compra);
+
+                Pedido pedido = sqlPedido.buscar(idPedido);
+
+                compra = new Compra(idCompra, totalCompra, pedido);
+                compras.add(compra);
             }
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
-        }finally{
+        } finally {
             closeConnection(connection, statement, resultSet);
         }
-             
-        return marcas;
+
+        return compras;
     }
-    
+
 }

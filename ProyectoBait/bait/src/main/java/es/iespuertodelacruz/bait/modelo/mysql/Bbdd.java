@@ -80,14 +80,15 @@ public class Bbdd {
         Fichero fichero = new Fichero();
         String tablaFichero = "resorce/tables/"+ tabla +".sql";
         String insertFichero = "resorce/insert/"+ tabla +"_INSERT.sql";
-        String informacion;
+        String informacionTablas;
+        String informacionInsert;
 
-        if (!listaTablas.contains(tabla)) {
-            informacion = fichero.leer(tablaFichero);
-            actualizar(informacion);
+        informacionTablas = fichero.leer(tablaFichero);
+        informacionInsert = fichero.leer(insertFichero);
 
-            //informacion = fichero.leer(insertFichero);
-            //actualizar(informacion);
+        if (!listaTablas.contains(tabla) && !informacionInsert.isEmpty() ) { 
+            actualizar(informacionTablas);
+            actualizar(informacionInsert);
         }
     }
 

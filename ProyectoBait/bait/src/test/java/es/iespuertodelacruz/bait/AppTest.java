@@ -8,9 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.api.productos.Producto;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
-import es.iespuertodelacruz.bait.modelo.mysql.SQLUsuario;
+import es.iespuertodelacruz.bait.modelo.mysql.SQL.SQLProducto;
+import es.iespuertodelacruz.bait.modelo.mysql.SQL.SQLUsuario;
 
 public class AppTest {
     SQLUsuario sqlCliente;
@@ -64,6 +66,19 @@ public class AppTest {
         Bbdd bbdd = new Bbdd("org.sqlite.JDBC", "jdbc:sqlite:bait.db", null, null);
         try {
             bbdd.init();
+        } catch (PersistenciaException e) {
+            fail(e.getCause().getMessage());
+        }
+    }
+
+    @Test
+    public void buscar(){
+        SQLProducto sqlProducto = new SQLProducto("org.sqlite.JDBC", "jdbc:sqlite:bait.db", null, null);
+        Producto producto;
+        try {
+            producto = sqlProducto.buscar("01");
+            System.out.println(producto.toString() + "\n" + producto.getCategoria().toString()
+             + "\n" + producto.getMarca().toString());
         } catch (PersistenciaException e) {
             fail(e.getCause().getMessage());
         }

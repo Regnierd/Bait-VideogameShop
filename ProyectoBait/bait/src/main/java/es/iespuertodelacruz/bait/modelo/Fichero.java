@@ -77,6 +77,7 @@ public class Fichero {
       return fichero.exists();
    }
 
+
    /**
     * Metodo encargado de elimianr un fichero/directorio
     * @param nombre del fichero/directorio a elimina

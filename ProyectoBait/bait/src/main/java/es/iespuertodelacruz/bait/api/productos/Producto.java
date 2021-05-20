@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.api.productos;
 
-public abstract class Producto {
+public class Producto {
     protected static final String DELIMITADOR = ",";
     private String idProducto;
     private String nombre;
@@ -13,7 +13,7 @@ public abstract class Producto {
     /**
      * Constructor por defecto vacio
      */
-    protected Producto() {
+    public Producto() {
     }
 
     /**
@@ -26,7 +26,7 @@ public abstract class Producto {
      * @param categoria del producto 
      * @param marca del producto
      */
-    protected Producto(String idProducto, String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {
+    public Producto(String idProducto, String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.categoria = categoria;
