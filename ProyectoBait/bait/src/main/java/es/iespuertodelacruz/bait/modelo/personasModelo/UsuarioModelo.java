@@ -41,8 +41,21 @@ public class UsuarioModelo {
      * @throws PersistenciaException error a controlar
      */
     public Usuario buscar(String dni) throws PersistenciaException {
-        Usuario usuario;
-        usuario = persistencia.buscar(dni);
+        Usuario usuario = null;
+        usuario = persistencia.buscaPorDni(dni);
+
+        return usuario;
+    }
+
+    /**
+     * Funcion que busca un usuario por su nombreUsuario en la base de datos
+     * @param nombreUsuario del usuario a buscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario login(String nombreUsuario) throws PersistenciaException {
+        Usuario usuario = null;
+        usuario = persistencia.buscaPorNombreUsuario(nombreUsuario);
 
         return usuario;
     }

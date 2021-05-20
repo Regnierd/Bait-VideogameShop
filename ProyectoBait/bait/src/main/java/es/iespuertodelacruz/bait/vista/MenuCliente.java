@@ -6,7 +6,7 @@ import java.util.Scanner;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
-import es.iespuertodelacruz.bait.exceptions.UsuarioException;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
 
 public class MenuCliente {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
@@ -49,7 +49,7 @@ public class MenuCliente {
                             usuarioController.insertar(cliente);
                             System.out.println("Se ha registrado correctamente.");
                             menuOpciones(cliente);
-                        } catch (UsuarioException e) {
+                        } catch (ApiException e) {
                             System.out.println("Error al realizar el registro");
                         }
                         break;
@@ -58,7 +58,7 @@ public class MenuCliente {
                             cliente = validarCliente();
                             System.out.println("Sesion iniciada correctamente.");
                             menuOpciones(cliente);
-                        } catch (UsuarioException e) {
+                        } catch (ApiException e) {
                             System.out.println("El usuario o la password no son correctos.");
                         }
                         break;
@@ -82,9 +82,9 @@ public class MenuCliente {
      * lo devuevle si existe
      * 
      * @return el cliente si existe
-     * @throws UsuarioException error a controlar
+     * @throws ApiException error a controlar
      */
-    private Usuario validarCliente() throws UsuarioException {
+    private Usuario validarCliente() throws ApiException {
         String nombreUsuario;
         String password;
         Usuario cliente;
@@ -164,7 +164,7 @@ public class MenuCliente {
                         float saldo = sn.nextFloat();
                         try {
                             usuarioController.añadirSaldo(saldo);
-                        } catch (UsuarioException e) {
+                        } catch (ApiException e) {
                             System.err.println("Error al añadir el saldo");
                         }
                         break;
@@ -184,7 +184,7 @@ public class MenuCliente {
                         Usuario nuevoCliente = registrar();// modificarDatos()
                         try {
                             usuarioController.modificar(nuevoCliente);
-                        } catch (UsuarioException e) {
+                        } catch (ApiException e) {
                             System.err.println("No se han podido registrar los cambios");
                         }
                         break;

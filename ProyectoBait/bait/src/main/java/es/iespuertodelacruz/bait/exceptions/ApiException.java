@@ -1,11 +1,11 @@
 package es.iespuertodelacruz.bait.exceptions;
 
-public class UsuarioException extends Exception{
+public class ApiException extends Exception{
     /**
      * Constructor de la clase con mensaje de error
      * @param mensaje del error lanzado
      */
-    public UsuarioException(String mensaje) {
+    public ApiException(String mensaje) {
         super(mensaje);
     }
 
@@ -14,7 +14,7 @@ public class UsuarioException extends Exception{
      * @param mensaje del error lanzado 
      * @param causa excepcion lanzada 
      */
-    public UsuarioException(String mensaje, Exception causa) {
+    public ApiException(String mensaje, Exception causa) {
         super(mensaje, causa);
     }
 }

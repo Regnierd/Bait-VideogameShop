@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
-import es.iespuertodelacruz.bait.exceptions.UsuarioException;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
 
 public class MenuAdmin {
     private static final String ERROR_OPCION_ELEGIDA = "Tiene que elegir una de las opciones del menu: 0 al ";
@@ -35,7 +35,7 @@ public class MenuAdmin {
         try {
             usuarioController.buscarUsuario(nombreAcceso, password, "Admin");
             menuOpciones();
-        } catch (UsuarioException ex) {
+        } catch (ApiException ex) {
             System.err.println("El nombre de acceso o la password son incorrectos.");
         }
     }
