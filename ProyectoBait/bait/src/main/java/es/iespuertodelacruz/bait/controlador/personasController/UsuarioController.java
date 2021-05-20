@@ -2,9 +2,15 @@ package es.iespuertodelacruz.bait.controlador.personasController;
 
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.UsuarioException;
+import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 
 public class UsuarioController {
-    
+    UsuarioModelo usuarioModelo;
+
+    public UsuarioController() {
+        usuarioModelo = new UsuarioModelo();
+    }
+
     /**
      * Metodo encargado de validar todos los atributos de un usuario
      * @param usuario a validar
@@ -51,7 +57,7 @@ public class UsuarioController {
         }
     }
     public Usuario buscarUsuario(String nombreUsuario, String contraseña, String rol) throws UsuarioException{
-        //codigo
+        
         return null;
     }
 
