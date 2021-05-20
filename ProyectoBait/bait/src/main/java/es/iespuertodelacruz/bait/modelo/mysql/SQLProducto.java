@@ -123,6 +123,8 @@ public class SQLProducto extends Bbdd {
         Statement statement = null;
         ResultSet resultSet = null;
         Producto producto;
+        SQLCategoria sqlCategoria = new SQLCategoria(driver, url, usuario, password);
+        SQLMarca sqlMarca;
         try {
             connection = getConnection();
             statement = connection.createStatement();
@@ -135,7 +137,10 @@ public class SQLProducto extends Bbdd {
             String idCategoria = resultSet.getString("idCategoria ");
             String idMarca = resultSet.getString("idMarca");
 
-            producto = new Producto(idProducto, nombre, idCategoria, precio, descripcion, stock, idMarca); //Producto() esta en rojo
+            Categoria categoria = sqlCategoria.buscar(idCategoria);
+            Marca marca = sqlMarca.buscar(idMarca);
+            
+            producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar un producto", e);
         }finally{
@@ -173,7 +178,7 @@ public class SQLProducto extends Bbdd {
                 String idCategoria = resultSet.getString("idCategoria ");
                 String idMarca = resultSet.getString("idMarca");
 
-                Producto producto = new Producto(idProducto, nombre, precio, descripcion, stock, idCategoria, idMarca); //Producto() esta en rojo
+                Producto producto = new Producto(idProducto, nombre, idCategoria, precio, descripcion, stock, idMarca); 
 
                 productos.add(producto);
             }
