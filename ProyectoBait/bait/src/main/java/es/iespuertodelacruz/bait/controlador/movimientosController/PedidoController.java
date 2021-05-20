@@ -68,7 +68,7 @@ public class PedidoController {
 
     /**
      * Metodo encargado de eliminar
-     * @param pedido a eliminar
+     * @param idPedido a eliminar
      * @throws PersistenciaException con mensaje controlado
      */
     public void eliminar(String idPedido) throws PersistenciaException{
@@ -76,9 +76,9 @@ public class PedidoController {
     }
 
     /**
-     * Metodo encargado de buscar por identificador
-     * @param identificador para localizar la fruta
-     * @return fruta a traves del identificador
+     * Metodo encargado de buscar por idPedido
+     * @param idPedido del pedido
+     * @return Pedido
      * @throws PersistenciaException con mensaje controlado
      */
     public Pedido buscar(String idPedido) throws PersistenciaException{
