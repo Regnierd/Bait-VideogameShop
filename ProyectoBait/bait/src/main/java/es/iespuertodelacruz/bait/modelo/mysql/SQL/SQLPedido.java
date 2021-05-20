@@ -137,7 +137,7 @@ public class SQLPedido extends Bbdd {
             String dni = resultSet.getString("dni");
             String idProducto = resultSet.getString("idProducto");
 
-            Usuario usuario = sqlUsuario.buscar(dni);
+            Usuario usuario = sqlUsuario.buscaPorDni(dni);
             Producto producto = sqlProducto.buscar(idProducto);
 
             pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
@@ -177,7 +177,7 @@ public class SQLPedido extends Bbdd {
                 String fechaPedido = resultSet.getString("fechaPedido");
                 String idProducto = resultSet.getString("idProducto");
     
-                Usuario usuario = sqlUsuario.buscar(dni);
+                Usuario usuario = sqlUsuario.buscaPorDni(dni);
                 Producto producto = sqlProducto.buscar(idProducto);
     
                 pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);

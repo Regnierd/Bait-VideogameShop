@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.bait.modelo.mysql.SQL;
 
+import java.lang.reflect.Parameter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -122,10 +123,10 @@ public class SQLUsuario extends Bbdd {
     /**
      * Funcion que busca un usuario en la base de datos y lo devuelve
      * @param dni del usuario que se va a buscar
-     * @return 
+     * @return
      * @throws PersistenciaException error a controlar
      */
-    public Usuario buscar(String dni) throws PersistenciaException{
+    public Usuario buscar(String parematro, String valor) throws PersistenciaException{
         Connection connection = null;    
         ResultSet resultSet = null;
         Usuario usuario;    
@@ -133,10 +134,11 @@ public class SQLUsuario extends Bbdd {
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("dni"));
-            preparedStatement.setString(1, dni);
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(parematro));
+            preparedStatement.setString(1, valor);
             resultSet = preparedStatement.executeQuery();
 
+            String dni = resultSet.getString("dni");
             String nombre = resultSet.getString("nombre ");
             String apellidos = resultSet.getString("apellidos");
             String email = resultSet.getString("email");
@@ -156,6 +158,34 @@ public class SQLUsuario extends Bbdd {
         } finally {
             closeConnection(connection, preparedStatement, resultSet);
         }
+
+        return usuario;
+    }
+
+    /**
+     * Funcion que busca un usuario por su dni
+     * @param dni de la persona que se va abuscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscaPorDni(String dni) throws PersistenciaException {
+        Usuario usuario;
+
+        usuario = buscar("dni", dni);
+
+        return usuario;
+    }
+
+    /**
+     * Funcion que buscar un usuario por su nombre de usuario
+     * @param nombreUsuario del usuario que se va a buscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
+        Usuario usuario;
+
+        usuario = buscar("nombreUsuario", nombreUsuario);
 
         return usuario;
     }
