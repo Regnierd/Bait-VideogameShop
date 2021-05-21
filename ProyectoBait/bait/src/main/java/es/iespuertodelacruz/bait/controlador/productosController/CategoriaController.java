@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.productosController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.productos.Categoria;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -104,5 +106,18 @@ public class CategoriaController {
             throw new ApiException("La categoria que quiere modifcar no exite.");
         }
         categoriaModelo.modificar(categoria);
+    }
+
+        /**
+     * Funcion que obtiene la lista de categorias y la devuelve
+     * @return la lista de categorias
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Categoria> obtenerListado() throws PersistenciaException {
+        ArrayList<Categoria> categorias;
+        categorias = categoriaModelo.obtenerListado();
+        
+        return categorias;
+        
     }
 }

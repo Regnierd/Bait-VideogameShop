@@ -172,4 +172,17 @@ public class ProductoController {
         return productos;
     }
 
+    /**
+     * Funcion que obtiene la lista de productos y la devuelve
+     * @return la lista de prodcutos
+     * @throws PersistenciaException
+     */
+    public ArrayList<Producto> obtenerListado() throws PersistenciaException {
+        ArrayList<Producto> productos;
+        productos = productoModelo.obtenerListado();
+        
+        return productos;
+        
+    }
+
 }

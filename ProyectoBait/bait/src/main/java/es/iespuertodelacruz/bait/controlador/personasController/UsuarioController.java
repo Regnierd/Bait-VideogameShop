@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.personasController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
@@ -167,6 +169,21 @@ public class UsuarioController {
             throw new ApiException("El usuario que quiere modificar no existe.");
         }
         usuarioModelo.modificar(usuario);
+    }
+
+    /**
+     * Funcion que obtiene una lista de todos los usuarios
+     * @return lista de usuario
+     * @throws PersistenciaException error controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList<Usuario> obtenerListado() throws PersistenciaException, ApiException {
+        ArrayList<Usuario> usuarios = null;
+        usuarios = usuarioModelo.obtenerListado();
+        if ( usuarios == null || usuarios.isEmpty()) {
+            throw new ApiException("La lista de usuario es vacia o nula");
+        }
+        return usuarios;
     }
    
 }

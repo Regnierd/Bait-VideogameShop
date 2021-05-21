@@ -1,9 +1,13 @@
 package es.iespuertodelacruz.bait.vista;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import es.iespuertodelacruz.bait.api.movimientos.Compra;
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.api.productos.Producto;
 import es.iespuertodelacruz.bait.controlador.movimientosController.CompraController;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
@@ -112,9 +116,10 @@ public class MenuCliente {
     /**
      * Menu para buscar productos por nombre, categoria y marca
      */
-    private void menuProductos() {
+    public void menuProductos() {//REFACTORIZAR
         boolean salir = false;
         int opcion;
+        ArrayList<Producto> productos;
         try {
             while (!salir) {
                 System.out.println("Buscar producto");
@@ -131,7 +136,8 @@ public class MenuCliente {
                         System.out.println("Introdusca un nombre");
                         String nombre = sn.nextLine();
                         try {
-                            productoController.buscarPorNombre(nombre);
+                            productos =  productoController.buscarPorNombre(nombre);
+                            System.out.println(productos.toString());
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por nombre.");
                         }
@@ -140,7 +146,8 @@ public class MenuCliente {
                         System.out.println("Introdusca el idCategoria");
                         String idCategoria = sn.nextLine();
                         try {
-                            productoController.buscarPorCategoria(idCategoria);
+                            productos = productoController.buscarPorCategoria(idCategoria);
+                            System.out.println(productos.toString());
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por categoria.");
                         }
@@ -149,7 +156,8 @@ public class MenuCliente {
                         System.out.println("Introdusca el id de la marca.");
                         String idMarca = sn.nextLine();
                         try {
-                            productoController.buscarPorMarca(idMarca);
+                            productos = productoController.buscarPorMarca(idMarca);
+                            System.out.println(productos.toString());
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por marca.");
                         }
@@ -174,6 +182,8 @@ public class MenuCliente {
     private void menuOpciones(Usuario cliente) {
         boolean salir = false;
         int opcion;
+        ArrayList<Pedido> pedidos;
+        ArrayList<Compra> compras;
         try {
             while (!salir) {
                 System.out.println("Menu de opciones cliente");
@@ -192,6 +202,7 @@ public class MenuCliente {
                         float saldo = sn.nextFloat();
                         try {
                             usuarioController.añadirSaldo(cliente, saldo);
+                            System.out.println("Saldo añadido carrectamente.");
                         } catch (PersistenciaException e) {
                             System.err.println("Error al añadir el saldo");
                         } catch (ApiException e) {
@@ -206,22 +217,25 @@ public class MenuCliente {
                         break;
                     case 4:        
                         try {
-                            pedidoController.obtenerListado(cliente.getDni());
+                            pedidos = pedidoController.obtenerListado(cliente.getDni());
+                            System.out.println(pedidos.toString());
                         } catch (PersistenciaException e1) {
                             System.out.println("Error al obtener la lista de todos los pedidos");
                         }
                         break;
                     case 5:
                         try {
-                            compraController.obtenerListado();
+                            compras = compraController.obtenerListado();
+                            System.out.println(compras.toString());
                         } catch (PersistenciaException e1) {
                             System.out.println("Error al obtener la lista de todas las compras");
                         }
                         break;
                     case 6:
-                        Usuario nuevoCliente = registrar();// modificarDatos()
+                        Usuario nuevoCliente = registrar();
                         try {
                             usuarioController.modificar(nuevoCliente);
+                            System.out.println("Se ha modificado correctemente.");
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("No se han podido registrar los cambios");
                         } 
@@ -242,10 +256,11 @@ public class MenuCliente {
      * Metodo que obtienes los datos y realiza un pedido
      */
     private void realizarPedido() {
-        System.out.println("Introdusca datos para relalizar el pedido.");
+        System.out.println("Introdusca datos para realizar el pedido.");
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
-        pedidoController.realizarPedido(idProducto, unidades);                          //CHECKING
+        pedidoController.realizarPedido(idProducto, unidades);
+        System.out.println("Pedido realizado correctamente.");
     }
 
     /**
@@ -253,7 +268,7 @@ public class MenuCliente {
      * 
      * @return el cleinte creado
      */
-    private Usuario registrar() {
+    public Usuario registrar() {//REFACTORIZAR
         Usuario cliente = null;
         System.out.println("Datos para el registro");
         String dni = obtenerDato("el dni.");
@@ -277,7 +292,7 @@ public class MenuCliente {
      * @param mensaje del dato que se va a obtener
      * @return el dato obtenido
      */
-    private String obtenerDato(String mensaje) {
+    public String obtenerDato(String mensaje) {//REFACTORIZAR
         String dato;
 
         System.out.println("Introduce " + mensaje);
@@ -285,4 +300,5 @@ public class MenuCliente {
 
         return dato;
     }
+
 }
