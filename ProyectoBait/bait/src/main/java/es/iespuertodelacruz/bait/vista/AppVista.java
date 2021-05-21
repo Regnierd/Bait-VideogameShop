@@ -3,9 +3,13 @@ package es.iespuertodelacruz.bait.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
+
 public class AppVista{
     static MenuAdmin menuAdmin;
     static MenuCliente menuCliente;
+    static Bbdd bbdd;
 
     public static void main( String[] args ){
         if(menuAdmin == null){
@@ -14,7 +18,14 @@ public class AppVista{
         if(menuCliente == null){
             menuCliente = new MenuCliente();
         }
-
+        if (bbdd == null) {
+            bbdd = new Bbdd("org.sqlite.JDBS", "jdbc:sqlite:bait.db", null, null);
+        }
+        try {
+            bbdd.init();
+        } catch (PersistenciaException e) {
+            System.out.println("Error al lanzar el init.");
+        }
         menuPrincipal();
     }
 

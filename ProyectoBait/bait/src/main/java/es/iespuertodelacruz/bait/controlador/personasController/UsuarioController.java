@@ -84,7 +84,7 @@ public class UsuarioController {
      * @throws ApiException
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
-        Usuario usuario = null;
+         Usuario usuario = null;
         usuario = usuarioModelo.login(nombreUsuario);
 
         if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {

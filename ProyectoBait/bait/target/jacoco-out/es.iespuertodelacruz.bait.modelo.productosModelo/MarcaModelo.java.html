@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MarcaModelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.productosModelo</a> &gt; <span class="el_source">MarcaModelo.java</span></div><h1>MarcaModelo.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.productosModelo;
 
-<span class="nc" id="L3">public class MarcaModelo {</span>
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.productos.Marca;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.SQL.SQLMarca;
+
+public class MarcaModelo {
+    SQLMarca persistencia;
+
+    /**
+     * Constructor basico de la clase
+     */
+<span class="nc" id="L15">    public MarcaModelo() {</span>
+<span class="nc" id="L16">        persistencia = new SQLMarca(&quot;org.sqlite.JDBC&quot;, &quot;jdbc:sqlite:bait.db&quot;, null, null);</span>
+<span class="nc" id="L17">    }</span>
+
+    /**
+     * Metodo que inserta un marca en la base de datos
+     * @param marca que se va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Marca marca) throws PersistenciaException {
+<span class="nc" id="L25">        persistencia.insertar(marca);</span>
+<span class="nc" id="L26">    }</span>
+
+    /**
+     * Metodo que elimina una marca en la base datos
+     * @param idMarca de la marca que se va a borrar
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idMarca) throws PersistenciaException {
+<span class="nc" id="L34">        persistencia.eliminar(idMarca);</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Funcion que buscca una marca por su idMarca en la base datos
+     * @param idMarca de la marca que se va a buscar
+     * @return la marca encontrada
+     * @throws PersistenciaException error a controlar
+     */
+    public Marca buscar(String idMarca) throws PersistenciaException {
+        Marca marca;
+<span class="nc" id="L45">        marca = persistencia.buscar(idMarca);</span>
+
+<span class="nc" id="L47">        return marca;</span>
+    }
     
+    /**
+     * Metodo que modifica una marca en la base datos
+     * @param marca con los nuevos cambios
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Marca marca) throws PersistenciaException {
+<span class="nc" id="L56">        persistencia.modificar(marca);</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * Funcion que devuelve un lista de las marcas 
+     * @return la lista de las marcas
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Marca&gt; obtenerListado() throws PersistenciaException {
+        ArrayList&lt;Marca&gt; marcas;
+<span class="nc" id="L66">        marcas = persistencia.obtenerListado();</span>
+
+<span class="nc" id="L68">        return marcas;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

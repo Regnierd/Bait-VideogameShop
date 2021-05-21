@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SQLProducto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.mysql.SQL</a> &gt; <span class="el_source">SQLProducto.java</span></div><h1>SQLProducto.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.mysql.SQL;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.productos.Categoria;
+import es.iespuertodelacruz.bait.api.productos.Marca;
+import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
+
+public class SQLProducto extends Bbdd {
+<span class="nc" id="L17">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(&quot;Producto&quot;,&quot;idProducto, nombre, precio, descripcion &quot;</span>
+                             + &quot;, stock, idCategoria, idMarca&quot;);
+    SQLCategoria sqlCategoria;
+    SQLMarca sqlMarca;
+    /**
+     * Constructor basico de la clase
+    * @param driver de la conexion
+    * @param url de la base de datos
+    * @param usuario de la base de datos
+    * @param password de la base de datos
+    */
+    public SQLProducto(String driver, String url, String usuario, String password) {
+<span class="nc" id="L29">        super(driver, url, usuario, password);  </span>
+<span class="nc" id="L30">        sqlCategoria = new SQLCategoria(driver, url, usuario, password);</span>
+<span class="nc" id="L31">        sqlMarca = new SQLMarca(driver, url, usuario, password);</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Metodo que inserta un producto en la base de datos
+     * 
+     * @param producto que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Producto producto) throws PersistenciaException {
+<span class="nc" id="L41">        Connection connection = null;</span>
+<span class="nc" id="L42">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L45">            connection = getConnection();//MIRAR REFACTORIZAR</span>
+<span class="nc" id="L46">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="nc" id="L47">            preparedStatement.setString(1, producto.getIdProducto());</span>
+<span class="nc" id="L48">            preparedStatement.setString(2, producto.getNombre());</span>
+<span class="nc" id="L49">            preparedStatement.setFloat(3, producto.getPrecio());</span>
+<span class="nc" id="L50">            preparedStatement.setString(4, producto.getDescripcion());</span>
+<span class="nc" id="L51">            preparedStatement.setInt(5, producto.getStock());</span>
+<span class="nc" id="L52">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
+<span class="nc" id="L53">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
+
+<span class="nc" id="L55">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L56">        } catch (Exception e) {</span>
+<span class="nc" id="L57">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un producto&quot;, e);</span>
+        }finally{
+<span class="nc" id="L59">            closeConnection(connection, preparedStatement, null);</span>
+        }
+     
+<span class="nc" id="L62">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un producto en la base de datos
+     * 
+     * @param idProducto del producto
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idProducto) throws PersistenciaException {
+<span class="nc" id="L71">        Connection connection = null;</span>
+<span class="nc" id="L72">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="nc" id="L74">            connection = getConnection();</span>
+<span class="nc" id="L75">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(&quot;idProducto&quot;));</span>
+<span class="nc" id="L76">            preparedStatement.setString(1, idProducto);</span>
+
+<span class="nc" id="L78">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc" id="L80">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar un producto&quot;, e);</span>
+        }finally{
+<span class="nc" id="L82">            closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="nc" id="L85">    }</span>
+
+    /**
+     * Metodo encargado de modificar un producto en la base de datos
+     * @param producto a modificar
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Producto producto) throws PersistenciaException {
+<span class="nc" id="L93">        Connection connection = null;</span>
+<span class="nc" id="L94">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L97">            connection = getConnection();</span>
+<span class="nc" id="L98">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="nc" id="L99">            preparedStatement.setString(1, producto.getIdProducto());</span>
+<span class="nc" id="L100">            preparedStatement.setString(2, producto.getNombre());</span>
+<span class="nc" id="L101">            preparedStatement.setFloat(3, producto.getPrecio());</span>
+<span class="nc" id="L102">            preparedStatement.setString(4, producto.getDescripcion());</span>
+<span class="nc" id="L103">            preparedStatement.setInt(5, producto.getStock());</span>
+<span class="nc" id="L104">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
+<span class="nc" id="L105">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
+<span class="nc" id="L106">            preparedStatement.setString(8, producto.getIdProducto());</span>
+
+<span class="nc" id="L108">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L109">        } catch (Exception e) {</span>
+<span class="nc" id="L110">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un producto&quot;, e);</span>
+        }finally{
+<span class="nc" id="L112">            closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * Funcion que busca un producto en la base de datos y lo devuelve
+     * 
+     * @param idProducto del producto que se va a buscar
+     * @return producto 
+     * @throws PersistenciaException error a controlar
+     */
+    public Producto buscar(String idProducto) throws PersistenciaException {
+<span class="nc" id="L125">        Connection connection = null;</span>
+<span class="nc" id="L126">        PreparedStatement preparedStatement = null;</span>
+<span class="nc" id="L127">        ResultSet resultSet = null;</span>
+<span class="nc" id="L128">        Categoria categoria = null;</span>
+<span class="nc" id="L129">        Producto producto = null;</span>
+        try {
+<span class="nc" id="L131">            connection = getConnection();</span>
+<span class="nc" id="L132">            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(&quot;idProducto&quot;));</span>
+<span class="nc" id="L133">            preparedStatement.setString(1, idProducto);</span>
+<span class="nc" id="L134">            resultSet = preparedStatement.executeQuery();</span>
+            //REFACTORIZAR
+<span class="nc" id="L136">            String nombre = resultSet.getString(&quot;nombre &quot;);</span>
+<span class="nc" id="L137">            float precio = resultSet.getFloat(&quot;precio &quot;);</span>
+<span class="nc" id="L138">            String descripcion = resultSet.getString(&quot;descripcion &quot;);</span>
+<span class="nc" id="L139">            int stock = resultSet.getInt(&quot;stock &quot;);</span>
+<span class="nc" id="L140">            String idCategoria = resultSet.getString(&quot;idCategoria &quot;);</span>
+<span class="nc" id="L141">            String idMarca = resultSet.getString(&quot;idMarca&quot;);</span>
+
+<span class="nc" id="L143">            categoria = sqlCategoria.buscar(idCategoria);</span>
+<span class="nc" id="L144">            Marca marca = sqlMarca.buscar(idMarca);</span>
+
+<span class="nc" id="L146">            producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);</span>
+
+<span class="nc" id="L148">        } catch (SQLException e) {</span>
+<span class="nc" id="L149">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar el producto&quot;, e);</span>
+        } finally {
+<span class="nc" id="L151">            closeConnection(connection, preparedStatement, resultSet);</span>
+        }
+   
+<span class="nc" id="L154">        return producto;</span>
+    }
+
+    /**
+     * Funcion que obtiene un listado de los producto y los devuelve
+     * 
+     * @return la lista de productos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Producto&gt; obtenerListado() throws PersistenciaException {
+<span class="nc" id="L164">        Connection connection = null;</span>
+<span class="nc" id="L165">        ArrayList&lt;Producto&gt; productos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L166">        ResultSet resultSet = null;</span>
+<span class="nc" id="L167">        Statement statement = null;</span>
+
+        try {
+<span class="nc" id="L170">            connection = getConnection();</span>
+<span class="nc" id="L171">            statement = connection.createStatement();</span>
+<span class="nc" id="L172">            statement.setMaxRows(30);</span>
+
+<span class="nc" id="L174">            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());</span>
+
+<span class="nc bnc" id="L176" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L177">                String idProducto = resultSet.getString(&quot;idProducto&quot;);</span>
+<span class="nc" id="L178">                String nombre = resultSet.getString(&quot;nombre &quot;);</span>
+<span class="nc" id="L179">                float precio = resultSet.getFloat(&quot;precio &quot;);</span>
+<span class="nc" id="L180">                String descripcion = resultSet.getString(&quot;descripcion &quot;);</span>
+<span class="nc" id="L181">                int stock = resultSet.getInt(&quot;stock &quot;);</span>
+<span class="nc" id="L182">                String idCategoria = resultSet.getString(&quot;idCategoria &quot;);</span>
+<span class="nc" id="L183">                String idMarca = resultSet.getString(&quot;idMarca&quot;);</span>
+
+<span class="nc" id="L185">                Categoria categoria = sqlCategoria.buscar(idCategoria);</span>
+<span class="nc" id="L186">                Marca marca = sqlMarca.buscar(idMarca);</span>
+
+<span class="nc" id="L188">                Producto producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);</span>
+                
+<span class="nc" id="L190">                productos.add(producto);</span>
+<span class="nc" id="L191">            }</span>
+<span class="nc" id="L192">        } catch (Exception e) {</span>
+<span class="nc" id="L193">            throw new PersistenciaException(&quot;Ha ocurrido un error al obtener el listado de todos los productos&quot;, e);</span>
+        }finally{
+<span class="nc" id="L195">            closeConnection(connection, statement, resultSet);</span>
+        }
+
+<span class="nc" id="L198">        return productos;</span>
+    }
+
+    /**
+     * Obtener listado pasandole el campo y el valor
+     * @param atributo nombre campo
+     * @param valor valor del campo
+     * @return lista de productos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Producto&gt; obtenerListado(String atributo, String valor) throws PersistenciaException {
+        //REFACTORIZAR
+<span class="nc" id="L210">        Connection connection = null;</span>
+<span class="nc" id="L211">        ArrayList&lt;Producto&gt; productos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L212">        ResultSet resultSet = null;</span>
+<span class="nc" id="L213">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L216">            connection = getConnection();</span>
+<span class="nc" id="L217">            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOneLike(atributo));</span>
+<span class="nc" id="L218">            preparedStatement.setString(1, valor);</span>
+
+<span class="nc" id="L220">            resultSet = preparedStatement.executeQuery();</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L222">                String idProducto = resultSet.getString(&quot;idProducto&quot;);</span>
+<span class="nc" id="L223">                String nombre = resultSet.getString(&quot;nombre &quot;);</span>
+<span class="nc" id="L224">                float precio = resultSet.getFloat(&quot;precio &quot;);</span>
+<span class="nc" id="L225">                String descripcion = resultSet.getString(&quot;descripcion &quot;);</span>
+<span class="nc" id="L226">                int stock = resultSet.getInt(&quot;stock &quot;);</span>
+<span class="nc" id="L227">                String idCategoria = resultSet.getString(&quot;idCategoria &quot;);</span>
+<span class="nc" id="L228">                String idMarca = resultSet.getString(&quot;idMarca&quot;);</span>
+
+<span class="nc" id="L230">                Categoria categoria = sqlCategoria.buscar(idCategoria);</span>
+<span class="nc" id="L231">                Marca marca = sqlMarca.buscar(idMarca);</span>
+
+<span class="nc" id="L233">                Producto producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);</span>
+                
+<span class="nc" id="L235">                productos.add(producto);</span>
+<span class="nc" id="L236">            }</span>
+<span class="nc" id="L237">        } catch (Exception e) {</span>
+<span class="nc" id="L238">            throw new PersistenciaException(&quot;Ha ocurrido un error al obtener el listado de todos los productos&quot;, e);</span>
+        }finally{
+<span class="nc" id="L240">            closeConnection(connection, preparedStatement, resultSet);</span>
+        }
+
+<span class="nc" id="L243">        return productos;</span>
+    }
+
+    public ArrayList&lt;Producto&gt; buscarPorCategoria(String idCategoria) throws PersistenciaException {
+<span class="nc" id="L247">        String atributo = &quot;idCategoria&quot;;</span>
+<span class="nc" id="L248">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="nc" id="L249">        productos = obtenerListado(atributo, idCategoria);</span>
+        
+<span class="nc" id="L251">        return productos;</span>
+    }
+
+    public ArrayList&lt;Producto&gt; buscarPorMarca(String idMarca) throws PersistenciaException {
+<span class="nc" id="L255">        String atributo = &quot;idMarca&quot;;</span>
+<span class="nc" id="L256">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="nc" id="L257">        productos = obtenerListado(atributo, idMarca);</span>
+        
+<span class="nc" id="L259">        return productos;</span>
+    }
+
+    public ArrayList&lt;Producto&gt; buscarPorNombre(String nombre) throws PersistenciaException {
+<span class="nc" id="L263">        String atributo = &quot;nombre&quot;;</span>
+<span class="nc" id="L264">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="nc" id="L265">        productos = obtenerListado(atributo, nombre);</span>
+        
+<span class="nc" id="L267">        return productos;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

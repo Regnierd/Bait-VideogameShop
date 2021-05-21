@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pedido.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.api.movimientos</a> &gt; <span class="el_source">Pedido.java</span></div><h1>Pedido.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.api.movimientos;
 
-import es.iespuertodelacruz.bait.api.personas.Cliente;
+import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
 public class Pedido {
@@ -9,7 +9,7 @@ public class Pedido {
     private int unidades;
     private float total;
     private String fechaPedido;
-    private Cliente cliente;
+    private Usuario cliente;
     private Producto producto;
 
     /**
@@ -27,7 +27,7 @@ public class Pedido {
      * @param cliente del pedido
      * @param producto del pedido
      */
-<span class="nc" id="L30">    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Cliente cliente, Producto producto) {</span>
+<span class="nc" id="L30">    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario cliente, Producto producto) {</span>
 <span class="nc" id="L31">        this.idPedido = idPedido;</span>
 <span class="nc" id="L32">        this.unidades = unidades;</span>
 <span class="nc" id="L33">        this.total = total;</span>
@@ -70,11 +70,11 @@ public class Pedido {
 <span class="nc" id="L70">        this.fechaPedido = fechaPedido;</span>
 <span class="nc" id="L71">    }</span>
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
 <span class="nc" id="L74">        return this.cliente;</span>
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
 <span class="nc" id="L78">        this.cliente = cliente;</span>
 <span class="nc" id="L79">    }</span>
 

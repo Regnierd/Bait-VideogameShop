@@ -47,10 +47,10 @@ public class MenuAdmin {
         String password;
         System.out.println("Login Admin");
         System.out.println("Introduce nombre acceso.");
-        nombreAcceso = sn.nextLine();
+        nombreAcceso = sn.next();
         System.out.println("Introduce la password");
-        password = sn.nextLine();
-
+        password = sn.next();
+        sn.nextLine();
         try {
             usuario = usuarioController.login(nombreAcceso, password, "Admin");
             menuOpciones(usuario);

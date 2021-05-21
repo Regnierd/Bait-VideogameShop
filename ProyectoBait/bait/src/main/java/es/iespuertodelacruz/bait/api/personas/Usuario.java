@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.api.personas;
 
+import java.util.Objects;
+
 public class Usuario {
     protected static final String DELIMITADOR = ",";
     private String dni;
@@ -163,6 +165,17 @@ public class Usuario {
         this.rol = rol;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Usuario)) {
+            return false;
+        }
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(dni, usuario.dni) && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellidos, usuario.apellidos) && Objects.equals(email, usuario.email) && Objects.equals(direccion, usuario.direccion) && Objects.equals(telefono, usuario.telefono) && Objects.equals(pais, usuario.pais) && Objects.equals(codigoPostal, usuario.codigoPostal) && Objects.equals(provincia, usuario.provincia) && Objects.equals(nombreUsuario, usuario.nombreUsuario) && Objects.equals(password, usuario.password) && Objects.equals(rol, usuario.rol) && saldo == usuario.saldo;
+    }
 
     @Override
     public String toString() {

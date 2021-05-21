@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SQLUsuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.mysql.SQL</a> &gt; <span class="el_source">SQLUsuario.java</span></div><h1>SQLUsuario.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.mysql.SQL;
+
+import java.lang.reflect.Parameter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+
+import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
+
+
+public class SQLUsuario extends Bbdd {
+<span class="fc" id="L17">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(&quot;Usuario&quot;, &quot;dni, nombre, apellidos, email, direccion&quot;</span>
+            + &quot;, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo&quot;);
+
+    /**
+     * Constructor basico de la clase
+     */
+    public SQLUsuario(String driver, String url, String usuario, String password) {
+<span class="fc" id="L24">        super(driver, url, usuario, password);</span>
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Metodo que inserta un Usuario en la base de datos
+     * 
+     * @param usuario que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Usuario usuario) throws PersistenciaException {
+<span class="fc" id="L34">        Connection connection = null;</span>
+<span class="fc" id="L35">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L38">            connection = getConnection();</span>
+<span class="fc" id="L39">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="fc" id="L40">            preparedStatement.setString(1, usuario.getDni());</span>
+<span class="fc" id="L41">            preparedStatement.setString(2, usuario.getNombre());</span>
+<span class="fc" id="L42">            preparedStatement.setString(3, usuario.getApellidos());</span>
+<span class="fc" id="L43">            preparedStatement.setString(4, usuario.getEmail());</span>
+<span class="fc" id="L44">            preparedStatement.setString(5, usuario.getDireccion());</span>
+<span class="fc" id="L45">            preparedStatement.setString(6, usuario.getTelefono());</span>
+<span class="fc" id="L46">            preparedStatement.setString(7, usuario.getPais());</span>
+<span class="fc" id="L47">            preparedStatement.setString(8, usuario.getCodigoPostal());</span>
+<span class="fc" id="L48">            preparedStatement.setString(9, usuario.getProvincia());</span>
+<span class="fc" id="L49">            preparedStatement.setString(10, usuario.getNombreUsuario());</span>
+<span class="fc" id="L50">            preparedStatement.setString(11, usuario.getPassword());</span>
+<span class="fc" id="L51">            preparedStatement.setString(12, usuario.getRol());</span>
+<span class="fc" id="L52">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
+            
+<span class="fc" id="L54">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un usuario&quot;, e);</span>
+        }finally{
+<span class="fc" id="L58">            closeConnection(connection, preparedStatement, null);</span>
+        }
+    
+<span class="fc" id="L61">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un usuario en la base de datos
+     * 
+     * @param dni del usuario
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String dni) throws PersistenciaException {
+<span class="fc" id="L70">        Connection connection = null;</span>
+<span class="fc" id="L71">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L74">            connection = getConnection();</span>
+<span class="fc" id="L75">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(&quot;dni&quot;));</span>
+<span class="fc" id="L76">            preparedStatement.setString(1, dni);</span>
+
+<span class="fc" id="L78">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc" id="L80">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar un usuario&quot;, e);</span>
+        }finally{
+<span class="fc" id="L82">            closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Metodo que modifica un campo en conreto de la base datos
+     * @param usuario usuario con los nuevos cambios
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Usuario usuario) throws PersistenciaException {
+<span class="fc" id="L93">        Connection connection = null;</span>
+<span class="fc" id="L94">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L97">            connection = getConnection();</span>
+<span class="fc" id="L98">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L99">            preparedStatement.setString(1, usuario.getDni());</span>
+<span class="fc" id="L100">            preparedStatement.setString(2, usuario.getNombre());</span>
+<span class="fc" id="L101">            preparedStatement.setString(3, usuario.getApellidos());</span>
+<span class="fc" id="L102">            preparedStatement.setString(4, usuario.getEmail());</span>
+<span class="fc" id="L103">            preparedStatement.setString(5, usuario.getDireccion());</span>
+<span class="fc" id="L104">            preparedStatement.setString(6, usuario.getTelefono());</span>
+<span class="fc" id="L105">            preparedStatement.setString(7, usuario.getPais());</span>
+<span class="fc" id="L106">            preparedStatement.setString(8, usuario.getCodigoPostal());</span>
+<span class="fc" id="L107">            preparedStatement.setString(9, usuario.getProvincia());</span>
+<span class="fc" id="L108">            preparedStatement.setString(10, usuario.getNombreUsuario());</span>
+<span class="fc" id="L109">            preparedStatement.setString(11, usuario.getPassword());</span>
+<span class="fc" id="L110">            preparedStatement.setString(12, usuario.getRol());</span>
+<span class="fc" id="L111">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
+<span class="fc" id="L112">            preparedStatement.setString(14, usuario.getDni());</span>
+
+<span class="fc" id="L114">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L115">        } catch (Exception e) {</span>
+<span class="nc" id="L116">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un usuario&quot;, e);</span>
+        }finally{
+<span class="fc" id="L118">            closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+<span class="fc" id="L121">    }</span>
+
+    /**
+     * Funcion que busca un usuario en la base de datos y lo devuelve
+     * @param dni del usuario que se va a buscar
+     * @return
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscar(String parematro, String valor) throws PersistenciaException{
+<span class="fc" id="L130">        Connection connection = null;    </span>
+<span class="fc" id="L131">        ResultSet resultSet = null;</span>
+        Usuario usuario;    
+<span class="fc" id="L133">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L136">            connection = getConnection();</span>
+<span class="fc" id="L137">            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(parematro));</span>
+<span class="fc" id="L138">            preparedStatement.setString(1, valor);</span>
+<span class="fc" id="L139">            resultSet = preparedStatement.executeQuery();</span>
+
+<span class="fc" id="L141">            String dni = resultSet.getString(&quot;dni&quot;);</span>
+<span class="fc" id="L142">            String nombre = resultSet.getString(&quot;nombre&quot;);</span>
+<span class="fc" id="L143">            String apellidos = resultSet.getString(&quot;apellidos&quot;);</span>
+<span class="fc" id="L144">            String email = resultSet.getString(&quot;email&quot;);</span>
+<span class="fc" id="L145">            String direccion = resultSet.getString(&quot;direccion&quot;);</span>
+<span class="fc" id="L146">            String telefono = resultSet.getString(&quot;telefono&quot;);</span>
+<span class="fc" id="L147">            String pais = resultSet.getString(&quot;pais&quot;);</span>
+<span class="fc" id="L148">            String codigoPostal = resultSet.getString(&quot;codigoPostal&quot;);</span>
+<span class="fc" id="L149">            String provincia = resultSet.getString(&quot;provincia&quot;);</span>
+<span class="fc" id="L150">            String nombreUsuario = resultSet.getString(&quot;nombreUsuario&quot;);</span>
+<span class="fc" id="L151">            String password = resultSet.getString(&quot;password&quot;);</span>
+<span class="fc" id="L152">            String rol = resultSet.getString(&quot;rol&quot;);</span>
+<span class="fc" id="L153">            Float saldo = resultSet.getFloat(&quot;saldo&quot;);</span>
+<span class="fc" id="L154">            usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo);</span>
+            
+<span class="nc" id="L156">        } catch (SQLException e) {</span>
+<span class="nc" id="L157">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar al usuario&quot;, e);</span>
+        } finally {
+<span class="fc" id="L159">            closeConnection(connection, preparedStatement, resultSet);</span>
+        }
+
+<span class="fc" id="L162">        return usuario;</span>
+    }
+
+    /**
+     * Funcion que busca un usuario por su dni
+     * @param dni de la persona que se va abuscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscaPorDni(String dni) throws PersistenciaException {
+        Usuario usuario;
+
+<span class="fc" id="L174">        usuario = buscar(&quot;dni&quot;, dni);</span>
+
+<span class="fc" id="L176">        return usuario;</span>
+    }
+
+    /**
+     * Funcion que buscar un usuario por su nombre de usuario
+     * @param nombreUsuario del usuario que se va a buscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
+        Usuario usuario;
+
+<span class="nc" id="L188">        usuario = buscar(&quot;nombreUsuario&quot;, nombreUsuario);</span>
+
+<span class="nc" id="L190">        return usuario;</span>
+    }
+
+    /**
+     * Funcion que obtiene un listado de los usuarios y los devuelve
+     * @return la lista de usaurio
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Usuario&gt; obtenerListado() throws PersistenciaException {
+<span class="nc" id="L199">        Connection connection = null;</span>
+<span class="nc" id="L200">        ArrayList&lt;Usuario&gt; usuarios = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L201">        ResultSet resultSet = null;</span>
+<span class="nc" id="L202">        Statement statement = null;</span>
+
+        try {
+<span class="nc" id="L205">            connection = getConnection();</span>
+<span class="nc" id="L206">            statement = connection.createStatement();</span>
+<span class="nc" id="L207">            statement.setMaxRows(30);</span>
+
+<span class="nc" id="L209">            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L211">                String dni = resultSet.getString(&quot;dni&quot;);</span>
+<span class="nc" id="L212">                String nombre = resultSet.getString(&quot;nombre &quot;);</span>
+<span class="nc" id="L213">                String apellidos = resultSet.getString(&quot;apellidos&quot;);</span>
+<span class="nc" id="L214">                String email = resultSet.getString(&quot;email&quot;);</span>
+<span class="nc" id="L215">                String direccion = resultSet.getString(&quot;direccion&quot;);</span>
+<span class="nc" id="L216">                String telefono = resultSet.getString(&quot;telefono&quot;);</span>
+<span class="nc" id="L217">                String pais = resultSet.getString(&quot;pais&quot;);</span>
+<span class="nc" id="L218">                String codigoPostal = resultSet.getString(&quot;codigoPostal&quot;);</span>
+<span class="nc" id="L219">                String provincia = resultSet.getString(&quot;provincia&quot;);</span>
+<span class="nc" id="L220">                String nombreUsuario = resultSet.getString(&quot;nombreUsuario&quot;);</span>
+<span class="nc" id="L221">                String password = resultSet.getString(&quot;password&quot;);</span>
+<span class="nc" id="L222">                String rol = resultSet.getString(&quot;rol&quot;);</span>
+<span class="nc" id="L223">                Float saldo = resultSet.getFloat(&quot;saldo&quot;);</span>
+<span class="nc" id="L224">                Usuario usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal,</span>
+<span class="nc" id="L225">                        provincia, nombreUsuario, password, rol, saldo);</span>
+<span class="nc" id="L226">                usuarios.add(usuario);</span>
+<span class="nc" id="L227">            }</span>
+<span class="nc" id="L228">        } catch (Exception e) {</span>
+<span class="nc" id="L229">            throw new PersistenciaException(&quot;Ha ocurrido un error al obtener toda la lista de usuarios&quot;, e);</span>
+        }finally{
+<span class="nc" id="L231">            closeConnection(connection, statement, resultSet);</span>
+        }
+
+<span class="nc" id="L234">        return usuarios;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

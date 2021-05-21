@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SQLPedido.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.mysql.SQL</a> &gt; <span class="el_source">SQLPedido.java</span></div><h1>SQLPedido.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.mysql.SQL;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
+import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
+
+public class SQLPedido extends Bbdd {
+<span class="nc" id="L17">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(&quot;Pedido&quot;, &quot;idPedido,unidades,total,fechaPedido,idCliente,idProducto&quot;);</span>
+    SQLUsuario sqlUsuario;
+    SQLProducto sqlProducto;
+
+    /**
+     * Contructor basico de la clase
+     */
+    public SQLPedido(String driver, String url, String usuario, String password) {
+<span class="nc" id="L25">        super(driver, url, usuario, password);</span>
+<span class="nc" id="L26">        sqlProducto = new SQLProducto(driver, url, usuario, password);</span>
+<span class="nc" id="L27">        sqlUsuario = new SQLUsuario(driver, url, usuario, password);</span>
+<span class="nc" id="L28">    }</span>
+
+    /**
+     * Metodo que inserta un pedido en la base de datos
+     * 
+     * @param pedido que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Pedido pedido) throws PersistenciaException {
+<span class="nc" id="L37">        Connection connection = null;</span>
+<span class="nc" id="L38">        PreparedStatement preparedStatement = null;</span>
+
+<span class="nc" id="L40">        connection = getConnection();</span>
+        try {
+<span class="nc" id="L42">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="nc" id="L43">            preparedStatement.setString(1, pedido.getIdPedido());</span>
+<span class="nc" id="L44">            preparedStatement.setInt(2, pedido.getUnidades());</span>
+<span class="nc" id="L45">            preparedStatement.setFloat(3, pedido.getTotal());</span>
+<span class="nc" id="L46">            preparedStatement.setString(4, pedido.getFechaPedido());</span>
+<span class="nc" id="L47">            preparedStatement.setString(5, pedido.getCliente().getDni());</span>
+<span class="nc" id="L48">            preparedStatement.setString(6, pedido.getProducto().getIdProducto());</span>
+
+<span class="nc" id="L50">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L51">        } catch (SQLException e) {</span>
+<span class="nc" id="L52">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el pedido.&quot;, e);</span>
+        }finally{
+<span class="nc" id="L54">            closeConnection(connection, preparedStatement, null);</span>
+        }
+
+        
+<span class="nc" id="L58">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un pedido en la base de datos
+     * 
+     * @param idPedido identificador del pedido
+     * @param PersistenciaException error en caso de no poder eliminar
+     */
+    public void eliminar(String idPedido) throws PersistenciaException {
+<span class="nc" id="L67">        Connection connection = null;</span>
+<span class="nc" id="L68">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L71">            connection = getConnection();</span>
+<span class="nc" id="L72">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(&quot;idPedido&quot;));</span>
+<span class="nc" id="L73">            preparedStatement.setString(1, idPedido);</span>
+
+<span class="nc" id="L75">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L76">        } catch (SQLException e) {</span>
+<span class="nc" id="L77">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar el pedido&quot;, e);</span>
+        }finally{
+<span class="nc" id="L79">            closeConnection(connection, preparedStatement, null);</span>
+        }
+
+        
+<span class="nc" id="L83">    }</span>
+
+    /**
+     * Metodo que modifica un campo en concreto de la base de datos
+     * 
+     * @param pedido modificado
+     * @throws PersistenciaException error controlado
+     */
+    public void modificar(Pedido pedido) throws PersistenciaException {
+<span class="nc" id="L92">        Connection connection = null;</span>
+<span class="nc" id="L93">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L96">            connection = getConnection();</span>
+<span class="nc" id="L97">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="nc" id="L98">            preparedStatement.setString(1, pedido.getIdPedido());</span>
+<span class="nc" id="L99">            preparedStatement.setInt(2, pedido.getUnidades());</span>
+<span class="nc" id="L100">            preparedStatement.setFloat(3, pedido.getTotal());</span>
+<span class="nc" id="L101">            preparedStatement.setString(4, pedido.getFechaPedido());</span>
+<span class="nc" id="L102">            preparedStatement.setString(5, pedido.getCliente().getDni());</span>
+<span class="nc" id="L103">            preparedStatement.setString(6, pedido.getProducto().getIdProducto());</span>
+<span class="nc" id="L104">            preparedStatement.setString(7, pedido.getIdPedido());</span>
+            
+<span class="nc" id="L106">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L107">        } catch (SQLException e) {</span>
+<span class="nc" id="L108">            throw new PersistenciaException(&quot;Ha courrido un error al modificar la categoria&quot;, e);</span>
+        }finally{
+<span class="nc" id="L110">            closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * Funcion que busca un pedido en la base de datos y la devuelve
+     * 
+     * @param idPedido identificador del pedido
+     * @return el pedido buscado
+     * @throws persistenciaException error controlado
+     */
+    public Pedido buscar(String idPedido) throws PersistenciaException {
+<span class="nc" id="L123">        Connection connection = null;</span>
+<span class="nc" id="L124">        ResultSet resultSet = null;</span>
+<span class="nc" id="L125">        Pedido pedido = null;</span>
+<span class="nc" id="L126">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L129">            connection = getConnection();</span>
+<span class="nc" id="L130">            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(&quot;idPedido&quot;));</span>
+<span class="nc" id="L131">            preparedStatement.setString(1, idPedido);</span>
+<span class="nc" id="L132">            resultSet = preparedStatement.executeQuery();</span>
+
+<span class="nc" id="L134">            int unidades = resultSet.getInt(&quot;unidades&quot;);</span>
+<span class="nc" id="L135">            float total = resultSet.getFloat(&quot;total&quot;);</span>
+<span class="nc" id="L136">            String fechaPedido = resultSet.getString(&quot;fechaPedido&quot;);</span>
+<span class="nc" id="L137">            String dni = resultSet.getString(&quot;dni&quot;);</span>
+<span class="nc" id="L138">            String idProducto = resultSet.getString(&quot;idProducto&quot;);</span>
+
+<span class="nc" id="L140">            Usuario usuario = sqlUsuario.buscaPorDni(dni);</span>
+<span class="nc" id="L141">            Producto producto = sqlProducto.buscar(idProducto);</span>
+
+<span class="nc" id="L143">            pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);</span>
+            
+<span class="nc" id="L145">        } catch (SQLException e) {</span>
+<span class="nc" id="L146">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar el pedido&quot;, e);</span>
+        } finally {
+<span class="nc" id="L148">            closeConnection(connection, preparedStatement, resultSet);</span>
+        }
+
+<span class="nc" id="L151">        return pedido;</span>
+    }
+
+    /**
+     * Funcion que obtiene un listado de los pedidos de un usuario en concreto
+     * @param dni de la persona que se van a obtener su lista de pedidos
+     * @return la lista de pedidos del usuario
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException{
+<span class="nc" id="L161">        Connection connection = null;</span>
+<span class="nc" id="L162">        ArrayList&lt;Pedido&gt; pedidos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L163">        ResultSet resultSet = null;</span>
+<span class="nc" id="L164">        Statement statement = null;</span>
+        Pedido pedido;
+
+        try {
+<span class="nc" id="L168">            connection = getConnection();</span>
+<span class="nc" id="L169">            statement = connection.createStatement();</span>
+<span class="nc" id="L170">            statement.setMaxRows(30);</span>
+
+<span class="nc" id="L172">            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L174">                String idPedido = resultSet.getString(&quot;idPedido&quot;);</span>
+<span class="nc" id="L175">                int unidades = resultSet.getInt(&quot;unidades&quot;);</span>
+<span class="nc" id="L176">                float total = resultSet.getFloat(&quot;total&quot;);</span>
+<span class="nc" id="L177">                String fechaPedido = resultSet.getString(&quot;fechaPedido&quot;);</span>
+<span class="nc" id="L178">                String idProducto = resultSet.getString(&quot;idProducto&quot;);</span>
+    
+<span class="nc" id="L180">                Usuario usuario = sqlUsuario.buscaPorDni(dni);</span>
+<span class="nc" id="L181">                Producto producto = sqlProducto.buscar(idProducto);</span>
+    
+<span class="nc" id="L183">                pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);</span>
+<span class="nc" id="L184">                pedidos.add(pedido);</span>
+<span class="nc" id="L185">            }               </span>
+<span class="nc" id="L186">        } catch (SQLException e) {</span>
+<span class="nc" id="L187">            throw new PersistenciaException(&quot;Ha ocurrido un error al obtener el listado de pedidos&quot;, e);</span>
+        }finally{
+<span class="nc" id="L189">            closeConnection(connection, statement, resultSet);</span>
+        }
+<span class="nc" id="L191">        return pedidos;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

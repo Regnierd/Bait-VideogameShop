@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.controlador.personasController</a> &gt; <span class="el_source">UsuarioController.java</span></div><h1>UsuarioController.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.controlador.personasController;
+
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
+
+public class UsuarioController {
+    UsuarioModelo usuarioModelo;
+
+<span class="nc" id="L13">    public UsuarioController() {</span>
+<span class="nc" id="L14">        usuarioModelo = new UsuarioModelo();</span>
+<span class="nc" id="L15">    }</span>
+
+    /**
+     * Metodo encargado de validar todos los atributos de un usuario
+     * @param usuario a validar
+     * @throws ApiException mensaje controlado
+     */
+    public void validar(Usuario usuario) throws ApiException{
+<span class="nc" id="L23">        String mensaje = &quot;&quot;;</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        if(usuario == null){</span>
+<span class="nc" id="L25">            mensaje = &quot;El usuario no puede ser nulo&quot;;</span>
+<span class="nc" id="L26">            throw new ApiException(mensaje);</span>
+        }
+<span class="nc bnc" id="L28" title="All 4 branches missed.">        if(usuario.getDni() == null || usuario.getDni().isEmpty()){</span>
+<span class="nc" id="L29">            mensaje += &quot;El DNI no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L31" title="All 4 branches missed.">        if(usuario.getNombre() == null || usuario.getNombre().isEmpty()){</span>
+<span class="nc" id="L32">            mensaje += &quot;El nombre no pueden ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L34" title="All 4 branches missed.">        if(usuario.getApellidos() == null || usuario.getApellidos().isEmpty()){</span>
+<span class="nc" id="L35">            mensaje += &quot;Los apellidos no pueden ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L37" title="All 4 branches missed.">        if(usuario.getEmail() == null || usuario.getEmail().isEmpty()){</span>
+<span class="nc" id="L38">            mensaje += &quot;El email no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L40" title="All 4 branches missed.">        if(usuario.getDireccion() == null || usuario.getDireccion().isEmpty()){</span>
+<span class="nc" id="L41">            mensaje += &quot;La direccion no puede ser nula o vacia&quot;;</span>
+        }   
+<span class="nc bnc" id="L43" title="All 4 branches missed.">        if(usuario.getTelefono() == null || usuario.getTelefono().isEmpty()){</span>
+<span class="nc" id="L44">            mensaje += &quot;El telefono no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L46" title="All 4 branches missed.">        if(usuario.getCodigoPostal() == null || usuario.getCodigoPostal().isEmpty()){</span>
+<span class="nc" id="L47">            mensaje += &quot;El codigo postal no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L49" title="All 4 branches missed.">        if(usuario.getProvincia() == null || usuario.getProvincia().isEmpty()){</span>
+<span class="nc" id="L50">            mensaje += &quot;La provincia no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L52" title="All 4 branches missed.">        if(usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isEmpty()){</span>
+<span class="nc" id="L53">            mensaje += &quot;El nombre de usuario no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L55" title="All 4 branches missed.">        if(usuario.getPassword() == null || usuario.getPassword().isEmpty()){</span>
+<span class="nc" id="L56">            mensaje += &quot;La contraseña no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if(!mensaje.isEmpty()){</span>
+<span class="nc" id="L59">            throw new ApiException(mensaje);</span>
+        }
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Funcion que busca un usuario por su dni y lo retorn
+     * @param dni del usuario que se va a buscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscar(String dni) throws PersistenciaException {
+<span class="nc" id="L70">        Usuario usuario = null;</span>
+<span class="nc" id="L71">        usuario = usuarioModelo.buscar(dni);</span>
+        
+<span class="nc" id="L73">        return usuario;</span>
+    }
+
+    /**
+     * Funcion que comprueba los datos introducidos por el usuario para realizar ç
+     * el loin
+     * @param nombreUsuario del usuario
+     * @param password del usuario
+     * @param rol del usuario
+     * @return el usuario si es valido
+     * @throws PersistenciaException
+     * @throws ApiException
+     */
+    public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
+<span class="nc" id="L87">        Usuario usuario = null;</span>
+<span class="nc" id="L88">        usuario = usuarioModelo.login(nombreUsuario);</span>
+
+<span class="nc bnc" id="L90" title="All 4 branches missed.">        if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {</span>
+<span class="nc" id="L91">            throw new ApiException(&quot;Las credenciales introducidas son incorrectas&quot;);</span>
+        }
+
+<span class="nc" id="L94">        return usuario;</span>
+    }
+
+    /**
+     * Metodo que inserta un usuario 
+     * @param usuario que se va a insertar
+     * @throws ApiException error a controlar
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Usuario usuario) throws ApiException, PersistenciaException{
+<span class="nc" id="L104">        validar(usuario);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (existe(usuario)) {</span>
+<span class="nc" id="L106">           throw new ApiException(&quot;El usuario indicado ya existe.&quot;);</span>
+        }
+<span class="nc" id="L108">        usuarioModelo.insertar(usuario); </span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * Metodo que elimina un usuario
+     * @param dni del usuario qu ese va a borrar
+     * @throws PersistenciaException
+     * @throws ApiException
+     */
+    public void eliminar(String dni) throws PersistenciaException, ApiException {
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        if (!existe(buscar(dni))) {</span>
+<span class="nc" id="L119">            throw new ApiException(&quot;El usuario que quiere borrar no existe&quot;);</span>
+        }
+<span class="nc" id="L121">        usuarioModelo.eliminar(dni);</span>
+<span class="nc" id="L122">    }</span>
+
+    /**
+     * Comrpueba si el usuario exite
+     * @param usuario que se va a buscar
+     * @return verdadero/falso
+     * @throws PersistenciaException
+     */
+    private boolean existe(Usuario usuario) throws PersistenciaException {
+<span class="nc" id="L131">        boolean encontrada = false;</span>
+        Usuario usuarioEncontrado;
+   
+<span class="nc" id="L134">        usuarioEncontrado = buscar(usuario.getDni());</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (usuarioEncontrado != null) {</span>
+<span class="nc" id="L136">           encontrada = true;</span>
+        }  
+
+<span class="nc" id="L139">        return encontrada;</span>
+    }
+
+    /**
+     * Funcion que añade saldo a un usuario
+     * @param usuario que se le va a añadir saldo
+     * @param saldo que se va a sumar al actula del usuario
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException
+     */
+    public void añadirSaldo(Usuario usuario,float saldo) throws PersistenciaException, ApiException{
+<span class="nc" id="L150">        validar(usuario);</span>
+        float saldoActual;
+<span class="nc" id="L152">        saldoActual = usuario.getSaldo();</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (saldo &lt;= 0) {</span>
+<span class="nc" id="L154">            throw new ApiException(&quot;El saldo a añadir no puede menor o igual que 0.&quot;);</span>
+        }
+<span class="nc" id="L156">        usuario.setSaldo(saldoActual + saldo);</span>
+<span class="nc" id="L157">        modificar(usuario);</span>
+<span class="nc" id="L158">    }</span>
+
+    /**
+     * Metodo que modfica un usuario en la base datos 
+     * @param usuario con los cambios que se van a añadir
+     * @throws ApiException error a controlar
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Usuario usuario) throws ApiException, PersistenciaException{
+<span class="nc" id="L167">        validar(usuario);</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (!existe(usuario)) {</span>
+<span class="nc" id="L169">            throw new ApiException(&quot;El usuario que quiere modificar no existe.&quot;);</span>
+        }
+<span class="nc" id="L171">        usuarioModelo.modificar(usuario);</span>
+<span class="nc" id="L172">    }</span>
+
+    /**
+     * Funcion que obtiene una lista de todos los usuarios
+     * @return lista de usuario
+     * @throws PersistenciaException error controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList&lt;Usuario&gt; obtenerListado() throws PersistenciaException, ApiException {
+<span class="nc" id="L181">        ArrayList&lt;Usuario&gt; usuarios = null;</span>
+<span class="nc" id="L182">        usuarios = usuarioModelo.obtenerListado();</span>
+<span class="nc bnc" id="L183" title="All 4 branches missed.">        if ( usuarios == null || usuarios.isEmpty()) {</span>
+<span class="nc" id="L184">            throw new ApiException(&quot;La lista de usuario es vacia o nula&quot;);</span>
+        }
+<span class="nc" id="L186">        return usuarios;</span>
+    }
+   
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

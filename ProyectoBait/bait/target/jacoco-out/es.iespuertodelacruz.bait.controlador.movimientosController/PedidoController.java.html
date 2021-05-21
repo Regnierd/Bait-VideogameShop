@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PedidoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.controlador.movimientosController</a> &gt; <span class="el_source">PedidoController.java</span></div><h1>PedidoController.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.controlador.movimientosController;
 
-<span class="nc" id="L3">public class PedidoController {</span>
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.movimientosModelo.PedidoModelo;
+
+public class PedidoController {
+
+    PedidoModelo pedidoModelo;
+
+<span class="nc" id="L14">    public PedidoController(){</span>
+<span class="nc" id="L15">        pedidoModelo = new PedidoModelo();</span>
+<span class="nc" id="L16">    }</span>
+
+    /**
+     * Metodo encargado de validar un pedido
+     * @param pedido a validar
+     */
+    public void validar(Pedido pedido) throws ApiException{
+<span class="nc" id="L23">        String mensaje = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if(pedido == null){</span>
+<span class="nc" id="L26">            mensaje = &quot;Se esta intentando validar un objeto vacio&quot;;</span>
+<span class="nc" id="L27">            throw new ApiException(mensaje);</span>
+        }
+
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if(pedido.getIdPedido() == null || pedido.getIdPedido().isEmpty()){</span>
+<span class="nc" id="L31">            mensaje = &quot;El idPedido del pedido es nulo o vacio \n&quot;;</span>
+        }
+
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if(pedido.getUnidades() &lt;= 0){</span>
+<span class="nc" id="L35">            mensaje += &quot;Las unidades del pedido es 0 o menor&quot;;</span>
+        }
+        
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if(pedido.getTotal() &lt;= 0){</span>
+<span class="nc" id="L39">            mensaje += &quot;El total del pedido es 0 o menor&quot;;</span>
+        }
+
+<span class="nc bnc" id="L42" title="All 4 branches missed.">        if(pedido.getFechaPedido() == null || pedido.getFechaPedido().isEmpty()){</span>
+<span class="nc" id="L43">            mensaje += &quot;La fecha del pedido es nulo o vacio&quot;;</span>
+        }
+
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(pedido.getCliente() == null){</span>
+<span class="nc" id="L47">            mensaje += &quot;Se esta intentando validar un usuario vacio&quot;;</span>
+        }
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if(pedido.getProducto() == null){</span>
+<span class="nc" id="L51">            mensaje += &quot;Se esta intentando validar un producto vacio&quot;;</span>
+        }
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(!mensaje.isEmpty()){</span>
+<span class="nc" id="L55">            throw new ApiException(mensaje);</span>
+        }
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * Metodo encargado de insertar
+     * @param pedido a insertar
+     * @throws ApiException con mensaje controlado
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public void insertar(Pedido pedido) throws ApiException, PersistenciaException{
+<span class="nc" id="L66">        validar(pedido);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if(existe(pedido)){</span>
+<span class="nc" id="L68">            throw new ApiException(&quot;El pedido ya existe&quot;);          </span>
+        }
+<span class="nc" id="L70">        pedidoModelo.insertar(pedido);</span>
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * Metodo encargado de eliminar
+     * @param idPedido a eliminar
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public void eliminar(String idPedido) throws PersistenciaException{
+<span class="nc" id="L79">        pedidoModelo.eliminar(idPedido);</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Metodo encargado de buscar por idPedido
+     * @param idPedido del pedido
+     * @return Pedido
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public Pedido buscar(String idPedido) throws PersistenciaException{
+<span class="nc" id="L89">        Pedido pedido = null;</span>
+<span class="nc" id="L90">        pedido = pedidoModelo.buscar(idPedido);</span>
+<span class="nc" id="L91">        return pedido;</span>
+    }
+
+     /**
+    * Metodo encargado de realizar la modificacion de un pedido
+    * @param pedido a modficar
+    * @throws ApiException con mensaje controlado
+    * @throws PersistenciaException con mensaje controlado
+    */
+    public void modificar(Pedido pedido) throws ApiException, PersistenciaException {
+        Pedido pedidoAlmacenado;
+        
+<span class="nc" id="L103">        validar(pedido);</span>
+<span class="nc" id="L104">        pedidoAlmacenado = buscar(pedido.getIdPedido());</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (pedidoAlmacenado == null) {</span>
+<span class="nc" id="L106">        throw new ApiException(&quot;El pedido indicado no existe&quot;);</span>
+        }
+<span class="nc" id="L108">        pedidoModelo.modificar(pedidoAlmacenado);</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * Funcion encargada de verificar si existe el pedido
+     * @param pedido a encontrar
+     * @return boolean
+     * @throws BbddException
+     */
+    private boolean existe(Pedido pedido) throws PersistenciaException{
+<span class="nc" id="L118">        boolean encontrada = false;</span>
+        Pedido pedidoEncontrado;
+
+<span class="nc" id="L121">        pedidoEncontrado = buscar(pedido.getIdPedido());</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if(pedidoEncontrado != null){</span>
+<span class="nc" id="L123">            encontrada = true;</span>
+        }
+        
+<span class="nc" id="L126">        return encontrada;</span>
+    }
+
+    /**
+     * Funcion encargada de mostrar todos los pedidos de un usuario
+     * @param dni del usuario
+     * @return ArrayList de Pedidos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException{
+        ArrayList&lt;Pedido&gt; pedidos;
+<span class="nc" id="L137">        pedidos = pedidoModelo.obtenerListado(dni);</span>
+<span class="nc" id="L138">        return pedidos;</span>
+
+    }
 
     public void realizarPedido(String idProducto, int unidades) {
-<span class="nc" id="L6">    }</span>
+        //codigo
+<span class="nc" id="L144">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

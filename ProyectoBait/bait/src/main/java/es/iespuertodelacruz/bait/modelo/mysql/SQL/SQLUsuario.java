@@ -14,7 +14,7 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 
 public class SQLUsuario extends Bbdd {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Cliente", "dni, nombre, apellidos, email, direccion"
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Usuario", "dni, nombre, apellidos, email, direccion"
             + ", telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo");
 
     /**
@@ -126,7 +126,7 @@ public class SQLUsuario extends Bbdd {
      * @return
      * @throws PersistenciaException error a controlar
      */
-    public Usuario buscar(String parematro, String valor) throws PersistenciaException{
+    public Usuario buscar(String parametro, String valor) throws PersistenciaException{
         Connection connection = null;    
         ResultSet resultSet = null;
         Usuario usuario;    
@@ -134,12 +134,12 @@ public class SQLUsuario extends Bbdd {
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(parematro));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(parametro));
             preparedStatement.setString(1, valor);
             resultSet = preparedStatement.executeQuery();
 
             String dni = resultSet.getString("dni");
-            String nombre = resultSet.getString("nombre ");
+            String nombre = resultSet.getString("nombre");
             String apellidos = resultSet.getString("apellidos");
             String email = resultSet.getString("email");
             String direccion = resultSet.getString("direccion");

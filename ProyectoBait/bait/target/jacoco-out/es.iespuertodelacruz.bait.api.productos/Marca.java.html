@@ -12,34 +12,45 @@ public class Marca {
 <span class="nc" id="L12">    }</span>
 
     /**
+     * Constructor con todos los atributos de la clase
+     * @param idMarca de la marca
+     * @param nombre de la marca
+     */
+<span class="nc" id="L19">    public Marca(String idMarca, String nombre) {</span>
+<span class="nc" id="L20">        this.idMarca = idMarca;</span>
+<span class="nc" id="L21">        this.nombre = nombre;</span>
+<span class="nc" id="L22">    }</span>
+
+
+    /**
      * Constructor con todos los atributos 
      * @param nombre de la marca
      */
-<span class="nc" id="L18">    public Marca(String nombre) {</span>
-<span class="nc" id="L19">        this.nombre = nombre;</span>
-<span class="nc" id="L20">    }</span>
+<span class="nc" id="L29">    public Marca(String nombre) {</span>
+<span class="nc" id="L30">        this.nombre = nombre;</span>
+<span class="nc" id="L31">    }</span>
 
     //Getters y Setters
     public String getIdMarca() {
-<span class="nc" id="L24">        return this.idMarca;</span>
+<span class="nc" id="L35">        return this.idMarca;</span>
     }
 
     public void setIdMarca(String idMarca) {
-<span class="nc" id="L28">        this.idMarca = idMarca;</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc" id="L39">        this.idMarca = idMarca;</span>
+<span class="nc" id="L40">    }</span>
 
     public String getNombre() {
-<span class="nc" id="L32">        return this.nombre;</span>
+<span class="nc" id="L43">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="nc" id="L36">        this.nombre = nombre;</span>
-<span class="nc" id="L37">    }</span>
+<span class="nc" id="L47">        this.nombre = nombre;</span>
+<span class="nc" id="L48">    }</span>
 
 
     @Override
     public String toString() {
-<span class="nc" id="L42">        return getIdMarca() + DELIMITADOR + getNombre();</span>
+<span class="nc" id="L53">        return getIdMarca() + DELIMITADOR + getNombre();</span>
     }
 
 }

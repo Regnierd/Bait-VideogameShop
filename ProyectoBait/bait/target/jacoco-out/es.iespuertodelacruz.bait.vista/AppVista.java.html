@@ -27,29 +27,30 @@ import java.util.Scanner;
 <span class="nc" id="L27">        Scanner sn = new Scanner(System.in);</span>
         try{
 <span class="nc bnc" id="L29" title="All 2 branches missed.">            while(!salir){</span>
-<span class="nc" id="L30">                System.out.println(&quot;1. Empleado.&quot;);</span>
-<span class="nc" id="L31">                System.out.println(&quot;2. Cliente.&quot;);</span>
-<span class="nc" id="L32">                System.out.println(&quot;3. Salir&quot;);</span>
-<span class="nc" id="L33">                System.out.println(&quot;¿Quien eres?&quot;);</span>
-<span class="nc" id="L34">                opcion = sn.nextInt();</span>
-<span class="nc" id="L35">                sn.nextLine();</span>
-<span class="nc bnc" id="L36" title="All 4 branches missed.">                switch (opcion) {</span>
+<span class="nc" id="L30">                System.out.println(&quot;Menu principal&quot;);</span>
+<span class="nc" id="L31">                System.out.println(&quot;1. Empleado&quot;);</span>
+<span class="nc" id="L32">                System.out.println(&quot;2. Cliente&quot;);</span>
+<span class="nc" id="L33">                System.out.println(&quot;0. Salir&quot;);</span>
+<span class="nc" id="L34">                System.out.println(&quot;¿Quien eres?&quot;);</span>
+<span class="nc" id="L35">                opcion = sn.nextInt();</span>
+<span class="nc" id="L36">                sn.nextLine();</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                switch (opcion) {</span>
                     case 1:
-<span class="nc" id="L38">                        menuAdmin.menuPrincial();</span>
-<span class="nc" id="L39">                        break;</span>
+<span class="nc" id="L39">                        menuAdmin.menuPrincial();</span>
+<span class="nc" id="L40">                        break;</span>
                     case 2:
-<span class="nc" id="L41">                        menuCliente.menuPrincial();</span>
-<span class="nc" id="L42">                        break;</span>
-                    case 3:
-<span class="nc" id="L44">                        salir = true;</span>
-<span class="nc" id="L45">                        break;</span>
+<span class="nc" id="L42">                        menuCliente.menuPrincial();</span>
+<span class="nc" id="L43">                        break;</span>
+                    case 0:
+<span class="nc" id="L45">                        salir = true;</span>
+<span class="nc" id="L46">                        break;</span>
                     default:
-<span class="nc" id="L47">                        System.err.println(&quot;Tiene que elegir una de las opciones del menu: 1 al 3&quot;);</span>
+<span class="nc" id="L48">                        System.err.println(&quot;Tiene que elegir una de las opciones del menu: 0 al 2&quot;);</span>
                 }
             }
-<span class="nc" id="L50">        }catch(InputMismatchException ex){</span>
-<span class="nc" id="L51">            System.out.println(&quot;El tipo de dato introducido es incorrecto.&quot;);</span>
-<span class="nc" id="L52">        }</span>
-<span class="nc" id="L53">    }   </span>
+<span class="nc" id="L51">        }catch(InputMismatchException ex){</span>
+<span class="nc" id="L52">            System.out.println(&quot;El tipo de dato introducido es incorrecto.&quot;);</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">    }   </span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

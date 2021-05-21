@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PedidoModelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.movimientosModelo</a> &gt; <span class="el_source">PedidoModelo.java</span></div><h1>PedidoModelo.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.movimientosModelo;
 
-<span class="nc" id="L3">public class PedidoModelo {</span>
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.SQL.SQLPedido;
+
+public class PedidoModelo {
     
+    SQLPedido persistencia;
+
+    /**
+     * Constructor basico de la clase
+     */
+<span class="nc" id="L16">    public PedidoModelo(){</span>
+<span class="nc" id="L17">        persistencia = new SQLPedido(&quot;org.sqlite.JDBC&quot;, &quot;jdbc:sqlite:bait.db&quot;, null, null);</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Metodo encargado de insertar un pedido en la base de datos
+     * @param pedido a insertar
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Pedido pedido) throws PersistenciaException {
+<span class="nc" id="L26">        persistencia.insertar(pedido);</span>
+<span class="nc" id="L27">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un pedido de la base de datos
+     * @param idPedido del pedido a eliminar
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idPedido) throws PersistenciaException{
+<span class="nc" id="L35">        persistencia.eliminar(idPedido);</span>
+<span class="nc" id="L36">    }</span>
+
+    /**
+     * Funcion encargada de buscar un pedido en la base de datos
+     * @param idPedido a buscar 
+     * @return Pedido
+     * @throws PersistenciaException error a controlar
+     */
+    public Pedido buscar(String idPedido) throws PersistenciaException{
+        Pedido pedido;
+<span class="nc" id="L46">        pedido = persistencia.buscar(idPedido);</span>
+
+<span class="nc" id="L48">        return pedido;</span>
+    }
+
+    /**
+     * Metodo encargado de modificar un pedido en la base de datos
+     * @param pedido a modificar
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Pedido pedido) throws PersistenciaException {
+<span class="nc" id="L57">        persistencia.modificar(pedido);</span>
+<span class="nc" id="L58">    }</span>
+
+    /**
+     * Funcion encargada de mostrar todos los pedidos de un usuario
+     * @param dni del usuario
+     * @return ArrayList de Pedidos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException{
+        ArrayList&lt;Pedido&gt; pedidos;
+<span class="nc" id="L68">        pedidos = persistencia.obtenerListado(dni);</span>
+        
+<span class="nc" id="L70">        return pedidos;</span>
+    }
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
