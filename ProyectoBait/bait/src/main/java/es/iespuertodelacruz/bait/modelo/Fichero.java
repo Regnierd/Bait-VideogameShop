@@ -6,7 +6,6 @@ import java.util.Scanner;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class Fichero { 
-   private static final String SE_HA_PRODUCIDO_UN_ERROR_EN_EL_VOLCADO_DEL_FICHERO = "Se ha producido un error en el volcado del fichero";
    private static final String RETORNO_CARRO = "\n";
    
    /**

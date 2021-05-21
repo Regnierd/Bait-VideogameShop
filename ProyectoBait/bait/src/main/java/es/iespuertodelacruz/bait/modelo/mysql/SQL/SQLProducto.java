@@ -42,7 +42,7 @@ public class SQLProducto extends Bbdd {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = getConnection();
+            connection = getConnection();//MIRAR REFACTORIZAR
             preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());
             preparedStatement.setString(1, producto.getIdProducto());
             preparedStatement.setString(2, producto.getNombre());
@@ -132,7 +132,7 @@ public class SQLProducto extends Bbdd {
             preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idProducto"));
             preparedStatement.setString(1, idProducto);
             resultSet = preparedStatement.executeQuery();
-
+            //REFACTORIZAR
             String nombre = resultSet.getString("nombre ");
             float precio = resultSet.getFloat("precio ");
             String descripcion = resultSet.getString("descripcion ");
@@ -195,6 +195,75 @@ public class SQLProducto extends Bbdd {
             closeConnection(connection, statement, resultSet);
         }
 
+        return productos;
+    }
+
+    /**
+     * Obtener listado pasandole el campo y el valor
+     * @param atributo nombre campo
+     * @param valor valor del campo
+     * @return lista de productos
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Producto> obtenerListado(String atributo, String valor) throws PersistenciaException {
+        //REFACTORIZAR
+        Connection connection = null;
+        ArrayList<Producto> productos = new ArrayList<>();
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOneLike(atributo));
+            preparedStatement.setString(1, valor);
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String idProducto = resultSet.getString("idProducto");
+                String nombre = resultSet.getString("nombre ");
+                float precio = resultSet.getFloat("precio ");
+                String descripcion = resultSet.getString("descripcion ");
+                int stock = resultSet.getInt("stock ");
+                String idCategoria = resultSet.getString("idCategoria ");
+                String idMarca = resultSet.getString("idMarca");
+
+                Categoria categoria = sqlCategoria.buscar(idCategoria);
+                Marca marca = sqlMarca.buscar(idMarca);
+
+                Producto producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);
+                
+                productos.add(producto);
+            }
+        } catch (Exception e) {
+            throw new PersistenciaException("Ha ocurrido un error al obtener el listado de todos los productos", e);
+        }finally{
+            closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return productos;
+    }
+
+    public ArrayList<Producto> buscarPorCategoria(String idCategoria) throws PersistenciaException {
+        String atributo = "idCategoria";
+        ArrayList<Producto> productos = null;
+        productos = obtenerListado(atributo, idCategoria);
+        
+        return productos;
+    }
+
+    public ArrayList<Producto> buscarPorMarca(String idMarca) throws PersistenciaException {
+        String atributo = "idMarca";
+        ArrayList<Producto> productos = null;
+        productos = obtenerListado(atributo, idMarca);
+        
+        return productos;
+    }
+
+    public ArrayList<Producto> buscarPorNombre(String nombre) throws PersistenciaException {
+        String atributo = "nombre";
+        ArrayList<Producto> productos = null;
+        productos = obtenerListado(atributo, nombre);
+        
         return productos;
     }
 }

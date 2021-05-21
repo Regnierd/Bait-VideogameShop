@@ -126,8 +126,9 @@ public class ProductoController {
      * @param idCategoria identificador de la categoria que tienen los productos
      * @return la lista de productos filtrados por una categoria
      * @throws ApiException error a controlar
+     * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Producto> buscarPorCategoria(String idCategoria) throws ApiException {
+    public ArrayList<Producto> buscarPorCategoria(String idCategoria) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
         productos = productoModelo.buscarPorCategoria(idCategoria);
 
@@ -142,8 +143,9 @@ public class ProductoController {
      * @param marca que tiene los productos
      * @return la lista de productos filtrados por un marca
      * @throws ApiException error a controlar
+     * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Producto> buscarPorMarca(String marca) throws ApiException {
+    public ArrayList<Producto> buscarPorMarca(String marca) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
         productos = productoModelo.buscarPorMarca(marca);
 
@@ -158,8 +160,9 @@ public class ProductoController {
      * @param nombre que tiene el producto o productos
      * @return la lista de productos filtrados por un nombre
      * @throws ApiException error a controlar
+     * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Producto> buscarPorNombre(String nombre) throws ApiException {
+    public ArrayList<Producto> buscarPorNombre(String nombre) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
         productos = productoModelo.buscarPorNombre(nombre);
 

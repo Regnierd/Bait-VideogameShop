@@ -68,15 +68,21 @@ public class ProductoModelo {
         return productos;
     }
 
-    public ArrayList<Producto> buscarPorCategoria(String idCategoria) {
-        return null;
+    public ArrayList<Producto> buscarPorCategoria(String idCategoria) throws PersistenciaException {
+        ArrayList<Producto> productos;
+        productos = persistencia.buscarPorCategoria(idCategoria);
+        return productos;
     }
 
-    public ArrayList<Producto> buscarPorMarca(String idMarca) {
-        return null;
+    public ArrayList<Producto> buscarPorMarca(String idMarca) throws PersistenciaException {
+        ArrayList<Producto> productos;
+        productos = persistencia.buscarPorMarca(idMarca);
+        return productos;
     }
 
-    public ArrayList<Producto> buscarPorNombre(String nombre) {
-        return null;
+    public ArrayList<Producto> buscarPorNombre(String nombre) throws PersistenciaException {
+        ArrayList<Producto> productos;
+        productos = persistencia.buscarPorNombre(nombre);
+        return productos;
     }
 }
