@@ -8,7 +8,7 @@ import es.iespuertodelacruz.bait.modelo.movimientosModelo.EnvioModelo;
 public class EnvioController {
     EnvioModelo envioModelo;
 
-    public EnvioController(){
+    public EnvioController() throws PersistenciaException{
         envioModelo = new EnvioModelo();
     }
 

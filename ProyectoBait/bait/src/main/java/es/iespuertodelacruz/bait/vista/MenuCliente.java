@@ -26,8 +26,9 @@ public class MenuCliente {
     ProductoController productoController;
     /**
      * Constructor basico del menu del cliente
+     * @throws PersistenciaException
      */
-    public MenuCliente() {
+    public MenuCliente() throws PersistenciaException {
         sn = new Scanner(System.in);
         usuarioController = new UsuarioController();
         pedidoController = new PedidoController();

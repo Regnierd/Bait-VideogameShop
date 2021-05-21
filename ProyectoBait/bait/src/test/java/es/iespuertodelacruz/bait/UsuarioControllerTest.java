@@ -17,10 +17,11 @@ public class UsuarioControllerTest {
     Usuario usuario;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws PersistenciaException {
         if (usuarioController == null) {
             usuarioController = new UsuarioController();
         }
+        
         usuario = new Usuario("dni", "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal", "provincia", "nombreUsuario", "password", "Admin", 0f);
         
         try {

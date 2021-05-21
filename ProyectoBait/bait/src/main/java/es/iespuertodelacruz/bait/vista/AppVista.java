@@ -11,20 +11,12 @@ public class AppVista{
     static MenuCliente menuCliente;
     static Bbdd bbdd;
 
-    public static void main( String[] args ){
+    public static void main( String[] args ) throws PersistenciaException{
         if(menuAdmin == null){
             menuAdmin = new MenuAdmin();
         }
         if(menuCliente == null){
             menuCliente = new MenuCliente();
-        }
-        if (bbdd == null) {
-            bbdd = new Bbdd("org.sqlite.JDBS", "jdbc:sqlite:bait.db", null, null);
-        }
-        try {
-            bbdd.init();
-        } catch (PersistenciaException e) {
-            System.out.println("Error al lanzar el init.");
         }
         menuPrincipal();
     }

@@ -12,8 +12,9 @@ public class CategoriaController {
 
     /**
      * Constructor basio de la clase
+     * @throws PersistenciaException
      */
-    public CategoriaController() {
+    public CategoriaController() throws PersistenciaException {
         categoriaModelo = new CategoriaModelo();
     }
 
@@ -51,7 +52,7 @@ public class CategoriaController {
         if (existe(categoria)) {
            throw new ApiException("La categoria indicada ya existe.");
         }
-        categoriaModelo.insertar(categoria); 
+        categoriaModelo.inserta(categoria);
     }
 
     /**

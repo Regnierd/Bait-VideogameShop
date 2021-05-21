@@ -11,7 +11,7 @@ public class PedidoController {
 
     PedidoModelo pedidoModelo;
 
-    public PedidoController(){
+    public PedidoController() throws PersistenciaException{
         pedidoModelo = new PedidoModelo();
     }
 

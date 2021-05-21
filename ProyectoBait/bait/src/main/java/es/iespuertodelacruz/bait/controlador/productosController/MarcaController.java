@@ -10,8 +10,9 @@ public class MarcaController {
 
     /**
      * Constructor basio de la clase
+     * @throws PersistenciaException
      */
-    public MarcaController() {
+    public MarcaController() throws PersistenciaException {
         marcaModelo = new MarcaModelo();
     }
 

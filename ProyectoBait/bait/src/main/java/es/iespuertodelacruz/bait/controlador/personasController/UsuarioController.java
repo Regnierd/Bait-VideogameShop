@@ -10,7 +10,7 @@ import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 public class UsuarioController {
     UsuarioModelo usuarioModelo;
 
-    public UsuarioController() {
+    public UsuarioController() throws PersistenciaException {
         usuarioModelo = new UsuarioModelo();
     }
 
@@ -68,7 +68,7 @@ public class UsuarioController {
      */
     public Usuario buscar(String dni) throws PersistenciaException {
         Usuario usuario = null;
-        usuario = usuarioModelo.buscar(dni);
+        usuario = usuarioModelo.buscaPorDni(dni);
         
         return usuario;
     }

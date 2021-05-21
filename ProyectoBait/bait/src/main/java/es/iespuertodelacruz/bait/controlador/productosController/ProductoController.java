@@ -12,8 +12,9 @@ public class ProductoController {
 
     /**
      * Constructor basico de la clase
+     * @throws PersistenciaException
      */
-    public ProductoController() {
+    public ProductoController() throws PersistenciaException {
         productoModelo = new ProductoModelo();
     }
 

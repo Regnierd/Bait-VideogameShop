@@ -10,7 +10,7 @@ import es.iespuertodelacruz.bait.modelo.movimientosModelo.CompraModelo;
 public class CompraController {
     CompraModelo compraModelo;
 
-    public CompraController(){
+    public CompraController() throws PersistenciaException{
         compraModelo = new CompraModelo();
     }
 

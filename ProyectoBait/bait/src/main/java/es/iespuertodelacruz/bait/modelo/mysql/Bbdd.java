@@ -27,12 +27,20 @@ public class Bbdd {
      * @param url      de la base de datos o fichero db
      * @param usuario  con acceso a la base de datos
      * @param password del usuario de la base de datos
+     * @throws PersistenciaException
      */
-    public Bbdd(String driver, String url, String usuario, String password) {
+    public Bbdd(String driver, String url, String usuario, String password) throws PersistenciaException {
         this.driver = driver;
         this.url = url;
         this.usuario = usuario;
         this.password = password;
+        init();
+    }
+
+    /**
+     * Constructor vacio
+     */
+    public Bbdd() {
     }
 
     /**
@@ -40,7 +48,7 @@ public class Bbdd {
      * si no existen
      * @throws PersistenciaException error a controlar
      */
-    public void init() throws PersistenciaException {
+    private void init() throws PersistenciaException {
         DatabaseMetaData databaseMetaData;
         Connection connection = null;
         ResultSet resultSet = null;
@@ -98,7 +106,7 @@ public class Bbdd {
      * @return Connection
      * @throws PersistenciaException error a controlar en caso de que falle la conexion
      */
-    protected Connection getConnection() throws PersistenciaException {
+    public Connection getConnection() throws PersistenciaException {
         Connection connection = null;
         try {
             Class.forName(driver);
@@ -123,7 +131,7 @@ public class Bbdd {
      * @param resultSet
      * @throws PersistenciaException error a controlar al cerrar la conexion
      */
-    protected void closeConnection(Connection connection, Statement statement, ResultSet resultSet)
+    public void closeConnection(Connection connection, Statement statement, ResultSet resultSet)
             throws PersistenciaException {
         try {
             if (resultSet != null) {
@@ -147,7 +155,7 @@ public class Bbdd {
      * @param sql a ejecutar
      * @throws PersistenciaException error controlado
      */
-    protected void actualizar(String sql) throws PersistenciaException {
+    public void actualizar(String sql) throws PersistenciaException {
         Statement statement = null;
         Connection connection = null;
         try {

@@ -29,8 +29,9 @@ public class MenuAdmin {
 
     /**
      * Constructor basico de la clase
+     * @throws PersistenciaException
      */
-    public MenuAdmin() {
+    public MenuAdmin() throws PersistenciaException {
         sn = new Scanner(System.in);
         usuarioController = new UsuarioController();
         productoController = new ProductoController();
