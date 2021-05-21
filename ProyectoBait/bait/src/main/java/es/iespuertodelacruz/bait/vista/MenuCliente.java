@@ -7,6 +7,7 @@ import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.controlador.movimientosController.CompraController;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
+import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
@@ -18,6 +19,7 @@ public class MenuCliente {
     UsuarioController usuarioController;
     PedidoController pedidoController;
     CompraController compraController;
+    ProductoController productoController;
     /**
      * Constructor basico del menu del cliente
      */
@@ -26,6 +28,7 @@ public class MenuCliente {
         usuarioController = new UsuarioController();
         pedidoController = new PedidoController();
         compraController = new CompraController();
+        productoController = new ProductoController();
     }
 
     /**
@@ -125,13 +128,31 @@ public class MenuCliente {
 
                 switch (opcion) {
                     case 1:
-                        // codigo para mostrar los productos por nombre
+                        System.out.println("Introdusca un nombre");
+                        String nombre = sn.nextLine();
+                        try {
+                            productoController.buscarPorNombre(nombre);
+                        } catch (ApiException | PersistenciaException e) {
+                            System.err.println("Error al busca los productos por nombre.");
+                        }
                         break;
                     case 2:
-                        // codigo para mostrar los productos por catagoria
+                        System.out.println("Introdusca el idCategoria");
+                        String idCategoria = sn.nextLine();
+                        try {
+                            productoController.buscarPorCategoria(idCategoria);
+                        } catch (ApiException | PersistenciaException e) {
+                            System.err.println("Error al busca los productos por categoria.");
+                        }
                         break;
                     case 3:
-                        // codigo para mostrar los productos por marca
+                        System.out.println("Introdusca el id de la marca.");
+                        String idMarca = sn.nextLine();
+                        try {
+                            productoController.buscarPorMarca(idMarca);
+                        } catch (ApiException | PersistenciaException e) {
+                            System.err.println("Error al busca los productos por marca.");
+                        }
                         break;
                     case 0:
                         salir = true;
@@ -171,8 +192,10 @@ public class MenuCliente {
                         float saldo = sn.nextFloat();
                         try {
                             usuarioController.añadirSaldo(cliente, saldo);
-                        } catch (ApiException | PersistenciaException e) {
+                        } catch (PersistenciaException e) {
                             System.err.println("Error al añadir el saldo");
+                        } catch (ApiException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case 2:

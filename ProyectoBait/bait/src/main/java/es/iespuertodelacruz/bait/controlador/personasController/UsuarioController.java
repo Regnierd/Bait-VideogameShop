@@ -141,11 +141,16 @@ public class UsuarioController {
      * Funcion que añade saldo a un usuario
      * @param usuario que se le va a añadir saldo
      * @param saldo que se va a sumar al actula del usuario
-     * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public void añadirSaldo(Usuario usuario,float saldo) throws ApiException, PersistenciaException{
-        float saldoActual = usuario.getSaldo();
+    public void añadirSaldo(Usuario usuario,float saldo) throws PersistenciaException, ApiException{
+        validar(usuario);
+        float saldoActual;
+        saldoActual = usuario.getSaldo();
+        if (saldo <= 0) {
+            throw new ApiException("El saldo a añadir no puede menor o igual que 0.");
+        }
         usuario.setSaldo(saldoActual + saldo);
         modificar(usuario);
     }
