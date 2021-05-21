@@ -66,7 +66,7 @@ public class Bbdd {
         } catch (Exception e) {
             throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
         } finally {
-            closeConnection(connection, null, resultSet);
+            closeConnection(connection, null, null);
         }
     }
 

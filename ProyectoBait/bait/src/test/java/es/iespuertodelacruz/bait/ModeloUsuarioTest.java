@@ -1,7 +1,10 @@
 package es.iespuertodelacruz.bait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +63,17 @@ public class ModeloUsuarioTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void obtenerListadoTest() {
+        ArrayList<Usuario> usuarios = null;
+        try {
+            usuarios = usuarioModelo.obtenerListado();
+            assertTrue(usuarios.contains(usuario));
+        } catch (PersistenciaException e) {
+            fail("Error al obtener el listado");
+        }  
     }
 
 }

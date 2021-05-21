@@ -131,7 +131,7 @@ public class MenuAdmin {
                     try {
                         usuarioController.eliminar(dni);
                         System.out.println("Usuario eliminado correctamente.");
-                    } catch (PersistenciaException | ApiException e) {
+                    } catch (PersistenciaException e) {
                         System.out.println("Error al eliminar el usuario.");
                     }
                     break;

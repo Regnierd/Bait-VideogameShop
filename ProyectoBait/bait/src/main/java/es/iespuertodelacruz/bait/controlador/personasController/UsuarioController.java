@@ -114,10 +114,7 @@ public class UsuarioController {
      * @throws PersistenciaException
      * @throws ApiException
      */
-    public void eliminar(String dni) throws PersistenciaException, ApiException {
-        if (!existe(buscar(dni))) {
-            throw new ApiException("El usuario que quiere borrar no existe");
-        }
+    public void eliminar(String dni) throws PersistenciaException {
         usuarioModelo.eliminar(dni);
     }
 

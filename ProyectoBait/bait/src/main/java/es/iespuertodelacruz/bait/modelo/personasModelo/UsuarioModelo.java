@@ -117,7 +117,7 @@ public class UsuarioModelo {
         } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al buscar al usuario", e);
         } finally {
-            persistencia.closeConnection(connection, preparedStatement, resultSet);
+            persistencia.closeConnection(connection, preparedStatement, null);
         }
 
         return usuario;
@@ -189,7 +189,7 @@ public class UsuarioModelo {
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al obtener toda la lista de usuarios", e);
         }finally{
-            persistencia.closeConnection(connection, statement, resultSet);
+            persistencia.closeConnection(connection, statement, null);
         }
 
         return usuarios;

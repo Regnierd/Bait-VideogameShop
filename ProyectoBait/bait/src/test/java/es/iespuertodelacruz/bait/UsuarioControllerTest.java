@@ -43,7 +43,7 @@ public class UsuarioControllerTest {
     public void after() {
         try {
             usuarioController.eliminar(usuario.getDni());
-        } catch (PersistenciaException | ApiException e) {
+        } catch (PersistenciaException e) {
             fail("Error al eliminar el usuario");
         }
     }
@@ -102,8 +102,7 @@ public class UsuarioControllerTest {
             assertTrue(usuarios.contains(usuario));
         } catch (PersistenciaException | ApiException e) {
             fail("Error al obtener el listado");
-        }
-        
+        }  
     }
 
 }
