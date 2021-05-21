@@ -12,13 +12,7 @@ public class Bbdd {
     private String usuario;
     private String password;
     private static final String TABLE = "TABLE";
-    private static final String USUARIO = "USUARIO";
-    private static final String PRODUCTO = "PRODUCTO";
-    private static final String CATEGORIA = "CATEGORIA";
-    private static final String MARCA = "MARCA";
-    private static final String COMPRA = "COMPRA";
-    private static final String PEDIDO = "PEDIDO";
-    private static final String ENVIO = "ENVIO";
+    private String tableName;
 
     /**
      * Constructor basico de la clase Bbdd
@@ -27,20 +21,26 @@ public class Bbdd {
      * @param url      de la base de datos o fichero db
      * @param usuario  con acceso a la base de datos
      * @param password del usuario de la base de datos
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
-    public Bbdd(String driver, String url, String usuario, String password) throws PersistenciaException {
+    public Bbdd(String tableName, String driver, String url, String usuario, String password) throws PersistenciaException {
         this.driver = driver;
         this.url = url;
         this.usuario = usuario;
         this.password = password;
-        init();
+        this.tableName = tableName;
+        init(this.tableName);
     }
 
     /**
      * Constructor vacio
+     * @throws PersistenciaException error a controlar
      */
-    public Bbdd() {
+    public Bbdd(String tableName , String usuario, String password) throws PersistenciaException {
+        this.usuario = usuario;
+        this.password = password;
+        this.tableName = tableName;
+        init(this.tableName);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Bbdd {
      * si no existen
      * @throws PersistenciaException error a controlar
      */
-    private void init() throws PersistenciaException {
+    private void init(String tableName) throws PersistenciaException {
         DatabaseMetaData databaseMetaData;
         Connection connection = null;
         ResultSet resultSet = null;
@@ -62,14 +62,7 @@ public class Bbdd {
                 listaTablas.add(resultSet.getString("TABLE_NAME"));
             }
 
-            crearTabla(USUARIO, listaTablas);
-            crearTabla(PRODUCTO, listaTablas);
-            crearTabla(CATEGORIA, listaTablas);
-            crearTabla(MARCA, listaTablas);
-            crearTabla(COMPRA, listaTablas);
-            crearTabla(PEDIDO, listaTablas);
-            crearTabla(ENVIO, listaTablas);
-
+            crearTabla(tableName, listaTablas);
         } catch (Exception e) {
             throw new PersistenciaException("Se ha producido un error en la inicializacion de la BBDD", e);
         } finally {
@@ -167,6 +160,5 @@ public class Bbdd {
         } finally {
             closeConnection(connection, statement, null);
         }
-
     }
 }

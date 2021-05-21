@@ -15,7 +15,9 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class ProductoModelo {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Producto","idProducto, nombre, precio, descripcion "
+    private static final String ID_PRODUCTO = "idProducto";
+    static String tableName = "PRODUCTO";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName,"idProducto, nombre, precio, descripcion "
     + ", stock, idCategoria, idMarca");
     BbddSqlite persistencia;
     MarcaModelo marcaModelo;
@@ -25,7 +27,7 @@ public class ProductoModelo {
      * @throws PersistenciaException
      */
     public ProductoModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName, null, null);
     }
 
         /**
@@ -69,7 +71,7 @@ public class ProductoModelo {
         PreparedStatement preparedStatement = null;
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idProducto"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_PRODUCTO));
             preparedStatement.setString(1, idProducto);
 
             preparedStatement.executeUpdate();
@@ -127,7 +129,7 @@ public class ProductoModelo {
         Producto producto = null;
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idProducto"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_PRODUCTO));
             preparedStatement.setString(1, idProducto);
             resultSet = preparedStatement.executeQuery();
             //REFACTORIZAR
@@ -172,7 +174,7 @@ public class ProductoModelo {
             resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
 
             while (resultSet.next()) {
-                String idProducto = resultSet.getString("idProducto");
+                String idProducto = resultSet.getString(ID_PRODUCTO);
                 String nombre = resultSet.getString("nombre");
                 float precio = resultSet.getFloat("precio");
                 String descripcion = resultSet.getString("descripcion");
@@ -217,7 +219,7 @@ public class ProductoModelo {
 
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String idProducto = resultSet.getString("idProducto");
+                String idProducto = resultSet.getString(ID_PRODUCTO);
                 String nombre = resultSet.getString("nombre");
                 float precio = resultSet.getFloat("precio");
                 String descripcion = resultSet.getString("descripcion");

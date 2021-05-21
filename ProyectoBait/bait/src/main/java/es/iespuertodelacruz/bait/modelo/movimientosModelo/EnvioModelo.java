@@ -14,7 +14,9 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class EnvioModelo {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Envio", "idEnvio, idPedido, fechaEnvio, estado");
+    private static final String ID_ENVIO = "idEnvio";
+    static String tableName = "ENVIO";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idEnvio, idPedido, fechaEnvio, estado");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
     /**
@@ -22,7 +24,7 @@ public class EnvioModelo {
      * @throws PersistenciaException
      */
     public EnvioModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName,null, null);
         pedidoModelo = new PedidoModelo();
     }
 
@@ -64,7 +66,7 @@ public class EnvioModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idEnvio"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_ENVIO));
             preparedStatement.setString(1, idEnvio);
 
             preparedStatement.executeUpdate();
@@ -117,7 +119,7 @@ public class EnvioModelo {
       
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idEnvio"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_ENVIO));
             preparedStatement.setString(1, idEnvio);
             resultSet = preparedStatement.executeQuery();
 
@@ -154,7 +156,7 @@ public class EnvioModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
             while (resultSet.next()) {
-                String idEnvio = resultSet.getString("idEnvio");
+                String idEnvio = resultSet.getString(ID_ENVIO);
                 String idPedido = resultSet.getString("idPedido");
                 String fechaEnvio = resultSet.getString("fechaEnvio");
                 String estado = resultSet.getString("estado");
@@ -191,7 +193,7 @@ public class EnvioModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
             while (resultSet.next()) {
-                String idEnvio = resultSet.getString("idEnvio");
+                String idEnvio = resultSet.getString(ID_ENVIO);
                 String fechaEnvio = resultSet.getString("fechaEnvio");
                 String estado = resultSet.getString("estado");
 

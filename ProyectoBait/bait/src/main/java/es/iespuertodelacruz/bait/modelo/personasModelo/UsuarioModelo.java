@@ -13,7 +13,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 public class UsuarioModelo {
     BbddSqlite persistencia;
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Usuario", "dni, nombre, apellidos, email, direccion"
+    static String tableName = "USUARIO";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "dni, nombre, apellidos, email, direccion"
     + ", telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo");
 
     /**
@@ -21,7 +22,7 @@ public class UsuarioModelo {
      * @throws PersistenciaException
      */
     public UsuarioModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName,null, null);
     }
 
     /**

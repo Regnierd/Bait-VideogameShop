@@ -14,7 +14,9 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class CompraModelo {
-    UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Compra", "idCompra, totalCompra, idPedido");
+    private static final String ID_COMPRA = "idCompra";
+    static String tableName = "COMPRA";
+    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idCompra, totalCompra, idPedido");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
     /**
@@ -22,7 +24,7 @@ public class CompraModelo {
      * @throws PersistenciaException
      */
     public CompraModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName,null, null);
         pedidoModelo = new PedidoModelo();
     }
 
@@ -62,7 +64,7 @@ public class CompraModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idCompra"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_COMPRA));
             preparedStatement.setString(1, idCompra);
 
             preparedStatement.executeUpdate();
@@ -116,7 +118,7 @@ public class CompraModelo {
       
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idCompra"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_COMPRA));
             preparedStatement.setString(1, idCompra);
             resultSet = preparedStatement.executeQuery();
 
@@ -154,7 +156,7 @@ public class CompraModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
             while (resultSet.next()) {
-                String idCompra = resultSet.getString("idCompra");
+                String idCompra = resultSet.getString(ID_COMPRA);
                 float totalCompra = resultSet.getFloat("totalCompra");
                 String idPedido = resultSet.getString("idPedido");
 
@@ -191,7 +193,7 @@ public class CompraModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
             while (resultSet.next()) {
-                String idCompra = resultSet.getString("idCompra");
+                String idCompra = resultSet.getString(ID_COMPRA);
                 float totalCompra = resultSet.getFloat("totalCompra");
 
                 Pedido pedido = pedidoModelo.buscar(idPedido);

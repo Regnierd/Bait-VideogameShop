@@ -13,14 +13,17 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class MarcaModelo {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Marca", "idMarca, nombre");
+    private static final String ID_MARCA = "idMarca";
+    static String tableName = "MARCA";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idMarca, nombre");
     BbddSqlite persistencia;
+    
     /**
      * Constructor basico de la clase
      * @throws PersistenciaException
      */
     public MarcaModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName,null, null);
     }
 
     /**
@@ -58,7 +61,7 @@ public class MarcaModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idMarca"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_MARCA));
             preparedStatement.setString(1, idMarca);
 
             preparedStatement.executeUpdate();
@@ -110,7 +113,7 @@ public class MarcaModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idMarca"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_MARCA));
             preparedStatement.setString(1, idMarca);
             resultSet = preparedStatement.executeQuery();
 
@@ -142,7 +145,7 @@ public class MarcaModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
             while (resultSet.next()) {
-                String idMarca = resultSet.getString("idMarca");
+                String idMarca = resultSet.getString(ID_MARCA);
                 String nombre = resultSet.getString("nombre");
                 
                 Marca marca = new Marca(idMarca, nombre);

@@ -17,7 +17,9 @@ import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 import es.iespuertodelacruz.bait.modelo.productosModelo.ProductoModelo;
 
 public class PedidoModelo {
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL("Pedido", "idPedido,unidades,total,fechaPedido,idCliente,idProducto");
+    private static final String ID_PEDIDO = "idPedido";
+    static String tableName = "PEDIDO";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idPedido,unidades,total,fechaPedido,idCliente,idProducto");
     BbddSqlite persistencia;
     UsuarioModelo usuarioModelo;
     ProductoModelo productoModelo;
@@ -27,7 +29,7 @@ public class PedidoModelo {
      * @throws PersistenciaException
      */
     public PedidoModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(null, null);
+        persistencia = new BbddSqlite(tableName,null, null);
         usuarioModelo = new UsuarioModelo();
         productoModelo = new ProductoModelo();
     }
@@ -74,7 +76,7 @@ public class PedidoModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("idPedido"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_PEDIDO));
             preparedStatement.setString(1, idPedido);
 
             preparedStatement.executeUpdate();
@@ -132,7 +134,7 @@ public class PedidoModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne("idPedido"));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_PEDIDO));
             preparedStatement.setString(1, idPedido);
             resultSet = preparedStatement.executeQuery();
 
@@ -176,7 +178,7 @@ public class PedidoModelo {
 
             resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));
             while (resultSet.next()) {
-                String idPedido = resultSet.getString("idPedido");
+                String idPedido = resultSet.getString(ID_PEDIDO);
                 int unidades = resultSet.getInt("unidades");
                 float total = resultSet.getFloat("total");
                 String fechaPedido = resultSet.getString("fechaPedido");

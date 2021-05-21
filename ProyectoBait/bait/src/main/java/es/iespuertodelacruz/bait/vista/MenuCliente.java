@@ -49,7 +49,7 @@ public class MenuCliente {
                 System.out.println("1. Registrarse");
                 System.out.println("2. Iniciar sesion");
                 System.out.println("3. Accerder sin cuenta");
-                System.out.println("4. Salir");
+                System.out.println("0. Salir");
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -76,7 +76,7 @@ public class MenuCliente {
                     case 3:
                         menuProductos();
                         break;
-                    case 4:
+                    case 0:
                         salir = true;
                         break;
                     default:
@@ -137,8 +137,8 @@ public class MenuCliente {
                         System.out.println("Introdusca un nombre");
                         String nombre = sn.nextLine();
                         try {
-                            productos =  productoController.buscarPorNombre(nombre);
-                            System.out.println(productos.toString());
+                            productos = productoController.buscarPorNombre(nombre);
+                            recorrerProductos(productos);
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por nombre.");
                         }
@@ -148,7 +148,7 @@ public class MenuCliente {
                         String idCategoria = sn.nextLine();
                         try {
                             productos = productoController.buscarPorCategoria(idCategoria);
-                            System.out.println(productos.toString());
+                            recorrerProductos(productos);
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por categoria.");
                         }
@@ -158,7 +158,7 @@ public class MenuCliente {
                         String idMarca = sn.nextLine();
                         try {
                             productos = productoController.buscarPorMarca(idMarca);
-                            System.out.println(productos.toString());
+                            recorrerProductos(productos);
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("Error al busca los productos por marca.");
                         }
@@ -172,6 +172,16 @@ public class MenuCliente {
             }
         } catch (InputMismatchException ex) {
             System.out.println(TIPO_DATO_INCORRECTO);
+        }
+    }
+
+    /**
+     * Funcion que recorre los productos y los muestra
+     * @param productos lista de productos
+     */
+    private void recorrerProductos(ArrayList<Producto> productos) {
+        for (Producto producto : productos) {
+            System.out.println(producto.toString());
         }
     }
 
