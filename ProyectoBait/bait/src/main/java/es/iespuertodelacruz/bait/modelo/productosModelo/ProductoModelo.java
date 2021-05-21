@@ -67,4 +67,16 @@ public class ProductoModelo {
 
         return productos;
     }
+
+    public ArrayList<Producto> buscarPorCategoria(String idCategoria) {
+        return null;
+    }
+
+    public ArrayList<Producto> buscarPorMarca(String idMarca) {
+        return null;
+    }
+
+    public ArrayList<Producto> buscarPorNombre(String nombre) {
+        return null;
+    }
 }

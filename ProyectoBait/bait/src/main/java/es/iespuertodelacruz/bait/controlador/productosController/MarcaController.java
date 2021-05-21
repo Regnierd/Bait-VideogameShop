@@ -23,7 +23,7 @@ public class MarcaController {
     public void validar(Marca marca) throws ApiException{
         String mensaje = "";
         if(marca == null){
-            mensaje = "El usuario no puede ser nulo";
+            mensaje = "El marca no puede ser nulo";
             throw new ApiException(mensaje);
         }
         if(marca.getIdMarca() == null || marca.getIdMarca().isEmpty()){

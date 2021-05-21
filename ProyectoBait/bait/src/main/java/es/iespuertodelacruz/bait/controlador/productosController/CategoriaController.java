@@ -23,7 +23,7 @@ public class CategoriaController {
     public void validar(Categoria categoria) throws ApiException{
         String mensaje = "";
         if(categoria == null){
-            mensaje = "El usuario no puede ser nulo";
+            mensaje = "La categoria no puede ser nulo";
             throw new ApiException(mensaje);
         }
         if(categoria.getIdCategoria() == null || categoria.getIdCategoria().isEmpty()){
@@ -55,13 +55,9 @@ public class CategoriaController {
     /**
      * Metodo que eliminar una categoria
      * @param idCategoria de la categoria que se va aborrar
-     * @throws CategoriaException
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
-    public void eliminar(String idCategoria) throws ApiException, PersistenciaException {
-        if (!existe(buscar(idCategoria))) {
-            throw new ApiException("La categoria que quiere borrar no existe");
-        }
+    public void eliminar(String idCategoria) throws PersistenciaException {
         categoriaModelo.eliminar(idCategoria);
     }
 
@@ -73,7 +69,7 @@ public class CategoriaController {
      */
     private boolean existe(Categoria categoria) throws PersistenciaException {
         boolean encontrada = false;
-        Categoria categoriaEncontrada;
+        Categoria categoriaEncontrada = null;
    
         categoriaEncontrada = buscar(categoria.getIdCategoria());
         if (categoriaEncontrada != null) {
