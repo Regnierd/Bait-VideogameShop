@@ -8,7 +8,7 @@ public class UtilidadesSQL  {
     private String parametros;
     private String atributos;
     int atributo;
-    private String SELECTALL = "SELECT * FROM " + this.tabla;
+    private String SELECTALL;
 
     /**
      * Constructor con dos atributos de la clase
@@ -21,6 +21,7 @@ public class UtilidadesSQL  {
         this.parametros = parametro;
         this.atributo = this.parametros.split(",").length;
         this.atributos = pintarAtributos(atributo);
+        SELECTALL = "SELECT * FROM " + tabla;
     }
 
     // Getters

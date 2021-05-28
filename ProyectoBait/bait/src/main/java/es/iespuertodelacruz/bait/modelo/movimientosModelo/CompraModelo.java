@@ -15,8 +15,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class CompraModelo {
     private static final String ID_COMPRA = "idCompra";
-    static String tableName = "COMPRA";
-    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idCompra, totalCompra, idPedido");
+    public static final String TABLE_NAME = "COMPRAS";
+    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idCompra, totalCompra, idPedido");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
     /**
@@ -24,7 +24,7 @@ public class CompraModelo {
      * @throws PersistenciaException
      */
     public CompraModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
         pedidoModelo = new PedidoModelo();
     }
 

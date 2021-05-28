@@ -85,7 +85,7 @@ public class UsuarioController {
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
          Usuario usuario = null;
-        usuario = usuarioModelo.login(nombreUsuario);
+        usuario = usuarioModelo.buscaPorNombreUsuario(nombreUsuario);
 
         if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {
             throw new ApiException("Las credenciales introducidas son incorrectas");

@@ -18,8 +18,8 @@ import es.iespuertodelacruz.bait.modelo.productosModelo.ProductoModelo;
 
 public class PedidoModelo {
     private static final String ID_PEDIDO = "idPedido";
-    static String tableName = "PEDIDO";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idPedido,unidades,total,fechaPedido,idCliente,idProducto");
+    public static final String TABLE_NAME = "PEDIDOS";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idPedido,unidades,total,fechaPedido,idCliente,idProducto");
     BbddSqlite persistencia;
     UsuarioModelo usuarioModelo;
     ProductoModelo productoModelo;
@@ -29,7 +29,7 @@ public class PedidoModelo {
      * @throws PersistenciaException
      */
     public PedidoModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
         usuarioModelo = new UsuarioModelo();
         productoModelo = new ProductoModelo();
     }

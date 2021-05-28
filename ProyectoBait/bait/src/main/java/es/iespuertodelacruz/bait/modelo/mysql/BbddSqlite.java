@@ -4,7 +4,7 @@ import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class BbddSqlite extends Bbdd{
     private static String driver = "org.sqlite.JDBC";
-    private static String url = "jdbc:sqlite:bait.db";
+    private static String url = "jdbc:sqlite:./resorce/bait.db";
     private static String usuario = null;
     private static String password = null;
 

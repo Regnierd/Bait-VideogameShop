@@ -4,17 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
+
 public class UsuarioModelo {
     BbddSqlite persistencia;
-    static String tableName = "USUARIO";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "dni, nombre, apellidos, email, direccion"
+    public static final String TABLE_NAME = "USUARIOS";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "dni, nombre, apellidos, email, direccion"
     + ", telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo");
 
     /**
@@ -22,7 +22,7 @@ public class UsuarioModelo {
      * @throws PersistenciaException
      */
     public UsuarioModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
     }
 
     /**
@@ -51,7 +51,7 @@ public class UsuarioModelo {
             preparedStatement.setString(12, usuario.getRol());
             preparedStatement.setFloat(13, usuario.getSaldo());
             
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al insertar un usuario", e);
         }finally{
@@ -73,7 +73,7 @@ public class UsuarioModelo {
             preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("dni"));
             preparedStatement.setString(1, dni);
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al eliminar un usuario", e);
         }finally{
@@ -82,93 +82,20 @@ public class UsuarioModelo {
     }
 
     /**
-     * Funcion que busca un usuario en la base de datos y lo devuelve
-     * @param dni del usuario que se va a buscar
-     * @return
+     * Funcion que realiza un consulta y devuelve una lista de usuario
+     * @param sql consulta que se va a realizar
+     * @param valor del campo patron
+     * @return una lista de usuario 
      * @throws PersistenciaException error a controlar
      */
-    public Usuario buscar(String parametro, String valor) throws PersistenciaException{
-        Connection connection = null;    
-        ResultSet resultSet = null;
-        Usuario usuario;    
-        PreparedStatement preparedStatement = null;
+    private ArrayList<Usuario> buscarPorElemento(String sql, String valor) throws PersistenciaException{
+        ResultSet resultSet;
+        ArrayList<Usuario> lista = new ArrayList<>();
+
+        resultSet = persistencia.buscarElemento(sql, valor);
 
         try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(parametro));
-            preparedStatement.setString(1, valor);
-            resultSet = preparedStatement.executeQuery();
-
-            String dni = resultSet.getString("dni");
-            String nombre = resultSet.getString("nombre");
-            String apellidos = resultSet.getString("apellidos");
-            String email = resultSet.getString("email");
-            String direccion = resultSet.getString("direccion");
-            String telefono = resultSet.getString("telefono");
-            String pais = resultSet.getString("pais");
-            String codigoPostal = resultSet.getString("codigoPostal");
-            String provincia = resultSet.getString("provincia");
-            String nombreUsuario = resultSet.getString("nombreUsuario");
-            String password = resultSet.getString("password");
-            String rol = resultSet.getString("rol");
-            Float saldo = resultSet.getFloat("saldo");
-            usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo);
-            
-        } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar al usuario", e);
-        } finally {
-            persistencia.closeConnection(connection, preparedStatement, null);
-        }
-
-        return usuario;
-    }
-
-        /**
-     * Funcion que busca un usuario por su dni
-     * @param dni de la persona que se va abuscar
-     * @return el usuario encontrado
-     * @throws PersistenciaException error a controlar
-     */
-    public Usuario buscaPorDni(String dni) throws PersistenciaException {
-        Usuario usuario;
-
-        usuario = buscar("dni", dni);
-
-        return usuario;
-    }
-
-    /**
-     * Funcion que buscar un usuario por su nombre de usuario
-     * @param nombreUsuario del usuario que se va a buscar
-     * @return el usuario encontrado
-     * @throws PersistenciaException error a controlar
-     */
-    public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
-        Usuario usuario;
-
-        usuario = buscar("nombreUsuario", nombreUsuario);
-
-        return usuario;
-    }
-
-        /**
-     * Funcion que obtiene un listado de los usuarios y los devuelve
-     * @return la lista de usaurio
-     * @throws PersistenciaException error a controlar
-     */
-    public ArrayList<Usuario> obtenerListado() throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
-
-            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
-            while (resultSet.next()) {
+            while (resultSet.next()){
                 String dni = resultSet.getString("dni");
                 String nombre = resultSet.getString("nombre");
                 String apellidos = resultSet.getString("apellidos");
@@ -181,31 +108,65 @@ public class UsuarioModelo {
                 String nombreUsuario = resultSet.getString("nombreUsuario");
                 String password = resultSet.getString("password");
                 String rol = resultSet.getString("rol");
-                Float saldo = resultSet.getFloat("saldo");
-                Usuario usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal,
-                        provincia, nombreUsuario, password, rol, saldo);
-                usuarios.add(usuario);
+                float saldo = resultSet.getFloat("saldo");
+
+                Usuario usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, rol, saldo);
+                lista.add(usuario);
             }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al obtener toda la lista de usuarios", e);
-        }finally{
-            persistencia.closeConnection(connection, statement, null);
+        } catch (SQLException e) {
+            throw new PersistenciaException(e.getMessage());
         }
 
-        return usuarios;
+        return lista;
+
     }
 
     /**
-     * Funcion que busca un usuario por su nombreUsuario en la base de datos
-     * @param nombreUsuario del usuario a buscar
+     * Funcion que busca un usuario por su dni
+     * @param dni de la persona que se va abuscar
      * @return el usuario encontrado
      * @throws PersistenciaException error a controlar
      */
-    public Usuario login(String nombreUsuario) throws PersistenciaException {
-        Usuario usuario = null;
-        usuario = buscaPorNombreUsuario(nombreUsuario);
+    public Usuario buscaPorDni(String dni) throws PersistenciaException {
+        ArrayList<Usuario> lista;
+        Usuario usuario;
+        String sql = utilidadesSQL.setSelectOne("dni");
+        lista = buscarPorElemento(sql, dni); 
+
+        usuario = lista.get(0);
 
         return usuario;
+    }
+
+    /**
+     * Funcion que buscar un usuario por su nombre de usuario
+     * @param nombreUsuario del usuario que se va a buscar
+     * @return el usuario encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
+        ArrayList<Usuario> lista;
+        Usuario usuario;
+        String sql = utilidadesSQL.setSelectOne("nombreUsuario");
+        lista = buscarPorElemento(sql, nombreUsuario); 
+
+        usuario = lista.get(0);
+
+        return usuario;
+    }
+
+    /**
+     * Funcion que obtiene un listado de los usuarios y los devuelve
+     * @return la lista de usuarios
+     * @throws PersistenciaException error a controlar
+    */
+    public ArrayList<Usuario> obtenerListado() throws PersistenciaException {
+        ArrayList<Usuario> lista;
+        String sql = utilidadesSQL.getSELECTALL();
+
+        lista = buscarPorElemento(sql, "");
+
+        return lista;
     }
     
     /**
@@ -235,7 +196,7 @@ public class UsuarioModelo {
             preparedStatement.setFloat(13, usuario.getSaldo());
             preparedStatement.setString(14, usuario.getDni());
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al modificar un usuario", e);
         }finally{

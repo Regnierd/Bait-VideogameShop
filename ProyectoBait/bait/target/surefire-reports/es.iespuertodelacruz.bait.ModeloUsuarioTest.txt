@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.ModeloUsuarioTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.35 s - in es.iespuertodelacruz.bait.ModeloUsuarioTest
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.854 s <<< FAILURE! - in es.iespuertodelacruz.bait.ModeloUsuarioTest
+obtenerListadoTest  Time elapsed: 0.057 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Se ha producido un error en la busqueda.
+	at es.iespuertodelacruz.bait.ModeloUsuarioTest.obtenerListadoTest(ModeloUsuarioTest.java:76)
+

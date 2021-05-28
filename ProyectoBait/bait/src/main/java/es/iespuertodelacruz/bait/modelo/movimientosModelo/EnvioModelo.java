@@ -15,8 +15,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class EnvioModelo {
     private static final String ID_ENVIO = "idEnvio";
-    static String tableName = "ENVIO";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idEnvio, idPedido, fechaEnvio, estado");
+    public static final String TABLE_NAME = "ENVIOS";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idEnvio, idPedido, fechaEnvio, estado");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
     /**
@@ -24,7 +24,7 @@ public class EnvioModelo {
      * @throws PersistenciaException
      */
     public EnvioModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
         pedidoModelo = new PedidoModelo();
     }
 

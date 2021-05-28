@@ -14,8 +14,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class MarcaModelo {
     private static final String ID_MARCA = "idMarca";
-    static String tableName = "MARCA";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idMarca, nombre");
+    public static final String TABLE_NAME = "MARCAS";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idMarca, nombre");
     BbddSqlite persistencia;
     
     /**
@@ -23,7 +23,7 @@ public class MarcaModelo {
      * @throws PersistenciaException
      */
     public MarcaModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
     }
 
     /**

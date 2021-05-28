@@ -13,8 +13,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class CategoriaModelo {
-    static String tableName = "CATEGORIA";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(tableName, "idCategoria,nombre");
+    public static final String TABLE_NAME = "CATEGORIAS";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idCategoria,nombre");
     BbddSqlite persistencia;
 
     /**
@@ -22,7 +22,7 @@ public class CategoriaModelo {
      * @throws PersistenciaException
      */
     public CategoriaModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(tableName,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
     }
 
 

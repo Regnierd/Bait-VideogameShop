@@ -161,4 +161,31 @@ public class Bbdd {
             closeConnection(connection, statement, null);
         }
     }
+
+    /**
+    * Funcion que se encarga de realizar un lanzar un consulta y devolver 
+    * el resultado obtenido de la base de datos 
+    * @param sql consulta que se va a realizar 
+    * @throws PersistenciaException error a controlar
+    */
+   public ResultSet buscarElemento(String sql, String valor) throws PersistenciaException {
+    Connection connection = null;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet = null;
+    try {
+       connection = getConnection();
+       preparedStatement = connection.prepareStatement(sql);
+       if (!valor.isEmpty()) {
+        preparedStatement.setString(1, valor);
+       } 
+       resultSet = preparedStatement.executeQuery();
+
+    } catch (SQLException e) {
+       throw new PersistenciaException("Se ha producido un error en la busqueda.",e);
+    } finally {
+       //closeConecction(connection, preparedStatement, null);
+    }
+
+    return resultSet;
+ }
 }
