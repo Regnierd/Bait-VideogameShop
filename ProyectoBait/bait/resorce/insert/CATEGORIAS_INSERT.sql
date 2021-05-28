@@ -1,2 +1,2 @@
-INSERT OR IGNORE INTO CATEGORIAS (idCategoria, nombre) VALUES ('CAT_PC', 'Ordenadores');
-INSERT OR IGNORE INTO CATEGORIAS (idCategoria, nombre) VALUES ('CAT_GAME', 'Videojuego');
+INSERT OR IGNORE INTO CATEGORIAS (idCategoria, nombre) VALUES ('cat_pc', 'Ordenadores');
+INSERT OR IGNORE INTO CATEGORIAS (idCategoria, nombre) VALUES ('cat_game', 'Videojuego');

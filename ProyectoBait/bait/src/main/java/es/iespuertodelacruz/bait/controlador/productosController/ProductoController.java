@@ -103,7 +103,7 @@ public class ProductoController {
      */
     public Producto buscar(String idProducto) throws PersistenciaException {
         Producto producto = null;
-        producto = productoModelo.buscar(idProducto);
+        producto = productoModelo.buscarPorId(idProducto);
 
         return producto;
     }
@@ -141,14 +141,14 @@ public class ProductoController {
 
     /**
      * Funcion que devuelve un lista de productos que tiene la misma marca
-     * @param marca que tiene los productos
+     * @param idMarca que tiene los productos
      * @return la lista de productos filtrados por un marca
      * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Producto> buscarPorMarca(String marca) throws ApiException, PersistenciaException {
+    public ArrayList<Producto> buscarPorMarca(String idMarca) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
-        productos = productoModelo.buscarPorMarca(marca);
+        productos = productoModelo.buscarPorMarca(idMarca);
 
         if (productos.isEmpty()) {
             throw new ApiException("No existe productos con esa marca");

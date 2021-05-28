@@ -1,2 +1,2 @@
-INSERT OR IGNORE INTO MARCAS (idMarca, nombre) VALUES ('01', 'SONY');
-INSERT OR IGNORE INTO MARCAS (idMarca, nombre) VALUES ('02', 'MSI');
+INSERT OR IGNORE INTO MARCAS (idMarca, nombre) VALUES ('mar_sony', 'SONY');
+INSERT OR IGNORE INTO MARCAS (idMarca, nombre) VALUES ('mar_msi', 'MSI');

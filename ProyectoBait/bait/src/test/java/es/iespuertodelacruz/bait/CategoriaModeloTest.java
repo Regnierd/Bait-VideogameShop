@@ -48,8 +48,51 @@ public class CategoriaModeloTest {
         }
     }
 
-   @Test
-   public void test() {
-       assertTrue(true);
-   }
+    @Test
+    public void buscarPorIdTest() {
+        Categoria categoriaBuscada;
+        try {
+            categoriaBuscada = categoriaModelo.buscarPorId(ID_CATEGORIA);
+            assertEquals(categoria, categoriaBuscada, "Deberian ser iguales");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void buscarPorNombreTest() {
+        Categoria categoriaBuscada;
+        try {
+            categoriaBuscada = categoriaModelo.buscarPorNombre(NOMBRE_CATEGORIA);
+            assertEquals(categoria, categoriaBuscada, "Deberian ser iguales");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void obtenerListadoTest() {
+        ArrayList<Categoria> lista;
+        try {
+            lista = categoriaModelo.obtenerListado();
+            assertTrue(lista.contains(categoria), "La lista no contiene la categoria correcta");
+        } catch (PersistenciaException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void modificarTest() {
+        Categoria categoriaBuscada;
+        categoria.setNombre("OtroNombre");
+        try {
+            categoriaModelo.modificar(categoria);
+            categoriaBuscada = categoriaModelo.buscarPorId(ID_CATEGORIA);
+            assertEquals(categoria, categoriaBuscada, "Las categorias deberian ser iguales");
+        } catch (PersistenciaException e) {
+            fail(e.getMessage());
+        }
+    }
+
+
 }

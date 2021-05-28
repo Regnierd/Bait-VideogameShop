@@ -179,7 +179,6 @@ public class Bbdd {
         preparedStatement.setString(1, valor);
        } 
        resultSet = preparedStatement.executeQuery();
-
     } catch (SQLException e) {
        throw new PersistenciaException("Se ha producido un error en la busqueda.",e);
     } finally {

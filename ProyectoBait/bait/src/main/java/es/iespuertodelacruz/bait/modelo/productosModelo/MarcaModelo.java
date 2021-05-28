@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.productos.Marca;
@@ -13,9 +12,9 @@ import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
 import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 
 public class MarcaModelo {
-    private static final String ID_MARCA = "idMarca";
     public static final String TABLE_NAME = "MARCAS";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idMarca, nombre");
+    private static final String IDENTIFICADOR = "idMarca";
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, IDENTIFICADOR +", nombre");
     BbddSqlite persistencia;
     
     /**
@@ -28,7 +27,6 @@ public class MarcaModelo {
 
     /**
      * Metodo que inserta una marca en la base de datos
-     * 
      * @param marca que va a insertar en la base de datos
      * @throws PersistenciaException error a controlar
      */
@@ -40,6 +38,7 @@ public class MarcaModelo {
             preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());
             preparedStatement.setString(1, marca.getIdMarca());
             preparedStatement.setString(2, marca.getNombre());
+           
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al insertar una marca", e);
@@ -61,7 +60,7 @@ public class MarcaModelo {
 
         try {
             connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_MARCA));
+            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(IDENTIFICADOR));
             preparedStatement.setString(1, idMarca);
 
             preparedStatement.executeUpdate();
@@ -72,6 +71,84 @@ public class MarcaModelo {
             persistencia.closeConnection(connection, preparedStatement, null);
         }
 
+    }
+
+     /**
+     * Funcion que realiza un consulta y devuelve una lista de categorias
+     * @param sql consulta que se va a realizar
+     * @param valor del campo a filtrar
+     * @return una lista de categoria
+     * @throws PersistenciaException error a controlar
+     */
+    private ArrayList<Marca> buscarPorElemento(String sql, String valor) throws PersistenciaException{
+        ResultSet resultSet;
+        ArrayList<Marca> lista = new ArrayList<>();
+
+        resultSet = persistencia.buscarElemento(sql, valor);
+
+        try {
+            while (resultSet.next()){
+                String IdMarca = resultSet.getString(IDENTIFICADOR);
+                String nombre = resultSet.getString("nombre");
+        
+                Marca marca = new Marca(IdMarca, nombre);
+                lista.add(marca);
+            }
+        } catch (SQLException e) {
+            throw new PersistenciaException(e.getMessage());
+        }
+
+        return lista;
+
+    }
+
+    /**
+     * Funcion que busca una marca por su identificador
+     * @param idMarca de la categoria que se va buscar
+     * @return la marca encontrada
+     * @throws PersistenciaException error a controlar
+     */
+    public Marca buscarPorId(String idMarca) throws PersistenciaException {
+        ArrayList<Marca> lista;
+        Marca marca;
+        String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);
+        lista = buscarPorElemento(sql, idMarca); 
+
+        marca = lista.get(0);
+
+        return marca;
+    }
+
+    /**
+     * Funcion que busca una marca por su nombre
+     * @param nombre de la marca que se va buscar
+     * @return la marca encontrada
+     * @throws PersistenciaException error a controlar
+     */
+    public Marca buscarPorNombre(String nombre) throws PersistenciaException {
+        ArrayList<Marca> lista;
+        Marca marca;
+        String sql = utilidadesSQL.setSelectOne("nombre");
+        lista = buscarPorElemento(sql, nombre); 
+
+        marca = lista.get(0);
+
+        return marca;
+    }
+
+    
+    /**
+     * Funcion que obtiene un listado de las marcas y los devuelve
+     * @return la lista de las marcas
+     * @throws PersistenciaException error a controlar
+    */
+    public ArrayList<Marca> obtenerListado() throws PersistenciaException {
+        ArrayList<Marca> lista;
+        String sql = utilidadesSQL.getSELECTALL();
+
+        lista = buscarPorElemento(sql, "");
+
+        return lista;
     }
 
     /**
@@ -99,64 +176,4 @@ public class MarcaModelo {
         
     }
 
-    /**
-     * Funcion que busca una marca en la base de datos y lo devuelve
-     * @param idMarca que se va a buscar
-     * @return Marca
-     * @throws PersistenciaException error a controlar
-     */
-    public Marca buscar(String idMarca) throws PersistenciaException {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Marca marca;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_MARCA));
-            preparedStatement.setString(1, idMarca);
-            resultSet = preparedStatement.executeQuery();
-
-            String nombre = resultSet.getString("nombre");
-            marca = new Marca(idMarca, nombre);
-        } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar la marca", e);
-        } finally {
-            persistencia.closeConnection(connection, preparedStatement, resultSet);
-        }
-
-        return marca;
-    }
-
-    /**
-     * Funcion que obtiene un listado de las marcas y los devuelve
-     * @return la lista de marcas
-     * @throws PersistenciaException error a controlar
-     */
-    public ArrayList<Marca> obtenerListado() throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Marca> marcas = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
-
-            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
-            while (resultSet.next()) {
-                String idMarca = resultSet.getString(ID_MARCA);
-                String nombre = resultSet.getString("nombre");
-                
-                Marca marca = new Marca(idMarca, nombre);
-                marcas.add(marca);
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
-        }finally{
-            persistencia.closeConnection(connection, statement, resultSet);
-        }
-             
-        return marcas;
-    }
 }

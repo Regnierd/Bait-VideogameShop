@@ -80,7 +80,7 @@ public class UtilidadesSQL  {
      * @return String
      */
     public String setSelectOneLike(String atributo) {
-        return "SELECT * FROM " + tabla + " WHERE " + atributo + "LIKE" + "%?%;" ;
+        return "SELECT * FROM " + tabla + " WHERE " + atributo + " LIKE '%?%';";
     }
 
     /**

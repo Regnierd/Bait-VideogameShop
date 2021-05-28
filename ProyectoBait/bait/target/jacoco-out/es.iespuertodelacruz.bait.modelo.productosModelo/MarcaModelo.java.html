@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MarcaModelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.productosModelo</a> &gt; <span class="el_source">MarcaModelo.java</span></div><h1>MarcaModelo.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.productosModelo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.productos.Marca;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
+import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
+
+public class MarcaModelo {
+    public static final String TABLE_NAME = &quot;MARCAS&quot;;
+    private static final String IDENTIFICADOR = &quot;idMarca&quot;;
+<span class="fc" id="L17">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, IDENTIFICADOR +&quot;, nombre&quot;);</span>
+    BbddSqlite persistencia;
+    
+    /**
+     * Constructor basico de la clase
+     * @throws PersistenciaException
+     */
+<span class="fc" id="L24">    public MarcaModelo() throws PersistenciaException {</span>
+<span class="fc" id="L25">        persistencia = new BbddSqlite(TABLE_NAME,null, null);</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Metodo que inserta una marca en la base de datos
+     * @param marca que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Marca marca) throws PersistenciaException {
+<span class="fc" id="L34">        Connection connection = null;</span>
+<span class="fc" id="L35">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="fc" id="L37">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L38">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="fc" id="L39">            preparedStatement.setString(1, marca.getIdMarca());</span>
+<span class="fc" id="L40">            preparedStatement.setString(2, marca.getNombre());</span>
+           
+<span class="fc" id="L42">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L43">        } catch (Exception e) {</span>
+<span class="nc" id="L44">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar una marca&quot;, e);</span>
+        }finally{
+<span class="fc" id="L46">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="fc" id="L49">    }</span>
+
+    /**
+     * Metodo encargado de eliminar una marca en la base de datos
+     * 
+     * @param idMarca de la marca
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idMarca) throws PersistenciaException {
+<span class="fc" id="L58">        Connection connection = null;</span>
+<span class="fc" id="L59">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L62">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L63">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(IDENTIFICADOR));</span>
+<span class="fc" id="L64">            preparedStatement.setString(1, idMarca);</span>
+
+<span class="fc" id="L66">            preparedStatement.executeUpdate();</span>
+
+<span class="nc" id="L68">        } catch (Exception e) {</span>
+<span class="nc" id="L69">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar una marca&quot;, e);</span>
+        }finally{
+<span class="fc" id="L71">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="fc" id="L74">    }</span>
+
+     /**
+     * Funcion que realiza un consulta y devuelve una lista de categorias
+     * @param sql consulta que se va a realizar
+     * @param valor del campo a filtrar
+     * @return una lista de categoria
+     * @throws PersistenciaException error a controlar
+     */
+    private ArrayList&lt;Marca&gt; buscarPorElemento(String sql, String valor) throws PersistenciaException{
+        ResultSet resultSet;
+<span class="fc" id="L85">        ArrayList&lt;Marca&gt; lista = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L87">        resultSet = persistencia.buscarElemento(sql, valor);</span>
+
+        try {
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            while (resultSet.next()){</span>
+<span class="fc" id="L91">                String IdMarca = resultSet.getString(IDENTIFICADOR);</span>
+<span class="fc" id="L92">                String nombre = resultSet.getString(&quot;nombre&quot;);</span>
+        
+<span class="fc" id="L94">                Marca marca = new Marca(IdMarca, nombre);</span>
+<span class="fc" id="L95">                lista.add(marca);</span>
+<span class="fc" id="L96">            }</span>
+<span class="nc" id="L97">        } catch (SQLException e) {</span>
+<span class="nc" id="L98">            throw new PersistenciaException(e.getMessage());</span>
+<span class="fc" id="L99">        }</span>
+
+<span class="fc" id="L101">        return lista;</span>
+
+    }
+
+    /**
+     * Funcion que busca una marca por su identificador
+     * @param idMarca de la categoria que se va buscar
+     * @return la marca encontrada
+     * @throws PersistenciaException error a controlar
+     */
+    public Marca buscarPorId(String idMarca) throws PersistenciaException {
+        ArrayList&lt;Marca&gt; lista;
+        Marca marca;
+<span class="fc" id="L114">        String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);</span>
+<span class="fc" id="L115">        lista = buscarPorElemento(sql, idMarca); </span>
+
+<span class="fc" id="L117">        marca = lista.get(0);</span>
+
+<span class="fc" id="L119">        return marca;</span>
+    }
+
+    /**
+     * Funcion que busca una marca por su nombre
+     * @param nombre de la marca que se va buscar
+     * @return la marca encontrada
+     * @throws PersistenciaException error a controlar
+     */
+    public Marca buscarPorNombre(String nombre) throws PersistenciaException {
+        ArrayList&lt;Marca&gt; lista;
+        Marca marca;
+<span class="fc" id="L131">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
+<span class="fc" id="L132">        lista = buscarPorElemento(sql, nombre); </span>
+
+<span class="fc" id="L134">        marca = lista.get(0);</span>
+
+<span class="fc" id="L136">        return marca;</span>
+    }
+
+    
+    /**
+     * Funcion que obtiene un listado de las marcas y los devuelve
+     * @return la lista de las marcas
+     * @throws PersistenciaException error a controlar
+    */
+    public ArrayList&lt;Marca&gt; obtenerListado() throws PersistenciaException {
+        ArrayList&lt;Marca&gt; lista;
+<span class="fc" id="L147">        String sql = utilidadesSQL.getSELECTALL();</span>
+
+<span class="fc" id="L149">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
+
+<span class="fc" id="L151">        return lista;</span>
+    }
+
+    /**
+     * Metodo que modifica un campo en concreto de la base datos
+     * @param marca con los nuevos cambios
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Marca marca) throws PersistenciaException {
+<span class="fc" id="L160">        Connection connection = null;</span>
+<span class="fc" id="L161">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="fc" id="L163">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L164">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L165">            preparedStatement.setString(1, marca.getIdMarca());</span>
+<span class="fc" id="L166">            preparedStatement.setString(2, marca.getNombre());</span>
+<span class="fc" id="L167">            preparedStatement.setString(3, marca.getIdMarca());</span>
+
+<span class="fc" id="L169">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L170">        } catch (Exception e) {</span>
+<span class="nc" id="L171">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar una marca&quot;, e);</span>
+        }finally{
+<span class="fc" id="L173">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+        
+<span class="fc" id="L177">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

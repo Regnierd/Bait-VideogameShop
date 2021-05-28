@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EnvioModelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.movimientosModelo</a> &gt; <span class="el_source">EnvioModelo.java</span></div><h1>EnvioModelo.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.movimientosModelo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.movimientos.Envio;
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
+import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
+
+public class EnvioModelo {
+    private static final String ID_ENVIO = &quot;idEnvio&quot;;
+    public static final String TABLE_NAME = &quot;ENVIOS&quot;;
+<span class="nc" id="L19">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, &quot;idEnvio, idPedido, fechaEnvio, estado&quot;);</span>
+    BbddSqlite persistencia;
+    PedidoModelo pedidoModelo;
+    /**
+     * Constructor basico de la clase
+     * @throws PersistenciaException
+     */
+<span class="nc" id="L26">    public EnvioModelo() throws PersistenciaException{</span>
+<span class="nc" id="L27">        persistencia = new BbddSqlite(TABLE_NAME,null, null);</span>
+<span class="nc" id="L28">        pedidoModelo = new PedidoModelo();</span>
+<span class="nc" id="L29">    }</span>
+
+    /**
+     * Metodo que inserta un envio en la base de datos
+     * 
+     * @param envio que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Envio envio) throws PersistenciaException {
+<span class="nc" id="L38">        Connection connection = null;</span>
+<span class="nc" id="L39">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="nc" id="L41">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L42">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="nc" id="L43">            preparedStatement.setString(1, envio.getIdEnvio());</span>
+<span class="nc" id="L44">            preparedStatement.setString(2, envio.getPedido().getIdPedido());</span>
+<span class="nc" id="L45">            preparedStatement.setString(3, envio.getFechaEnvio());</span>
+<span class="nc" id="L46">            preparedStatement.setString(4, envio.getEstado());</span>
+
+<span class="nc" id="L48">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L49">        } catch (Exception e) {</span>
+<span class="nc" id="L50">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el envio&quot;, e);</span>
+        }finally{
+<span class="nc" id="L52">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="nc" id="L55">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un envio en la base de datos
+     * 
+     * @param idEnvio identificador del envio a borrar
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idEnvio) throws PersistenciaException {
+<span class="nc" id="L64">        Connection connection = null;</span>
+<span class="nc" id="L65">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="nc" id="L68">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L69">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(ID_ENVIO));</span>
+<span class="nc" id="L70">            preparedStatement.setString(1, idEnvio);</span>
+
+<span class="nc" id="L72">            preparedStatement.executeUpdate();</span>
+
+<span class="nc" id="L74">        } catch (Exception e) {</span>
+<span class="nc" id="L75">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar el envio&quot;, e);</span>
+        }finally{
+<span class="nc" id="L77">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Metodo que modifica un campo en concreto de la base datos
+     * @param envio con los nuevos cambios
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Envio envio) throws PersistenciaException {
+<span class="nc" id="L88">        Connection connection = null;</span>
+<span class="nc" id="L89">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="nc" id="L91">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L92">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="nc" id="L93">            preparedStatement.setString(1, envio.getIdEnvio());</span>
+<span class="nc" id="L94">            preparedStatement.setString(2, envio.getPedido().getIdPedido());</span>
+<span class="nc" id="L95">            preparedStatement.setString(3, envio.getFechaEnvio());</span>
+<span class="nc" id="L96">            preparedStatement.setString(4, envio.getEstado());</span>
+
+<span class="nc" id="L98">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L99">        } catch (Exception e) {</span>
+<span class="nc" id="L100">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar el ENVIO&quot;, e);</span>
+        }finally{
+<span class="nc" id="L102">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+        
+<span class="nc" id="L106">    }</span>
+
+    /**
+     * Funcion que busca un envio en la base de datos y lo devuelve
+     * @param idEnvio que se va a buscar
+     * @return el envio 
+     * @throws PersistenciaException error a controlar
+     */
+    public Envio buscar(String idEnvio) throws PersistenciaException {
+<span class="nc" id="L115">        Connection connection = null;</span>
+<span class="nc" id="L116">        ResultSet resultSet = null;</span>
+        Envio envio;
+<span class="nc" id="L118">        PreparedStatement preparedStatement = null;</span>
+      
+        try {
+<span class="nc" id="L121">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L122">            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_ENVIO));</span>
+<span class="nc" id="L123">            preparedStatement.setString(1, idEnvio);</span>
+<span class="nc" id="L124">            resultSet = preparedStatement.executeQuery();</span>
+
+<span class="nc" id="L126">            String idPedido = resultSet.getString(&quot;idPedido&quot;);</span>
+<span class="nc" id="L127">            String fechaEnvio = resultSet.getString(&quot;fechaEnvio&quot;);</span>
+<span class="nc" id="L128">            String estado = resultSet.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L130">            Pedido pedido = pedidoModelo.buscar(idPedido);</span>
+<span class="nc" id="L131">            envio = new Envio(idEnvio, pedido, fechaEnvio, estado);</span>
+<span class="nc" id="L132">        } catch (SQLException e) {</span>
+<span class="nc" id="L133">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar el envio&quot;, e);</span>
+        } finally {
+<span class="nc" id="L135">            persistencia.closeConnection(connection, preparedStatement, resultSet);</span>
+        }
+
+<span class="nc" id="L138">        return envio;</span>
+    }
+
+    /**
+     * Funcion que obtiene un listado de los envios y los devuelve
+     * @return la lista de los envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Envio&gt; obtenerListado() throws PersistenciaException {
+<span class="nc" id="L147">        Connection connection = null;</span>
+<span class="nc" id="L148">        ArrayList&lt;Envio&gt; envios = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L149">        ResultSet resultSet = null;</span>
+<span class="nc" id="L150">        Statement statement = null;</span>
+        
+        try {
+<span class="nc" id="L153">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L154">            statement = connection.createStatement();</span>
+<span class="nc" id="L155">            statement.setMaxRows(30);</span>
+
+<span class="nc" id="L157">            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L159">                String idEnvio = resultSet.getString(ID_ENVIO);</span>
+<span class="nc" id="L160">                String idPedido = resultSet.getString(&quot;idPedido&quot;);</span>
+<span class="nc" id="L161">                String fechaEnvio = resultSet.getString(&quot;fechaEnvio&quot;);</span>
+<span class="nc" id="L162">                String estado = resultSet.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L164">                Pedido pedido = pedidoModelo.buscar(idPedido);</span>
+                
+<span class="nc" id="L166">                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);</span>
+<span class="nc" id="L167">                envios.add(envio);</span>
+<span class="nc" id="L168">            }</span>
+<span class="nc" id="L169">        } catch (Exception e) {</span>
+<span class="nc" id="L170">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar un envio&quot;, e);</span>
+        }finally{
+<span class="nc" id="L172">            persistencia.closeConnection(connection, statement, resultSet);</span>
+        }
+             
+<span class="nc" id="L175">        return envios;</span>
+    }
+
+    /**
+     * Funcion que obtiene un listado de los envios de un pedido
+     * @return la lista de los envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Envio&gt; obtenerListadoPorPedido(String idPedido) throws PersistenciaException {
+<span class="nc" id="L184">        Connection connection = null;</span>
+<span class="nc" id="L185">        ArrayList&lt;Envio&gt; envios = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L186">        ResultSet resultSet = null;</span>
+<span class="nc" id="L187">        Statement statement = null;</span>
+        
+        try {
+<span class="nc" id="L190">            connection = persistencia.getConnection();</span>
+<span class="nc" id="L191">            statement = connection.createStatement();</span>
+<span class="nc" id="L192">            statement.setMaxRows(30);</span>
+
+<span class="nc" id="L194">            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(&quot;idPedido&quot;));</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L196">                String idEnvio = resultSet.getString(ID_ENVIO);</span>
+<span class="nc" id="L197">                String fechaEnvio = resultSet.getString(&quot;fechaEnvio&quot;);</span>
+<span class="nc" id="L198">                String estado = resultSet.getString(&quot;estado&quot;);</span>
+
+<span class="nc" id="L200">                Pedido pedido = pedidoModelo.buscar(idPedido);</span>
+                
+<span class="nc" id="L202">                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);</span>
+<span class="nc" id="L203">                envios.add(envio);</span>
+<span class="nc" id="L204">            }</span>
+<span class="nc" id="L205">        } catch (Exception e) {</span>
+<span class="nc" id="L206">            throw new PersistenciaException(&quot;Ha ocurrido un error al buscar un envio&quot;, e);</span>
+        }finally{
+<span class="nc" id="L208">            persistencia.closeConnection(connection, statement, resultSet);</span>
+        }
+             
+<span class="nc" id="L211">        return envios;</span>
+    }
+
+   
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

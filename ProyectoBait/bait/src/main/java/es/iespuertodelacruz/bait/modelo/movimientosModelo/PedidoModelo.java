@@ -145,7 +145,7 @@ public class PedidoModelo {
             String idProducto = resultSet.getString("idProducto");
 
             Usuario usuario = usuarioModelo.buscaPorDni(dni);
-            Producto producto = productoModelo.buscar(idProducto);
+            Producto producto = productoModelo.buscarPorId(idProducto);
 
             pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
             
@@ -185,7 +185,7 @@ public class PedidoModelo {
                 String idProducto = resultSet.getString("idProducto");
     
                 Usuario usuario = usuarioModelo.buscaPorDni(dni);
-                Producto producto = productoModelo.buscar(idProducto);
+                Producto producto = productoModelo.buscarPorId(idProducto);
     
                 pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
                 pedidos.add(pedido);

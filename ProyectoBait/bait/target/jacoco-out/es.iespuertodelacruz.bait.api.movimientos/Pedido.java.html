@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pedido.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.api.movimientos</a> &gt; <span class="el_source">Pedido.java</span></div><h1>Pedido.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.api.movimientos;
+
+import es.iespuertodelacruz.bait.api.personas.Usuario;
+import es.iespuertodelacruz.bait.api.productos.Producto;
+
+public class Pedido {
+<span class="nc" id="L7">    private final String DELIMITADOR = &quot;,&quot;;</span>
+    private String idPedido;
+    private int unidades;
+    private float total;
+    private String fechaPedido;
+    private Usuario cliente;
+    private Producto producto;
+
+    /**
+     * Constructor basico de la clase
+     */
+<span class="nc" id="L18">    public Pedido() {</span>
+<span class="nc" id="L19">    }</span>
+
+    /**
+     * Contructor con todos los parametros
+     * @param idPedido del pedido
+     * @param unidades del pedido
+     * @param total del pedido
+     * @param fechaPedido del pedido
+     * @param cliente del pedido
+     * @param producto del pedido
+     */
+<span class="nc" id="L30">    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario cliente, Producto producto) {</span>
+<span class="nc" id="L31">        this.idPedido = idPedido;</span>
+<span class="nc" id="L32">        this.unidades = unidades;</span>
+<span class="nc" id="L33">        this.total = total;</span>
+<span class="nc" id="L34">        this.fechaPedido = fechaPedido;</span>
+<span class="nc" id="L35">        this.cliente = cliente;</span>
+<span class="nc" id="L36">        this.producto = producto;</span>
+<span class="nc" id="L37">    }</span>
+
+    //GETTERS Y SETTERS
+
+    public String getIdPedido() {
+<span class="nc" id="L42">        return this.idPedido;</span>
+    }
+
+    public void setIdPedido(String idPedido) {
+<span class="nc" id="L46">        this.idPedido = idPedido;</span>
+<span class="nc" id="L47">    }</span>
+
+    public int getUnidades() {
+<span class="nc" id="L50">        return this.unidades;</span>
+    }
+
+    public void setUnidades(int unidades) {
+<span class="nc" id="L54">        this.unidades = unidades;</span>
+<span class="nc" id="L55">    }</span>
+
+    public float getTotal() {
+<span class="nc" id="L58">        return this.total;</span>
+    }
+
+    public void setTotal(float total) {
+<span class="nc" id="L62">        this.total = total;</span>
+<span class="nc" id="L63">    }</span>
+
+    public String getFechaPedido() {
+<span class="nc" id="L66">        return this.fechaPedido;</span>
+    }
+
+    public void setFechaPedido(String fechaPedido) {
+<span class="nc" id="L70">        this.fechaPedido = fechaPedido;</span>
+<span class="nc" id="L71">    }</span>
+
+    public Usuario getCliente() {
+<span class="nc" id="L74">        return this.cliente;</span>
+    }
+
+    public void setCliente(Usuario cliente) {
+<span class="nc" id="L78">        this.cliente = cliente;</span>
+<span class="nc" id="L79">    }</span>
+
+    public Producto getProducto() {
+<span class="nc" id="L82">        return this.producto;</span>
+    }
+
+    public void setProducto(Producto producto) {
+<span class="nc" id="L86">        this.producto = producto;</span>
+<span class="nc" id="L87">    }</span>
+
+
+    @Override
+    public String toString() {
+<span class="nc" id="L92">        return getIdPedido() + DELIMITADOR +</span>
+<span class="nc" id="L93">        getUnidades() + DELIMITADOR + </span>
+<span class="nc" id="L94">        getTotal() + DELIMITADOR +</span>
+<span class="nc" id="L95">        getFechaPedido() + DELIMITADOR +</span>
+<span class="nc" id="L96">        getCliente().getDni() + DELIMITADOR +</span>
+<span class="nc" id="L97">        getProducto().getIdProducto();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

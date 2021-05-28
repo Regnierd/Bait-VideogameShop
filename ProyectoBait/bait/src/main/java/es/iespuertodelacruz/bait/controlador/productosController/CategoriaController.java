@@ -52,7 +52,7 @@ public class CategoriaController {
         if (existe(categoria)) {
            throw new ApiException("La categoria indicada ya existe.");
         }
-        categoriaModelo.inserta(categoria);
+        categoriaModelo.insertar(categoria);
     }
 
     /**
@@ -90,7 +90,7 @@ public class CategoriaController {
      */
     public Categoria buscar(String idCategoria) throws PersistenciaException {
         Categoria categoria = null;
-        categoria = categoriaModelo.buscar(idCategoria);
+        categoria = categoriaModelo.buscarPorId(idCategoria);
         
         return categoria;
     }

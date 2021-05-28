@@ -89,7 +89,7 @@ public class MarcaController {
      */
     public Marca buscar(String idMarca) throws PersistenciaException {
         Marca marca = null;
-        marca = marcaModelo.buscar(idMarca);
+        marca = marcaModelo.buscarPorId(idMarca);
         
         return marca;
     }
