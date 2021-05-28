@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.api.movimientos;
 
+import java.util.Objects;
+
 public class Envio {
     protected static final String DELIMITADOR = ",";
     private String idEnvio;
@@ -58,6 +60,17 @@ public class Envio {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Envio)) {
+            return false;
+        }
+        Envio envio = (Envio) o;
+        return Objects.equals(idEnvio, envio.idEnvio) && Objects.equals(pedido, envio.pedido) && Objects.equals(fechaEnvio, envio.fechaEnvio) && Objects.equals(estado, envio.estado);
     }
 
 

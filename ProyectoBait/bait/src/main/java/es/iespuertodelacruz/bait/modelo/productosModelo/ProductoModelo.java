@@ -27,6 +27,8 @@ public class ProductoModelo {
      * @throws PersistenciaException
      */
     public ProductoModelo() throws PersistenciaException {
+        categoriaModelo = new CategoriaModelo();
+        marcaModelo = new MarcaModelo();
         persistencia = new BbddSqlite(TABLE_NAME, null, null);
     }
 

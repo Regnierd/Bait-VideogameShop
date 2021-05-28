@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.api.movimientos;
 
+import java.util.Objects;
+
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
@@ -84,6 +86,18 @@ public class Pedido {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Pedido)) {
+            return false;
+        }
+        Pedido pedido = (Pedido) o;
+        return Objects.equals(DELIMITADOR, pedido.DELIMITADOR) && Objects.equals(idPedido, pedido.idPedido) && unidades == pedido.unidades && total == pedido.total && Objects.equals(fechaPedido, pedido.fechaPedido) && Objects.equals(cliente, pedido.cliente) && Objects.equals(producto, pedido.producto);
     }
 
 

@@ -28,10 +28,10 @@ public class PedidoModelo {
      * Constructor basico de la clase
      * @throws PersistenciaException
      */
-    public PedidoModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(TABLE_NAME,null, null);
+    public PedidoModelo() throws PersistenciaException{     
         usuarioModelo = new UsuarioModelo();
         productoModelo = new ProductoModelo();
+        persistencia = new BbddSqlite(TABLE_NAME,null, null);
     }
 
         /**
@@ -120,82 +120,69 @@ public class PedidoModelo {
     }
 
     /**
-     * Funcion que busca un pedido en la base de datos y la devuelve
-     * 
-     * @param idPedido identificador del pedido
-     * @return el pedido buscado
-     * @throws persistenciaException error controlado
+     * Funcion que busca un pedido por su identficador
+     * @param identificador del pedido que se va a buscar
+     * @return el pedido encontrado
+     * @throws PersistenciaException error a controlar
      */
-    public Pedido buscar(String idPedido) throws PersistenciaException {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Pedido pedido = null;
-        PreparedStatement preparedStatement = null;
+    public Pedido buscaPorIdentificador(String identificador) throws PersistenciaException {
+        ArrayList<Pedido> lista;
+        Pedido pedido;
+        String sql = utilidadesSQL.setSelectOne("idPedido");
+        lista = buscarPorElemento(sql, identificador); 
 
-        try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_PEDIDO));
-            preparedStatement.setString(1, idPedido);
-            resultSet = preparedStatement.executeQuery();
-
-            int unidades = resultSet.getInt("unidades");
-            float total = resultSet.getFloat("total");
-            String fechaPedido = resultSet.getString("fechaPedido");
-            String dni = resultSet.getString("dni");
-            String idProducto = resultSet.getString("idProducto");
-
-            Usuario usuario = usuarioModelo.buscaPorDni(dni);
-            Producto producto = productoModelo.buscar(idProducto);
-
-            pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
-            
-        } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar el pedido", e);
-        } finally {
-            persistencia.closeConnection(connection, preparedStatement, resultSet);
-        }
+        pedido = lista.get(0);
 
         return pedido;
     }
 
     /**
-     * Funcion que obtiene un listado de los pedidos de un usuario en concreto
-     * @param dni de la persona que se van a obtener su lista de pedidos
-     * @return la lista de pedidos del usuario
-     * @throws PersistenciaException error controlado
+     * Funcion que realiza un consulta y devuelve una lista de pedidos
+     * @param sql consulta que se va a realizar
+     * @param valor del campo patron
+     * @return una lista de pedidos 
+     * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Pedido> obtenerListado(String dni) throws PersistenciaException{
-        Connection connection = null;
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-        Pedido pedido;
+    private ArrayList<Pedido> buscarPorElemento(String sql, String valor) throws PersistenciaException{
+        ResultSet resultSet;
+        ArrayList<Pedido> lista = new ArrayList<>();
 
+        resultSet = persistencia.buscarElemento(sql, valor);
         try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
-
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne(dni));
-            while (resultSet.next()) {
-                String idPedido = resultSet.getString(ID_PEDIDO);
+            while (resultSet.next()){
+                String idPedido = resultSet.getString("idPedido");
                 int unidades = resultSet.getInt("unidades");
                 float total = resultSet.getFloat("total");
                 String fechaPedido = resultSet.getString("fechaPedido");
+                String idCliente = resultSet.getString("idCliente");
                 String idProducto = resultSet.getString("idProducto");
-    
-                Usuario usuario = usuarioModelo.buscaPorDni(dni);
+                
+                Usuario cliente = usuarioModelo.buscaPorDni(idCliente);
                 Producto producto = productoModelo.buscar(idProducto);
-    
-                pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
-                pedidos.add(pedido);
-            }               
+                Pedido pedido = new Pedido(idPedido, unidades, total, fechaPedido, cliente, producto);
+                lista.add(pedido);
+            }
         } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al obtener el listado de pedidos", e);
-        }finally{
-            persistencia.closeConnection(connection, statement, resultSet);
+            throw new PersistenciaException(e.getMessage());
         }
-        return pedidos;
+
+        return lista;
+
+    }
+
+
+    /**
+     * Funcion que obtiene un listado de los usuarios y los devuelve
+     * @return la lista de pedidos
+     * @throws PersistenciaException error a controlar
+    */
+    public ArrayList<Pedido> obtenerListado() throws PersistenciaException {
+        ArrayList<Pedido> lista;
+        String sql = utilidadesSQL.getSELECTALL();
+
+        lista = buscarPorElemento(sql, "");
+
+        return lista;
     }
 
 }

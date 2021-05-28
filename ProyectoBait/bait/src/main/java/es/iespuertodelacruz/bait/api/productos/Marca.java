@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.api.productos;
 
+import java.util.Objects;
+
 public class Marca {
     private final String DELIMITADOR = ",";
     private String idMarca;
@@ -47,6 +49,19 @@ public class Marca {
         this.nombre = nombre;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Marca)) {
+            return false;
+        }
+        Marca marca = (Marca) o;
+        return Objects.equals(DELIMITADOR, marca.DELIMITADOR) && Objects.equals(idMarca, marca.idMarca) && Objects.equals(nombre, marca.nombre);
+    }
+
+    
 
     @Override
     public String toString() {

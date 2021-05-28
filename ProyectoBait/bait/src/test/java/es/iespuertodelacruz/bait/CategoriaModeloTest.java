@@ -48,8 +48,5 @@ public class CategoriaModeloTest {
         }
     }
 
-   @Test
-   public void test() {
-       assertTrue(true);
-   }
+   
 }

@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS "PEDIDOS" (
 	"unidades"	INTEGER,
 	"total"	REAL,
 	"fechaPedido"	TEXT,
-	"dni"	TEXT NOT NULL,
+	"idCliente"	TEXT NOT NULL,
 	"idProducto"	TEXT NOT NULL,
-	FOREIGN KEY("dni") REFERENCES "Usuario"("dni"),
+	FOREIGN KEY("idCliente") REFERENCES "Usuario"("dni"),
 	FOREIGN KEY("idProducto") REFERENCES "Producto"("idProducto"),
 	PRIMARY KEY("idPedido")
 );
