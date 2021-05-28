@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.movimientos.Envio;
@@ -106,110 +105,74 @@ public class EnvioModelo {
     }
 
     /**
-     * Funcion que busca un envio en la base de datos y lo devuelve
-     * @param idEnvio que se va a buscar
-     * @return el envio 
+     * Funcion que realiza un consulta y devuelve una lista de envio
+     * 
+     * @param sql   consulta que se va a realizar
+     * @param valor del campo patron
+     * @return una lista de envios
      * @throws PersistenciaException error a controlar
      */
-    public Envio buscar(String idEnvio) throws PersistenciaException {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Envio envio;
-        PreparedStatement preparedStatement = null;
-      
+    private ArrayList<Envio> buscarPorElemento(String sql, String valor) throws PersistenciaException {
+        ResultSet resultSet;
+        ArrayList<Envio> lista = new ArrayList<>();
+
+        resultSet = persistencia.buscarElemento(sql, valor);
+
         try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_ENVIO));
-            preparedStatement.setString(1, idEnvio);
-            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String idEnvio = resultSet.getString("idEnvio");
+                String idPedido = resultSet.getString("idPedido");
+                String fechaEnvio = resultSet.getString("fechaEnvio");
+                String estado = resultSet.getString("estado");
+               
 
-            String idPedido = resultSet.getString("idPedido");
-            String fechaEnvio = resultSet.getString("fechaEnvio");
-            String estado = resultSet.getString("estado");
+                Pedido pedido = pedidoModelo.buscaPorIdentificador(idPedido);
 
-            Pedido pedido = pedidoModelo.buscar(idPedido);
-            envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
+                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
+                lista.add(envio);
+            }
         } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar el envio", e);
-        } finally {
-            persistencia.closeConnection(connection, preparedStatement, resultSet);
+            throw new PersistenciaException(e.getMessage());
         }
 
-        return envio;
+        return lista;
+
     }
 
     /**
      * Funcion que obtiene un listado de los envios y los devuelve
-     * @return la lista de los envios
+     * 
+     * @return la lista de envios
      * @throws PersistenciaException error a controlar
      */
     public ArrayList<Envio> obtenerListado() throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Envio> envios = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-        
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
+        ArrayList<Envio> lista;
+        String sql = utilidadesSQL.getSELECTALL();
 
-            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
-            while (resultSet.next()) {
-                String idEnvio = resultSet.getString(ID_ENVIO);
-                String idPedido = resultSet.getString("idPedido");
-                String fechaEnvio = resultSet.getString("fechaEnvio");
-                String estado = resultSet.getString("estado");
+        lista = buscarPorElemento(sql, "");
 
-                Pedido pedido = pedidoModelo.buscar(idPedido);
-                
-                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
-                envios.add(envio);
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar un envio", e);
-        }finally{
-            persistencia.closeConnection(connection, statement, resultSet);
-        }
-             
-        return envios;
+        return lista;
     }
 
     /**
-     * Funcion que obtiene un listado de los envios de un pedido
-     * @return la lista de los envios
+     * Funcion que busca un envio por su identificador
+     * 
+     * @param identificador del envio que se va abuscar
+     * @return el envio encontrado
      * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Envio> obtenerListadoPorPedido(String idPedido) throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Envio> envios = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-        
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
+    public Envio buscaPorIdentificador(String identificador) throws PersistenciaException {
+        ArrayList<Envio> lista;
+        Envio envio;
+        String sql = utilidadesSQL.setSelectOne("idEnvio");
+        lista = buscarPorElemento(sql, identificador);
 
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
-            while (resultSet.next()) {
-                String idEnvio = resultSet.getString(ID_ENVIO);
-                String fechaEnvio = resultSet.getString("fechaEnvio");
-                String estado = resultSet.getString("estado");
+        envio = lista.get(0);
 
-                Pedido pedido = pedidoModelo.buscar(idPedido);
-                
-                Envio envio = new Envio(idEnvio, pedido, fechaEnvio, estado);
-                envios.add(envio);
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar un envio", e);
-        }finally{
-            persistencia.closeConnection(connection, statement, resultSet);
-        }
-             
-        return envios;
+        return envio;
     }
+
+    
 
    
 

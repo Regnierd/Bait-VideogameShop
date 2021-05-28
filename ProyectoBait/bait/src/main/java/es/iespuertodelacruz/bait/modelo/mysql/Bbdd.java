@@ -87,7 +87,7 @@ public class Bbdd {
         informacionTablas = fichero.leer(tablaFichero);
         informacionInsert = fichero.leer(insertFichero);
 
-        if (!listaTablas.contains(tabla) && !informacionInsert.isEmpty() ) { 
+        if (!listaTablas.contains(tabla) || !informacionInsert.isEmpty() ) { 
             actualizar(informacionTablas);
             actualizar(informacionInsert);
         }

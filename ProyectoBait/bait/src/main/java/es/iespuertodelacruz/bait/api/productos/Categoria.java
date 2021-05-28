@@ -52,6 +52,10 @@ public class Categoria {
         return Objects.equals(DELIMITADOR, categoria.DELIMITADOR) && Objects.equals(idCategoria, categoria.idCategoria) && Objects.equals(nombre, categoria.nombre);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature-Javi
     @Override
     public String toString() {
         return getIdCategoria() + DELIMITADOR + getNombre();

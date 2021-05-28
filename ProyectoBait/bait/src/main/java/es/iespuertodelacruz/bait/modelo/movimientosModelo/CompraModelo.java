@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.movimientos.Compra;
@@ -19,12 +18,14 @@ public class CompraModelo {
     UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idCompra, totalCompra, idPedido");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
+
     /**
      * Construcor basico de la clase
+     * 
      * @throws PersistenciaException
      */
-    public CompraModelo() throws PersistenciaException{
-        persistencia = new BbddSqlite(TABLE_NAME,null, null);
+    public CompraModelo() throws PersistenciaException {
+        persistencia = new BbddSqlite(TABLE_NAME, null, null);
         pedidoModelo = new PedidoModelo();
     }
 
@@ -104,37 +105,36 @@ public class CompraModelo {
     }
 
     /**
-     * Funcion que busca una compra en la base de datos y lo devuelve
+     * Funcion que realiza un consulta y devuelve una lista de compra
      * 
-     * @param idCompra que se va a buscar
-     * @return Compra
+     * @param sql   consulta que se va a realizar
+     * @param valor del campo patron
+     * @return una lista de compras
      * @throws PersistenciaException error a controlar
      */
-    public Compra buscar(String idCompra) throws PersistenciaException {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Compra compra;
-        PreparedStatement preparedStatement = null;
-      
+    private ArrayList<Compra> buscarPorElemento(String sql, String valor) throws PersistenciaException {
+        ResultSet resultSet;
+        ArrayList<Compra> lista = new ArrayList<>();
+
+        resultSet = persistencia.buscarElemento(sql, valor);
+
         try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_COMPRA));
-            preparedStatement.setString(1, idCompra);
-            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String idCompra = resultSet.getString("idCompra");
+                float totalCompra = resultSet.getFloat("totalCompra");
+                String idPedido = resultSet.getString("idPedido");
 
-            float totalCompra = resultSet.getFloat("totalCompra");
-            String idPedido = resultSet.getString("idPedido");
+                Pedido pedido = pedidoModelo.buscaPorIdentificador(idPedido);
 
-            Pedido pedido = pedidoModelo.buscar(idPedido);
-
-            compra = new Compra(idCompra, totalCompra, pedido);
+                Compra compra = new Compra(idCompra, totalCompra, pedido);
+                lista.add(compra);
+            }
         } catch (SQLException e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar la compra", e);
-        } finally {
-            persistencia.closeConnection(connection, preparedStatement, resultSet);
+            throw new PersistenciaException(e.getMessage());
         }
 
-        return compra;
+        return lista;
+
     }
 
     /**
@@ -144,69 +144,29 @@ public class CompraModelo {
      * @throws PersistenciaException error a controlar
      */
     public ArrayList<Compra> obtenerListado() throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Compra> compras = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
-        Compra compra;
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
+        ArrayList<Compra> lista;
+        String sql = utilidadesSQL.getSELECTALL();
 
-            resultSet = statement.executeQuery(utilidadesSQL.getSELECTALL());
-            while (resultSet.next()) {
-                String idCompra = resultSet.getString(ID_COMPRA);
-                float totalCompra = resultSet.getFloat("totalCompra");
-                String idPedido = resultSet.getString("idPedido");
+        lista = buscarPorElemento(sql, "");
 
-                Pedido pedido = pedidoModelo.buscar(idPedido);
-
-                compra = new Compra(idCompra, totalCompra, pedido);
-                compras.add(compra);
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
-        } finally {
-            persistencia.closeConnection(connection, statement, resultSet);
-        }
-
-        return compras;
+        return lista;
     }
 
     /**
-     * Funcion que obtiene un listado de las compras de un pedido
+     * Funcion que busca una compra por su identificador
      * 
-     * @return la lista de compras
+     * @param identificador de la compra que se va abuscar
+     * @return la compra encontrada
      * @throws PersistenciaException error a controlar
      */
-    public ArrayList<Compra> obtenerListadoPorPedido(String idPedido) throws PersistenciaException {
-        Connection connection = null;
-        ArrayList<Compra> compras = new ArrayList<>();
-        ResultSet resultSet = null;
-        Statement statement = null;
+    public Compra buscaPorIdentificador(String identificador) throws PersistenciaException {
+        ArrayList<Compra> lista;
         Compra compra;
-        try {
-            connection = persistencia.getConnection();
-            statement = connection.createStatement();
-            statement.setMaxRows(30);
+        String sql = utilidadesSQL.setSelectOne("idCompra");
+        lista = buscarPorElemento(sql, identificador);
 
-            resultSet = statement.executeQuery(utilidadesSQL.setSelectOne("idPedido"));
-            while (resultSet.next()) {
-                String idCompra = resultSet.getString(ID_COMPRA);
-                float totalCompra = resultSet.getFloat("totalCompra");
+        compra = lista.get(0);
 
-                Pedido pedido = pedidoModelo.buscar(idPedido);
-
-                compra = new Compra(idCompra, totalCompra, pedido);
-                compras.add(compra);
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Ha ocurrido un error al buscar una marca", e);
-        } finally {
-            persistencia.closeConnection(connection, statement, resultSet);
-        }
-
-        return compras;
+        return compra;
     }
 }

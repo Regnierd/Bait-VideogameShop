@@ -48,6 +48,7 @@ public class CategoriaModeloTest {
         }
     }
 
+<<<<<<< HEAD
     @Test
     public void buscarPorIdTest() {
         Categoria categoriaBuscada;
@@ -95,4 +96,7 @@ public class CategoriaModeloTest {
     }
 
 
+=======
+   
+>>>>>>> feature-Javi
 }

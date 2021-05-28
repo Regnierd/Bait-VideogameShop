@@ -107,6 +107,10 @@ public class Producto {
         Producto producto = (Producto) o;
         return Objects.equals(idProducto, producto.idProducto) && Objects.equals(nombre, producto.nombre) && precio == producto.precio && Objects.equals(descripcion, producto.descripcion) && stock == producto.stock && Objects.equals(categoria, producto.categoria) && Objects.equals(marca, producto.marca);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature-Javi
     
     @Override
     public String toString() {
