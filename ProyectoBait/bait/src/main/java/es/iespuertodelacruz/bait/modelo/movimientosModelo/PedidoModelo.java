@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
@@ -127,12 +126,14 @@ public class PedidoModelo {
      */
     public Pedido buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList<Pedido> lista;
-        Pedido pedido;
-        String sql = utilidadesSQL.setSelectOne("idPedido");
+        Pedido pedido = null;
+        String sql = utilidadesSQL.setSelectOne(ID_PEDIDO);
         lista = buscarPorElemento(sql, identificador); 
 
-        pedido = lista.get(0);
-
+        if (!lista.isEmpty()) {
+            pedido = lista.get(0);
+        }
+        
         return pedido;
     }
 
@@ -150,7 +151,7 @@ public class PedidoModelo {
         resultSet = persistencia.buscarElemento(sql, valor);
         try {
             while (resultSet.next()){
-                String idPedido = resultSet.getString("idPedido");
+                String idPedido = resultSet.getString(ID_PEDIDO);
                 int unidades = resultSet.getInt("unidades");
                 float total = resultSet.getFloat("total");
                 String fechaPedido = resultSet.getString("fechaPedido");

@@ -93,7 +93,7 @@ public class EnvioModelo {
 <span class="fc" id="L93">            preparedStatement.setString(2, envio.getPedido().getIdPedido());</span>
 <span class="fc" id="L94">            preparedStatement.setString(3, envio.getFechaEnvio());</span>
 <span class="fc" id="L95">            preparedStatement.setString(4, envio.getEstado());</span>
-<span class="fc" id="L96">            preparedStatement.setString(5, envio.getIdEnvio());//ESTE ERA EL FALLO</span>
+<span class="fc" id="L96">            preparedStatement.setString(5, envio.getIdEnvio());</span>
 
 <span class="fc" id="L98">            preparedStatement.executeUpdate();</span>
 <span class="nc" id="L99">        } catch (Exception e) {</span>
@@ -121,7 +121,7 @@ public class EnvioModelo {
 
         try {
 <span class="fc bfc" id="L123" title="All 2 branches covered.">            while (resultSet.next()) {</span>
-<span class="fc" id="L124">                String idEnvio = resultSet.getString(&quot;idEnvio&quot;);</span>
+<span class="fc" id="L124">                String idEnvio = resultSet.getString(ID_ENVIO);</span>
 <span class="fc" id="L125">                String idPedido = resultSet.getString(&quot;idPedido&quot;);</span>
 <span class="fc" id="L126">                String fechaEnvio = resultSet.getString(&quot;fechaEnvio&quot;);</span>
 <span class="fc" id="L127">                String estado = resultSet.getString(&quot;estado&quot;);</span>
@@ -164,13 +164,15 @@ public class EnvioModelo {
      */
     public Envio buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList&lt;Envio&gt; lista;
-        Envio envio;
-<span class="fc" id="L168">        String sql = utilidadesSQL.setSelectOne(&quot;idEnvio&quot;);</span>
+<span class="fc" id="L167">        Envio envio = null;</span>
+<span class="fc" id="L168">        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);</span>
 <span class="fc" id="L169">        lista = buscarPorElemento(sql, identificador);</span>
 
-<span class="fc" id="L171">        envio = lista.get(0);</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L172">            envio = lista.get(0);</span>
+        }
 
-<span class="fc" id="L173">        return envio;</span>
+<span class="fc" id="L175">        return envio;</span>
     }
 
     

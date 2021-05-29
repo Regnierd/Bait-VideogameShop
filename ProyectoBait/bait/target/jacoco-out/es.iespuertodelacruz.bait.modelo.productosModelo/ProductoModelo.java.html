@@ -129,13 +129,15 @@ public class ProductoModelo {
      */
     public Producto buscarPorId(String idProducto) throws PersistenciaException {
         ArrayList&lt;Producto&gt; lista;
-        Producto producto;
+<span class="fc" id="L132">        Producto producto = null;</span>
 <span class="fc" id="L133">        String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);</span>
 <span class="fc" id="L134">        lista = buscarPorElemento(sql, idProducto); </span>
 
-<span class="fc" id="L136">        producto = lista.get(0);</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L137">            producto = lista.get(0);</span>
+        }
 
-<span class="fc" id="L138">         return producto;</span>
+<span class="fc" id="L140">        return producto;</span>
     }
 
     /**
@@ -145,12 +147,12 @@ public class ProductoModelo {
      * @throws PersistenciaException error a controlar
      */
     public ArrayList&lt;Producto&gt; buscarPorNombre(String nombre) throws PersistenciaException {
-<span class="fc" id="L148">        ArrayList&lt;Producto&gt; lista = null;</span>
-<span class="fc" id="L149">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
+<span class="fc" id="L150">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L151">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
 
-<span class="fc" id="L151">        lista = buscarPorElemento(sql, nombre);</span>
+<span class="fc" id="L153">        lista = buscarPorElemento(sql, nombre);</span>
 
-<span class="fc" id="L153">        return lista;</span>
+<span class="fc" id="L155">        return lista;</span>
     }
 
     /**
@@ -160,11 +162,11 @@ public class ProductoModelo {
      * @throws PersistenciaException error a controlar
      */
     public ArrayList&lt;Producto&gt; buscarPorCategoria(String idCategoria) throws PersistenciaException {
-<span class="fc" id="L163">        ArrayList&lt;Producto&gt; lista = null;</span>
-<span class="fc" id="L164">        String sql = utilidadesSQL.setSelectOne(&quot;idCategoria&quot;);</span>
-<span class="fc" id="L165">        lista = buscarPorElemento(sql, idCategoria); </span>
+<span class="fc" id="L165">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L166">        String sql = utilidadesSQL.setSelectOne(&quot;idCategoria&quot;);</span>
+<span class="fc" id="L167">        lista = buscarPorElemento(sql, idCategoria); </span>
 
-<span class="fc" id="L167">        return lista;</span>
+<span class="fc" id="L169">        return lista;</span>
     }
 
     /**
@@ -174,11 +176,11 @@ public class ProductoModelo {
      * @throws PersistenciaException error a controlar
      */
     public ArrayList&lt;Producto&gt; buscarPorMarca(String idMarca) throws PersistenciaException {
-<span class="fc" id="L177">        ArrayList&lt;Producto&gt; lista = null;</span>
-<span class="fc" id="L178">        String sql = utilidadesSQL.setSelectOne(&quot;idMarca&quot;);</span>
-<span class="fc" id="L179">        lista = buscarPorElemento(sql, idMarca); </span>
+<span class="fc" id="L179">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L180">        String sql = utilidadesSQL.setSelectOne(&quot;idMarca&quot;);</span>
+<span class="fc" id="L181">        lista = buscarPorElemento(sql, idMarca); </span>
 
-<span class="fc" id="L181">        return lista;</span>
+<span class="fc" id="L183">        return lista;</span>
     }
 
 
@@ -188,12 +190,12 @@ public class ProductoModelo {
      * @throws PersistenciaException error a controlar
     */
     public ArrayList&lt;Producto&gt; obtenerListado() throws PersistenciaException {
-<span class="fc" id="L191">        ArrayList&lt;Producto&gt; lista = null;</span>
-<span class="fc" id="L192">        String sql = utilidadesSQL.getSELECTALL();</span>
+<span class="fc" id="L193">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L194">        String sql = utilidadesSQL.getSELECTALL();</span>
 
-<span class="fc" id="L194">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
+<span class="fc" id="L196">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
 
-<span class="fc" id="L196">        return lista;</span>
+<span class="fc" id="L198">        return lista;</span>
     }
 
 
@@ -203,29 +205,29 @@ public class ProductoModelo {
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Producto producto) throws PersistenciaException {
-<span class="fc" id="L206">        Connection connection = null;</span>
-<span class="fc" id="L207">        PreparedStatement preparedStatement = null;</span>
+<span class="fc" id="L208">        Connection connection = null;</span>
+<span class="fc" id="L209">        PreparedStatement preparedStatement = null;</span>
 
         try {
-<span class="fc" id="L210">            connection = persistencia.getConnection();</span>
-<span class="fc" id="L211">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
-<span class="fc" id="L212">            preparedStatement.setString(1, producto.getIdProducto());</span>
-<span class="fc" id="L213">            preparedStatement.setString(2, producto.getNombre());</span>
-<span class="fc" id="L214">            preparedStatement.setFloat(3, producto.getPrecio());</span>
-<span class="fc" id="L215">            preparedStatement.setString(4, producto.getDescripcion());</span>
-<span class="fc" id="L216">            preparedStatement.setInt(5, producto.getStock());</span>
-<span class="fc" id="L217">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
-<span class="fc" id="L218">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
-<span class="fc" id="L219">            preparedStatement.setString(8, producto.getIdProducto());</span>
+<span class="fc" id="L212">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L213">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L214">            preparedStatement.setString(1, producto.getIdProducto());</span>
+<span class="fc" id="L215">            preparedStatement.setString(2, producto.getNombre());</span>
+<span class="fc" id="L216">            preparedStatement.setFloat(3, producto.getPrecio());</span>
+<span class="fc" id="L217">            preparedStatement.setString(4, producto.getDescripcion());</span>
+<span class="fc" id="L218">            preparedStatement.setInt(5, producto.getStock());</span>
+<span class="fc" id="L219">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
+<span class="fc" id="L220">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
+<span class="fc" id="L221">            preparedStatement.setString(8, producto.getIdProducto());</span>
 
-<span class="fc" id="L221">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L222">        } catch (Exception e) {</span>
-<span class="nc" id="L223">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un producto&quot;, e);</span>
+<span class="fc" id="L223">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L224">        } catch (Exception e) {</span>
+<span class="nc" id="L225">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un producto&quot;, e);</span>
         }finally{
-<span class="fc" id="L225">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+<span class="fc" id="L227">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }
         
-<span class="fc" id="L228">    }</span>
+<span class="fc" id="L230">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

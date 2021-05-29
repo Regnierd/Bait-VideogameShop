@@ -129,11 +129,13 @@ public class UsuarioModelo {
      */
     public Usuario buscaPorDni(String dni) throws PersistenciaException {
         ArrayList<Usuario> lista;
-        Usuario usuario;
+        Usuario usuario = null;
         String sql = utilidadesSQL.setSelectOne("dni");
         lista = buscarPorElemento(sql, dni); 
-
-        usuario = lista.get(0);
+        
+        if (!lista.isEmpty()) {
+            usuario = lista.get(0);
+        }
 
         return usuario;
     }
@@ -146,11 +148,13 @@ public class UsuarioModelo {
      */
     public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
         ArrayList<Usuario> lista;
-        Usuario usuario;
+        Usuario usuario = null;
         String sql = utilidadesSQL.setSelectOne("nombreUsuario");
         lista = buscarPorElemento(sql, nombreUsuario); 
 
-        usuario = lista.get(0);
+        if (!lista.isEmpty()) {
+            usuario = lista.get(0);
+        }
 
         return usuario;
     }

@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.controlador.personasController;
+ package es.iespuertodelacruz.bait.controlador.personasController;
 
 import java.util.ArrayList;
 
@@ -61,15 +61,21 @@ public class UsuarioController {
     }
 
     /**
-     * Funcion que busca un usuario por su dni y lo retorn
+     * Funcion que busca un usuario por su dni y lo retorna
      * @param dni del usuario que se va a buscar
      * @return el usuario encontrado
      * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
-    public Usuario buscar(String dni) throws PersistenciaException {
+    public Usuario buscar(String dni) throws PersistenciaException, ApiException {
         Usuario usuario = null;
+
+        if (!existe(dni)) {
+            throw new ApiException("El usuario que quiere buscar no existe.");
+        }
+
         usuario = usuarioModelo.buscaPorDni(dni);
-        
+
         return usuario;
     }
 
@@ -84,9 +90,9 @@ public class UsuarioController {
      * @throws ApiException
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
-         Usuario usuario = null;
+        Usuario usuario = null;
         usuario = usuarioModelo.buscaPorNombreUsuario(nombreUsuario);
-
+        
         if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {
             throw new ApiException("Las credenciales introducidas son incorrectas");
         }
@@ -102,7 +108,7 @@ public class UsuarioController {
      */
     public void insertar(Usuario usuario) throws ApiException, PersistenciaException{
         validar(usuario);
-        if (existe(usuario)) {
+        if (existe(usuario.getDni())) {
            throw new ApiException("El usuario indicado ya existe.");
         }
         usuarioModelo.insertar(usuario); 
@@ -114,7 +120,10 @@ public class UsuarioController {
      * @throws PersistenciaException
      * @throws ApiException
      */
-    public void eliminar(String dni) throws PersistenciaException {
+    public void eliminar(String dni) throws PersistenciaException, ApiException {
+        if (!existe(dni)) {
+            throw new ApiException("El usuario que quiere eliminar no existe");
+        }
         usuarioModelo.eliminar(dni);
     }
 
@@ -124,11 +133,11 @@ public class UsuarioController {
      * @return verdadero/falso
      * @throws PersistenciaException
      */
-    private boolean existe(Usuario usuario) throws PersistenciaException {
+    private boolean existe(String dni) throws PersistenciaException {
         boolean encontrada = false;
         Usuario usuarioEncontrado;
    
-        usuarioEncontrado = buscar(usuario.getDni());
+        usuarioEncontrado = usuarioModelo.buscaPorDni(dni);
         if (usuarioEncontrado != null) {
            encontrada = true;
         }  
@@ -141,15 +150,17 @@ public class UsuarioController {
      * @param usuario que se le va a añadir saldo
      * @param saldo que se va a sumar al actula del usuario
      * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public void añadirSaldo(Usuario usuario,float saldo) throws PersistenciaException, ApiException{
         validar(usuario);
         float saldoActual;
         saldoActual = usuario.getSaldo();
+
         if (saldo <= 0) {
             throw new ApiException("El saldo a añadir no puede menor o igual que 0.");
         }
+
         usuario.setSaldo(saldoActual + saldo);
         modificar(usuario);
     }
@@ -162,7 +173,7 @@ public class UsuarioController {
      */
     public void modificar(Usuario usuario) throws ApiException, PersistenciaException{
         validar(usuario);
-        if (!existe(usuario)) {
+        if (!existe(usuario.getDni())) {
             throw new ApiException("El usuario que quiere modificar no existe.");
         }
         usuarioModelo.modificar(usuario);

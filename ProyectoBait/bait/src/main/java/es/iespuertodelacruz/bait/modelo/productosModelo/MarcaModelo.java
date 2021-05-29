@@ -14,19 +14,21 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 public class MarcaModelo {
     public static final String TABLE_NAME = "MARCAS";
     private static final String IDENTIFICADOR = "idMarca";
-    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, IDENTIFICADOR +", nombre");
+    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, IDENTIFICADOR + ", nombre");
     BbddSqlite persistencia;
-    
+
     /**
      * Constructor basico de la clase
+     * 
      * @throws PersistenciaException
      */
     public MarcaModelo() throws PersistenciaException {
-        persistencia = new BbddSqlite(TABLE_NAME,null, null);
+        persistencia = new BbddSqlite(TABLE_NAME, null, null);
     }
 
     /**
      * Metodo que inserta una marca en la base de datos
+     * 
      * @param marca que va a insertar en la base de datos
      * @throws PersistenciaException error a controlar
      */
@@ -38,11 +40,11 @@ public class MarcaModelo {
             preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());
             preparedStatement.setString(1, marca.getIdMarca());
             preparedStatement.setString(2, marca.getNombre());
-           
+
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al insertar una marca", e);
-        }finally{
+        } finally {
             persistencia.closeConnection(connection, preparedStatement, null);
         }
 
@@ -67,30 +69,31 @@ public class MarcaModelo {
 
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al eliminar una marca", e);
-        }finally{
+        } finally {
             persistencia.closeConnection(connection, preparedStatement, null);
         }
 
     }
 
-     /**
+    /**
      * Funcion que realiza un consulta y devuelve una lista de categorias
-     * @param sql consulta que se va a realizar
+     * 
+     * @param sql   consulta que se va a realizar
      * @param valor del campo a filtrar
      * @return una lista de categoria
      * @throws PersistenciaException error a controlar
      */
-    private ArrayList<Marca> buscarPorElemento(String sql, String valor) throws PersistenciaException{
+    private ArrayList<Marca> buscarPorElemento(String sql, String valor) throws PersistenciaException {
         ResultSet resultSet;
         ArrayList<Marca> lista = new ArrayList<>();
 
         resultSet = persistencia.buscarElemento(sql, valor);
 
         try {
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 String IdMarca = resultSet.getString(IDENTIFICADOR);
                 String nombre = resultSet.getString("nombre");
-        
+
                 Marca marca = new Marca(IdMarca, nombre);
                 lista.add(marca);
             }
@@ -104,44 +107,50 @@ public class MarcaModelo {
 
     /**
      * Funcion que busca una marca por su identificador
+     * 
      * @param idMarca de la categoria que se va buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
      */
     public Marca buscarPorId(String idMarca) throws PersistenciaException {
         ArrayList<Marca> lista;
-        Marca marca;
+        Marca marca = null;
         String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);
-        lista = buscarPorElemento(sql, idMarca); 
+        lista = buscarPorElemento(sql, idMarca);
 
-        marca = lista.get(0);
+        if (!lista.isEmpty()) {
+            marca = lista.get(0);
+        }
 
         return marca;
     }
 
     /**
      * Funcion que busca una marca por su nombre
+     * 
      * @param nombre de la marca que se va buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
      */
     public Marca buscarPorNombre(String nombre) throws PersistenciaException {
         ArrayList<Marca> lista;
-        Marca marca;
+        Marca marca = null;
         String sql = utilidadesSQL.setSelectOne("nombre");
-        lista = buscarPorElemento(sql, nombre); 
+        lista = buscarPorElemento(sql, nombre);
 
-        marca = lista.get(0);
+        if (!lista.isEmpty()) {
+            marca = lista.get(0);
+        }
 
         return marca;
     }
 
-    
     /**
      * Funcion que obtiene un listado de las marcas y los devuelve
+     * 
      * @return la lista de las marcas
      * @throws PersistenciaException error a controlar
-    */
+     */
     public ArrayList<Marca> obtenerListado() throws PersistenciaException {
         ArrayList<Marca> lista;
         String sql = utilidadesSQL.getSELECTALL();
@@ -153,6 +162,7 @@ public class MarcaModelo {
 
     /**
      * Metodo que modifica un campo en concreto de la base datos
+     * 
      * @param marca con los nuevos cambios
      * @throws PersistenciaException error a controlar
      */
@@ -169,11 +179,10 @@ public class MarcaModelo {
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new PersistenciaException("Ha ocurrido un error al modificar una marca", e);
-        }finally{
+        } finally {
             persistencia.closeConnection(connection, preparedStatement, null);
         }
-        
-        
+
     }
 
 }

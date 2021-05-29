@@ -131,7 +131,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L132">                        usuarioController.eliminar(dni);</span>
 <span class="nc" id="L133">                        System.out.println(&quot;Usuario eliminado correctamente.&quot;);</span>
-<span class="nc" id="L134">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L134">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L135">                        System.out.println(&quot;Error al eliminar el usuario.&quot;);</span>
 <span class="nc" id="L136">                    }</span>
 <span class="nc" id="L137">                    break;</span>
@@ -150,7 +150,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L151">                        Usuario usuario = usuarioController.buscar(dni);</span>
 <span class="nc" id="L152">                        System.out.println(usuario.toString());</span>
-<span class="nc" id="L153">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L153">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L154">                        System.out.println(&quot;Error al buscar el usuario.&quot;);</span>
 <span class="nc" id="L155">                    }</span>
 <span class="nc" id="L156">                    break;</span>
