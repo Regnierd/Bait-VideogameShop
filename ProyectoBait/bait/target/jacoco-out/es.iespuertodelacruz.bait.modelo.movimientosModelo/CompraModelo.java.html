@@ -15,7 +15,7 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 public class CompraModelo {
     private static final String ID_COMPRA = &quot;idCompra&quot;;
     public static final String TABLE_NAME = &quot;COMPRAS&quot;;
-<span class="fc" id="L18">    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, &quot;idCompra, totalCompra, idPedido&quot;);</span>
+<span class="fc" id="L18">    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, ID_COMPRA + &quot;, totalCompra, idPedido&quot;);</span>
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
 
@@ -120,7 +120,7 @@ public class CompraModelo {
 
         try {
 <span class="fc bfc" id="L122" title="All 2 branches covered.">            while (resultSet.next()) {</span>
-<span class="fc" id="L123">                String idCompra = resultSet.getString(&quot;idCompra&quot;);</span>
+<span class="fc" id="L123">                String idCompra = resultSet.getString(ID_COMPRA);</span>
 <span class="fc" id="L124">                float totalCompra = resultSet.getFloat(&quot;totalCompra&quot;);</span>
 <span class="fc" id="L125">                String idPedido = resultSet.getString(&quot;idPedido&quot;);</span>
 
@@ -161,13 +161,15 @@ public class CompraModelo {
      */
     public Compra buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList&lt;Compra&gt; lista;
-        Compra compra;
-<span class="fc" id="L165">        String sql = utilidadesSQL.setSelectOne(&quot;idCompra&quot;);</span>
+<span class="fc" id="L164">        Compra compra = null;</span>
+<span class="fc" id="L165">        String sql = utilidadesSQL.setSelectOne(ID_COMPRA);</span>
 <span class="fc" id="L166">        lista = buscarPorElemento(sql, identificador);</span>
 
-<span class="fc" id="L168">        compra = lista.get(0);</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L169">            compra = lista.get(0);</span>
+        }
 
-<span class="fc" id="L170">        return compra;</span>
+<span class="fc" id="L172">        return compra;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

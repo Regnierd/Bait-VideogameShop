@@ -108,13 +108,15 @@ public class CategoriaModelo {
      */
     public Categoria buscarPorId(String idCategoria) throws PersistenciaException {
         ArrayList&lt;Categoria&gt; lista;
-        Categoria categoria;
+<span class="fc" id="L111">        Categoria categoria = null;</span>
 <span class="fc" id="L112">        String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);</span>
 <span class="fc" id="L113">        lista = buscarPorElemento(sql, idCategoria); </span>
 
-<span class="fc" id="L115">        categoria = lista.get(0);</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L116">            categoria = lista.get(0);</span>
+        }
 
-<span class="fc" id="L117">        return categoria;</span>
+<span class="fc" id="L119">        return categoria;</span>
     }
 
     /**
@@ -125,13 +127,15 @@ public class CategoriaModelo {
      */
     public Categoria buscarPorNombre(String nombre) throws PersistenciaException {
         ArrayList&lt;Categoria&gt; lista;
-        Categoria categoria;
-<span class="fc" id="L129">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
-<span class="fc" id="L130">        lista = buscarPorElemento(sql, nombre); </span>
+<span class="fc" id="L130">        Categoria categoria = null;</span>
+<span class="fc" id="L131">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
+<span class="fc" id="L132">        lista = buscarPorElemento(sql, nombre); </span>
 
-<span class="fc" id="L132">        categoria = lista.get(0);</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        if(!lista.isEmpty()){</span>
+<span class="fc" id="L135">            categoria = lista.get(0);</span>
+        }
 
-<span class="fc" id="L134">        return categoria;</span>
+<span class="fc" id="L138">        return categoria;</span>
     }
 
     /**
@@ -141,11 +145,11 @@ public class CategoriaModelo {
     */
     public ArrayList&lt;Categoria&gt; obtenerListado() throws PersistenciaException {
         ArrayList&lt;Categoria&gt; lista;
-<span class="fc" id="L144">        String sql = utilidadesSQL.getSELECTALL();</span>
+<span class="fc" id="L148">        String sql = utilidadesSQL.getSELECTALL();</span>
 
-<span class="fc" id="L146">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
+<span class="fc" id="L150">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
 
-<span class="fc" id="L148">        return lista;</span>
+<span class="fc" id="L152">        return lista;</span>
     }
     
     /**
@@ -154,23 +158,23 @@ public class CategoriaModelo {
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Categoria categoria) throws PersistenciaException {
-<span class="fc" id="L157">        Connection connection = null;</span>
-<span class="fc" id="L158">        PreparedStatement preparedStatement = null;</span>
+<span class="fc" id="L161">        Connection connection = null;</span>
+<span class="fc" id="L162">        PreparedStatement preparedStatement = null;</span>
 
         try {
-<span class="fc" id="L161">            connection = persistencia.getConnection();</span>
-<span class="fc" id="L162">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
-<span class="fc" id="L163">            preparedStatement.setString(1, categoria.getIdCategoria());</span>
-<span class="fc" id="L164">            preparedStatement.setString(2, categoria.getNombre());</span>
-<span class="fc" id="L165">            preparedStatement.setString(3, categoria.getIdCategoria());</span>
+<span class="fc" id="L165">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L166">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L167">            preparedStatement.setString(1, categoria.getIdCategoria());</span>
+<span class="fc" id="L168">            preparedStatement.setString(2, categoria.getNombre());</span>
+<span class="fc" id="L169">            preparedStatement.setString(3, categoria.getIdCategoria());</span>
 
-<span class="fc" id="L167">            preparedStatement.execute();</span>
-<span class="nc" id="L168">        } catch (Exception e) {</span>
-<span class="nc" id="L169">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar la categoria&quot;, e);</span>
+<span class="fc" id="L171">            preparedStatement.execute();</span>
+<span class="nc" id="L172">        } catch (Exception e) {</span>
+<span class="nc" id="L173">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar la categoria&quot;, e);</span>
         }finally{
-<span class="fc" id="L171">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+<span class="fc" id="L175">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }
-<span class="fc" id="L173">    }</span>
+<span class="fc" id="L177">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

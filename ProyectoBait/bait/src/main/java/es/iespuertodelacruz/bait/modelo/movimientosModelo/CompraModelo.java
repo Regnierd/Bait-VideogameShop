@@ -15,7 +15,7 @@ import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
 public class CompraModelo {
     private static final String ID_COMPRA = "idCompra";
     public static final String TABLE_NAME = "COMPRAS";
-    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, "idCompra, totalCompra, idPedido");
+    UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME, ID_COMPRA + ", totalCompra, idPedido");
     BbddSqlite persistencia;
     PedidoModelo pedidoModelo;
 
@@ -120,7 +120,7 @@ public class CompraModelo {
 
         try {
             while (resultSet.next()) {
-                String idCompra = resultSet.getString("idCompra");
+                String idCompra = resultSet.getString(ID_COMPRA);
                 float totalCompra = resultSet.getFloat("totalCompra");
                 String idPedido = resultSet.getString("idPedido");
 
@@ -161,11 +161,13 @@ public class CompraModelo {
      */
     public Compra buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList<Compra> lista;
-        Compra compra;
-        String sql = utilidadesSQL.setSelectOne("idCompra");
+        Compra compra = null;
+        String sql = utilidadesSQL.setSelectOne(ID_COMPRA);
         lista = buscarPorElemento(sql, identificador);
 
-        compra = lista.get(0);
+        if (!lista.isEmpty()) {
+            compra = lista.get(0);
+        }
 
         return compra;
     }

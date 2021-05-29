@@ -129,13 +129,15 @@ public class UsuarioModelo {
      */
     public Usuario buscaPorDni(String dni) throws PersistenciaException {
         ArrayList&lt;Usuario&gt; lista;
-        Usuario usuario;
+<span class="fc" id="L132">        Usuario usuario = null;</span>
 <span class="fc" id="L133">        String sql = utilidadesSQL.setSelectOne(&quot;dni&quot;);</span>
 <span class="fc" id="L134">        lista = buscarPorElemento(sql, dni); </span>
+        
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L137">            usuario = lista.get(0);</span>
+        }
 
-<span class="fc" id="L136">        usuario = lista.get(0);</span>
-
-<span class="fc" id="L138">        return usuario;</span>
+<span class="fc" id="L140">        return usuario;</span>
     }
 
     /**
@@ -146,13 +148,15 @@ public class UsuarioModelo {
      */
     public Usuario buscaPorNombreUsuario(String nombreUsuario) throws PersistenciaException {
         ArrayList&lt;Usuario&gt; lista;
-        Usuario usuario;
-<span class="fc" id="L150">        String sql = utilidadesSQL.setSelectOne(&quot;nombreUsuario&quot;);</span>
-<span class="fc" id="L151">        lista = buscarPorElemento(sql, nombreUsuario); </span>
+<span class="fc" id="L151">        Usuario usuario = null;</span>
+<span class="fc" id="L152">        String sql = utilidadesSQL.setSelectOne(&quot;nombreUsuario&quot;);</span>
+<span class="fc" id="L153">        lista = buscarPorElemento(sql, nombreUsuario); </span>
 
-<span class="fc" id="L153">        usuario = lista.get(0);</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L156">            usuario = lista.get(0);</span>
+        }
 
-<span class="fc" id="L155">        return usuario;</span>
+<span class="fc" id="L159">        return usuario;</span>
     }
 
     /**
@@ -162,11 +166,11 @@ public class UsuarioModelo {
     */
     public ArrayList&lt;Usuario&gt; obtenerListado() throws PersistenciaException {
         ArrayList&lt;Usuario&gt; lista;
-<span class="fc" id="L165">        String sql = utilidadesSQL.getSELECTALL();</span>
+<span class="fc" id="L169">        String sql = utilidadesSQL.getSELECTALL();</span>
 
-<span class="fc" id="L167">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
+<span class="fc" id="L171">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
 
-<span class="fc" id="L169">        return lista;</span>
+<span class="fc" id="L173">        return lista;</span>
     }
     
     /**
@@ -175,34 +179,34 @@ public class UsuarioModelo {
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Usuario usuario) throws PersistenciaException {
-<span class="fc" id="L178">        Connection connection = null;</span>
-<span class="fc" id="L179">        PreparedStatement preparedStatement = null;</span>
+<span class="fc" id="L182">        Connection connection = null;</span>
+<span class="fc" id="L183">        PreparedStatement preparedStatement = null;</span>
 
         try {
-<span class="fc" id="L182">            connection = persistencia.getConnection();</span>
-<span class="fc" id="L183">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
-<span class="fc" id="L184">            preparedStatement.setString(1, usuario.getDni());</span>
-<span class="fc" id="L185">            preparedStatement.setString(2, usuario.getNombre());</span>
-<span class="fc" id="L186">            preparedStatement.setString(3, usuario.getApellidos());</span>
-<span class="fc" id="L187">            preparedStatement.setString(4, usuario.getEmail());</span>
-<span class="fc" id="L188">            preparedStatement.setString(5, usuario.getDireccion());</span>
-<span class="fc" id="L189">            preparedStatement.setString(6, usuario.getTelefono());</span>
-<span class="fc" id="L190">            preparedStatement.setString(7, usuario.getPais());</span>
-<span class="fc" id="L191">            preparedStatement.setString(8, usuario.getCodigoPostal());</span>
-<span class="fc" id="L192">            preparedStatement.setString(9, usuario.getProvincia());</span>
-<span class="fc" id="L193">            preparedStatement.setString(10, usuario.getNombreUsuario());</span>
-<span class="fc" id="L194">            preparedStatement.setString(11, usuario.getPassword());</span>
-<span class="fc" id="L195">            preparedStatement.setString(12, usuario.getRol());</span>
-<span class="fc" id="L196">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
-<span class="fc" id="L197">            preparedStatement.setString(14, usuario.getDni());</span>
+<span class="fc" id="L186">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L187">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L188">            preparedStatement.setString(1, usuario.getDni());</span>
+<span class="fc" id="L189">            preparedStatement.setString(2, usuario.getNombre());</span>
+<span class="fc" id="L190">            preparedStatement.setString(3, usuario.getApellidos());</span>
+<span class="fc" id="L191">            preparedStatement.setString(4, usuario.getEmail());</span>
+<span class="fc" id="L192">            preparedStatement.setString(5, usuario.getDireccion());</span>
+<span class="fc" id="L193">            preparedStatement.setString(6, usuario.getTelefono());</span>
+<span class="fc" id="L194">            preparedStatement.setString(7, usuario.getPais());</span>
+<span class="fc" id="L195">            preparedStatement.setString(8, usuario.getCodigoPostal());</span>
+<span class="fc" id="L196">            preparedStatement.setString(9, usuario.getProvincia());</span>
+<span class="fc" id="L197">            preparedStatement.setString(10, usuario.getNombreUsuario());</span>
+<span class="fc" id="L198">            preparedStatement.setString(11, usuario.getPassword());</span>
+<span class="fc" id="L199">            preparedStatement.setString(12, usuario.getRol());</span>
+<span class="fc" id="L200">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
+<span class="fc" id="L201">            preparedStatement.setString(14, usuario.getDni());</span>
 
-<span class="fc" id="L199">            preparedStatement.execute();</span>
-<span class="nc" id="L200">        } catch (Exception e) {</span>
-<span class="nc" id="L201">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un usuario&quot;, e);</span>
+<span class="fc" id="L203">            preparedStatement.execute();</span>
+<span class="nc" id="L204">        } catch (Exception e) {</span>
+<span class="nc" id="L205">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un usuario&quot;, e);</span>
         }finally{
-<span class="fc" id="L203">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+<span class="fc" id="L207">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }
-<span class="fc" id="L205">    }</span>
+<span class="fc" id="L209">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

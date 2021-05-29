@@ -108,11 +108,13 @@ public class CategoriaModelo {
      */
     public Categoria buscarPorId(String idCategoria) throws PersistenciaException {
         ArrayList<Categoria> lista;
-        Categoria categoria;
+        Categoria categoria = null;
         String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);
         lista = buscarPorElemento(sql, idCategoria); 
 
-        categoria = lista.get(0);
+        if (!lista.isEmpty()) {
+            categoria = lista.get(0);
+        }
 
         return categoria;
     }
@@ -125,11 +127,13 @@ public class CategoriaModelo {
      */
     public Categoria buscarPorNombre(String nombre) throws PersistenciaException {
         ArrayList<Categoria> lista;
-        Categoria categoria;
+        Categoria categoria = null;
         String sql = utilidadesSQL.setSelectOne("nombre");
         lista = buscarPorElemento(sql, nombre); 
 
-        categoria = lista.get(0);
+        if(!lista.isEmpty()){
+            categoria = lista.get(0);
+        }
 
         return categoria;
     }

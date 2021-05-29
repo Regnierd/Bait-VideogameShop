@@ -93,7 +93,7 @@ public class EnvioModelo {
             preparedStatement.setString(2, envio.getPedido().getIdPedido());
             preparedStatement.setString(3, envio.getFechaEnvio());
             preparedStatement.setString(4, envio.getEstado());
-            preparedStatement.setString(5, envio.getIdEnvio());//ESTE ERA EL FALLO
+            preparedStatement.setString(5, envio.getIdEnvio());
 
             preparedStatement.executeUpdate();
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class EnvioModelo {
 
         try {
             while (resultSet.next()) {
-                String idEnvio = resultSet.getString("idEnvio");
+                String idEnvio = resultSet.getString(ID_ENVIO);
                 String idPedido = resultSet.getString("idPedido");
                 String fechaEnvio = resultSet.getString("fechaEnvio");
                 String estado = resultSet.getString("estado");
@@ -164,11 +164,13 @@ public class EnvioModelo {
      */
     public Envio buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList<Envio> lista;
-        Envio envio;
-        String sql = utilidadesSQL.setSelectOne("idEnvio");
+        Envio envio = null;
+        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);
         lista = buscarPorElemento(sql, identificador);
 
-        envio = lista.get(0);
+        if (!lista.isEmpty()) {
+            envio = lista.get(0);
+        }
 
         return envio;
     }
