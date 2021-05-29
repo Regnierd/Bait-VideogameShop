@@ -9,12 +9,15 @@ import es.iespuertodelacruz.bait.modelo.productosModelo.ProductoModelo;
 
 public class ProductoController {
     ProductoModelo productoModelo;
-
+    CategoriaController categoriaController;
+    MarcaController marcaController;
     /**
      * Constructor basico de la clase
      * @throws PersistenciaException
      */
     public ProductoController() throws PersistenciaException {
+        categoriaController = new CategoriaController();
+        marcaController = new MarcaController();
         productoModelo = new ProductoModelo();
     }
 
@@ -58,11 +61,11 @@ public class ProductoController {
      * @return verdadero/falso
      * @throws PersistenciaException error a controlar
      */
-    private boolean existe(Producto producto) throws PersistenciaException {
+    private boolean existe(String identificador) throws PersistenciaException {
         boolean encontrado = false;
         Producto productoEncontrado = null;
 
-        productoEncontrado = buscar(producto.getIdProducto());
+        productoEncontrado = productoModelo.buscarPorId(identificador);
         if (productoEncontrado != null) {
             encontrado = true;
         }
@@ -79,18 +82,22 @@ public class ProductoController {
      */
     public void insertar(Producto producto) throws ApiException, PersistenciaException {
         validar(producto);
-        if (existe(producto)) {
+        if (existe(producto.getIdProducto())) {
             throw new ApiException("El producto que quiere insertar ya existe.");
         }
-
+        productoModelo.insertar(producto);
     }
 
     /**
      * Metodo que elimina un producto
      * @param idProducto identificador del producto a borrar
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public void eliminar(String idProducto) throws PersistenciaException {
+    public void eliminar(String idProducto) throws PersistenciaException, ApiException {
+        if(!existe(idProducto)){
+            throw new ApiException("El producto que quiere eliminar no existe");
+        }
         productoModelo.eliminar(idProducto);
     }
 
@@ -116,7 +123,7 @@ public class ProductoController {
      */
     public void modificar(Producto producto) throws ApiException, PersistenciaException {
         validar(producto);
-        if (!existe(producto)) {
+        if (!existe(producto.getIdProducto())) {
             throw new ApiException("El producto que intenta modificar no existe");
         }
         productoModelo.modificar(producto);
@@ -178,10 +185,12 @@ public class ProductoController {
      * @return la lista de prodcutos
      * @throws PersistenciaException
      */
-    public ArrayList<Producto> obtenerListado() throws PersistenciaException {
-        ArrayList<Producto> productos;
+    public ArrayList<Producto> obtenerListado() throws PersistenciaException, ApiException{
+        ArrayList<Producto> productos = null;
         productos = productoModelo.obtenerListado();
-        
+        if(productos == null || productos.isEmpty()){
+            throw new ApiException("La lista de productos es vacia o nula");
+        }
         return productos;
         
     }

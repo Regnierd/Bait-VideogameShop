@@ -99,7 +99,7 @@ public class ProductoModelo {
 
         try {
             while (resultSet.next()){
-                String idProducto = resultSet.getString(IDENTIFICADOR);
+                String idProducto = resultSet.getString("idProducto");
                 String nombre = resultSet.getString("nombre");
                 float precio = resultSet.getFloat("precio");
                 String descripcion = resultSet.getString("descripcion");

@@ -131,7 +131,7 @@ public class MenuAdmin {
                     try {
                         usuarioController.eliminar(dni);
                         System.out.println("Usuario eliminado correctamente.");
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al eliminar el usuario.");
                     }
                     break;
@@ -150,7 +150,7 @@ public class MenuAdmin {
                     try {
                         Usuario usuario = usuarioController.buscar(dni);
                         System.out.println(usuario.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al buscar el usuario.");
                     }
                     break;
@@ -222,7 +222,7 @@ public class MenuAdmin {
                     try {
                         productoController.eliminar(idProducto);
                         System.out.println("Producto eliminado correctamente.");
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al eliminar el producto.");
                     }
                     break;
