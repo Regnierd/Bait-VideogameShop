@@ -125,34 +125,11 @@ public class PedidoModelo {
      * @return el pedido encontrado
      * @throws PersistenciaException error a controlar
      */
-<<<<<<< HEAD
-    public Pedido buscar(String idPedido) throws PersistenciaException {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Pedido pedido = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = persistencia.getConnection();
-            preparedStatement = connection.prepareStatement(utilidadesSQL.setSelectOne(ID_PEDIDO));
-            preparedStatement.setString(1, idPedido);
-            resultSet = preparedStatement.executeQuery();
-
-            int unidades = resultSet.getInt("unidades");
-            float total = resultSet.getFloat("total");
-            String fechaPedido = resultSet.getString("fechaPedido");
-            String dni = resultSet.getString("dni");
-            String idProducto = resultSet.getString("idProducto");
-
-            Usuario usuario = usuarioModelo.buscaPorDni(dni);
-            Producto producto = productoModelo.buscarPorId(idProducto);
-=======
     public Pedido buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList<Pedido> lista;
         Pedido pedido;
         String sql = utilidadesSQL.setSelectOne("idPedido");
         lista = buscarPorElemento(sql, identificador); 
->>>>>>> feature-Javi
 
         pedido = lista.get(0);
 
@@ -179,22 +156,12 @@ public class PedidoModelo {
                 String fechaPedido = resultSet.getString("fechaPedido");
                 String idCliente = resultSet.getString("idCliente");
                 String idProducto = resultSet.getString("idProducto");
-<<<<<<< HEAD
-    
-                Usuario usuario = usuarioModelo.buscaPorDni(dni);
-                Producto producto = productoModelo.buscarPorId(idProducto);
-    
-                pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
-                pedidos.add(pedido);
-            }               
-=======
                 
                 Usuario cliente = usuarioModelo.buscaPorDni(idCliente);
-                Producto producto = productoModelo.buscar(idProducto);
+                Producto producto = productoModelo.buscarPorId(idProducto);
                 Pedido pedido = new Pedido(idPedido, unidades, total, fechaPedido, cliente, producto);
                 lista.add(pedido);
             }
->>>>>>> feature-Javi
         } catch (SQLException e) {
             throw new PersistenciaException(e.getMessage());
         }

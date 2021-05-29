@@ -93,6 +93,7 @@ public class EnvioModelo {
             preparedStatement.setString(2, envio.getPedido().getIdPedido());
             preparedStatement.setString(3, envio.getFechaEnvio());
             preparedStatement.setString(4, envio.getEstado());
+            preparedStatement.setString(5, envio.getIdEnvio());//ESTE ERA EL FALLO
 
             preparedStatement.executeUpdate();
         } catch (Exception e) {

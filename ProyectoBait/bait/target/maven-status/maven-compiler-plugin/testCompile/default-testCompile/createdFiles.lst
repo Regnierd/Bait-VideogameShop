@@ -1,4 +1,7 @@
 es\iespuertodelacruz\bait\MarcaModeloTest.class
-es\iespuertodelacruz\bait\ProductoModeloTest.class
 es\iespuertodelacruz\bait\CategoriaModeloTest.class
+es\iespuertodelacruz\bait\CompraModeloTest.class
 es\iespuertodelacruz\bait\UsuarioModeloTest.class
+es\iespuertodelacruz\bait\PedidoModeloTest.class
+es\iespuertodelacruz\bait\EnvioModeloTest.class
+es\iespuertodelacruz\bait\ProductoModeloTest.class

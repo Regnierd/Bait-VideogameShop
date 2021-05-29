@@ -87,11 +87,11 @@ public class PedidoModeloTest {
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
-        pedido = new Pedido(IDPEDIDO, 2, 20, "20/5/2021", usuario, producto);
+        pedido = new Pedido(IDPEDIDO, 2, 20, "20-5-2021", usuario, producto);
         
         try {
             usuarioModelo.insertar(usuario);
-            categoriaModelo.inserta(categoria);
+            categoriaModelo.insertar(categoria);
             marcaModelo.insertar(marca);
             productoModelo.insertar(producto);
             pedidoModelo.insertar(pedido);

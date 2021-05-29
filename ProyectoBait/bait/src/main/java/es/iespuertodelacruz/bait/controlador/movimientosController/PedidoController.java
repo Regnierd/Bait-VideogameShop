@@ -87,7 +87,7 @@ public class PedidoController {
      */
     public Pedido buscar(String idPedido) throws PersistenciaException{
         Pedido pedido = null;
-        pedido = pedidoModelo.buscar(idPedido);
+        pedido = pedidoModelo.buscaPorIdentificador(idPedido);
         return pedido;
     }
 
@@ -134,7 +134,7 @@ public class PedidoController {
      */
     public ArrayList<Pedido> obtenerListado(String dni) throws PersistenciaException{
         ArrayList<Pedido> pedidos;
-        pedidos = pedidoModelo.obtenerListado(dni);
+        pedidos = pedidoModelo.obtenerListado();
         return pedidos;
 
     }

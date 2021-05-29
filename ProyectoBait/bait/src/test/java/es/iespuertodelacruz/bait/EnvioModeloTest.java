@@ -97,11 +97,11 @@ public class EnvioModeloTest {
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
-        pedido = new Pedido(IDPEDIDO, 2, 20, "20/5/2021", usuario, producto);
-        envio = new Envio(IDENVIO, pedido, "21/05/2021", "Enviado");
+        pedido = new Pedido(IDPEDIDO, 2, 20, "20-5-2021", usuario, producto);
+        envio = new Envio(IDENVIO, pedido, "21-05-2021", "Enviado");
         try {
             usuarioModelo.insertar(usuario);
-            categoriaModelo.inserta(categoria);
+            categoriaModelo.insertar(categoria);
             marcaModelo.insertar(marca);
             productoModelo.insertar(producto);
             pedidoModelo.insertar(pedido);
@@ -153,9 +153,11 @@ public class EnvioModeloTest {
     public void modificarTest() {
         Envio envioBuscado;
         envio.setEstado("Entregado");
+
         try {
             envioModelo.modificar(envio);
             envioBuscado = envioModelo.buscaPorIdentificador(IDENVIO);
+
             assertEquals(envio, envioBuscado, "Los envios deberian ser iguales");
         } catch (PersistenciaException e) {
             fail(e.getMessage());

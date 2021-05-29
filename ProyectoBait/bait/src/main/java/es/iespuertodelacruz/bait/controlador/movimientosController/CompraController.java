@@ -66,7 +66,7 @@ public class CompraController {
      */
     public Compra buscar(String idCompra) throws PersistenciaException{
         Compra compra = null;
-        compra = compraModelo.buscar(idCompra);
+        compra = compraModelo.buscaPorIdentificador(idCompra);
         return compra;
     }
 

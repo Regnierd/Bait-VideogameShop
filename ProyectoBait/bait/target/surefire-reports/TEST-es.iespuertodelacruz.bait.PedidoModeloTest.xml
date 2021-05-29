@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="es.iespuertodelacruz.bait.UsuarioModeloTest" time="0.082" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="es.iespuertodelacruz.bait.PedidoModeloTest" time="0.343" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -60,8 +60,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="buscarPorNombreUsuarioTest" classname="es.iespuertodelacruz.bait.UsuarioModeloTest" time="0.004"/>
-  <testcase name="buscarPorDniTest" classname="es.iespuertodelacruz.bait.UsuarioModeloTest" time="0.021"/>
-  <testcase name="modificarTest" classname="es.iespuertodelacruz.bait.UsuarioModeloTest" time="0.026"/>
-  <testcase name="obtenerListadoTest" classname="es.iespuertodelacruz.bait.UsuarioModeloTest" time="0.023"/>
+  <testcase name="modificarTest" classname="es.iespuertodelacruz.bait.PedidoModeloTest" time="0.123"/>
+  <testcase name="obtenerListadoTest" classname="es.iespuertodelacruz.bait.PedidoModeloTest" time="0.102"/>
+  <testcase name="buscarPorIdTest" classname="es.iespuertodelacruz.bait.PedidoModeloTest" time="0.112"/>
 </testsuite>

@@ -61,11 +61,6 @@ public class Marca {
         return Objects.equals(DELIMITADOR, marca.DELIMITADOR) && Objects.equals(idMarca, marca.idMarca) && Objects.equals(nombre, marca.nombre);
     }
 
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> feature-Javi
     @Override
     public String toString() {
         return getIdMarca() + DELIMITADOR + getNombre();

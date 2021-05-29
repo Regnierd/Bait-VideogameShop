@@ -67,7 +67,7 @@ public class EnvioController {
      */
     public Envio buscar(String idEnvio) throws PersistenciaException{
 <span class="nc" id="L69">        Envio envio = null;</span>
-<span class="nc" id="L70">        envio = envioModelo.buscar(idEnvio);</span>
+<span class="nc" id="L70">        envio = envioModelo.buscaPorIdentificador(idEnvio);</span>
 <span class="nc" id="L71">        return envio;</span>
     }
 
