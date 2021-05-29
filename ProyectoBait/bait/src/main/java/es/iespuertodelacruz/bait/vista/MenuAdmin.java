@@ -284,7 +284,7 @@ public class MenuAdmin {
                     try {
                         categoriaController.eliminar(idCategoria);
                         System.out.println("Categoria eliminado correctamente.");
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al eliminar la categoria.");
                     }
                     break;
@@ -292,7 +292,7 @@ public class MenuAdmin {
                     Categoria nuevaCategoria;
                     nuevaCategoria = registrarCategoria();
                     try {
-                        categoriaController.modficar(nuevaCategoria);
+                        categoriaController.modificar(nuevaCategoria);
                         System.out.println("Categoria modificado correctamente.");
                     } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al modificar la categoria.");
@@ -312,7 +312,7 @@ public class MenuAdmin {
                     try {
                         categorias = categoriaController.obtenerListado();
                         System.out.println(categorias.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Ha ocurrido un error al obtener la lista");
                     }
                     break;
@@ -353,7 +353,7 @@ public class MenuAdmin {
                     try {
                         marcaController.eliminar(idMarca);
                         System.out.println("Marca eliminado correctamente.");
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al eliminar la marca.");
                     }
                     break;
@@ -361,7 +361,7 @@ public class MenuAdmin {
                     Marca nuevaMarca;
                     nuevaMarca = registrarMarca();
                     try {
-                        marcaController.modficar(nuevaMarca);
+                        marcaController.modificar(nuevaMarca);
                         System.out.println("Marca modificado correctamente.");
                     } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al modificar la marca.");
@@ -381,7 +381,7 @@ public class MenuAdmin {
                     try {
                         categorias = categoriaController.obtenerListado();
                         System.out.println(categorias.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Ha ocurrido un error al obtener la lista");
                     }
                     break;

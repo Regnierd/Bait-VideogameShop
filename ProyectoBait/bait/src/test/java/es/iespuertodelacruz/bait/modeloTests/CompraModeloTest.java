@@ -67,7 +67,7 @@ public class CompraModeloTest {
             if (productoModelo == null) {
                 productoModelo = new ProductoModelo();
             }
-        } catch (Exception e) {
+        } catch (PersistenciaException e) {
             fail(e.getMessage());
         }
 

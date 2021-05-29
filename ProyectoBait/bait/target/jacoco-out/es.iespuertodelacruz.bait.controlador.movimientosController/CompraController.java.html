@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CompraController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.controlador.movimientosController</a> &gt; <span class="el_source">CompraController.java</span></div><h1>CompraController.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.controlador.movimientosController;
+
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.movimientos.Compra;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.movimientosModelo.CompraModelo;
+
+public class CompraController {
+    CompraModelo compraModelo;
+
+<span class="nc" id="L13">    public CompraController() throws PersistenciaException{</span>
+<span class="nc" id="L14">        compraModelo = new CompraModelo();</span>
+<span class="nc" id="L15">    }</span>
+
+    public void validar(Compra compra) throws ApiException{
+<span class="nc" id="L18">        String mensaje = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        if(compra == null){</span>
+<span class="nc" id="L21">            mensaje = &quot;Se esta intentado validar un objeto vacio&quot;;</span>
+<span class="nc" id="L22">            throw new ApiException(mensaje);</span>
+        }
+<span class="nc bnc" id="L24" title="All 4 branches missed.">        if(compra.getIdCompra() == null || compra.getIdCompra().isEmpty()){</span>
+<span class="nc" id="L25">            mensaje += &quot;El idCompra de la compra esta nulo o vacio&quot;;</span>
+        }
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if(compra.getPedido() == null){</span>
+<span class="nc" id="L28">            mensaje += &quot;El pedido de la compra esta nulo&quot;;</span>
+        }
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if(compra.getTotalCompra() &lt;= 0){</span>
+<span class="nc" id="L31">            mensaje += &quot;El total de la compra es 0 o menor&quot;;</span>
+        }
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if(!mensaje.isEmpty()){</span>
+<span class="nc" id="L34">            throw new ApiException(mensaje);</span>
+        }
+<span class="nc" id="L36">    }</span>
+
+    /**
+     * Metodo encargado de insertar
+     * @param compra a insertar
+     * @throws ApiException con mensaje controlado
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public void insertar(Compra compra) throws ApiException, PersistenciaException{
+<span class="nc" id="L45">        validar(compra);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(existe(compra)){</span>
+<span class="nc" id="L47">            throw new ApiException(&quot;La compra ya existe&quot;);          </span>
+        }
+<span class="nc" id="L49">        compraModelo.insertar(compra);</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     * Metodo encargado de eliminar
+     * @param idCompra a eliminar
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public void eliminar(String idCompra) throws PersistenciaException{
+<span class="nc" id="L58">        compraModelo.eliminar(idCompra);</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * Metodo encargado de buscar por idCompra
+     * @param idCompra de la compra
+     * @return Compra
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public Compra buscar(String idCompra) throws PersistenciaException{
+<span class="nc" id="L68">        Compra compra = null;</span>
+<span class="nc" id="L69">        compra = compraModelo.buscaPorIdentificador(idCompra);</span>
+<span class="nc" id="L70">        return compra;</span>
+    }
+
+    /**
+    * Metodo encargado de realizar la modificacion de una compra
+    * @param compra a modficar
+    * @throws ApiException con mensaje controlado
+    * @throws PersistenciaException con mensaje controlado
+    */
+    public void modificar(Compra compra) throws ApiException, PersistenciaException {
+        Compra compraAlmacenada;
+        
+<span class="nc" id="L82">        validar(compra);</span>
+<span class="nc" id="L83">        compraAlmacenada = buscar(compra.getIdCompra());</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (compraAlmacenada == null) {</span>
+<span class="nc" id="L85">        throw new ApiException(&quot;El pedido indicado no existe&quot;);</span>
+        }
+<span class="nc" id="L87">        compraModelo.modificar(compraAlmacenada);</span>
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * Funcion encargada de verificar si existe la compra
+     * @param compra a encontrar
+     * @return boolean
+     * @throws BbddException
+     */
+    private boolean existe(Compra compra) throws PersistenciaException{
+<span class="nc" id="L97">        boolean encontrada = false;</span>
+        Compra compraEncontrada;
+
+<span class="nc" id="L100">        compraEncontrada = buscar(compra.getIdCompra());</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if(compraEncontrada != null){</span>
+<span class="nc" id="L102">            encontrada = true;</span>
+        }
+        
+<span class="nc" id="L105">        return encontrada;</span>
+    }
+
+    /**
+     * Funcion encargada de mostrar todos las compras
+     * @return ArrayList de Compras
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Compra&gt; obtenerListado() throws PersistenciaException{
+        ArrayList&lt;Compra&gt; compras;
+<span class="nc" id="L115">        compras = compraModelo.obtenerListado();</span>
+<span class="nc" id="L116">        return compras;</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

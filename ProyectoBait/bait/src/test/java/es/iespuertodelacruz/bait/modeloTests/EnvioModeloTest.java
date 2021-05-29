@@ -67,7 +67,7 @@ public class EnvioModeloTest {
             if (productoModelo == null) {               
                     productoModelo = new ProductoModelo();                    
             }
-        } catch (Exception e) {
+        } catch (PersistenciaException e) {
             fail(e.getMessage());
         }
         
@@ -75,7 +75,7 @@ public class EnvioModeloTest {
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
-        pedido = new Pedido(IDPEDIDO, 2, 20, "20-5-2021", usuario, producto);
+        pedido = new Pedido(IDPEDIDO, 2, 20, "20-05-2021", usuario, producto);
         envio = new Envio(IDENVIO, pedido, "21-05-2021", "Enviado");
         try {
             usuarioModelo.insertar(usuario);

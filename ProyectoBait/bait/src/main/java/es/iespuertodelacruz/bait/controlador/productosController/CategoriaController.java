@@ -49,7 +49,7 @@ public class CategoriaController {
      */
     public void insertar(Categoria categoria) throws ApiException, PersistenciaException{
         validar(categoria);
-        if (existe(categoria)) {
+        if (existe(categoria.getIdCategoria())) {
            throw new ApiException("La categoria indicada ya existe.");
         }
         categoriaModelo.insertar(categoria);
@@ -59,8 +59,12 @@ public class CategoriaController {
      * Metodo que eliminar una categoria
      * @param idCategoria de la categoria que se va aborrar
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public void eliminar(String idCategoria) throws PersistenciaException {
+    public void eliminar(String idCategoria) throws PersistenciaException, ApiException {
+        if(!existe(idCategoria)){
+            throw new ApiException("La categoria que quiere eliminar no existe");
+        }
         categoriaModelo.eliminar(idCategoria);
     }
 
@@ -70,11 +74,11 @@ public class CategoriaController {
      * @return verdadero/falso
      * @throws PersistenciaException
      */
-    private boolean existe(Categoria categoria) throws PersistenciaException {
+    private boolean existe(String idCategoria) throws PersistenciaException {
         boolean encontrada = false;
         Categoria categoriaEncontrada = null;
    
-        categoriaEncontrada = buscar(categoria.getIdCategoria());
+        categoriaEncontrada = buscar(idCategoria);
         if (categoriaEncontrada != null) {
            encontrada = true;
         }  
@@ -101,23 +105,26 @@ public class CategoriaController {
      * @throws CategoriaException error a controlar
      * @throws PersistenciaException error a controlar
      */
-    public void modficar(Categoria categoria) throws ApiException, PersistenciaException {
+    public void modificar(Categoria categoria) throws ApiException, PersistenciaException {
         validar(categoria);
-        if (!existe(categoria)) {
-            throw new ApiException("La categoria que quiere modifcar no exite.");
+        if (!existe(categoria.getIdCategoria())) {
+            throw new ApiException("La categoria que quiere modifcar no existe.");
         }
         categoriaModelo.modificar(categoria);
     }
 
-        /**
+    /**
      * Funcion que obtiene la lista de categorias y la devuelve
      * @return la lista de categorias
      * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
-    public ArrayList<Categoria> obtenerListado() throws PersistenciaException {
+    public ArrayList<Categoria> obtenerListado() throws PersistenciaException, ApiException {
         ArrayList<Categoria> categorias;
         categorias = categoriaModelo.obtenerListado();
-        
+        if ( categorias == null || categorias.isEmpty()) {
+            throw new ApiException("La lista de categorias es vacia o nula");
+        }
         return categorias;
         
     }

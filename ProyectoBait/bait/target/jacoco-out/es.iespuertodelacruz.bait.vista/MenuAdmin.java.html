@@ -222,7 +222,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L223">                        productoController.eliminar(idProducto);</span>
 <span class="nc" id="L224">                        System.out.println(&quot;Producto eliminado correctamente.&quot;);</span>
-<span class="nc" id="L225">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L225">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L226">                        System.out.println(&quot;Error al eliminar el producto.&quot;);</span>
 <span class="nc" id="L227">                    }</span>
 <span class="nc" id="L228">                    break;</span>
@@ -284,7 +284,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L285">                        categoriaController.eliminar(idCategoria);</span>
 <span class="nc" id="L286">                        System.out.println(&quot;Categoria eliminado correctamente.&quot;);</span>
-<span class="nc" id="L287">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L287">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L288">                        System.out.println(&quot;Error al eliminar la categoria.&quot;);</span>
 <span class="nc" id="L289">                    }</span>
 <span class="nc" id="L290">                    break;</span>
@@ -292,7 +292,7 @@ public class MenuAdmin {
                     Categoria nuevaCategoria;
 <span class="nc" id="L293">                    nuevaCategoria = registrarCategoria();</span>
                     try {
-<span class="nc" id="L295">                        categoriaController.modficar(nuevaCategoria);</span>
+<span class="nc" id="L295">                        categoriaController.modificar(nuevaCategoria);</span>
 <span class="nc" id="L296">                        System.out.println(&quot;Categoria modificado correctamente.&quot;);</span>
 <span class="nc" id="L297">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L298">                        System.out.println(&quot;Error al modificar la categoria.&quot;);</span>
@@ -312,7 +312,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L313">                        categorias = categoriaController.obtenerListado();</span>
 <span class="nc" id="L314">                        System.out.println(categorias.toString());</span>
-<span class="nc" id="L315">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L315">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L316">                        System.out.println(&quot;Ha ocurrido un error al obtener la lista&quot;);</span>
 <span class="nc" id="L317">                    }</span>
 <span class="nc" id="L318">                    break;</span>
@@ -353,7 +353,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L354">                        marcaController.eliminar(idMarca);</span>
 <span class="nc" id="L355">                        System.out.println(&quot;Marca eliminado correctamente.&quot;);</span>
-<span class="nc" id="L356">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L356">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L357">                        System.out.println(&quot;Error al eliminar la marca.&quot;);</span>
 <span class="nc" id="L358">                    }</span>
 <span class="nc" id="L359">                    break;</span>
@@ -361,7 +361,7 @@ public class MenuAdmin {
                     Marca nuevaMarca;
 <span class="nc" id="L362">                    nuevaMarca = registrarMarca();</span>
                     try {
-<span class="nc" id="L364">                        marcaController.modficar(nuevaMarca);</span>
+<span class="nc" id="L364">                        marcaController.modificar(nuevaMarca);</span>
 <span class="nc" id="L365">                        System.out.println(&quot;Marca modificado correctamente.&quot;);</span>
 <span class="nc" id="L366">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L367">                        System.out.println(&quot;Error al modificar la marca.&quot;);</span>
@@ -381,7 +381,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L382">                        categorias = categoriaController.obtenerListado();</span>
 <span class="nc" id="L383">                        System.out.println(categorias.toString());</span>
-<span class="nc" id="L384">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L384">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L385">                        System.out.println(&quot;Ha ocurrido un error al obtener la lista&quot;);</span>
 <span class="nc" id="L386">                    }</span>
 <span class="nc" id="L387">                    break;</span>

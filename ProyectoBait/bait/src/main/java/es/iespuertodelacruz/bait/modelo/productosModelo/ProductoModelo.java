@@ -148,9 +148,9 @@ public class ProductoModelo {
      */
     public ArrayList<Producto> buscarPorNombre(String nombre) throws PersistenciaException {
         ArrayList<Producto> lista = null;
-        String sql = utilidadesSQL.setSelectOne("nombre");
+        String sql = "SELECT * FROM PRODUCTOS WHERE nombre LIKE '%"+nombre+"%';";
 
-        lista = buscarPorElemento(sql, nombre);
+        lista = buscarPorElemento(sql, "");
 
         return lista;
     }

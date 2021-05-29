@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.productosController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.productos.Marca;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -24,7 +26,7 @@ public class MarcaController {
     public void validar(Marca marca) throws ApiException{
         String mensaje = "";
         if(marca == null){
-            mensaje = "El marca no puede ser nulo";
+            mensaje = "La marca no puede ser nulo";
             throw new ApiException(mensaje);
         }
         if(marca.getIdMarca() == null || marca.getIdMarca().isEmpty()){
@@ -47,7 +49,7 @@ public class MarcaController {
      */
     public void insertar(Marca marca) throws ApiException, PersistenciaException{
         validar(marca);
-        if (existe(marca)) {
+        if (existe(marca.getIdMarca())) {
            throw new ApiException("La marca indicada ya existe.");
         }
         marcaModelo.insertar(marca);
@@ -59,7 +61,10 @@ public class MarcaController {
      * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
      */
-    public void eliminar(String idMarca) throws PersistenciaException {
+    public void eliminar(String idMarca) throws PersistenciaException, ApiException {
+        if(!existe(idMarca)){
+            throw new ApiException("La marca que quiere eliminar no existe");
+        }
         marcaModelo.eliminar(idMarca);
     }
 
@@ -69,11 +74,11 @@ public class MarcaController {
      * @return verdadero/falso
      * @throws PersistenciaException
      */
-    private boolean existe(Marca marca) throws PersistenciaException {
+    private boolean existe(String idMarca) throws PersistenciaException {
         boolean encontrada = false;
         Marca marcaEncontrada;
    
-        marcaEncontrada = buscar(marca.getIdMarca());
+        marcaEncontrada = buscar(idMarca);
         if (marcaEncontrada != null) {
            encontrada = true;
         }  
@@ -100,11 +105,27 @@ public class MarcaController {
      * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
      */
-    public void modficar(Marca marca) throws ApiException, PersistenciaException {
+    public void modificar(Marca marca) throws ApiException, PersistenciaException {
         validar(marca);
-        if (!existe(marca)) {
-            throw new ApiException("La categoria que quiere modifcar no exite.");
+        if (!existe(marca.getIdMarca())) {
+            throw new ApiException("La categoria que quiere modifcar no existe.");
         }
         marcaModelo.modificar(marca);
+    }
+
+    /**
+     * Funcion que obtiene la lista de marcas y la devuelve
+     * @return la lista de marcas
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList<Marca> obtenerListado() throws PersistenciaException, ApiException {
+        ArrayList<Marca> marcas;
+        marcas = marcaModelo.obtenerListado();
+        if ( marcas == null || marcas.isEmpty()) {
+            throw new ApiException("La lista de marcas es vacia o nula");
+        }
+        return marcas;
+        
     }
 }

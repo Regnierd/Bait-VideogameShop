@@ -74,14 +74,6 @@ public class UtilidadesSQL  {
         return "SELECT * FROM " + tabla + where(atributo);
     }
 
-    /**
-     * Funcion que devuelve la consulta SQL para buscar por like
-     * @param atributo a filtrar
-     * @return String
-     */
-    public String setSelectOneLike(String atributo) {
-        return "SELECT * FROM " + tabla + " WHERE " + atributo + " LIKE '%?%';";
-    }
 
     /**
      * Funcion que devuelve la consulta SQL para actualizar un registro de la tabla
