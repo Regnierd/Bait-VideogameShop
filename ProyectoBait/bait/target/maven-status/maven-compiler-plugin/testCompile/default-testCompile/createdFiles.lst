@@ -4,6 +4,9 @@ es\iespuertodelacruz\bait\modeloTests\EnvioModeloTest.class
 es\iespuertodelacruz\bait\controladorTests\UsuarioControllerTest.class
 es\iespuertodelacruz\bait\modeloTests\CategoriaModeloTest.class
 es\iespuertodelacruz\bait\modeloTests\UsuarioModeloTest.class
+<<<<<<< HEAD
 es\iespuertodelacruz\bait\controladorTests\ProductoControllerTest.class
+=======
+>>>>>>> 96b560b2b04e0607bcb8b338044895c948dded33
 es\iespuertodelacruz\bait\modeloTests\MarcaModeloTest.class
 es\iespuertodelacruz\bait\modeloTests\ProductoModeloTest.class

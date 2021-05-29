@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.bait.controlador.personasController;
+ package es.iespuertodelacruz.bait.controlador.personasController;
 
 import java.util.ArrayList;
 

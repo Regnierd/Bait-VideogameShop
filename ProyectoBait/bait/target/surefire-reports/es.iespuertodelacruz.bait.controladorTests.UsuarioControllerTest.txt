@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 12, Failures: 0, Errors: 12, Skipped: 0, Time elapsed: 1.043 s <<< FAILURE! - in es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
 loginTest  Time elapsed: 0.446 s  <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
@@ -50,3 +51,6 @@ buscarErrorTest  Time elapsed: 0.012 s  <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest.setUp(UsuarioControllerTest.java:45)
 
+=======
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.248 s - in es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
+>>>>>>> 96b560b2b04e0607bcb8b338044895c948dded33

@@ -129,13 +129,15 @@ public class ProductoModelo {
      */
     public Producto buscarPorId(String idProducto) throws PersistenciaException {
         ArrayList<Producto> lista;
-        Producto producto;
+        Producto producto = null;
         String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);
         lista = buscarPorElemento(sql, idProducto); 
 
-        producto = lista.get(0);
+        if (!lista.isEmpty()) {
+            producto = lista.get(0);
+        }
 
-         return producto;
+        return producto;
     }
 
     /**

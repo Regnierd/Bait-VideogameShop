@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.modeloTests.EnvioModeloTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD:ProyectoBait/bait/target/surefire-reports/es.iespuertodelacruz.bait.modeloTests.EnvioModeloTest.txt
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.375 s - in es.iespuertodelacruz.bait.modeloTests.EnvioModeloTest
+=======
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.495 s - in es.iespuertodelacruz.bait.modeloTests.EnvioModeloTest
+>>>>>>> 96b560b2b04e0607bcb8b338044895c948dded33:ProyectoBait/bait/target/surefire-reports/es.iespuertodelacruz.bait.PedidoModeloTest.txt

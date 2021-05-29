@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductoModelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.modelo.productosModelo</a> &gt; <span class="el_source">ProductoModelo.java</span></div><h1>ProductoModelo.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.modelo.productosModelo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.productos.Categoria;
+import es.iespuertodelacruz.bait.api.productos.Marca;
+import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.mysql.BbddSqlite;
+import es.iespuertodelacruz.bait.modelo.mysql.UtilidadesSQL;
+
+public class ProductoModelo {
+    public static final String TABLE_NAME = &quot;PRODUCTOS&quot;;
+    private static final String IDENTIFICADOR = &quot;idProducto&quot;;
+<span class="fc" id="L19">    private static UtilidadesSQL utilidadesSQL = new UtilidadesSQL(TABLE_NAME,&quot;idProducto, nombre, precio, descripcion&quot;</span>
+    + &quot;, stock, idCategoria, idMarca&quot;);
+    BbddSqlite persistencia;
+    MarcaModelo marcaModelo;
+    CategoriaModelo categoriaModelo;
+
+    /**
+     * Constructor basico de la clase
+     * @throws PersistenciaException
+     */
+<span class="fc" id="L29">    public ProductoModelo() throws PersistenciaException {</span>
+<span class="fc" id="L30">        categoriaModelo = new CategoriaModelo();</span>
+<span class="fc" id="L31">        marcaModelo = new MarcaModelo();</span>
+<span class="fc" id="L32">        persistencia = new BbddSqlite(TABLE_NAME, null, null);</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Metodo que inserta un producto en la base de datos
+     * @param producto que va a insertar en la base de datos
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Producto producto) throws PersistenciaException {
+<span class="fc" id="L41">        Connection connection = null;</span>
+<span class="fc" id="L42">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L45">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L46">            preparedStatement = connection.prepareStatement(utilidadesSQL.getINSERT());</span>
+<span class="fc" id="L47">            preparedStatement.setString(1, producto.getIdProducto());</span>
+<span class="fc" id="L48">            preparedStatement.setString(2, producto.getNombre());</span>
+<span class="fc" id="L49">            preparedStatement.setFloat(3, producto.getPrecio());</span>
+<span class="fc" id="L50">            preparedStatement.setString(4, producto.getDescripcion());</span>
+<span class="fc" id="L51">            preparedStatement.setInt(5, producto.getStock());</span>
+<span class="fc" id="L52">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
+<span class="fc" id="L53">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
+
+<span class="fc" id="L55">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L56">        } catch (Exception e) {</span>
+<span class="nc" id="L57">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un producto&quot;, e);</span>
+        }finally{
+<span class="fc" id="L59">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+     
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Metodo encargado de eliminar un producto en la base de datos
+     * 
+     * @param idProducto del producto
+     * @throws PersistenciaException error a controlar
+     */
+    public void eliminar(String idProducto) throws PersistenciaException {
+<span class="fc" id="L71">        Connection connection = null;</span>
+<span class="fc" id="L72">        PreparedStatement preparedStatement = null;</span>
+        try {
+<span class="fc" id="L74">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L75">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(IDENTIFICADOR));</span>
+<span class="fc" id="L76">            preparedStatement.setString(1, idProducto);</span>
+
+<span class="fc" id="L78">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc" id="L80">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar un producto&quot;, e);</span>
+        }finally{
+<span class="fc" id="L82">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Funcion que realiza un consulta y devuelve una lista de productos
+     * @param sql consulta que se va a realizar
+     * @param valor del campo a filtrar
+     * @return una lista de productos
+     * @throws PersistenciaException error a controlar
+     */
+    private ArrayList&lt;Producto&gt; buscarPorElemento(String sql, String valor) throws PersistenciaException{
+        ResultSet resultSet;
+<span class="fc" id="L96">        ArrayList&lt;Producto&gt; lista = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L98">        resultSet = persistencia.buscarElemento(sql, valor);</span>
+
+        try {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            while (resultSet.next()){</span>
+<span class="fc" id="L102">                String idProducto = resultSet.getString(IDENTIFICADOR);</span>
+<span class="fc" id="L103">                String nombre = resultSet.getString(&quot;nombre&quot;);</span>
+<span class="fc" id="L104">                float precio = resultSet.getFloat(&quot;precio&quot;);</span>
+<span class="fc" id="L105">                String descripcion = resultSet.getString(&quot;descripcion&quot;);</span>
+<span class="fc" id="L106">                int stock = resultSet.getInt(&quot;stock&quot;);</span>
+<span class="fc" id="L107">                String idCategoria = resultSet.getString(&quot;idCategoria&quot;);</span>
+<span class="fc" id="L108">                String idMarca = resultSet.getString(&quot;idMarca&quot;);</span>
+
+<span class="fc" id="L110">                Categoria categoria = categoriaModelo.buscarPorId(idCategoria);</span>
+<span class="fc" id="L111">                Marca marca = marcaModelo.buscarPorId(idMarca);</span>
+
+<span class="fc" id="L113">                Producto producto = new Producto(idProducto, nombre, categoria, precio, descripcion, stock, marca);</span>
+<span class="fc" id="L114">                lista.add(producto);</span>
+<span class="fc" id="L115">            }</span>
+<span class="nc" id="L116">        } catch (SQLException e) {</span>
+<span class="nc" id="L117">            throw new PersistenciaException(e.getMessage());</span>
+<span class="fc" id="L118">        }</span>
+
+<span class="fc" id="L120">        return lista;</span>
+
+    }
+
+    /**
+     * Funcion que busca un producto por su idProducto
+     * @param idProducto del producto que se va buscar
+     * @return el producto encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public Producto buscarPorId(String idProducto) throws PersistenciaException {
+        ArrayList&lt;Producto&gt; lista;
+<span class="fc" id="L132">        Producto producto = null;</span>
+<span class="fc" id="L133">        String sql = utilidadesSQL.setSelectOne(IDENTIFICADOR);</span>
+<span class="fc" id="L134">        lista = buscarPorElemento(sql, idProducto); </span>
+
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L137">            producto = lista.get(0);</span>
+        }
+
+<span class="fc" id="L140">        return producto;</span>
+    }
+
+    /**
+     * Funcion que busca productos por su categoria
+     * @param idProducto del producto que se va buscar
+     * @return la lista de producto encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Producto&gt; buscarPorNombre(String nombre) throws PersistenciaException {
+<span class="fc" id="L150">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L151">        String sql = utilidadesSQL.setSelectOne(&quot;nombre&quot;);</span>
+
+<span class="fc" id="L153">        lista = buscarPorElemento(sql, nombre);</span>
+
+<span class="fc" id="L155">        return lista;</span>
+    }
+
+    /**
+     * Funcion que busca productos por su categoria
+     * @param idCategoria del producto que se va buscar
+     * @return la lista de producto encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Producto&gt; buscarPorCategoria(String idCategoria) throws PersistenciaException {
+<span class="fc" id="L165">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L166">        String sql = utilidadesSQL.setSelectOne(&quot;idCategoria&quot;);</span>
+<span class="fc" id="L167">        lista = buscarPorElemento(sql, idCategoria); </span>
+
+<span class="fc" id="L169">        return lista;</span>
+    }
+
+    /**
+     * Funcion que busca productos por su categoria
+     * @param idMarca del producto que se va buscar
+     * @return la lista de producto encontrado
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Producto&gt; buscarPorMarca(String idMarca) throws PersistenciaException {
+<span class="fc" id="L179">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L180">        String sql = utilidadesSQL.setSelectOne(&quot;idMarca&quot;);</span>
+<span class="fc" id="L181">        lista = buscarPorElemento(sql, idMarca); </span>
+
+<span class="fc" id="L183">        return lista;</span>
+    }
+
+
+    /**
+     * Funcion que obtiene un listado de los productos y los devuelve
+     * @return la lista de categorias
+     * @throws PersistenciaException error a controlar
+    */
+    public ArrayList&lt;Producto&gt; obtenerListado() throws PersistenciaException {
+<span class="fc" id="L193">        ArrayList&lt;Producto&gt; lista = null;</span>
+<span class="fc" id="L194">        String sql = utilidadesSQL.getSELECTALL();</span>
+
+<span class="fc" id="L196">        lista = buscarPorElemento(sql, &quot;&quot;);</span>
+
+<span class="fc" id="L198">        return lista;</span>
+    }
+
+
+    /**
+     * Metodo encargado de modificar un producto en la base de datos
+     * @param producto a modificar
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Producto producto) throws PersistenciaException {
+<span class="fc" id="L208">        Connection connection = null;</span>
+<span class="fc" id="L209">        PreparedStatement preparedStatement = null;</span>
+
+        try {
+<span class="fc" id="L212">            connection = persistencia.getConnection();</span>
+<span class="fc" id="L213">            preparedStatement = connection.prepareStatement(utilidadesSQL.setUpdate());</span>
+<span class="fc" id="L214">            preparedStatement.setString(1, producto.getIdProducto());</span>
+<span class="fc" id="L215">            preparedStatement.setString(2, producto.getNombre());</span>
+<span class="fc" id="L216">            preparedStatement.setFloat(3, producto.getPrecio());</span>
+<span class="fc" id="L217">            preparedStatement.setString(4, producto.getDescripcion());</span>
+<span class="fc" id="L218">            preparedStatement.setInt(5, producto.getStock());</span>
+<span class="fc" id="L219">            preparedStatement.setString(6, producto.getCategoria().getIdCategoria());</span>
+<span class="fc" id="L220">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
+<span class="fc" id="L221">            preparedStatement.setString(8, producto.getIdProducto());</span>
+
+<span class="fc" id="L223">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L224">        } catch (Exception e) {</span>
+<span class="nc" id="L225">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un producto&quot;, e);</span>
+        }finally{
+<span class="fc" id="L227">            persistencia.closeConnection(connection, preparedStatement, null);</span>
+        }
+        
+<span class="fc" id="L230">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
