@@ -11,7 +11,7 @@ public class AppVista{
     static MenuUsuario menuUsuario;
     static Bbdd bbdd;
 
-    public static void main( String[] args ) throws PersistenciaException{
+    public static void main(String[] args) throws PersistenciaException{
         if(menuAdmin == null){
             menuAdmin = new MenuAdmin();
         }
@@ -22,7 +22,7 @@ public class AppVista{
     }
 
     /**
-     * Menu basico para preguntar si es un cliente o un administrador
+     * Menu basico para preguntar si es un usuario o un administrador
      */
     private static void menuPrincipal() {   
         boolean salir = false;
@@ -31,8 +31,8 @@ public class AppVista{
         try{
             while(!salir){
                 System.out.println("Menu principal");
-                System.out.println("1. Empleado");
-                System.out.println("2. Cliente");
+                System.out.println("1. Administrador");
+                System.out.println("2. Usuario");
                 System.out.println("0. Salir");
                 System.out.println("¿Quien eres?");
                 opcion = sn.nextInt();
