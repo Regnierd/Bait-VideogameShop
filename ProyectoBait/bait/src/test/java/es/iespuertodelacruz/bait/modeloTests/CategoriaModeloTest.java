@@ -48,6 +48,17 @@ public class CategoriaModeloTest {
         }
     }
 
+    @Test 
+    public void insertarErrorTest() {
+        String mensaje = "Ha ocurrido un error al insertar";
+        try {
+            categoriaModelo.insertar(categoria);
+            fail("No deberia llegar aqui");
+        } catch (PersistenciaException e) {
+            assertTrue(e.getMessage().contains(mensaje));
+        }
+    }
+
     @Test
     public void buscarPorIdTest() {
         Categoria categoriaBuscada;

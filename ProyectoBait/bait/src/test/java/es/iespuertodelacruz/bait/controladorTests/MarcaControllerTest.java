@@ -77,7 +77,7 @@ public class MarcaControllerTest {
        
         try {
             marcaController.validar(marcaVacia);
-        
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -85,6 +85,7 @@ public class MarcaControllerTest {
         Marca marcaNulo = null;
         try {
             marcaController.validar(marcaNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("La marca no puede ser nulo"));
         }
@@ -110,6 +111,7 @@ public class MarcaControllerTest {
         Marca marcaInexistente = new Marca(IDMARCA_INEXISTENTE, "marcaInexistente");
         try {
             marcaController.modificar(marcaInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }

@@ -101,7 +101,7 @@ public class ProductoControllerTest {
         productoVacio.setStock(-1);
         try {
             productoController.validar(productoVacio);
-        
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -109,6 +109,7 @@ public class ProductoControllerTest {
         Producto productoNulo = null;
         try {
             productoController.validar(productoNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("El producto no puede ser nulo"));
         }
@@ -140,9 +141,9 @@ public class ProductoControllerTest {
 
     @Test
     public void buscarPorCategoriaErrorTest() {
-        ArrayList<Producto> productosCategorias;
         try {
-            productosCategorias = productoController.buscarPorCategoria(IDCATEGORIA_INEXISTENTE);        
+            productoController.buscarPorCategoria(IDCATEGORIA_INEXISTENTE); 
+            fail("No deberia llegar aqui");       
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("No existe"));
         }
@@ -161,9 +162,9 @@ public class ProductoControllerTest {
 
     @Test
     public void buscarPorMarcaErrorTest() {
-        ArrayList<Producto> productosMarcas;
         try {
-            productosMarcas = productoController.buscarPorMarca(IDMARCA_INEXISTENTE);          
+            productoController.buscarPorMarca(IDMARCA_INEXISTENTE);    
+            fail("No deberia llegar aqui");      
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("No existe"));
         }
@@ -182,10 +183,9 @@ public class ProductoControllerTest {
 
     @Test
     public void buscarPorNombreErrorTest() {
-        ArrayList<Producto> productosNombre;
         try {
-            productosNombre = productoController.buscarPorNombre(NOMBRE_INEXISTENTE);
-            
+            productoController.buscarPorNombre(NOMBRE_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("No existe"));
         }
@@ -210,6 +210,7 @@ public class ProductoControllerTest {
         Producto productoInexistente = new Producto("idNuevo", "auricular", categoria, 10, "auriculares marsgaming", 15, marca);
         try {
             productoController.modificar(productoInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -235,6 +236,20 @@ public class ProductoControllerTest {
             productoController.reducirStock(IDPRODUCTO, 10);
             productoEncontrado = productoController.buscar(IDPRODUCTO);
             assertEquals(nuevoStock,productoEncontrado.getStock(), "Los stock deberian ser iguales");
+        } catch (PersistenciaException | ApiException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void aumentarStockTest() {
+        Producto productoEncontrado;
+        int nuevoStock;
+        nuevoStock = UNIDADES + 10;
+        try {
+            productoController.aumentarStock(IDPRODUCTO, 10);
+            productoEncontrado = productoController.buscar(IDPRODUCTO);
+            assertEquals(nuevoStock, productoEncontrado.getStock(), "Los stock deberian ser iguales");
         } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
         }

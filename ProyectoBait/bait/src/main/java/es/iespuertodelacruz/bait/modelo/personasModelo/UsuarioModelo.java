@@ -73,8 +73,8 @@ public class UsuarioModelo {
             preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete("dni"));
             preparedStatement.setString(1, dni);
 
-            preparedStatement.execute();
-        } catch (Exception e) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al eliminar un usuario", e);
         }finally{
             persistencia.closeConnection(connection, preparedStatement, null);
@@ -200,8 +200,8 @@ public class UsuarioModelo {
             preparedStatement.setFloat(13, usuario.getSaldo());
             preparedStatement.setString(14, usuario.getDni());
 
-            preparedStatement.execute();
-        } catch (Exception e) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             throw new PersistenciaException("Ha ocurrido un error al modificar un usuario", e);
         }finally{
             persistencia.closeConnection(connection, preparedStatement, null);

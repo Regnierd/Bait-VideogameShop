@@ -42,8 +42,8 @@ public class MarcaModelo {
 <span class="fc" id="L42">            preparedStatement.setString(2, marca.getNombre());</span>
 
 <span class="fc" id="L44">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L45">        } catch (Exception e) {</span>
-<span class="nc" id="L46">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar una marca&quot;, e);</span>
+<span class="fc" id="L45">        } catch (Exception e) {</span>
+<span class="fc" id="L46">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar una marca&quot;, e);</span>
         } finally {
 <span class="fc" id="L48">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }

@@ -112,7 +112,7 @@ public class EnvioControllerTest {
         Envio envioVacio = new Envio();
         try {
             envioController.validar(envioVacio);
-
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -120,6 +120,7 @@ public class EnvioControllerTest {
         Envio envioNulo = null;
         try {
             envioController.validar(envioNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains(" es nulo"));
         }
@@ -129,6 +130,7 @@ public class EnvioControllerTest {
     public void insertarErrorTest(){
         try {
             envioController.insertar(envio);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("ya existe"));
         }
@@ -138,6 +140,7 @@ public class EnvioControllerTest {
     public void eliminarErrorTest() {
         try {
             envioController.eliminar(IDENVIO_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -147,6 +150,7 @@ public class EnvioControllerTest {
     public void buscarTest() {
         Envio envioBuscado;
         try {
+            envio = envioController.buscar(IDENVIO);
             envioBuscado = envioController.buscar(IDENVIO);
             assertEquals(envio, envioBuscado, "Los envios deberian ser iguales");
         } catch (PersistenciaException | ApiException e) {
@@ -156,9 +160,9 @@ public class EnvioControllerTest {
 
     @Test
     public void buscarErrorTest() {
-        Envio envioBuscado;
         try {
-            envioBuscado = envioController.buscar(IDENVIO_INEXISTENTE);
+            envioController.buscar(IDENVIO_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -169,6 +173,7 @@ public class EnvioControllerTest {
         Envio envioEncontrado;
         envio.setEstado("Entregado");
         try {
+            envio = envioController.buscar(IDENVIO);
             envioController.modificar(envio);
             envioEncontrado = envioController.buscar(IDENVIO);
             assertEquals(envio, envioEncontrado, "Los envios deberian ser iguales");
@@ -182,6 +187,7 @@ public class EnvioControllerTest {
         Envio envioInexistente = new Envio(IDENVIO_INEXISTENTE, pedido, "21-05-2021", "Enviado");
         try {
             envioController.modificar(envioInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -190,7 +196,9 @@ public class EnvioControllerTest {
     @Test
     public void obtenerListadoTest() {
         ArrayList<Envio> lista;
+       
         try {
+            Envio envio = envioController.buscar(IDENVIO);
             lista = envioController.obtenerListado();
             assertTrue(lista.contains(envio), "La lista no contiene el envio correcto");
         } catch (PersistenciaException | ApiException e) {

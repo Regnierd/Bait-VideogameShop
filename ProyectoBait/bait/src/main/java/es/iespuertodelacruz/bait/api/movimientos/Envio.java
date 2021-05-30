@@ -73,7 +73,6 @@ public class Envio {
         return Objects.equals(idEnvio, envio.idEnvio) && Objects.equals(pedido, envio.pedido) && Objects.equals(fechaEnvio, envio.fechaEnvio) && Objects.equals(estado, envio.estado);
     }
 
-
     @Override
     public String toString() {
         return getIdEnvio() +  DELIMITADOR +

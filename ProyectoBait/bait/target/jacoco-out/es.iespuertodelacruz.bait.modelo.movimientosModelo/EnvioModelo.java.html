@@ -45,8 +45,8 @@ public class EnvioModelo {
 <span class="fc" id="L45">            preparedStatement.setString(4, envio.getEstado());</span>
 
 <span class="fc" id="L47">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L48">        } catch (Exception e) {</span>
-<span class="nc" id="L49">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el envio&quot;, e);</span>
+<span class="fc" id="L48">        } catch (Exception e) {</span>
+<span class="fc" id="L49">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el envio&quot;, e);</span>
         }finally{
 <span class="fc" id="L51">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }

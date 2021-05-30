@@ -2,8 +2,6 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.exceptions.ApiException;
-
 public class Producto {
     private static final String DELIMITADOR = ",";
     private String idProducto;

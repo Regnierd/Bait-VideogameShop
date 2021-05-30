@@ -47,16 +47,16 @@ public class CategoriaControllerTest {
     public void after() {
         try {           
             categoriaController.eliminar(IDCATEGORIA);
-
         } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
         }
     }
 
     @Test
-    public void test(){
+    public void insertarErrorTest(){
         try {
             categoriaController.insertar(categoria);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("ya existe"));
         }
@@ -66,6 +66,7 @@ public class CategoriaControllerTest {
     public void eliminarErrorTest() {
         try {
             categoriaController.eliminar(IDCATEGORIA_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -77,7 +78,7 @@ public class CategoriaControllerTest {
        
         try {
             categoriaController.validar(categoriaVacio);
-        
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -85,6 +86,7 @@ public class CategoriaControllerTest {
         Categoria categoriaNulo = null;
         try {
             categoriaController.validar(categoriaNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("La categoria no puede ser nulo"));
         }
@@ -110,6 +112,7 @@ public class CategoriaControllerTest {
         Categoria categoriaInexistente = new Categoria(IDCATEGORIA_INEXISTENTE, "categoriaInexistente");
         try {
             categoriaController.modificar(categoriaInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }

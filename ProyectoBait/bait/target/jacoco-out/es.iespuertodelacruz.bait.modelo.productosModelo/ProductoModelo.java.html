@@ -53,8 +53,8 @@ public class ProductoModelo {
 <span class="fc" id="L53">            preparedStatement.setString(7, producto.getMarca().getIdMarca());</span>
 
 <span class="fc" id="L55">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L56">        } catch (Exception e) {</span>
-<span class="nc" id="L57">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un producto&quot;, e);</span>
+<span class="fc" id="L56">        } catch (Exception e) {</span>
+<span class="fc" id="L57">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un producto&quot;, e);</span>
         }finally{
 <span class="fc" id="L59">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }

@@ -52,8 +52,8 @@ public class UsuarioModelo {
 <span class="fc" id="L52">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
             
 <span class="fc" id="L54">            preparedStatement.execute();</span>
-<span class="nc" id="L55">        } catch (Exception e) {</span>
-<span class="nc" id="L56">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un usuario&quot;, e);</span>
+<span class="fc" id="L55">        } catch (Exception e) {</span>
+<span class="fc" id="L56">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar un usuario&quot;, e);</span>
         }finally{
 <span class="fc" id="L58">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }
@@ -73,8 +73,8 @@ public class UsuarioModelo {
 <span class="fc" id="L73">            preparedStatement = connection.prepareStatement(utilidadesSQL.setDelete(&quot;dni&quot;));</span>
 <span class="fc" id="L74">            preparedStatement.setString(1, dni);</span>
 
-<span class="fc" id="L76">            preparedStatement.execute();</span>
-<span class="nc" id="L77">        } catch (Exception e) {</span>
+<span class="fc" id="L76">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L77">        } catch (SQLException e) {</span>
 <span class="nc" id="L78">            throw new PersistenciaException(&quot;Ha ocurrido un error al eliminar un usuario&quot;, e);</span>
         }finally{
 <span class="fc" id="L80">            persistencia.closeConnection(connection, preparedStatement, null);</span>
@@ -200,8 +200,8 @@ public class UsuarioModelo {
 <span class="fc" id="L200">            preparedStatement.setFloat(13, usuario.getSaldo());</span>
 <span class="fc" id="L201">            preparedStatement.setString(14, usuario.getDni());</span>
 
-<span class="fc" id="L203">            preparedStatement.execute();</span>
-<span class="nc" id="L204">        } catch (Exception e) {</span>
+<span class="fc" id="L203">            preparedStatement.executeUpdate();</span>
+<span class="nc" id="L204">        } catch (SQLException e) {</span>
 <span class="nc" id="L205">            throw new PersistenciaException(&quot;Ha ocurrido un error al modificar un usuario&quot;, e);</span>
         }finally{
 <span class="fc" id="L207">            persistencia.closeConnection(connection, preparedStatement, null);</span>

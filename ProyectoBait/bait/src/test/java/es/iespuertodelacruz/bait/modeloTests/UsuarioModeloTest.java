@@ -48,17 +48,17 @@ public class UsuarioModeloTest {
         }
     }
 
-    @Test
-    public void buscarPorDniTest() {
-        Usuario usuarioBuscado;
+    @Test 
+    public void insertarErrorTest() {
+        String mensaje = "Ha ocurrido un error al insertar";
         try {
-            usuarioBuscado = usuarioModelo.buscaPorDni(DNI);
-            assertEquals(usuario, usuarioBuscado, "Deberian ser iguales");
-        } catch (Exception e) {
-            fail(e.getMessage());
+            usuarioModelo.insertar(usuario);
+            fail("No deberia llegar aqui");
+        } catch (PersistenciaException e) {
+            assertTrue(e.getMessage().contains(mensaje));
         }
     }
-
+  
     @Test
     public void buscarPorNombreUsuarioTest() {
         Usuario usuarBuscado;

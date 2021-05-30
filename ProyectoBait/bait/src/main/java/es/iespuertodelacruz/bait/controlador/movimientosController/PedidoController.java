@@ -77,6 +77,7 @@ public class PedidoController {
             throw new ApiException("El pedido ya existe");          
         }
         pedidoModelo.insertar(pedido);
+        productoController.reducirStock(pedido.getProducto().getIdProducto(), pedido.getUnidades());
     }
 
     /**
@@ -175,18 +176,17 @@ public class PedidoController {
         String idEnvio;
         
         idPedido = idProducto +"-"+ usuario.getDni();
-        producto = productoController.buscar(idProducto);
+        productoController.reducirStock(idProducto, unidades);
+        producto = productoController.buscar(idProducto); 
         fechaPedido = LocalDate.now().toString();
         float total = producto.getPrecio() * unidades;
 
         pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
-
-        productoController.reducirStock(idProducto, unidades);
-
+    
         idEnvio = "env_"+idPedido;
         envio = new Envio(idEnvio, pedido, fechaPedido, "Enviado");
         
-        insertar(pedido);
+        pedidoModelo.insertar(pedido);
         envioController.insertar(envio);
     }
     

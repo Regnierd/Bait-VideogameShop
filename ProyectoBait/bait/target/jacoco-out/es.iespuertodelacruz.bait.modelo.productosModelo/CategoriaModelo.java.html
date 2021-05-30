@@ -42,8 +42,8 @@ public class CategoriaModelo {
 <span class="fc" id="L42">            preparedStatement.setString(2, categoria.getNombre());</span>
             
 <span class="fc" id="L44">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L45">        } catch (Exception e) {</span>
-<span class="nc" id="L46">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar la categoria&quot;, e);</span>
+<span class="fc" id="L45">        } catch (Exception e) {</span>
+<span class="fc" id="L46">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar la categoria&quot;, e);</span>
         }finally{
 <span class="fc" id="L48">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }

@@ -62,6 +62,7 @@ public class UsuarioControllerTest {
     public void insertarErrorTest() {
         try {
             usuarioController.insertar(usuario);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("ya existe"));
         }
@@ -71,6 +72,7 @@ public class UsuarioControllerTest {
     public void eliminarErrorTest() {
         try {
             usuarioController.eliminar(DNI_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -81,6 +83,7 @@ public class UsuarioControllerTest {
         Usuario usuarioVacio = new Usuario();
         try {
             usuarioController.validar(usuarioVacio);
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -88,6 +91,7 @@ public class UsuarioControllerTest {
         Usuario usuarioNulo = null;
         try {
             usuarioController.validar(usuarioNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("El usuario no puede ser nulo"));
         }
@@ -106,9 +110,9 @@ public class UsuarioControllerTest {
 
     @Test
     public void buscarErrorTest() {
-        Usuario usuarioBuscado;
         try {
-            usuarioBuscado = usuarioController.buscar(DNI_INEXISTENTE);
+            usuarioController.buscar(DNI_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -129,6 +133,7 @@ public class UsuarioControllerTest {
     public void loginErrorTest() {
         try {
             usuarioController.login(NOMBRE_USUARIO, PASSWORD_INEXISTENTE, ROL);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("Las credenciales introducidas son incorrectas"));
         }
@@ -140,7 +145,7 @@ public class UsuarioControllerTest {
         try {
             usuarioController.añadirSaldo(usuario, 20);
             usuarioEncontrado = usuarioController.buscar(DNI);
-            assertTrue(usuarioEncontrado.getSaldo() == 20, "El saldo no se añadido correctamente");
+            assertEquals(20, usuarioEncontrado.getSaldo(), "El saldo no se añadido correctamente");
         } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
         }
@@ -150,6 +155,7 @@ public class UsuarioControllerTest {
     public void añadirSaldoErrorTest() {
         try {
             usuarioController.añadirSaldo(usuario, -10);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("menor o igual que 0"));
         }
@@ -173,6 +179,7 @@ public class UsuarioControllerTest {
         Usuario usuarioInexistente = new Usuario("dni", "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal", "provincia", "nombreUsuario", "password", "rol", 0f);
         try {
             usuarioController.modificar(usuarioInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }

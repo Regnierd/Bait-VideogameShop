@@ -225,4 +225,25 @@ public class ProductoController {
         modificar(producto);
     }
 
+    /**
+     * Metodo que aumenta el stock de un productos con la cantidad 
+     * pasada por parametros
+     * @param idProducto del producto a aumentar el stock
+     * @param cantidad de stock que se va a añadir
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
+     */
+    public void aumentarStock(String idProducto, int cantidad) throws ApiException, PersistenciaException {
+        Producto producto;
+        int nuevoStock;
+        if (cantidad <=0) {
+            throw new ApiException("Las cantidad es menor o igual a 0");
+        }
+        producto = buscar(idProducto);  
+        nuevoStock = producto.getStock() + cantidad;
+
+        producto.setStock(nuevoStock);
+        modificar(producto);
+    }
+
 }

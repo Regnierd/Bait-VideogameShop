@@ -54,8 +54,8 @@ public class PedidoModelo {
 <span class="fc" id="L54">            preparedStatement.setString(6, pedido.getProducto().getIdProducto());</span>
 
 <span class="fc" id="L56">            preparedStatement.executeUpdate();</span>
-<span class="nc" id="L57">        } catch (SQLException e) {</span>
-<span class="nc" id="L58">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el pedido.&quot;, e);</span>
+<span class="fc" id="L57">        } catch (SQLException e) {</span>
+<span class="fc" id="L58">            throw new PersistenciaException(&quot;Ha ocurrido un error al insertar el pedido.&quot;, e);</span>
         }finally{
 <span class="fc" id="L60">            persistencia.closeConnection(connection, preparedStatement, null);</span>
         }

@@ -109,7 +109,7 @@ public class PedidoControllerTest {
         Pedido pedidoVacio = new Pedido();
         try {
             pedidoController.validar(pedidoVacio);
-
+            fail("No deberia llegar aqui");
         } catch (ApiException e) {
             assertTrue(e.getMessage().contains("nulo o vacio"));
         }
@@ -117,6 +117,7 @@ public class PedidoControllerTest {
         Pedido pedidoNulo = null;
         try {
             pedidoController.validar(pedidoNulo);
+            fail("No deberia llegar aqui");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("es nulo"));
         }
@@ -126,6 +127,7 @@ public class PedidoControllerTest {
     public void insertarErrorTest(){
         try {
             pedidoController.insertar(pedido);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("ya existe"));
         }
@@ -135,6 +137,7 @@ public class PedidoControllerTest {
     public void eliminarErrorTest() {
         try {
             pedidoController.eliminar(IDPEDIDO_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -144,6 +147,7 @@ public class PedidoControllerTest {
     public void buscarTest() {
         Pedido pedidoBuscado;
         try {
+            pedido = pedidoController.buscar(IDPEDIDO);
             pedidoBuscado = pedidoController.buscar(IDPEDIDO);
             assertEquals(pedido, pedidoBuscado, "Los pedidos deberian ser iguales");
         } catch (PersistenciaException | ApiException e) {
@@ -153,9 +157,9 @@ public class PedidoControllerTest {
 
     @Test
     public void buscarErrorTest() {
-        Pedido pedidoBuscado;
         try {
-            pedidoBuscado = pedidoController.buscar(IDPEDIDO_INEXISTENTE);
+            pedidoController.buscar(IDPEDIDO_INEXISTENTE);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -166,6 +170,7 @@ public class PedidoControllerTest {
         Pedido pedidoEncontrado;
         pedido.setUnidades(50);
         try {
+            pedido = pedidoController.buscar(IDPEDIDO);
             pedidoController.modificar(pedido);
             pedidoEncontrado = pedidoController.buscar(IDPEDIDO);
             assertEquals(pedido, pedidoEncontrado, "Los pedidos deberian ser iguales");
@@ -179,6 +184,7 @@ public class PedidoControllerTest {
         Pedido pedidoInexistente = new Pedido(IDPEDIDO_INEXISTENTE, 8, 20, "2021-05-26", usuario, producto);
         try {
             pedidoController.modificar(pedidoInexistente);
+            fail("No deberia llegar aqui");
         } catch (PersistenciaException | ApiException e) {
             assertTrue(e.getMessage().contains("no existe"));
         }
@@ -188,6 +194,7 @@ public class PedidoControllerTest {
     public void obtenerListadoTest() {
         ArrayList<Pedido> lista;
         try {
+            pedido = pedidoController.buscar(IDPEDIDO);
             lista = pedidoController.obtenerListado();
             assertTrue(lista.contains(pedido), "La lista no contiene el pedido correcto");
         } catch (PersistenciaException | ApiException e) {
@@ -198,7 +205,7 @@ public class PedidoControllerTest {
     @Test
     public void realizarPedidoTest() {
         String idPedido = producto.getIdProducto()+"-"+usuario.getDni();
-        String idEnvio = "env_"+idPedido;
+        String idEnvio = "env_"+ idPedido;
         Pedido pedidoEncontrado;
         int unidades = 10;
         try {

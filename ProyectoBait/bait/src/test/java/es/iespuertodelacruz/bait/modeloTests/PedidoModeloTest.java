@@ -98,6 +98,17 @@ public class PedidoModeloTest {
         }
     }
 
+    @Test 
+    public void insertarErrorTest() {
+        String mensaje = "Ha ocurrido un error al insertar";
+        try {
+            pedidoModelo.insertar(pedido);
+            fail("No deberia llegar aqui");
+        } catch (PersistenciaException e) {
+            assertTrue(e.getMessage().contains(mensaje));
+        }
+    }
+
     @Test
     public void buscarPorIdTest() {
         Pedido pedidoBuscado;
