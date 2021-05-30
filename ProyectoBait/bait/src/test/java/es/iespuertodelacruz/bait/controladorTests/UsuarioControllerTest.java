@@ -196,5 +196,21 @@ public class UsuarioControllerTest {
         }
     }
 
+    @Test 
+    public void reducirSaldoTest() {
+        Usuario usuarioEncontrado;
+        try {
+            usuarioController.añadirSaldo(usuario, 20);
+            usuarioEncontrado = usuarioController.buscar(DNI);
+            assertEquals(20, usuarioEncontrado.getSaldo(), "Deberian ser iguales");
+
+            usuarioController.reducirSaldo(usuario, 10);
+            usuarioEncontrado = usuarioController.buscar(DNI);
+            assertEquals(10, usuarioEncontrado.getSaldo(), "Deberian ser iguales");
+        } catch (PersistenciaException | ApiException e) {
+            fail(e.getMessage());
+        }
+    }
+
     
 }

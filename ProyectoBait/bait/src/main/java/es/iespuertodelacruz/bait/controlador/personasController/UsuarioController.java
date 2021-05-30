@@ -92,8 +92,10 @@ public class UsuarioController {
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
         Usuario usuario = null;
         usuario = usuarioModelo.buscaPorNombreUsuario(nombreUsuario);
-        
-        if (!usuario.getPassword().equals(password)  && !usuario.getRol().equals(rol)) {
+        if (usuario == null) {
+            throw new ApiException("El usuario que se a introducido no existe");
+        }
+        if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {
             throw new ApiException("Las credenciales introducidas son incorrectas");
         }
 
@@ -194,6 +196,20 @@ public class UsuarioController {
         return usuarios;
     }
 
-    
+    /**
+     * Metodo que reduce el saldo de un usuario
+     * @param usuario que se va a reducir el saldo
+     * @param total que se va a reducir del saldo
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
+     */
+    public void reducirSaldo(Usuario usuario, float total) throws ApiException, PersistenciaException {
+        float nuevoSaldo = usuario.getSaldo() - total;
+        if (nuevoSaldo < 0) {
+            throw new ApiException("No tiene saldo suficiente");
+        }
+        usuario.setSaldo(nuevoSaldo);
+        modificar(usuario);
+    }
    
 }

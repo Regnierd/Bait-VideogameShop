@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.CategoriaControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.842 s - in es.iespuertodelacruz.bait.controladorTests.CategoriaControllerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.369 s - in es.iespuertodelacruz.bait.controladorTests.CategoriaControllerTest

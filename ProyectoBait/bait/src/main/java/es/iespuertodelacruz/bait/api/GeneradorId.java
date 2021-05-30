@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.api;
 
-public class GeneradorId {
+public class GeneradorId{
     String idAleatorio;
 
     /**
