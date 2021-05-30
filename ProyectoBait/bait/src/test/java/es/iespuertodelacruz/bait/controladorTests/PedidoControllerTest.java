@@ -73,7 +73,7 @@ public class PedidoControllerTest {
         }
 
         usuario = new Usuario(DNI, "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal",
-                "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
+                "provincia", NOMBRE_USUARIO, "password", "Admin", 100f);
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
@@ -219,7 +219,7 @@ public class PedidoControllerTest {
         String idPedido = producto.getIdProducto()+"-"+usuario.getDni();
         String idEnvio = "env_"+ idPedido;
         Pedido pedidoEncontrado;
-        int unidades = 10;
+        int unidades = 2;
         try {
             pedidoController.realizarPedido(usuario, producto.getIdProducto(), unidades);
             pedidoEncontrado = pedidoController.buscar(idPedido);
