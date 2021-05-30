@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Categoria;
 import es.iespuertodelacruz.bait.api.productos.Marca;
@@ -267,35 +268,39 @@ public class MenuAdmin {
         int opcion;
         boolean salir = false;
         String idCategoria;
+        String nombre;
         while (!salir) {
             opcion = obtenerOpcion("Categoria");
             switch (opcion) {
                 case 1:
-                    try {
-                        Categoria categoria = registrarCategoria();
+                    try {               
+                        nombre = obtenerDato("el nombre");
+                        Categoria categoria = new Categoria("null", nombre);
                         categoriaController.insertar(categoria);
-                        System.out.println("Categoria insertado correctamente");
+                        System.out.println("**Categoria insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("Error al insertar la categoria en la base de datos.");
+                        System.out.println("**Error al insertar la categoria en la base de datos.**");
                     }
                     break;
                 case 2:
                     idCategoria = obtenerDato("idCategoria.");
                     try {
                         categoriaController.eliminar(idCategoria);
-                        System.out.println("Categoria eliminado correctamente.");
+                        System.out.println("**Categoria eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al eliminar la categoria.");
+                        System.out.println("**Error al eliminar la categoria.**");
                     }
                     break;
                 case 3:
-                    Categoria nuevaCategoria;
-                    nuevaCategoria = registrarCategoria();
-                    try {
+                    Categoria nuevaCategoria = null;
+                    idCategoria = obtenerDato("idCategoria");
+                    nombre = obtenerDato("el nombre");
+                    nuevaCategoria = new Categoria(idCategoria, nombre);
+                    try {    
                         categoriaController.modificar(nuevaCategoria);
-                        System.out.println("Categoria modificado correctamente.");
+                        System.out.println("**Categoria modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al modificar la categoria.");
+                        System.out.println("**Error al modificar la categoria.**");
                     }
                     break;
                 case 4:
@@ -304,7 +309,7 @@ public class MenuAdmin {
                         Categoria categoria = categoriaController.buscar(idCategoria);
                         System.out.println(categoria.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al buscar la categoria.");
+                        System.out.println("**Error al buscar la categoria.**");
                     }
                     break;
                 case 5:
@@ -313,7 +318,7 @@ public class MenuAdmin {
                         categorias = categoriaController.obtenerListado();
                         System.out.println(categorias.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Ha ocurrido un error al obtener la lista");
+                        System.out.println("**Ha ocurrido un error al obtener la lista**");
                     }
                     break;
                 case 0:
@@ -325,9 +330,6 @@ public class MenuAdmin {
         }
     }
 
-    private Categoria registrarCategoria() {
-        return null;
-    }
 
     /**
      * Menu para realizar el CRUD de marcas
@@ -336,35 +338,39 @@ public class MenuAdmin {
         int opcion;
         boolean salir = false;
         String idMarca;
+        String nombre;
         while (!salir) {
             opcion = obtenerOpcion("marca");
             switch (opcion) {
                 case 1:
                     try {
-                        Marca marca = registrarMarca();
+                        nombre = obtenerDato("el nombre");
+                        Marca marca = new Marca("null", nombre);
                         marcaController.insertar(marca);
-                        System.out.println("Marca insertado correctamente");
+                        System.out.println("**Marca insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("Error al insertar la marca en la base de datos.");
+                        System.out.println("**Error al insertar la marca en la base de datos.**");
                     }
                     break;
                 case 2:
                     idMarca = obtenerDato("idMarca.");
                     try {
                         marcaController.eliminar(idMarca);
-                        System.out.println("Marca eliminado correctamente.");
+                        System.out.println("**Marca eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al eliminar la marca.");
+                        System.out.println("**Error al eliminar la marca.**");
                     }
                     break;
                 case 3:
-                    Marca nuevaMarca;
-                    nuevaMarca = registrarMarca();
+                    Marca nuevaMarca = null;
+                    idMarca = obtenerDato("idMarca");
+                    nombre = obtenerDato("el nombre");
+                    nuevaMarca = new Marca(idMarca, nombre);
                     try {
                         marcaController.modificar(nuevaMarca);
-                        System.out.println("Marca modificado correctamente.");
+                        System.out.println("**Marca modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al modificar la marca.");
+                        System.out.println("**Error al modificar la marca.**");
                     }
                     break;
                 case 4:
@@ -373,16 +379,16 @@ public class MenuAdmin {
                         Marca marca = marcaController.buscar(idMarca);
                         System.out.println(marca.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Error al buscar la marca.");
+                        System.out.println("**Error al buscar la marca.**");
                     }
                     break;
                 case 5:
-                    ArrayList<Categoria> categorias;
+                    ArrayList<Marca> marcas;
                     try {
-                        categorias = categoriaController.obtenerListado();
-                        System.out.println(categorias.toString());
+                        marcas = marcaController.obtenerListado();
+                        System.out.println(marcas.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("Ha ocurrido un error al obtener la lista");
+                        System.out.println("**Ha ocurrido un error al obtener la lista**");
                     }
                     break;
                 case 0:
@@ -394,9 +400,6 @@ public class MenuAdmin {
         }
     }
 
-    private Marca registrarMarca() {
-        return null;
-    }
 
     /**
      * Menu para realizar el CRUD pedidos
@@ -425,6 +428,15 @@ public class MenuAdmin {
                     System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
+    }
+
+    /**
+     * Menu que registrar un nuevo usuario
+     * 
+     * @return el cleinte creado
+     */
+    public Pedido registrarPedido() {
+        return null;
     }
 
     /**
