@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.EnvioControllerTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.924 s - in es.iespuertodelacruz.bait.controladorTests.EnvioControllerTest
+=======
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.195 s - in es.iespuertodelacruz.bait.controladorTests.EnvioControllerTest
+>>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35

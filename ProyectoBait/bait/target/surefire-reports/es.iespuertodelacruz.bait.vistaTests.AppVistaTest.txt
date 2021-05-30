@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.vistaTests.AppVistaTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s - in es.iespuertodelacruz.bait.vistaTests.AppVistaTest
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s - in es.iespuertodelacruz.bait.vistaTests.AppVistaTest
+>>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35

@@ -109,7 +109,7 @@ public class MenuUsuario {
         System.out.println("Intrduce la password:");
         password = sn.nextLine();
 
-        usuarioController.login(nombreUsuario, password, "Cliente");
+        usuario = usuarioController.login(nombreUsuario, password, "Cliente");
 
         return usuario;
     }
