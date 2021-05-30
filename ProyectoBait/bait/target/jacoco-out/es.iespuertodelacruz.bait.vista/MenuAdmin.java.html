@@ -241,7 +241,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L242">                        Producto producto = productoController.buscar(idProducto);</span>
 <span class="nc" id="L243">                        System.out.println(producto.toString());</span>
-<span class="nc" id="L244">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L244">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L245">                        System.out.println(&quot;Error al buscar el producto.&quot;);</span>
 <span class="nc" id="L246">                    }</span>
 <span class="nc" id="L247">                    break;</span>
@@ -303,7 +303,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L304">                        Categoria categoria = categoriaController.buscar(idCategoria);</span>
 <span class="nc" id="L305">                        System.out.println(categoria.toString());</span>
-<span class="nc" id="L306">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L306">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L307">                        System.out.println(&quot;Error al buscar la categoria.&quot;);</span>
 <span class="nc" id="L308">                    }</span>
 <span class="nc" id="L309">                    break;</span>
@@ -372,7 +372,7 @@ public class MenuAdmin {
                     try {
 <span class="nc" id="L373">                        Marca marca = marcaController.buscar(idMarca);</span>
 <span class="nc" id="L374">                        System.out.println(marca.toString());</span>
-<span class="nc" id="L375">                    } catch (PersistenciaException e) {</span>
+<span class="nc" id="L375">                    } catch (PersistenciaException | ApiException e) {</span>
 <span class="nc" id="L376">                        System.out.println(&quot;Error al buscar la marca.&quot;);</span>
 <span class="nc" id="L377">                    }</span>
 <span class="nc" id="L378">                    break;</span>

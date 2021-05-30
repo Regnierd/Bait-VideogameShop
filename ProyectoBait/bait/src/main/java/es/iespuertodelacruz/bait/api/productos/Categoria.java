@@ -3,7 +3,7 @@ package es.iespuertodelacruz.bait.api.productos;
 import java.util.Objects;
 
 public class Categoria {
-    private final String DELIMITADOR = ",";
+    private static final String DELIMITADOR = ",";
     private String idCategoria;
     private String nombre;
 
@@ -40,7 +40,6 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -49,7 +48,7 @@ public class Categoria {
             return false;
         }
         Categoria categoria = (Categoria) o;
-        return Objects.equals(DELIMITADOR, categoria.DELIMITADOR) && Objects.equals(idCategoria, categoria.idCategoria) && Objects.equals(nombre, categoria.nombre);
+        return Objects.equals(idCategoria, categoria.idCategoria) && Objects.equals(nombre, categoria.nombre);
     }
 
     @Override

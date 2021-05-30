@@ -3,7 +3,7 @@ package es.iespuertodelacruz.bait.api.movimientos;
 import java.util.Objects;
 
 public class Compra {
-    private String DELIMITADOR = ",";
+    private static final String DELIMITADOR = ",";
     private String idCompra;
     private Pedido pedido;
     private float totalCompra;
@@ -53,7 +53,6 @@ public class Compra {
         this.totalCompra = totalCompra;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -62,7 +61,7 @@ public class Compra {
             return false;
         }
         Compra compra = (Compra) o;
-        return Objects.equals(DELIMITADOR, compra.DELIMITADOR) && Objects.equals(idCompra, compra.idCompra) && Objects.equals(pedido, compra.pedido) && totalCompra == compra.totalCompra;
+        return Objects.equals(idCompra, compra.idCompra) && Objects.equals(pedido, compra.pedido) && totalCompra == compra.totalCompra;
     }
 
 

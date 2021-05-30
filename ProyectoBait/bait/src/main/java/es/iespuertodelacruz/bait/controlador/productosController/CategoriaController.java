@@ -78,7 +78,7 @@ public class CategoriaController {
         boolean encontrada = false;
         Categoria categoriaEncontrada = null;
    
-        categoriaEncontrada = buscar(idCategoria);
+        categoriaEncontrada = categoriaModelo.buscarPorId(idCategoria);
         if (categoriaEncontrada != null) {
            encontrada = true;
         }  
@@ -91,11 +91,16 @@ public class CategoriaController {
      * @param idCategoria de la categoria que se va a buscar
      * @return la categoria encontrada
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public Categoria buscar(String idCategoria) throws PersistenciaException {
+    public Categoria buscar(String idCategoria) throws PersistenciaException, ApiException {
         Categoria categoria = null;
         categoria = categoriaModelo.buscarPorId(idCategoria);
         
+        if (categoria == null) {
+            throw new ApiException("La categoria que quiere buscar no existe.");
+        }
+
         return categoria;
     }
 

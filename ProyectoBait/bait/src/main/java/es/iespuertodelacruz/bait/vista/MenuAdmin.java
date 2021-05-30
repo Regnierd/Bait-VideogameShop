@@ -241,7 +241,7 @@ public class MenuAdmin {
                     try {
                         Producto producto = productoController.buscar(idProducto);
                         System.out.println(producto.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al buscar el producto.");
                     }
                     break;
@@ -303,7 +303,7 @@ public class MenuAdmin {
                     try {
                         Categoria categoria = categoriaController.buscar(idCategoria);
                         System.out.println(categoria.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al buscar la categoria.");
                     }
                     break;
@@ -372,7 +372,7 @@ public class MenuAdmin {
                     try {
                         Marca marca = marcaController.buscar(idMarca);
                         System.out.println(marca.toString());
-                    } catch (PersistenciaException e) {
+                    } catch (PersistenciaException | ApiException e) {
                         System.out.println("Error al buscar la marca.");
                     }
                     break;

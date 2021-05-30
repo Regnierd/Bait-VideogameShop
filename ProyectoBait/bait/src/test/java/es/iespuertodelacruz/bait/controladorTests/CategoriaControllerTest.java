@@ -11,11 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.iespuertodelacruz.bait.api.productos.Categoria;
-import es.iespuertodelacruz.bait.api.productos.Marca;
-import es.iespuertodelacruz.bait.api.productos.Producto;
 import es.iespuertodelacruz.bait.controlador.productosController.CategoriaController;
-import es.iespuertodelacruz.bait.controlador.productosController.MarcaController;
-import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 

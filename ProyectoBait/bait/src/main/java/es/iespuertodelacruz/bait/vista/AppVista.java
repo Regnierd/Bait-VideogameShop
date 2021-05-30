@@ -8,15 +8,15 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 public class AppVista{
     static MenuAdmin menuAdmin;
-    static MenuCliente menuCliente;
+    static MenuUsuario menuUsuario;
     static Bbdd bbdd;
 
     public static void main( String[] args ) throws PersistenciaException{
         if(menuAdmin == null){
             menuAdmin = new MenuAdmin();
         }
-        if(menuCliente == null){
-            menuCliente = new MenuCliente();
+        if(menuUsuario == null){
+            menuUsuario = new MenuUsuario();
         }
         menuPrincipal();
     }
@@ -42,7 +42,7 @@ public class AppVista{
                         menuAdmin.menuPrincial();
                         break;
                     case 2:
-                        menuCliente.menuPrincial();
+                        menuUsuario.menuPrincial();
                         break;
                     case 0:
                         salir = true;

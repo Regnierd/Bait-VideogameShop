@@ -4,10 +4,8 @@ es\iespuertodelacruz\bait\modelo\movimientosModelo\EnvioModelo.class
 es\iespuertodelacruz\bait\controlador\personasController\UsuarioController.class
 es\iespuertodelacruz\bait\api\productos\Categoria.class
 es\iespuertodelacruz\bait\modelo\movimientosModelo\PedidoModelo.class
-es\iespuertodelacruz\bait\modelo\movimientosModelo\CompraModelo.class
 es\iespuertodelacruz\bait\modelo\productosModelo\MarcaModelo.class
 es\iespuertodelacruz\bait\modelo\personasModelo\UsuarioModelo.class
-es\iespuertodelacruz\bait\vista\MenuCliente.class
 es\iespuertodelacruz\bait\api\movimientos\Compra.class
 es\iespuertodelacruz\bait\api\movimientos\Pedido.class
 es\iespuertodelacruz\bait\vista\MenuAdmin.class
@@ -16,9 +14,9 @@ es\iespuertodelacruz\bait\modelo\productosModelo\ProductoModelo.class
 es\iespuertodelacruz\bait\modelo\productosModelo\CategoriaModelo.class
 es\iespuertodelacruz\bait\api\personas\Usuario.class
 es\iespuertodelacruz\bait\modelo\mysql\BbddSqlite.class
-es\iespuertodelacruz\bait\controlador\movimientosController\CompraController.class
 es\iespuertodelacruz\bait\controlador\movimientosController\PedidoController.class
 es\iespuertodelacruz\bait\exceptions\PersistenciaException.class
+es\iespuertodelacruz\bait\vista\MenuUsuario.class
 es\iespuertodelacruz\bait\vista\AppVista.class
 es\iespuertodelacruz\bait\controlador\productosController\CategoriaController.class
 es\iespuertodelacruz\bait\api\productos\Producto.class

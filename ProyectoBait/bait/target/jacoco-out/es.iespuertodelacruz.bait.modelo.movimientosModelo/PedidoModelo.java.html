@@ -50,7 +50,7 @@ public class PedidoModelo {
 <span class="fc" id="L50">            preparedStatement.setInt(2, pedido.getUnidades());</span>
 <span class="fc" id="L51">            preparedStatement.setFloat(3, pedido.getTotal());</span>
 <span class="fc" id="L52">            preparedStatement.setString(4, pedido.getFechaPedido());</span>
-<span class="fc" id="L53">            preparedStatement.setString(5, pedido.getCliente().getDni());</span>
+<span class="fc" id="L53">            preparedStatement.setString(5, pedido.getUsuario().getDni());</span>
 <span class="fc" id="L54">            preparedStatement.setString(6, pedido.getProducto().getIdProducto());</span>
 
 <span class="fc" id="L56">            preparedStatement.executeUpdate();</span>
@@ -105,7 +105,7 @@ public class PedidoModelo {
 <span class="fc" id="L105">            preparedStatement.setInt(2, pedido.getUnidades());</span>
 <span class="fc" id="L106">            preparedStatement.setFloat(3, pedido.getTotal());</span>
 <span class="fc" id="L107">            preparedStatement.setString(4, pedido.getFechaPedido());</span>
-<span class="fc" id="L108">            preparedStatement.setString(5, pedido.getCliente().getDni());</span>
+<span class="fc" id="L108">            preparedStatement.setString(5, pedido.getUsuario().getDni());</span>
 <span class="fc" id="L109">            preparedStatement.setString(6, pedido.getProducto().getIdProducto());</span>
 <span class="fc" id="L110">            preparedStatement.setString(7, pedido.getIdPedido());</span>
             
@@ -130,7 +130,7 @@ public class PedidoModelo {
 <span class="fc" id="L130">        String sql = utilidadesSQL.setSelectOne(ID_PEDIDO);</span>
 <span class="fc" id="L131">        lista = buscarPorElemento(sql, identificador); </span>
 
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (!lista.isEmpty()) {</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
 <span class="fc" id="L134">            pedido = lista.get(0);</span>
         }
         

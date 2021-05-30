@@ -3,7 +3,7 @@ package es.iespuertodelacruz.bait.api.personas;
 import java.util.Objects;
 
 public class Usuario {
-    protected static final String DELIMITADOR = ",";
+    private static final String DELIMITADOR = ",";
     private String dni;
     private String nombre;
     private String apellidos;

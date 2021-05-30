@@ -70,11 +70,11 @@ public class UsuarioController {
     public Usuario buscar(String dni) throws PersistenciaException, ApiException {
 <span class="fc" id="L71">        Usuario usuario = null;</span>
 
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (!existe(dni)) {</span>
-<span class="fc" id="L74">            throw new ApiException(&quot;El usuario que quiere buscar no existe.&quot;);</span>
-        }
+<span class="fc" id="L73">        usuario = usuarioModelo.buscaPorDni(dni);</span>
 
-<span class="fc" id="L77">        usuario = usuarioModelo.buscaPorDni(dni);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (usuario == null) {</span>
+<span class="fc" id="L76">            throw new ApiException(&quot;El usuario que quiere buscar no existe.&quot;);</span>
+        }
 
 <span class="fc" id="L79">        return usuario;</span>
     }

@@ -78,7 +78,7 @@ public class MarcaController {
         boolean encontrada = false;
         Marca marcaEncontrada;
    
-        marcaEncontrada = buscar(idMarca);
+        marcaEncontrada = marcaModelo.buscarPorId(idMarca);
         if (marcaEncontrada != null) {
            encontrada = true;
         }  
@@ -91,11 +91,16 @@ public class MarcaController {
      * @param idMarca de la marca que se va a buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public Marca buscar(String idMarca) throws PersistenciaException {
+    public Marca buscar(String idMarca) throws PersistenciaException, ApiException {
         Marca marca = null;
         marca = marcaModelo.buscarPorId(idMarca);
         
+        if (marca == null) {
+            throw new ApiException("La marca que quiere buscar no existe.");
+        }
+
         return marca;
     }
 

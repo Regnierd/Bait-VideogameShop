@@ -91,8 +91,8 @@ public class ProductoController {
     /**
      * Metodo que elimina un producto
      * @param idProducto identificador del producto a borrar
-     * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public void eliminar(String idProducto) throws PersistenciaException, ApiException {
         if(!existe(idProducto)){
@@ -106,11 +106,16 @@ public class ProductoController {
      * devuelve
      * @param idProducto identificador del producto que se va a buscar
      * @return el producto encontrado
-     * @throws PersistenciaException error a controlar
+     * @throws PersistenciaException error controlado
+     * @throws ApiException
      */
-    public Producto buscar(String idProducto) throws PersistenciaException {
+    public Producto buscar(String idProducto) throws PersistenciaException, ApiException {
         Producto producto = null;
         producto = productoModelo.buscarPorId(idProducto);
+
+        if (producto == null) {
+            throw new ApiException("El producto que quiere buscar no existe.");
+        }
 
         return producto;
     }
@@ -118,8 +123,8 @@ public class ProductoController {
     /**
      * Metodo que modifica un producto 
      * @param producto con los nuevos cambios 
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public void modificar(Producto producto) throws ApiException, PersistenciaException {
         validar(producto);
@@ -133,8 +138,8 @@ public class ProductoController {
      * Funcion que devuelve un lista de productos que tiene una misma categoria
      * @param idCategoria identificador de la categoria que tienen los productos
      * @return la lista de productos filtrados por una categoria
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public ArrayList<Producto> buscarPorCategoria(String idCategoria) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
@@ -150,8 +155,8 @@ public class ProductoController {
      * Funcion que devuelve un lista de productos que tiene la misma marca
      * @param idMarca que tiene los productos
      * @return la lista de productos filtrados por un marca
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public ArrayList<Producto> buscarPorMarca(String idMarca) throws ApiException, PersistenciaException {
         ArrayList<Producto> productos = null;
@@ -183,7 +188,7 @@ public class ProductoController {
     /**
      * Funcion que obtiene la lista de productos y la devuelve
      * @return la lista de prodcutos
-     * @throws PersistenciaException
+     * @throws PersistenciaException error controlado
      */
     public ArrayList<Producto> obtenerListado() throws PersistenciaException, ApiException{
         ArrayList<Producto> productos = null;
@@ -193,6 +198,31 @@ public class ProductoController {
         }
         return productos;
         
+    }
+
+    /**
+     * Metodo que reduce el stock de un producto cuando se realiza un compra
+     * @param idProducto del producto que se va a comprar
+     * @param unidades que se van a comprar del producto
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
+     */
+    public void reducirStock(String idProducto, int unidades) throws PersistenciaException, ApiException {
+        Producto producto = buscar(idProducto);
+        int nuevoStock;
+        
+        if (unidades <=0) {
+            throw new ApiException("Las unidades son menores o igual a 0");
+        }
+
+        nuevoStock = producto.getStock() - unidades;
+        if (nuevoStock < 0) {
+            throw new ApiException("No hay suficiente stock para la compra");
+        }
+
+        producto.setStock(nuevoStock);    
+
+        modificar(producto);
     }
 
 }

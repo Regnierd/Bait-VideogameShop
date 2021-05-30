@@ -44,30 +44,6 @@ public class Fichero {
    }
 
    /**
-    * Metodo encargado de crear un fichero
-    * @param nombre del fichero a crear
-    * @throws PersistenciaException
-    */
-   public void crear(String nombre, String cadenaTexto) throws PersistenciaException {
-      FileWriter fichero = null;
-      try {
-			fichero = new FileWriter(nombre);
-         fichero.write(cadenaTexto + "\n");
-		} catch (Exception ex) {
-			throw new PersistenciaException("Se ha producido un error en la escritura del fichero", ex);
-		} finally {
-         if (fichero != null) {
-            try {
-               fichero.close();
-            } catch (IOException e) {
-               throw new PersistenciaException("No ha sido podible cerrar el fichero", e);
-            }
-         }
-      }
-
-   }
-
-   /**
     * Funcion que verifica si el fichero existo
     * @param fichero
     * @return
@@ -76,29 +52,4 @@ public class Fichero {
       return fichero.exists();
    }
 
-
-   /**
-    * Metodo encargado de elimianr un fichero/directorio
-    * @param nombre del fichero/directorio a elimina
-    * @throws PersistenciaException error controlado
-    */
-   public void eliminar(String nombre) throws PersistenciaException {
-      File fichero = new File(nombre);
-      if (validarFichero(fichero)) {
-         fichero.delete();
-      } else {
-         throw new PersistenciaException("No se puede eliminar un fichero que no existe");
-      }
-      
-   }
-
-   /**
-    * Funcion que verifica si se trata de un directorio no
-    * @param path de la ruta a validad
-    * @return boolean Si/No se trata de un directorio
-    */
-   public boolean esDirectorio(String path) {
-      File fichero = new File(path);
-      return fichero.isDirectory();
-   }
 }

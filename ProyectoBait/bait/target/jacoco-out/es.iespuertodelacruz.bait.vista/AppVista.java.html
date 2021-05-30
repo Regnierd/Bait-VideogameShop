@@ -8,15 +8,15 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
 <span class="nc" id="L9">public class AppVista{</span>
     static MenuAdmin menuAdmin;
-    static MenuCliente menuCliente;
+    static MenuUsuario menuUsuario;
     static Bbdd bbdd;
 
     public static void main( String[] args ) throws PersistenciaException{
 <span class="nc bnc" id="L15" title="All 2 branches missed.">        if(menuAdmin == null){</span>
 <span class="nc" id="L16">            menuAdmin = new MenuAdmin();</span>
         }
-<span class="nc bnc" id="L18" title="All 2 branches missed.">        if(menuCliente == null){</span>
-<span class="nc" id="L19">            menuCliente = new MenuCliente();</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        if(menuUsuario == null){</span>
+<span class="nc" id="L19">            menuUsuario = new MenuUsuario();</span>
         }
 <span class="nc" id="L21">        menuPrincipal();</span>
 <span class="nc" id="L22">    }</span>
@@ -42,7 +42,7 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 <span class="nc" id="L42">                        menuAdmin.menuPrincial();</span>
 <span class="nc" id="L43">                        break;</span>
                     case 2:
-<span class="nc" id="L45">                        menuCliente.menuPrincial();</span>
+<span class="nc" id="L45">                        menuUsuario.menuPrincial();</span>
 <span class="nc" id="L46">                        break;</span>
                     case 0:
 <span class="nc" id="L48">                        salir = true;</span>

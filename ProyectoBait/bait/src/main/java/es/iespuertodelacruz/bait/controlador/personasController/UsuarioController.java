@@ -70,11 +70,11 @@ public class UsuarioController {
     public Usuario buscar(String dni) throws PersistenciaException, ApiException {
         Usuario usuario = null;
 
-        if (!existe(dni)) {
+        usuario = usuarioModelo.buscaPorDni(dni);
+
+        if (usuario == null) {
             throw new ApiException("El usuario que quiere buscar no existe.");
         }
-
-        usuario = usuarioModelo.buscaPorDni(dni);
 
         return usuario;
     }

@@ -78,7 +78,7 @@ public class CategoriaController {
 <span class="fc" id="L78">        boolean encontrada = false;</span>
 <span class="fc" id="L79">        Categoria categoriaEncontrada = null;</span>
    
-<span class="fc" id="L81">        categoriaEncontrada = buscar(idCategoria);</span>
+<span class="fc" id="L81">        categoriaEncontrada = categoriaModelo.buscarPorId(idCategoria);</span>
 <span class="fc bfc" id="L82" title="All 2 branches covered.">        if (categoriaEncontrada != null) {</span>
 <span class="fc" id="L83">           encontrada = true;</span>
         }  
@@ -91,12 +91,17 @@ public class CategoriaController {
      * @param idCategoria de la categoria que se va a buscar
      * @return la categoria encontrada
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public Categoria buscar(String idCategoria) throws PersistenciaException {
-<span class="fc" id="L96">        Categoria categoria = null;</span>
-<span class="fc" id="L97">        categoria = categoriaModelo.buscarPorId(idCategoria);</span>
+    public Categoria buscar(String idCategoria) throws PersistenciaException, ApiException {
+<span class="fc" id="L97">        Categoria categoria = null;</span>
+<span class="fc" id="L98">        categoria = categoriaModelo.buscarPorId(idCategoria);</span>
         
-<span class="fc" id="L99">        return categoria;</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (categoria == null) {</span>
+<span class="nc" id="L101">            throw new ApiException(&quot;La categoria que quiere buscar no existe.&quot;);</span>
+        }
+
+<span class="fc" id="L104">        return categoria;</span>
     }
 
     /**
@@ -106,12 +111,12 @@ public class CategoriaController {
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Categoria categoria) throws ApiException, PersistenciaException {
-<span class="fc" id="L109">        validar(categoria);</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (!existe(categoria.getIdCategoria())) {</span>
-<span class="fc" id="L111">            throw new ApiException(&quot;La categoria que quiere modifcar no existe.&quot;);</span>
+<span class="fc" id="L114">        validar(categoria);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (!existe(categoria.getIdCategoria())) {</span>
+<span class="fc" id="L116">            throw new ApiException(&quot;La categoria que quiere modifcar no existe.&quot;);</span>
         }
-<span class="fc" id="L113">        categoriaModelo.modificar(categoria);</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L118">        categoriaModelo.modificar(categoria);</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * Funcion que obtiene la lista de categorias y la devuelve
@@ -121,11 +126,11 @@ public class CategoriaController {
      */
     public ArrayList&lt;Categoria&gt; obtenerListado() throws PersistenciaException, ApiException {
         ArrayList&lt;Categoria&gt; categorias;
-<span class="fc" id="L124">        categorias = categoriaModelo.obtenerListado();</span>
-<span class="pc bpc" id="L125" title="2 of 4 branches missed.">        if ( categorias == null || categorias.isEmpty()) {</span>
-<span class="nc" id="L126">            throw new ApiException(&quot;La lista de categorias es vacia o nula&quot;);</span>
+<span class="fc" id="L129">        categorias = categoriaModelo.obtenerListado();</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if ( categorias == null || categorias.isEmpty()) {</span>
+<span class="nc" id="L131">            throw new ApiException(&quot;La lista de categorias es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L128">        return categorias;</span>
+<span class="fc" id="L133">        return categorias;</span>
         
     }
 }

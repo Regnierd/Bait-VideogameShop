@@ -50,7 +50,7 @@ public class PedidoModelo {
             preparedStatement.setInt(2, pedido.getUnidades());
             preparedStatement.setFloat(3, pedido.getTotal());
             preparedStatement.setString(4, pedido.getFechaPedido());
-            preparedStatement.setString(5, pedido.getCliente().getDni());
+            preparedStatement.setString(5, pedido.getUsuario().getDni());
             preparedStatement.setString(6, pedido.getProducto().getIdProducto());
 
             preparedStatement.executeUpdate();
@@ -105,7 +105,7 @@ public class PedidoModelo {
             preparedStatement.setInt(2, pedido.getUnidades());
             preparedStatement.setFloat(3, pedido.getTotal());
             preparedStatement.setString(4, pedido.getFechaPedido());
-            preparedStatement.setString(5, pedido.getCliente().getDni());
+            preparedStatement.setString(5, pedido.getUsuario().getDni());
             preparedStatement.setString(6, pedido.getProducto().getIdProducto());
             preparedStatement.setString(7, pedido.getIdPedido());
             

@@ -6,12 +6,12 @@ import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
 public class Pedido {
-    private final String DELIMITADOR = ",";
+    private static final String DELIMITADOR = ",";
     private String idPedido;
     private int unidades;
     private float total;
     private String fechaPedido;
-    private Usuario cliente;
+    private Usuario usuario;
     private Producto producto;
 
     /**
@@ -26,15 +26,15 @@ public class Pedido {
      * @param unidades del pedido
      * @param total del pedido
      * @param fechaPedido del pedido
-     * @param cliente del pedido
+     * @param usuario del pedido
      * @param producto del pedido
      */
-    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario cliente, Producto producto) {
+    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {
         this.idPedido = idPedido;
         this.unidades = unidades;
         this.total = total;
         this.fechaPedido = fechaPedido;
-        this.cliente = cliente;
+        this.usuario = usuario;
         this.producto = producto;
     }
 
@@ -72,12 +72,12 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-    public Usuario getCliente() {
-        return this.cliente;
+    public Usuario getUsuario() {
+        return this.usuario;
     }
 
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
+    public void setCliente(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Producto getProducto() {
@@ -88,7 +88,6 @@ public class Pedido {
         this.producto = producto;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -97,9 +96,8 @@ public class Pedido {
             return false;
         }
         Pedido pedido = (Pedido) o;
-        return Objects.equals(DELIMITADOR, pedido.DELIMITADOR) && Objects.equals(idPedido, pedido.idPedido) && unidades == pedido.unidades && total == pedido.total && Objects.equals(fechaPedido, pedido.fechaPedido) && Objects.equals(cliente, pedido.cliente) && Objects.equals(producto, pedido.producto);
+        return Objects.equals(idPedido, pedido.idPedido) && unidades == pedido.unidades && total == pedido.total && Objects.equals(fechaPedido, pedido.fechaPedido) && Objects.equals(usuario, pedido.usuario) && Objects.equals(producto, pedido.producto);
     }
-
 
     @Override
     public String toString() {
@@ -107,7 +105,7 @@ public class Pedido {
         getUnidades() + DELIMITADOR + 
         getTotal() + DELIMITADOR +
         getFechaPedido() + DELIMITADOR +
-        getCliente().getDni() + DELIMITADOR +
+        getUsuario().getDni() + DELIMITADOR +
         getProducto().getIdProducto();
     }
 

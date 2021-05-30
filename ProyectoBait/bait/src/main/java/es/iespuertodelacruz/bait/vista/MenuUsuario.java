@@ -4,48 +4,44 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import es.iespuertodelacruz.bait.api.movimientos.Compra;
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
-import es.iespuertodelacruz.bait.controlador.movimientosController.CompraController;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
 import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
-public class MenuCliente {
+public class MenuUsuario {
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
     private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 0 al ";
 
     Scanner sn;
     UsuarioController usuarioController;
     PedidoController pedidoController;
-    CompraController compraController;
     ProductoController productoController;
     /**
-     * Constructor basico del menu del cliente
+     * Constructor basico del menu del usuario
      * @throws PersistenciaException
      */
-    public MenuCliente() throws PersistenciaException {
+    public MenuUsuario() throws PersistenciaException {
         sn = new Scanner(System.in);
         usuarioController = new UsuarioController();
         pedidoController = new PedidoController();
-        compraController = new CompraController();
         productoController = new ProductoController();
     }
 
     /**
-     * Menu basico para el cliente
+     * Menu basico para el usuario
      */
     public void menuPrincial() {
         boolean salir = false;
         int opcion;
-        Usuario cliente;
+        Usuario usuario;
         try {
             while (!salir) {
-                System.out.println("Menu principal del cliente");
+                System.out.println("Menu principal del usuario");
                 System.out.println("1. Registrarse");
                 System.out.println("2. Iniciar sesion");
                 System.out.println("3. Accerder sin cuenta");
@@ -55,20 +51,20 @@ public class MenuCliente {
                 sn.nextLine();
                 switch (opcion) {
                     case 1:
-                        cliente = registrar();
+                        usuario = registrar();
                         try {
-                            usuarioController.insertar(cliente);
+                            usuarioController.insertar(usuario);
                             System.out.println("Se ha registrado correctamente.");
-                            menuOpciones(cliente);
+                            menuOpciones(usuario);
                         } catch (ApiException | PersistenciaException e) {
                             System.out.println("Error al realizar el registro");
                         }
                         break;
                     case 2:
                         try {
-                            cliente = validarCliente();
+                            usuario = validarUsuario();
                             System.out.println("Sesion iniciada correctamente.");
-                            menuOpciones(cliente);
+                            menuOpciones(usuario);
                         } catch (ApiException e) {
                             System.out.println("El usuario o la password no son correctos.");
                         }
@@ -89,29 +85,29 @@ public class MenuCliente {
     }
 
     /**
-     * Funcion que busca un cliente a partir de un nombre de usuario y password y
+     * Funcion que busca un usuario a partir de un nombre de usuario y password y
      * lo devuevle si existe
      * 
-     * @return el cliente si existe
+     * @return el usuario si existe
      * @throws ApiException error a controlar
      */
-    private Usuario validarCliente() throws ApiException {
+    private Usuario validarUsuario() throws ApiException {
         String nombreUsuario;
         String password;
-        Usuario cliente = null;
-        System.out.println("Login Cliente");
+        Usuario usuario = null;
+        System.out.println("Login Usuario");
         System.out.println("Introduce el nombre de usuario:");
         nombreUsuario = sn.nextLine();
         System.out.println("Intrduce la password:");
         password = sn.nextLine();
 
         try {
-            cliente = usuarioController.login(nombreUsuario, password, "Cliente");
+            usuario = usuarioController.login(nombreUsuario, password, "Usuario");
         } catch (PersistenciaException | ApiException e) {
             System.out.println(e.getMessage());
         }
 
-        return cliente;
+        return usuario;
     }
 
     /**
@@ -186,24 +182,22 @@ public class MenuCliente {
     }
 
     /**
-     * Menu de opciones que puede realizar el cliente
+     * Menu de opciones que puede realizar el usuario
      * 
-     * @param cliente con la sesion actual
+     * @param usuario con la sesion actual
      */
-    private void menuOpciones(Usuario cliente) {
+    private void menuOpciones(Usuario usuario) {
         boolean salir = false;
         int opcion;
         ArrayList<Pedido> pedidos;
-        ArrayList<Compra> compras;
         try {
             while (!salir) {
-                System.out.println("Menu de opciones cliente");
+                System.out.println("Menu de opciones usuario");
                 System.out.println("1. Añadir saldo");
                 System.out.println("2. Realizar pedido");
                 System.out.println("3. Buscar productos");
                 System.out.println("4. Ver pedidos");
-                System.out.println("5. Ver compras");
-                System.out.println("6. Editar mis datos");
+                System.out.println("5. Editar mis datos");
                 System.out.println("0. Salir");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -212,7 +206,7 @@ public class MenuCliente {
                         System.out.println("Introduzca la cantidad que quiere añadir.");
                         float saldo = sn.nextFloat();
                         try {
-                            usuarioController.añadirSaldo(cliente, saldo);
+                            usuarioController.añadirSaldo(usuario, saldo);
                             System.out.println("Saldo añadido carrectamente.");
                         } catch (PersistenciaException e) {
                             System.err.println("Error al añadir el saldo");
@@ -221,31 +215,23 @@ public class MenuCliente {
                         }
                         break;
                     case 2:
-                        realizarPedido();
+                        realizarPedido(usuario);
                         break;
                     case 3:
                         menuProductos();
                         break;
                     case 4:        
                         try {
-                            pedidos = pedidoController.obtenerListado(cliente.getDni());
+                            pedidos = pedidoController.obtenerListado();
                             System.out.println(pedidos.toString());
-                        } catch (PersistenciaException e1) {
+                        } catch (PersistenciaException | ApiException e1) {
                             System.out.println("Error al obtener la lista de todos los pedidos");
                         }
                         break;
                     case 5:
+                        Usuario nuevoUsuario = registrar();
                         try {
-                            compras = compraController.obtenerListado();
-                            System.out.println(compras.toString());
-                        } catch (PersistenciaException e1) {
-                            System.out.println("Error al obtener la lista de todas las compras");
-                        }
-                        break;
-                    case 6:
-                        Usuario nuevoCliente = registrar();
-                        try {
-                            usuarioController.modificar(nuevoCliente);
+                            usuarioController.modificar(nuevoUsuario);
                             System.out.println("Se ha modificado correctemente.");
                         } catch (ApiException | PersistenciaException e) {
                             System.err.println("No se han podido registrar los cambios");
@@ -266,21 +252,26 @@ public class MenuCliente {
     /**
      * Metodo que obtienes los datos y realiza un pedido
      */
-    private void realizarPedido() {
+    private void realizarPedido(Usuario usuario) {
         System.out.println("Introdusca datos para realizar el pedido.");
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
-        pedidoController.realizarPedido(idProducto, unidades);
+        try {
+            pedidoController.realizarPedido(usuario ,idProducto, unidades);
+            System.out.println("**Pedido realizado correctamente**");
+        } catch (PersistenciaException | ApiException e) {
+            System.err.println("Ha ocurrido un error al realizar el pedido");
+        }
         System.out.println("Pedido realizado correctamente.");
     }
 
     /**
-     * Menu que registrar un nuevo cliente
+     * Menu que registrar un nuevo usuario
      * 
      * @return el cleinte creado
      */
     public Usuario registrar() {//REFACTORIZAR
-        Usuario cliente = null;
+        Usuario usuario = null;
         System.out.println("Datos para el registro");
         String dni = obtenerDato("el dni.");
         String nombre = obtenerDato("el nombre");
@@ -294,8 +285,8 @@ public class MenuCliente {
         String nombreUsuario = obtenerDato("el nombre usuario");
         String password = obtenerDato("la password");
 
-        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, "Cliente", 0f);
-        return cliente;
+        usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, "Usuario", 0f);
+        return usuario;
     }
 
     /**

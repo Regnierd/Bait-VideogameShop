@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.bait.controlador.movimientosController;
 
+import java.util.ArrayList;
+
 import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -16,7 +18,7 @@ public class EnvioController {
         String mensaje = "";
 
         if(envio == null){
-            mensaje = "Se esta intentando validar un objeto vacio";
+            mensaje = "El envio que intenta validar es nulo";
             throw new ApiException(mensaje);
         }
         if(envio.getIdEnvio() == null || envio.getIdEnvio().isEmpty()){
@@ -44,7 +46,7 @@ public class EnvioController {
      */
     public void insertar(Envio envio) throws ApiException, PersistenciaException{
         validar(envio);
-        if(existe(envio)){
+        if(existe(envio.getIdEnvio())){
             throw new ApiException("El pedido ya existe");          
         }
         envioModelo.insertar(envio);
@@ -54,8 +56,12 @@ public class EnvioController {
      * Metodo encargado de eliminar
      * @param idEnvio a eliminar
      * @throws PersistenciaException con mensaje controlado
+     * @throws ApiException
      */
-    public void eliminar(String idEnvio) throws PersistenciaException{
+    public void eliminar(String idEnvio) throws PersistenciaException, ApiException{
+        if(!existe(idEnvio)){
+            throw new ApiException("El envio que quiere eliminar no existe");
+        }
         envioModelo.eliminar(idEnvio);
     }
 
@@ -64,10 +70,17 @@ public class EnvioController {
      * @param idEnvio del pedido
      * @return Envio
      * @throws PersistenciaException con mensaje controlado
+     * @throws ApiException
      */
-    public Envio buscar(String idEnvio) throws PersistenciaException{
+    public Envio buscar(String idEnvio) throws PersistenciaException, ApiException{
         Envio envio = null;
+
         envio = envioModelo.buscaPorIdentificador(idEnvio);
+        
+        if (envio == null) {
+            throw new ApiException("El envio que quiere buscar no existe.");
+        }
+
         return envio;
     }
 
@@ -78,14 +91,11 @@ public class EnvioController {
     * @throws PersistenciaException con mensaje controlado
     */
     public void modificar(Envio envio) throws ApiException, PersistenciaException {
-        Envio envioAlmacenado;
-        
         validar(envio);
-        envioAlmacenado = buscar(envio.getIdEnvio());
-        if (envioAlmacenado == null) {
-        throw new ApiException("El pedido indicado no existe");
+        if (!existe(envio.getIdEnvio())) {
+            throw new ApiException("El envio que intenta modificar no existe");
         }
-        envioModelo.modificar(envioAlmacenado);
+        envioModelo.modificar(envio);
     }
 
     /**
@@ -94,15 +104,30 @@ public class EnvioController {
      * @return boolean
      * @throws PersistenciaException
      */
-    private boolean existe(Envio envio) throws PersistenciaException{
+    private boolean existe(String idEnvio) throws PersistenciaException{
         boolean encontrada = false;
-        Envio envioEncontrado;
+        Envio envioEncontrado = null;
 
-        envioEncontrado = buscar(envio.getIdEnvio());
+        envioEncontrado = envioModelo.buscaPorIdentificador(idEnvio);
         if(envioEncontrado != null){
             encontrada = true;
         }
         
         return encontrada;
+    }
+
+    /**
+     * Funcion que obtiene la lista de envios y la devuelve
+     * @return la lista de envios
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList<Envio> obtenerListado() throws PersistenciaException, ApiException{
+        ArrayList<Envio> envios = null;
+        envios = envioModelo.obtenerListado();
+        if(envios == null || envios.isEmpty()){
+            throw new ApiException("La lista de envios es vacia o nula");
+        }
+        return envios;
+        
     }
 }

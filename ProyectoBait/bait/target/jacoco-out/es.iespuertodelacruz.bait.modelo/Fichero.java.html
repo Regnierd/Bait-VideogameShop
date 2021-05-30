@@ -44,62 +44,13 @@ import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
    }
 
    /**
-    * Metodo encargado de crear un fichero
-    * @param nombre del fichero a crear
-    * @throws PersistenciaException
-    */
-   public void crear(String nombre, String cadenaTexto) throws PersistenciaException {
-<span class="nc" id="L52">      FileWriter fichero = null;</span>
-      try {
-<span class="nc" id="L54">			fichero = new FileWriter(nombre);</span>
-<span class="nc" id="L55">         fichero.write(cadenaTexto + &quot;\n&quot;);</span>
-<span class="nc" id="L56">		} catch (Exception ex) {</span>
-<span class="nc" id="L57">			throw new PersistenciaException(&quot;Se ha producido un error en la escritura del fichero&quot;, ex);</span>
-		} finally {
-<span class="nc bnc" id="L59" title="All 2 branches missed.">         if (fichero != null) {</span>
-            try {
-<span class="nc" id="L61">               fichero.close();</span>
-<span class="nc" id="L62">            } catch (IOException e) {</span>
-<span class="nc" id="L63">               throw new PersistenciaException(&quot;No ha sido podible cerrar el fichero&quot;, e);</span>
-<span class="nc" id="L64">            }</span>
-         }
-      }
-
-<span class="nc" id="L68">   }</span>
-
-   /**
     * Funcion que verifica si el fichero existo
     * @param fichero
     * @return
     */
    public boolean validarFichero(File fichero) {
-<span class="fc" id="L76">      return fichero.exists();</span>
+<span class="fc" id="L52">      return fichero.exists();</span>
    }
 
-
-   /**
-    * Metodo encargado de elimianr un fichero/directorio
-    * @param nombre del fichero/directorio a elimina
-    * @throws PersistenciaException error controlado
-    */
-   public void eliminar(String nombre) throws PersistenciaException {
-<span class="nc" id="L86">      File fichero = new File(nombre);</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">      if (validarFichero(fichero)) {</span>
-<span class="nc" id="L88">         fichero.delete();</span>
-      } else {
-<span class="nc" id="L90">         throw new PersistenciaException(&quot;No se puede eliminar un fichero que no existe&quot;);</span>
-      }
-      
-<span class="nc" id="L93">   }</span>
-
-   /**
-    * Funcion que verifica si se trata de un directorio no
-    * @param path de la ruta a validad
-    * @return boolean Si/No se trata de un directorio
-    */
-   public boolean esDirectorio(String path) {
-<span class="nc" id="L101">      File fichero = new File(path);</span>
-<span class="nc" id="L102">      return fichero.isDirectory();</span>
-   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

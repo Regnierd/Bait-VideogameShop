@@ -2,8 +2,10 @@
 
 import java.util.Objects;
 
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+
 public class Producto {
-    protected static final String DELIMITADOR = &quot;,&quot;;
+    private static final String DELIMITADOR = &quot;,&quot;;
     private String idProducto;
     private String nombre;
     private float precio;
@@ -15,8 +17,8 @@ public class Producto {
     /**
      * Constructor por defecto vacio
      */
-<span class="fc" id="L18">    public Producto() {</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L20">    public Producto() {</span>
+<span class="fc" id="L21">    }</span>
 
     /**
      * Constructor con todos los atributos 
@@ -28,96 +30,96 @@ public class Producto {
      * @param categoria del producto 
      * @param marca del producto
      */
-<span class="fc" id="L31">    public Producto(String idProducto, String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {</span>
-<span class="fc" id="L32">        this.idProducto = idProducto;</span>
-<span class="fc" id="L33">        this.nombre = nombre;</span>
-<span class="fc" id="L34">        this.categoria = categoria;</span>
-<span class="fc" id="L35">        this.precio = precio;</span>
-<span class="fc" id="L36">        this.descripcion = descripcion;</span>
-<span class="fc" id="L37">        this.stock = stock;</span>
-<span class="fc" id="L38">        this.marca = marca;</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L33">    public Producto(String idProducto, String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {</span>
+<span class="fc" id="L34">        this.idProducto = idProducto;</span>
+<span class="fc" id="L35">        this.nombre = nombre;</span>
+<span class="fc" id="L36">        this.categoria = categoria;</span>
+<span class="fc" id="L37">        this.precio = precio;</span>
+<span class="fc" id="L38">        this.descripcion = descripcion;</span>
+<span class="fc" id="L39">        this.stock = stock;</span>
+<span class="fc" id="L40">        this.marca = marca;</span>
+<span class="fc" id="L41">    }</span>
 
     //Getters y Setters
 
     public String getIdProducto() {
-<span class="fc" id="L44">        return this.idProducto;</span>
+<span class="fc" id="L46">        return this.idProducto;</span>
     }
 
     public void setIdProducto(String idProducto) {
-<span class="nc" id="L48">        this.idProducto = idProducto;</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L50">        this.idProducto = idProducto;</span>
+<span class="nc" id="L51">    }</span>
 
     public String getNombre() {
-<span class="fc" id="L52">        return this.nombre;</span>
+<span class="fc" id="L54">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="fc" id="L56">        this.nombre = nombre;</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L58">        this.nombre = nombre;</span>
+<span class="fc" id="L59">    }</span>
 
     public Categoria getCategoria() {
-<span class="fc" id="L60">        return this.categoria;</span>
+<span class="fc" id="L62">        return this.categoria;</span>
     }
 
     public void setCategoria(Categoria categoria) {
-<span class="nc" id="L64">        this.categoria = categoria;</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L66">        this.categoria = categoria;</span>
+<span class="nc" id="L67">    }</span>
 
     public float getPrecio() {
-<span class="fc" id="L68">        return this.precio;</span>
+<span class="fc" id="L70">        return this.precio;</span>
     }
 
     public void setPrecio(float precio) {
-<span class="nc" id="L72">        this.precio = precio;</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L74">        this.precio = precio;</span>
+<span class="nc" id="L75">    }</span>
 
     public String getDescripcion() {
-<span class="fc" id="L76">        return this.descripcion;</span>
+<span class="fc" id="L78">        return this.descripcion;</span>
     }
 
     public void setDescripcion(String descripcion) {
-<span class="nc" id="L80">        this.descripcion = descripcion;</span>
-<span class="nc" id="L81">    }</span>
+<span class="nc" id="L82">        this.descripcion = descripcion;</span>
+<span class="nc" id="L83">    }</span>
 
     public int getStock() {
-<span class="fc" id="L84">        return this.stock;</span>
+<span class="fc" id="L86">        return this.stock;</span>
     }
 
     public void setStock(int stock) {
-<span class="fc" id="L88">        this.stock = stock;</span>
-<span class="fc" id="L89">    }</span>
+<span class="fc" id="L90">        this.stock = stock;</span>
+<span class="fc" id="L91">    }</span>
 
     public Marca getMarca() {
-<span class="fc" id="L92">        return this.marca;</span>
+<span class="fc" id="L94">        return this.marca;</span>
     }
 
     public void setMarca(Marca marca) {
-<span class="nc" id="L96">        this.marca = marca;</span>
-<span class="nc" id="L97">    }</span>
+<span class="nc" id="L98">        this.marca = marca;</span>
+<span class="nc" id="L99">    }</span>
 
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (o == this)</span>
-<span class="nc" id="L103">            return true;</span>
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (!(o instanceof Producto)) {</span>
-<span class="nc" id="L105">            return false;</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L105">            return true;</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (!(o instanceof Producto)) {</span>
+<span class="nc" id="L107">            return false;</span>
         }
-<span class="fc" id="L107">        Producto producto = (Producto) o;</span>
-<span class="pc bpc" id="L108" title="6 of 14 branches missed.">        return Objects.equals(idProducto, producto.idProducto) &amp;&amp; Objects.equals(nombre, producto.nombre) &amp;&amp; precio == producto.precio &amp;&amp; Objects.equals(descripcion, producto.descripcion) &amp;&amp; stock == producto.stock &amp;&amp; Objects.equals(categoria, producto.categoria) &amp;&amp; Objects.equals(marca, producto.marca);</span>
+<span class="fc" id="L109">        Producto producto = (Producto) o;</span>
+<span class="pc bpc" id="L110" title="6 of 14 branches missed.">        return Objects.equals(idProducto, producto.idProducto) &amp;&amp; Objects.equals(nombre, producto.nombre) &amp;&amp; precio == producto.precio &amp;&amp; Objects.equals(descripcion, producto.descripcion) &amp;&amp; stock == producto.stock &amp;&amp; Objects.equals(categoria, producto.categoria) &amp;&amp; Objects.equals(marca, producto.marca);</span>
     }
     
     @Override
     public String toString() {
-<span class="nc" id="L113">        return getIdProducto() + DELIMITADOR +</span>
-<span class="nc" id="L114">            getNombre() + DELIMITADOR + </span>
-<span class="nc" id="L115">            getCategoria().toString() + DELIMITADOR +</span>
-<span class="nc" id="L116">            getPrecio() + DELIMITADOR +</span>
-<span class="nc" id="L117">            getDescripcion() + DELIMITADOR +</span>
-<span class="nc" id="L118">            getStock() + DELIMITADOR +</span>
-<span class="nc" id="L119">            getCategoria().getIdCategoria() + DELIMITADOR + </span>
-<span class="nc" id="L120">            getMarca().getIdMarca();</span>
+<span class="nc" id="L115">        return getIdProducto() + DELIMITADOR +</span>
+<span class="nc" id="L116">            getNombre() + DELIMITADOR + </span>
+<span class="nc" id="L117">            getCategoria().toString() + DELIMITADOR +</span>
+<span class="nc" id="L118">            getPrecio() + DELIMITADOR +</span>
+<span class="nc" id="L119">            getDescripcion() + DELIMITADOR +</span>
+<span class="nc" id="L120">            getStock() + DELIMITADOR +</span>
+<span class="nc" id="L121">            getCategoria().getIdCategoria() + DELIMITADOR + </span>
+<span class="nc" id="L122">            getMarca().getIdMarca();</span>
     }
 
 }

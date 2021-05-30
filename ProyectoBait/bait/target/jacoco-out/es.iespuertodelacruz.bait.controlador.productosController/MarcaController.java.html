@@ -78,7 +78,7 @@ public class MarcaController {
 <span class="fc" id="L78">        boolean encontrada = false;</span>
         Marca marcaEncontrada;
    
-<span class="fc" id="L81">        marcaEncontrada = buscar(idMarca);</span>
+<span class="fc" id="L81">        marcaEncontrada = marcaModelo.buscarPorId(idMarca);</span>
 <span class="fc bfc" id="L82" title="All 2 branches covered.">        if (marcaEncontrada != null) {</span>
 <span class="fc" id="L83">           encontrada = true;</span>
         }  
@@ -91,12 +91,17 @@ public class MarcaController {
      * @param idMarca de la marca que se va a buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
+     * @throws ApiException
      */
-    public Marca buscar(String idMarca) throws PersistenciaException {
-<span class="fc" id="L96">        Marca marca = null;</span>
-<span class="fc" id="L97">        marca = marcaModelo.buscarPorId(idMarca);</span>
+    public Marca buscar(String idMarca) throws PersistenciaException, ApiException {
+<span class="fc" id="L97">        Marca marca = null;</span>
+<span class="fc" id="L98">        marca = marcaModelo.buscarPorId(idMarca);</span>
         
-<span class="fc" id="L99">        return marca;</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (marca == null) {</span>
+<span class="nc" id="L101">            throw new ApiException(&quot;La marca que quiere buscar no existe.&quot;);</span>
+        }
+
+<span class="fc" id="L104">        return marca;</span>
     }
 
     /**
@@ -106,12 +111,12 @@ public class MarcaController {
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Marca marca) throws ApiException, PersistenciaException {
-<span class="fc" id="L109">        validar(marca);</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (!existe(marca.getIdMarca())) {</span>
-<span class="fc" id="L111">            throw new ApiException(&quot;La categoria que quiere modifcar no existe.&quot;);</span>
+<span class="fc" id="L114">        validar(marca);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (!existe(marca.getIdMarca())) {</span>
+<span class="fc" id="L116">            throw new ApiException(&quot;La categoria que quiere modifcar no existe.&quot;);</span>
         }
-<span class="fc" id="L113">        marcaModelo.modificar(marca);</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L118">        marcaModelo.modificar(marca);</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * Funcion que obtiene la lista de marcas y la devuelve
@@ -121,11 +126,11 @@ public class MarcaController {
      */
     public ArrayList&lt;Marca&gt; obtenerListado() throws PersistenciaException, ApiException {
         ArrayList&lt;Marca&gt; marcas;
-<span class="fc" id="L124">        marcas = marcaModelo.obtenerListado();</span>
-<span class="pc bpc" id="L125" title="2 of 4 branches missed.">        if ( marcas == null || marcas.isEmpty()) {</span>
-<span class="nc" id="L126">            throw new ApiException(&quot;La lista de marcas es vacia o nula&quot;);</span>
+<span class="fc" id="L129">        marcas = marcaModelo.obtenerListado();</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if ( marcas == null || marcas.isEmpty()) {</span>
+<span class="nc" id="L131">            throw new ApiException(&quot;La lista de marcas es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L128">        return marcas;</span>
+<span class="fc" id="L133">        return marcas;</span>
         
     }
 }

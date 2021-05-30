@@ -91,8 +91,8 @@ public class ProductoController {
     /**
      * Metodo que elimina un producto
      * @param idProducto identificador del producto a borrar
-     * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public void eliminar(String idProducto) throws PersistenciaException, ApiException {
 <span class="fc bfc" id="L98" title="All 2 branches covered.">        if(!existe(idProducto)){</span>
@@ -106,61 +106,66 @@ public class ProductoController {
      * devuelve
      * @param idProducto identificador del producto que se va a buscar
      * @return el producto encontrado
-     * @throws PersistenciaException error a controlar
+     * @throws PersistenciaException error controlado
+     * @throws ApiException
      */
-    public Producto buscar(String idProducto) throws PersistenciaException {
-<span class="fc" id="L112">        Producto producto = null;</span>
-<span class="fc" id="L113">        producto = productoModelo.buscarPorId(idProducto);</span>
+    public Producto buscar(String idProducto) throws PersistenciaException, ApiException {
+<span class="fc" id="L113">        Producto producto = null;</span>
+<span class="fc" id="L114">        producto = productoModelo.buscarPorId(idProducto);</span>
 
-<span class="fc" id="L115">        return producto;</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (producto == null) {</span>
+<span class="nc" id="L117">            throw new ApiException(&quot;El producto que quiere buscar no existe.&quot;);</span>
+        }
+
+<span class="fc" id="L120">        return producto;</span>
     }
 
     /**
      * Metodo que modifica un producto 
      * @param producto con los nuevos cambios 
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public void modificar(Producto producto) throws ApiException, PersistenciaException {
-<span class="fc" id="L125">        validar(producto);</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (!existe(producto.getIdProducto())) {</span>
-<span class="fc" id="L127">            throw new ApiException(&quot;El producto que intenta modificar no existe&quot;);</span>
+<span class="fc" id="L130">        validar(producto);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (!existe(producto.getIdProducto())) {</span>
+<span class="fc" id="L132">            throw new ApiException(&quot;El producto que intenta modificar no existe&quot;);</span>
         }
-<span class="fc" id="L129">        productoModelo.modificar(producto);</span>
-<span class="fc" id="L130">    }</span>
+<span class="fc" id="L134">        productoModelo.modificar(producto);</span>
+<span class="fc" id="L135">    }</span>
 
     /**
      * Funcion que devuelve un lista de productos que tiene una misma categoria
      * @param idCategoria identificador de la categoria que tienen los productos
      * @return la lista de productos filtrados por una categoria
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public ArrayList&lt;Producto&gt; buscarPorCategoria(String idCategoria) throws ApiException, PersistenciaException {
-<span class="fc" id="L140">        ArrayList&lt;Producto&gt; productos = null;</span>
-<span class="fc" id="L141">        productos = productoModelo.buscarPorCategoria(idCategoria);</span>
+<span class="fc" id="L145">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="fc" id="L146">        productos = productoModelo.buscarPorCategoria(idCategoria);</span>
 
-<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
-<span class="fc" id="L144">            throw new ApiException(&quot;No existe productos con esa categoria&quot;);</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
+<span class="fc" id="L149">            throw new ApiException(&quot;No existe productos con esa categoria&quot;);</span>
         }
-<span class="fc" id="L146">        return productos;</span>
+<span class="fc" id="L151">        return productos;</span>
     }
 
     /**
      * Funcion que devuelve un lista de productos que tiene la misma marca
      * @param idMarca que tiene los productos
      * @return la lista de productos filtrados por un marca
-     * @throws ApiException error a controlar
-     * @throws PersistenciaException error a controlar
+     * @throws ApiException error controlado
+     * @throws PersistenciaException error controlado
      */
     public ArrayList&lt;Producto&gt; buscarPorMarca(String idMarca) throws ApiException, PersistenciaException {
-<span class="fc" id="L157">        ArrayList&lt;Producto&gt; productos = null;</span>
-<span class="fc" id="L158">        productos = productoModelo.buscarPorMarca(idMarca);</span>
+<span class="fc" id="L162">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="fc" id="L163">        productos = productoModelo.buscarPorMarca(idMarca);</span>
 
-<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
-<span class="fc" id="L161">            throw new ApiException(&quot;No existe productos con esa marca&quot;);</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
+<span class="fc" id="L166">            throw new ApiException(&quot;No existe productos con esa marca&quot;);</span>
         }
-<span class="fc" id="L163">        return productos;</span>
+<span class="fc" id="L168">        return productos;</span>
     }
 
     /**
@@ -171,29 +176,54 @@ public class ProductoController {
      * @throws PersistenciaException error a controlar
      */
     public ArrayList&lt;Producto&gt; buscarPorNombre(String nombre) throws ApiException, PersistenciaException {
-<span class="fc" id="L174">        ArrayList&lt;Producto&gt; productos = null;</span>
-<span class="fc" id="L175">        productos = productoModelo.buscarPorNombre(nombre);</span>
+<span class="fc" id="L179">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="fc" id="L180">        productos = productoModelo.buscarPorNombre(nombre);</span>
 
-<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
-<span class="fc" id="L178">            throw new ApiException(&quot;No existe productos con ese nombre&quot;);</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
+<span class="fc" id="L183">            throw new ApiException(&quot;No existe productos con ese nombre&quot;);</span>
         }
-<span class="fc" id="L180">        return productos;</span>
+<span class="fc" id="L185">        return productos;</span>
     }
 
     /**
      * Funcion que obtiene la lista de productos y la devuelve
      * @return la lista de prodcutos
-     * @throws PersistenciaException
+     * @throws PersistenciaException error controlado
      */
     public ArrayList&lt;Producto&gt; obtenerListado() throws PersistenciaException, ApiException{
-<span class="fc" id="L189">        ArrayList&lt;Producto&gt; productos = null;</span>
-<span class="fc" id="L190">        productos = productoModelo.obtenerListado();</span>
-<span class="pc bpc" id="L191" title="2 of 4 branches missed.">        if(productos == null || productos.isEmpty()){</span>
-<span class="nc" id="L192">            throw new ApiException(&quot;La lista de productos es vacia o nula&quot;);</span>
+<span class="fc" id="L194">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="fc" id="L195">        productos = productoModelo.obtenerListado();</span>
+<span class="pc bpc" id="L196" title="2 of 4 branches missed.">        if(productos == null || productos.isEmpty()){</span>
+<span class="nc" id="L197">            throw new ApiException(&quot;La lista de productos es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L194">        return productos;</span>
+<span class="fc" id="L199">        return productos;</span>
         
     }
+
+    /**
+     * Metodo que reduce el stock de un producto cuando se realiza un compra
+     * @param idProducto del producto que se va a comprar
+     * @param unidades que se van a comprar del producto
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
+     */
+    public void reducirStock(String idProducto, int unidades) throws PersistenciaException, ApiException {
+<span class="fc" id="L211">        Producto producto = buscar(idProducto);</span>
+        int nuevoStock;
+        
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">        if (unidades &lt;=0) {</span>
+<span class="nc" id="L215">            throw new ApiException(&quot;Las unidades son menores o igual a 0&quot;);</span>
+        }
+
+<span class="fc" id="L218">        nuevoStock = producto.getStock() - unidades;</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        if (nuevoStock &lt; 0) {</span>
+<span class="nc" id="L220">            throw new ApiException(&quot;No hay suficiente stock para la compra&quot;);</span>
+        }
+
+<span class="fc" id="L223">        producto.setStock(nuevoStock);    </span>
+
+<span class="fc" id="L225">        modificar(producto);</span>
+<span class="fc" id="L226">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

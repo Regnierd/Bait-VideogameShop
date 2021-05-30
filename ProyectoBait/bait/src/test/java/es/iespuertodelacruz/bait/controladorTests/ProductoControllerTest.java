@@ -28,6 +28,7 @@ public class ProductoControllerTest {
     private static final String NOMBRE_INEXISTENTE = "nombreInexistente";
     private static final String IDPRODUCTO_INEXISTENTE = "productoInexistente";
     private static final String NOMBRE = "auricular";
+    private static final int UNIDADES = 15;
     ProductoController productoController;
     CategoriaController categoriaController;
     MarcaController marcaController;
@@ -53,7 +54,7 @@ public class ProductoControllerTest {
         
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
-        producto = new Producto(IDPRODUCTO, NOMBRE, categoria, 10, "auriculares marsgaming", 15, marca);
+        producto = new Producto(IDPRODUCTO, NOMBRE, categoria, 10, "auriculares marsgaming", UNIDADES, marca);
 
         try {
             categoriaController.insertar(categoria);
@@ -121,7 +122,7 @@ public class ProductoControllerTest {
         try {
             productoBuscado = productoController.buscar(IDPRODUCTO);
             assertEquals(producto, productoBuscado, "Las usuario deberian ser iguales");
-        } catch (PersistenciaException e) {
+        } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
         }
     }
@@ -220,6 +221,20 @@ public class ProductoControllerTest {
         try {
             lista = productoController.obtenerListado();
             assertTrue(lista.contains(producto), "La lista no contiene el producto correcto");
+        } catch (PersistenciaException | ApiException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reducirStockTest() {
+        Producto productoEncontrado;
+        int nuevoStock;
+        nuevoStock = UNIDADES - 10;
+        try {
+            productoController.reducirStock(IDPRODUCTO, 10);
+            productoEncontrado = productoController.buscar(IDPRODUCTO);
+            assertEquals(nuevoStock,productoEncontrado.getStock(), "Los stock deberian ser iguales");
         } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
         }
