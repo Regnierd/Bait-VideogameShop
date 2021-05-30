@@ -189,22 +189,19 @@ public class PedidoController {
     public void realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
         Pedido pedido;
         Producto producto;
-        Envio envio;
-        String idPedido; 
+        Envio envio;     
         String fechaPedido; 
-        String idEnvio;
         
-        idPedido = idProducto +"-"+ usuario.getDni();
+        
         productoController.reducirStock(idProducto, unidades);
         producto = productoController.buscar(idProducto); 
         fechaPedido = LocalDate.now().toString();
         float total = producto.getPrecio() * unidades;
         
         usuarioController.reducirSaldo(usuario,total);
-        pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
+        pedido = new Pedido(unidades, total, fechaPedido, usuario, producto);
     
-        idEnvio = "env_"+idPedido;
-        envio = new Envio(idEnvio, pedido, fechaPedido, "Enviado");
+        envio = new Envio(pedido, fechaPedido, "Enviado");
         
         pedidoModelo.insertar(pedido);
         envioController.insertar(envio);
