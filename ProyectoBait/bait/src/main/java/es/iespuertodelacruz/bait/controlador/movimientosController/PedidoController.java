@@ -7,6 +7,7 @@ import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
 import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -17,11 +18,13 @@ public class PedidoController {
     PedidoModelo pedidoModelo;
     ProductoController productoController;
     EnvioController envioController;
+    UsuarioController usuarioController;
 
     public PedidoController() throws PersistenciaException{
         pedidoModelo = new PedidoModelo();
         productoController = new ProductoController();
         envioController = new EnvioController();
+        usuarioController = new UsuarioController();
     }
 
     /**
@@ -196,7 +199,8 @@ public class PedidoController {
         producto = productoController.buscar(idProducto); 
         fechaPedido = LocalDate.now().toString();
         float total = producto.getPrecio() * unidades;
-
+        
+        usuarioController.reducirSaldo(usuario,total);
         pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);
     
         idEnvio = "env_"+idPedido;

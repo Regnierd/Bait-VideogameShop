@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.bait.api;
 
-public class GeneradorId {
+public class GeneradorId{
     String idAleatorio;
 
     /**
@@ -9,7 +9,7 @@ public class GeneradorId {
      * @return el idAleatorio
      */
     public String getIdAleatorio(String etiqueta) {
-        String numeroAleatorio = "" + (int) (100000000*Math.random());;
+        String numeroAleatorio = "" + (int) (100000000*Math.random());
         return etiqueta + "_" + numeroAleatorio;
     }
 

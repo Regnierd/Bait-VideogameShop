@@ -2,7 +2,9 @@
 
 import java.util.Objects;
 
-public class Categoria {
+import es.iespuertodelacruz.bait.api.GeneradorId;
+
+public class Categoria extends GeneradorId{
     private static final String DELIMITADOR = &quot;,&quot;;
     private String idCategoria;
     private String nombre;
@@ -10,50 +12,60 @@ public class Categoria {
     /**
      * Constructor basico de la clase
      */
-<span class="fc" id="L13">    public Categoria() {</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L15">    public Categoria() {</span>
+<span class="fc" id="L16">    }</span>
 
     /**
      * Cosntructor con todos los parametros de la clase
      * @param idCategoria de la categoria
      * @param nombre de la categoria
      */
-<span class="fc" id="L21">    public Categoria(String idCategoria, String nombre) {</span>
-<span class="fc" id="L22">        this.idCategoria = idCategoria;</span>
-<span class="fc" id="L23">        this.nombre = nombre;</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L23">    public Categoria(String idCategoria, String nombre) {</span>
+<span class="fc" id="L24">        this.idCategoria = idCategoria;</span>
+<span class="fc" id="L25">        this.nombre = nombre;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Constructor con el generador aleatorio
+     * @param idCategoria de la categoria
+     * @param nombre de la categoria
+     */
+<span class="nc" id="L33">    public Categoria(String nombre) {</span>
+<span class="nc" id="L34">        this.idCategoria= getIdAleatorio(&quot;cat&quot;);</span>
+<span class="nc" id="L35">        this.nombre = nombre;</span>
+<span class="nc" id="L36">    }</span>
 
     //GETTERS Y SETTERS
     public String getIdCategoria() {
-<span class="fc" id="L28">        return this.idCategoria;</span>
+<span class="fc" id="L40">        return this.idCategoria;</span>
     }
 
     public void setIdCategoria(String idCategoria) {
-<span class="nc" id="L32">        this.idCategoria = idCategoria;</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L44">        this.idCategoria = idCategoria;</span>
+<span class="nc" id="L45">    }</span>
 
     public String getNombre() {
-<span class="fc" id="L36">        return this.nombre;</span>
+<span class="fc" id="L48">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="fc" id="L40">        this.nombre = nombre;</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L52">        this.nombre = nombre;</span>
+<span class="fc" id="L53">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (o == this)</span>
-<span class="nc" id="L46">            return true;</span>
-<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (!(o instanceof Categoria)) {</span>
-<span class="nc" id="L48">            return false;</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L58">            return true;</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (!(o instanceof Categoria)) {</span>
+<span class="nc" id="L60">            return false;</span>
         }
-<span class="fc" id="L50">        Categoria categoria = (Categoria) o;</span>
-<span class="pc bpc" id="L51" title="1 of 4 branches missed.">        return Objects.equals(idCategoria, categoria.idCategoria) &amp;&amp; Objects.equals(nombre, categoria.nombre);</span>
+<span class="fc" id="L62">        Categoria categoria = (Categoria) o;</span>
+<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        return Objects.equals(idCategoria, categoria.idCategoria) &amp;&amp; Objects.equals(nombre, categoria.nombre);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L56">        return getIdCategoria() + DELIMITADOR + getNombre();</span>
+<span class="nc" id="L68">        return getIdCategoria() + DELIMITADOR + getNombre();</span>
     }
 
 }

@@ -72,7 +72,7 @@ public class MenuUsuario {
                             usuario = validarUsuario();
                             System.out.println("**Sesion iniciada correctamente.**");
                             menuOpciones(usuario);
-                        } catch (ApiException e) {
+                        } catch (ApiException | PersistenciaException e) {
                             System.out.println("**El usuario o la password no son correctos.**");
                         }
                         break;
@@ -97,8 +97,9 @@ public class MenuUsuario {
      * 
      * @return el usuario si existe
      * @throws ApiException error a controlar
+     * @throws PersistenciaException
      */
-    private Usuario validarUsuario() throws ApiException {
+    private Usuario validarUsuario() throws ApiException, PersistenciaException {
         String nombreUsuario;
         String password;
         Usuario usuario = null;
@@ -108,11 +109,7 @@ public class MenuUsuario {
         System.out.println("Intrduce la password:");
         password = sn.nextLine();
 
-        try {
-            usuario = usuarioController.login(nombreUsuario, password, "Usuario");
-        } catch (PersistenciaException | ApiException e) {
-            System.out.println(e.getMessage());
-        }
+        usuarioController.login(nombreUsuario, password, "Cliente");
 
         return usuario;
     }
