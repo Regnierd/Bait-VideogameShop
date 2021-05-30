@@ -2,7 +2,9 @@ package es.iespuertodelacruz.bait.api.movimientos;
 
 import java.util.Objects;
 
-public class Envio {
+import es.iespuertodelacruz.bait.api.GeneradorId;
+
+public class Envio extends GeneradorId{
     protected static final String DELIMITADOR = ",";
     private String idEnvio;
     private Pedido pedido;
@@ -24,6 +26,19 @@ public class Envio {
      */
     public Envio(String idEnvio, Pedido pedido, String fechaEnvio, String estado) {
         this.idEnvio = idEnvio;
+        this.pedido = pedido;
+        this.fechaEnvio = fechaEnvio;
+        this.estado = estado;
+    }
+
+    /**
+     * Constructor con generadorId
+     * @param pedido del envio
+     * @param fechaEnvio del envio
+     * @param estado del envio
+     */
+    public Envio( Pedido pedido, String fechaEnvio, String estado) {
+        this.idEnvio = getIdAleatorio("env");
         this.pedido = pedido;
         this.fechaEnvio = fechaEnvio;
         this.estado = estado;

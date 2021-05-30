@@ -2,7 +2,9 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-public class Marca {
+import es.iespuertodelacruz.bait.api.GeneradorId;
+
+public class Marca extends GeneradorId{
     private static final String DELIMITADOR = ",";
     private String idMarca;
     private String nombre;
@@ -23,12 +25,13 @@ public class Marca {
         this.nombre = nombre;
     }
 
-
     /**
-     * Constructor con todos los atributos 
+     * Constructor con el generador aleatorio
+     * @param idMarca de la marca
      * @param nombre de la marca
      */
     public Marca(String nombre) {
+        this.idMarca = getIdAleatorio("mar");
         this.nombre = nombre;
     }
 

@@ -2,7 +2,9 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-public class Producto {
+import es.iespuertodelacruz.bait.api.GeneradorId;
+
+public class Producto extends GeneradorId{
     private static final String DELIMITADOR = ",";
     private String idProducto;
     private String nombre;
@@ -38,8 +40,26 @@ public class Producto {
         this.marca = marca;
     }
 
-    //Getters y Setters
+    /**
+     * Constructor con el id generado automatico
+     * @param nombre del producto
+     * @param categoria del producto
+     * @param precio del producto
+     * @param descripcion del producto
+     * @param stock del producto
+     * @param marca del producto
+     */
+    public Producto(String nombre, Categoria categoria, float precio, String descripcion, int stock, Marca marca) {
+        this.idProducto = getIdAleatorio("pro");
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.marca = marca;
+    }
 
+    //Getters y Setters
     public String getIdProducto() {
         return this.idProducto;
     }

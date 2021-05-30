@@ -2,10 +2,11 @@ package es.iespuertodelacruz.bait.api.movimientos;
 
 import java.util.Objects;
 
+import es.iespuertodelacruz.bait.api.GeneradorId;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
-public class Pedido {
+public class Pedido extends GeneradorId{
     private static final String DELIMITADOR = ",";
     private String idPedido;
     private int unidades;
@@ -31,6 +32,23 @@ public class Pedido {
      */
     public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {
         this.idPedido = idPedido;
+        this.unidades = unidades;
+        this.total = total;
+        this.fechaPedido = fechaPedido;
+        this.usuario = usuario;
+        this.producto = producto;
+    }
+
+    /**
+     * Contructor con generador aleatorio
+     * @param unidades del pedido
+     * @param total del pedido
+     * @param fechaPedido del pedido
+     * @param usuario del pedido
+     * @param producto del pedido
+     */
+    public Pedido(int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {
+        this.idPedido = getIdAleatorio("ped");
         this.unidades = unidades;
         this.total = total;
         this.fechaPedido = fechaPedido;

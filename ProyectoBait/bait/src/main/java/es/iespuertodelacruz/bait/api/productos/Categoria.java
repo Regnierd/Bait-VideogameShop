@@ -2,7 +2,9 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-public class Categoria {
+import es.iespuertodelacruz.bait.api.GeneradorId;
+
+public class Categoria extends GeneradorId{
     private static final String DELIMITADOR = ",";
     private String idCategoria;
     private String nombre;
@@ -20,6 +22,16 @@ public class Categoria {
      */
     public Categoria(String idCategoria, String nombre) {
         this.idCategoria = idCategoria;
+        this.nombre = nombre;
+    }
+
+    /**
+     * Constructor con el generador aleatorio
+     * @param idCategoria de la categoria
+     * @param nombre de la categoria
+     */
+    public Categoria(String nombre) {
+        this.idCategoria= getIdAleatorio("cat");
         this.nombre = nombre;
     }
 
