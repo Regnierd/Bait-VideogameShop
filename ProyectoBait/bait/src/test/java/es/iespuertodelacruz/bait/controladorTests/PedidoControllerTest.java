@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Categoria;
@@ -73,7 +74,7 @@ public class PedidoControllerTest {
         }
 
         usuario = new Usuario(DNI, "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal",
-                "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
+                "provincia", NOMBRE_USUARIO, "password", "Admin", 100f);
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
@@ -216,25 +217,26 @@ public class PedidoControllerTest {
 
     @Test
     public void realizarPedidoTest() {
-        String idPedido = producto.getIdProducto()+"-"+usuario.getDni();
-        String idEnvio = "env_"+ idPedido;
+        Envio envio;
         Pedido pedidoEncontrado;
-        int unidades = 10;
+        String idPedido;
+        String idEnvio;
+        int unidades = 2;
         try {
-            pedidoController.realizarPedido(usuario, producto.getIdProducto(), unidades);
+            envio = pedidoController.realizarPedido(usuario, producto.getIdProducto(), unidades);
+            idPedido = envio.getPedido().getIdPedido();
+            idEnvio = envio.getIdEnvio();
+            
             pedidoEncontrado = pedidoController.buscar(idPedido);
             assertEquals(usuario, pedidoEncontrado.getUsuario(), "El usuario que realizado el pedido no es correcto");
             assertEquals(producto.getIdProducto(),pedidoEncontrado.getProducto().getIdProducto(), "Los productos deberian ser iguales");
             assertEquals(unidades, pedidoEncontrado.getUnidades(), "Las unidades deberian ser iguales");
+
+            pedidoController.eliminar(idPedido);
+            envioController.eliminar(idEnvio);
+
         } catch (PersistenciaException | ApiException e) {
             fail(e.getMessage());
-        } finally {
-            try {
-                pedidoController.eliminar(idPedido);
-                envioController.eliminar(idEnvio);
-            } catch (PersistenciaException | ApiException e) {
-                fail(e.getMessage());
-            }
         }
     }
 

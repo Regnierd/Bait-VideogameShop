@@ -72,7 +72,7 @@ public class MenuUsuario {
 <span class="nc" id="L72">                            usuario = validarUsuario();</span>
 <span class="nc" id="L73">                            System.out.println(&quot;**Sesion iniciada correctamente.**&quot;);</span>
 <span class="nc" id="L74">                            menuOpciones(usuario);</span>
-<span class="nc" id="L75">                        } catch (ApiException e) {</span>
+<span class="nc" id="L75">                        } catch (ApiException | PersistenciaException e) {</span>
 <span class="nc" id="L76">                            System.out.println(&quot;**El usuario o la password no son correctos.**&quot;);</span>
 <span class="nc" id="L77">                        }</span>
 <span class="nc" id="L78">                        break;</span>
@@ -97,103 +97,100 @@ public class MenuUsuario {
      * 
      * @return el usuario si existe
      * @throws ApiException error a controlar
+     * @throws PersistenciaException
      */
-    private Usuario validarUsuario() throws ApiException {
+    private Usuario validarUsuario() throws ApiException, PersistenciaException {
         String nombreUsuario;
         String password;
-<span class="nc" id="L104">        Usuario usuario = null;</span>
-<span class="nc" id="L105">        System.out.println(&quot;Login Usuario&quot;);</span>
-<span class="nc" id="L106">        System.out.println(&quot;Introduce el nombre de usuario:&quot;);</span>
-<span class="nc" id="L107">        nombreUsuario = sn.nextLine();</span>
-<span class="nc" id="L108">        System.out.println(&quot;Intrduce la password:&quot;);</span>
-<span class="nc" id="L109">        password = sn.nextLine();</span>
+<span class="nc" id="L105">        Usuario usuario = null;</span>
+<span class="nc" id="L106">        System.out.println(&quot;Login Usuario&quot;);</span>
+<span class="nc" id="L107">        System.out.println(&quot;Introduce el nombre de usuario:&quot;);</span>
+<span class="nc" id="L108">        nombreUsuario = sn.nextLine();</span>
+<span class="nc" id="L109">        System.out.println(&quot;Intrduce la password:&quot;);</span>
+<span class="nc" id="L110">        password = sn.nextLine();</span>
 
-        try {
-<span class="nc" id="L112">            usuario = usuarioController.login(nombreUsuario, password, &quot;Usuario&quot;);</span>
-<span class="nc" id="L113">        } catch (PersistenciaException | ApiException e) {</span>
-<span class="nc" id="L114">            System.out.println(e.getMessage());</span>
-<span class="nc" id="L115">        }</span>
+<span class="nc" id="L112">        usuarioController.login(nombreUsuario, password, &quot;Cliente&quot;);</span>
 
-<span class="nc" id="L117">        return usuario;</span>
+<span class="nc" id="L114">        return usuario;</span>
     }
 
     /**
      * Menu para buscar productos por nombre, categoria y marca
      */
     public void menuBuscarProductos() {
-<span class="nc" id="L124">        boolean salir = false;</span>
+<span class="nc" id="L121">        boolean salir = false;</span>
         int opcion;
         ArrayList&lt;Producto&gt; productos;
         String identificadorBusqueda;
         try {
-<span class="nc bnc" id="L129" title="All 2 branches missed.">            while (!salir) {</span>
-<span class="nc" id="L130">                System.out.println(&quot;Buscar producto&quot;);</span>
-<span class="nc" id="L131">                System.out.println(&quot;1. Buscar producto por nombre&quot;);</span>
-<span class="nc" id="L132">                System.out.println(&quot;2. Buscar producto por categoria&quot;);</span>
-<span class="nc" id="L133">                System.out.println(&quot;3. Buscar producto por marca&quot;);</span>
-<span class="nc" id="L134">                System.out.println(&quot;4. Listar todos&quot;);</span>
-<span class="nc" id="L135">                System.out.println(OPCION_SALIR);</span>
-<span class="nc" id="L136">                System.out.println(&quot;Selecciona opcion:&quot;);</span>
-<span class="nc" id="L137">                opcion = sn.nextInt();</span>
-<span class="nc" id="L138">                sn.nextLine();</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            while (!salir) {</span>
+<span class="nc" id="L127">                System.out.println(&quot;Buscar producto&quot;);</span>
+<span class="nc" id="L128">                System.out.println(&quot;1. Buscar producto por nombre&quot;);</span>
+<span class="nc" id="L129">                System.out.println(&quot;2. Buscar producto por categoria&quot;);</span>
+<span class="nc" id="L130">                System.out.println(&quot;3. Buscar producto por marca&quot;);</span>
+<span class="nc" id="L131">                System.out.println(&quot;4. Listar todos&quot;);</span>
+<span class="nc" id="L132">                System.out.println(OPCION_SALIR);</span>
+<span class="nc" id="L133">                System.out.println(&quot;Selecciona opcion:&quot;);</span>
+<span class="nc" id="L134">                opcion = sn.nextInt();</span>
+<span class="nc" id="L135">                sn.nextLine();</span>
 
-<span class="nc bnc" id="L140" title="All 6 branches missed.">                switch (opcion) {</span>
+<span class="nc bnc" id="L137" title="All 6 branches missed.">                switch (opcion) {</span>
                     case 1:
-<span class="nc" id="L142">                        identificadorBusqueda = obtenerDato(&quot;el nombre.&quot;);</span>
+<span class="nc" id="L139">                        identificadorBusqueda = obtenerDato(&quot;el nombre.&quot;);</span>
                         try {
-<span class="nc" id="L144">                            productos = productoController.buscarPorNombre(identificadorBusqueda);</span>
-<span class="nc" id="L145">                            System.out.println(productos.toString());//CAMBIAR A UN METODO </span>
-<span class="nc" id="L146">                        } catch (ApiException | PersistenciaException e) {</span>
-<span class="nc" id="L147">                            System.err.println(&quot;**Error al busca los productos por nombre.**&quot;);</span>
-<span class="nc" id="L148">                        }</span>
-<span class="nc" id="L149">                        break;</span>
+<span class="nc" id="L141">                            productos = productoController.buscarPorNombre(identificadorBusqueda);</span>
+<span class="nc" id="L142">                            System.out.println(productos.toString());//CAMBIAR A UN METODO </span>
+<span class="nc" id="L143">                        } catch (ApiException | PersistenciaException e) {</span>
+<span class="nc" id="L144">                            System.err.println(&quot;**Error al busca los productos por nombre.**&quot;);</span>
+<span class="nc" id="L145">                        }</span>
+<span class="nc" id="L146">                        break;</span>
                     case 2:
-<span class="nc" id="L151">                        identificadorBusqueda = obtenerDato(&quot;el idCategoria&quot;);</span>
+<span class="nc" id="L148">                        identificadorBusqueda = obtenerDato(&quot;el idCategoria&quot;);</span>
                         try {
-<span class="nc" id="L153">                            productos = productoController.buscarPorCategoria(identificadorBusqueda);</span>
-<span class="nc" id="L154">                            System.out.println(productos.toString());//CAMBIAR A UN METODO</span>
-<span class="nc" id="L155">                        } catch (ApiException | PersistenciaException e) {</span>
-<span class="nc" id="L156">                            System.err.println(&quot;**Error al busca los productos por categoria.**&quot;);</span>
-<span class="nc" id="L157">                        }</span>
-<span class="nc" id="L158">                        break;</span>
+<span class="nc" id="L150">                            productos = productoController.buscarPorCategoria(identificadorBusqueda);</span>
+<span class="nc" id="L151">                            System.out.println(productos.toString());//CAMBIAR A UN METODO</span>
+<span class="nc" id="L152">                        } catch (ApiException | PersistenciaException e) {</span>
+<span class="nc" id="L153">                            System.err.println(&quot;**Error al busca los productos por categoria.**&quot;);</span>
+<span class="nc" id="L154">                        }</span>
+<span class="nc" id="L155">                        break;</span>
                     case 3:
-<span class="nc" id="L160">                        identificadorBusqueda = obtenerDato(&quot;el idMarca&quot;);</span>
+<span class="nc" id="L157">                        identificadorBusqueda = obtenerDato(&quot;el idMarca&quot;);</span>
                         try {
-<span class="nc" id="L162">                            productos = productoController.buscarPorMarca(identificadorBusqueda);</span>
-<span class="nc" id="L163">                            System.out.println(productos.toString());//CAMBIAR A UN METODO</span>
-<span class="nc" id="L164">                        } catch (ApiException | PersistenciaException e) {</span>
-<span class="nc" id="L165">                            System.err.println(&quot;**Error al busca los productos por marca.**&quot;);</span>
-<span class="nc" id="L166">                        }</span>
-<span class="nc" id="L167">                        break;</span>
+<span class="nc" id="L159">                            productos = productoController.buscarPorMarca(identificadorBusqueda);</span>
+<span class="nc" id="L160">                            System.out.println(productos.toString());//CAMBIAR A UN METODO</span>
+<span class="nc" id="L161">                        } catch (ApiException | PersistenciaException e) {</span>
+<span class="nc" id="L162">                            System.err.println(&quot;**Error al busca los productos por marca.**&quot;);</span>
+<span class="nc" id="L163">                        }</span>
+<span class="nc" id="L164">                        break;</span>
                     case 4:
                         try {
-<span class="nc" id="L170">                            productos = productoController.obtenerListado();</span>
-<span class="nc" id="L171">                            System.out.println(productos.toString());//CAMBIAR A UN METOD </span>
-<span class="nc" id="L172">                        } catch (PersistenciaException | ApiException e) {</span>
-<span class="nc" id="L173">                            System.out.println(ERROR_AL_OBTENER_LISTADO);</span>
-<span class="nc" id="L174">                        }</span>
-<span class="nc" id="L175">                        break;</span>
+<span class="nc" id="L167">                            productos = productoController.obtenerListado();</span>
+<span class="nc" id="L168">                            System.out.println(productos.toString());//CAMBIAR A UN METOD </span>
+<span class="nc" id="L169">                        } catch (PersistenciaException | ApiException e) {</span>
+<span class="nc" id="L170">                            System.out.println(ERROR_AL_OBTENER_LISTADO);</span>
+<span class="nc" id="L171">                        }</span>
+<span class="nc" id="L172">                        break;</span>
                     case 0:
-<span class="nc" id="L177">                        salir = true;</span>
-<span class="nc" id="L178">                        break;</span>
+<span class="nc" id="L174">                        salir = true;</span>
+<span class="nc" id="L175">                        break;</span>
                     default:
-<span class="nc" id="L180">                        System.err.println(ERROR_AL_OBTENER_LISTADO + &quot;4&quot;);</span>
+<span class="nc" id="L177">                        System.err.println(ERROR_AL_OBTENER_LISTADO + &quot;4&quot;);</span>
                 }
             }
-<span class="nc" id="L183">        } catch (InputMismatchException ex) {</span>
-<span class="nc" id="L184">            System.out.println(ERROR_TIPO_DATO);</span>
-<span class="nc" id="L185">        }</span>
-<span class="nc" id="L186">    }</span>
+<span class="nc" id="L180">        } catch (InputMismatchException ex) {</span>
+<span class="nc" id="L181">            System.out.println(ERROR_TIPO_DATO);</span>
+<span class="nc" id="L182">        }</span>
+<span class="nc" id="L183">    }</span>
 
     /**
      * Funcion que recorre los productos y los muestra
      * @param productos lista de productos
      */
     private void recorrerProductos(ArrayList&lt;Producto&gt; productos) {
-<span class="nc bnc" id="L193" title="All 2 branches missed.">        for (Producto producto : productos) {</span>
-<span class="nc" id="L194">            System.out.println(producto.toString());</span>
-<span class="nc" id="L195">        }</span>
-<span class="nc" id="L196">    }</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        for (Producto producto : productos) {</span>
+<span class="nc" id="L191">            System.out.println(producto.toString());</span>
+<span class="nc" id="L192">        }</span>
+<span class="nc" id="L193">    }</span>
 
     /**
      * Menu de opciones que puede realizar el usuario
@@ -201,92 +198,92 @@ public class MenuUsuario {
      * @param usuario con la sesion actual
      */
     private void menuOpciones(Usuario usuario) {
-<span class="nc" id="L204">        boolean salir = false;</span>
+<span class="nc" id="L201">        boolean salir = false;</span>
         int opcion;
         ArrayList&lt;Pedido&gt; pedidos;
         ArrayList&lt;Envio&gt; envios;
         try {
-<span class="nc bnc" id="L209" title="All 2 branches missed.">            while (!salir) {</span>
-<span class="nc" id="L210">                System.out.println(&quot;Menu de opciones usuario&quot;);</span>
-<span class="nc" id="L211">                System.out.println(&quot;1. Añadir saldo&quot;);</span>
-<span class="nc" id="L212">                System.out.println(&quot;2. Realizar pedido&quot;);</span>
-<span class="nc" id="L213">                System.out.println(&quot;3. Buscar productos&quot;);</span>
-<span class="nc" id="L214">                System.out.println(&quot;4. Ver pedidos&quot;);</span>
-<span class="nc" id="L215">                System.out.println(&quot;5. Ver envios&quot;);</span>
-<span class="nc" id="L216">                System.out.println(&quot;6. Editar mis datos&quot;);</span>
-<span class="nc" id="L217">                System.out.println(&quot;0. Salir&quot;);</span>
-<span class="nc" id="L218">                opcion = sn.nextInt();</span>
-<span class="nc" id="L219">                sn.nextLine();</span>
-<span class="nc bnc" id="L220" title="All 8 branches missed.">                switch (opcion) {</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">            while (!salir) {</span>
+<span class="nc" id="L207">                System.out.println(&quot;Menu de opciones usuario&quot;);</span>
+<span class="nc" id="L208">                System.out.println(&quot;1. Añadir saldo&quot;);</span>
+<span class="nc" id="L209">                System.out.println(&quot;2. Realizar pedido&quot;);</span>
+<span class="nc" id="L210">                System.out.println(&quot;3. Buscar productos&quot;);</span>
+<span class="nc" id="L211">                System.out.println(&quot;4. Ver pedidos&quot;);</span>
+<span class="nc" id="L212">                System.out.println(&quot;5. Ver envios&quot;);</span>
+<span class="nc" id="L213">                System.out.println(&quot;6. Editar mis datos&quot;);</span>
+<span class="nc" id="L214">                System.out.println(&quot;0. Salir&quot;);</span>
+<span class="nc" id="L215">                opcion = sn.nextInt();</span>
+<span class="nc" id="L216">                sn.nextLine();</span>
+<span class="nc bnc" id="L217" title="All 8 branches missed.">                switch (opcion) {</span>
                     case 1:
-<span class="nc" id="L222">                        System.out.println(&quot;Introduzca la cantidad que quiere añadir.&quot;);</span>
-<span class="nc" id="L223">                        float saldo = sn.nextFloat();</span>
+<span class="nc" id="L219">                        System.out.println(&quot;Introduzca la cantidad que quiere añadir.&quot;);</span>
+<span class="nc" id="L220">                        float saldo = sn.nextFloat();</span>
                         try {
-<span class="nc" id="L225">                            usuarioController.añadirSaldo(usuario, saldo);</span>
-<span class="nc" id="L226">                            System.out.println(&quot;**Saldo añadido carrectamente.**&quot;);</span>
-<span class="nc" id="L227">                        } catch (PersistenciaException e) {</span>
-<span class="nc" id="L228">                            System.err.println(&quot;**Error al añadir el saldo**&quot;);</span>
-<span class="nc" id="L229">                        } catch (ApiException e) {</span>
-<span class="nc" id="L230">                            System.out.println(e.getMessage());</span>
-<span class="nc" id="L231">                        }</span>
-<span class="nc" id="L232">                        break;</span>
+<span class="nc" id="L222">                            usuarioController.añadirSaldo(usuario, saldo);</span>
+<span class="nc" id="L223">                            System.out.println(&quot;**Saldo añadido carrectamente.**&quot;);</span>
+<span class="nc" id="L224">                        } catch (PersistenciaException e) {</span>
+<span class="nc" id="L225">                            System.err.println(&quot;**Error al añadir el saldo**&quot;);</span>
+<span class="nc" id="L226">                        } catch (ApiException e) {</span>
+<span class="nc" id="L227">                            System.out.println(e.getMessage());</span>
+<span class="nc" id="L228">                        }</span>
+<span class="nc" id="L229">                        break;</span>
                     case 2:
-<span class="nc" id="L234">                        realizarPedido(usuario);</span>
-<span class="nc" id="L235">                        break;</span>
+<span class="nc" id="L231">                        realizarPedido(usuario);</span>
+<span class="nc" id="L232">                        break;</span>
                     case 3:
-<span class="nc" id="L237">                        menuBuscarProductos();</span>
-<span class="nc" id="L238">                        break;</span>
+<span class="nc" id="L234">                        menuBuscarProductos();</span>
+<span class="nc" id="L235">                        break;</span>
                     case 4:        
                         try {
-<span class="nc" id="L241">                            pedidos = pedidoController.obtenerListado();</span>
-<span class="nc" id="L242">                            System.out.println(pedidos.toString());</span>
-<span class="nc" id="L243">                        } catch (PersistenciaException | ApiException e1) {</span>
-<span class="nc" id="L244">                            System.out.println(&quot;Error al obtener la lista de todos los pedidos&quot;);</span>
-<span class="nc" id="L245">                        }</span>
-<span class="nc" id="L246">                        break;</span>
+<span class="nc" id="L238">                            pedidos = pedidoController.obtenerListado();</span>
+<span class="nc" id="L239">                            System.out.println(pedidos.toString());</span>
+<span class="nc" id="L240">                        } catch (PersistenciaException | ApiException e1) {</span>
+<span class="nc" id="L241">                            System.out.println(&quot;**Error al obtener la lista de todos los pedidos**&quot;);</span>
+<span class="nc" id="L242">                        }</span>
+<span class="nc" id="L243">                        break;</span>
                     case 5:
                         try {
-<span class="nc" id="L249">                            envios = envioController.obtenerListado();</span>
-<span class="nc" id="L250">                            System.out.println(envios.toString());</span>
-<span class="nc" id="L251">                        } catch (PersistenciaException | ApiException e) {</span>
-<span class="nc" id="L252">                            System.out.println(&quot;Error al obtener la lista de todos los envios&quot;);</span>
-<span class="nc" id="L253">                        }</span>
-<span class="nc" id="L254">                        break;</span>
+<span class="nc" id="L246">                            envios = envioController.obtenerListado(usuario.getDni());</span>
+<span class="nc" id="L247">                            System.out.println(envios.toString());</span>
+<span class="nc" id="L248">                        } catch (PersistenciaException | ApiException e) {</span>
+<span class="nc" id="L249">                            System.out.println(&quot;**Error al obtener la lista de todos los envios**&quot;);</span>
+<span class="nc" id="L250">                        }</span>
+<span class="nc" id="L251">                        break;</span>
                     case 6:
-<span class="nc" id="L256">                        Usuario nuevoUsuario = registrar();</span>
+<span class="nc" id="L253">                        Usuario nuevoUsuario = registrar();</span>
                         try {
-<span class="nc" id="L258">                            usuarioController.modificar(nuevoUsuario);</span>
-<span class="nc" id="L259">                            System.out.println(&quot;Se ha modificado correctemente.&quot;);</span>
-<span class="nc" id="L260">                        } catch (ApiException | PersistenciaException e) {</span>
-<span class="nc" id="L261">                            System.err.println(&quot;No se han podido registrar los cambios&quot;);</span>
-<span class="nc" id="L262">                        } </span>
-<span class="nc" id="L263">                        break;</span>
+<span class="nc" id="L255">                            usuarioController.modificar(nuevoUsuario);</span>
+<span class="nc" id="L256">                            System.out.println(&quot;**Se ha modificado correctemente.**&quot;);</span>
+<span class="nc" id="L257">                        } catch (ApiException | PersistenciaException e) {</span>
+<span class="nc" id="L258">                            System.err.println(&quot;**No se han podido registrar los cambios**&quot;);</span>
+<span class="nc" id="L259">                        } </span>
+<span class="nc" id="L260">                        break;</span>
                     case 0:
-<span class="nc" id="L265">                        salir = true;</span>
-<span class="nc" id="L266">                        break;</span>
+<span class="nc" id="L262">                        salir = true;</span>
+<span class="nc" id="L263">                        break;</span>
                     default:
-<span class="nc" id="L268">                        System.err.println(ELEGIR_OPCION_DEL_MENU + &quot;6&quot;);</span>
+<span class="nc" id="L265">                        System.err.println(ELEGIR_OPCION_DEL_MENU + &quot;6&quot;);</span>
                 }
             }
-<span class="nc" id="L271">        } catch (InputMismatchException ex) {</span>
-<span class="nc" id="L272">            System.out.println(TIPO_DATO_INCORRECTO);</span>
-<span class="nc" id="L273">        }</span>
-<span class="nc" id="L274">    }</span>
+<span class="nc" id="L268">        } catch (InputMismatchException ex) {</span>
+<span class="nc" id="L269">            System.out.println(TIPO_DATO_INCORRECTO);</span>
+<span class="nc" id="L270">        }</span>
+<span class="nc" id="L271">    }</span>
 
     /**
      * Metodo que obtienes los datos y realiza un pedido
      */
     private void realizarPedido(Usuario usuario) {
-<span class="nc" id="L280">        System.out.println(&quot;Introduzca datos para realizar el pedido.&quot;);</span>
-<span class="nc" id="L281">        String idProducto = obtenerDato(&quot;Introduce el id del producto.&quot;);</span>
-<span class="nc" id="L282">        int unidades = Integer.parseInt(obtenerDato(&quot;unidades que quiere comprar.&quot;));</span>
+<span class="nc" id="L277">        System.out.println(&quot;Introduzca datos para realizar el pedido.&quot;);</span>
+<span class="nc" id="L278">        String idProducto = obtenerDato(&quot;Introduce el id del producto.&quot;);</span>
+<span class="nc" id="L279">        int unidades = Integer.parseInt(obtenerDato(&quot;unidades que quiere comprar.&quot;));</span>
         try {
-<span class="nc" id="L284">            pedidoController.realizarPedido(usuario ,idProducto, unidades);</span>
-<span class="nc" id="L285">            System.out.println(&quot;**Pedido realizado correctamente**&quot;);</span>
-<span class="nc" id="L286">        } catch (PersistenciaException | ApiException e) {</span>
-<span class="nc" id="L287">            System.err.println(&quot;**Ha ocurrido un error al realizar el pedido**&quot;);</span>
-<span class="nc" id="L288">        }</span>
-<span class="nc" id="L289">    }</span>
+<span class="nc" id="L281">            pedidoController.realizarPedido(usuario ,idProducto, unidades);</span>
+<span class="nc" id="L282">            System.out.println(&quot;**Pedido realizado correctamente**&quot;);</span>
+<span class="nc" id="L283">        } catch (PersistenciaException | ApiException e) {</span>
+<span class="nc" id="L284">            System.err.println(&quot;**Ha ocurrido un error al realizar el pedido**&quot;);</span>
+<span class="nc" id="L285">        }</span>
+<span class="nc" id="L286">    }</span>
 
     /**
      * Menu que registrar un nuevo usuario
@@ -294,22 +291,22 @@ public class MenuUsuario {
      * @return el cliente creado
      */
     public Usuario registrar() {//REFACTORIZAR
-<span class="nc" id="L297">        Usuario usuario = null;</span>
-<span class="nc" id="L298">        System.out.println(&quot;Datos para el registro&quot;);</span>
-<span class="nc" id="L299">        String dni = obtenerDato(&quot;el dni.&quot;);</span>
-<span class="nc" id="L300">        String nombre = obtenerDato(&quot;el nombre&quot;);</span>
-<span class="nc" id="L301">        String apellidos = obtenerDato(&quot;los apellidos.&quot;);</span>
-<span class="nc" id="L302">        String email = obtenerDato(&quot;el email&quot;);</span>
-<span class="nc" id="L303">        String direccion = obtenerDato(&quot;la direccion.&quot;);</span>
-<span class="nc" id="L304">        String telefono = obtenerDato(&quot;el telefono&quot;);</span>
-<span class="nc" id="L305">        String pais = obtenerDato(&quot;el pais.&quot;);</span>
-<span class="nc" id="L306">        String codigoPostal = obtenerDato(&quot;el codigo postal&quot;);</span>
-<span class="nc" id="L307">        String provincia = obtenerDato(&quot;la provincia.&quot;);</span>
-<span class="nc" id="L308">        String nombreUsuario = obtenerDato(&quot;el nombre usuario&quot;);</span>
-<span class="nc" id="L309">        String password = obtenerDato(&quot;la password&quot;);</span>
+<span class="nc" id="L294">        Usuario usuario = null;</span>
+<span class="nc" id="L295">        System.out.println(&quot;Datos para el registro&quot;);</span>
+<span class="nc" id="L296">        String dni = obtenerDato(&quot;el dni.&quot;);</span>
+<span class="nc" id="L297">        String nombre = obtenerDato(&quot;el nombre&quot;);</span>
+<span class="nc" id="L298">        String apellidos = obtenerDato(&quot;los apellidos.&quot;);</span>
+<span class="nc" id="L299">        String email = obtenerDato(&quot;el email&quot;);</span>
+<span class="nc" id="L300">        String direccion = obtenerDato(&quot;la direccion.&quot;);</span>
+<span class="nc" id="L301">        String telefono = obtenerDato(&quot;el telefono&quot;);</span>
+<span class="nc" id="L302">        String pais = obtenerDato(&quot;el pais.&quot;);</span>
+<span class="nc" id="L303">        String codigoPostal = obtenerDato(&quot;el codigo postal&quot;);</span>
+<span class="nc" id="L304">        String provincia = obtenerDato(&quot;la provincia.&quot;);</span>
+<span class="nc" id="L305">        String nombreUsuario = obtenerDato(&quot;el nombre usuario&quot;);</span>
+<span class="nc" id="L306">        String password = obtenerDato(&quot;la password&quot;);</span>
 
-<span class="nc" id="L311">        usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, &quot;Usuario&quot;, 0f);</span>
-<span class="nc" id="L312">        return usuario;</span>
+<span class="nc" id="L308">        usuario = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, &quot;Usuario&quot;, 0f);</span>
+<span class="nc" id="L309">        return usuario;</span>
     }
 
     /**
@@ -320,10 +317,10 @@ public class MenuUsuario {
     public String obtenerDato(String mensaje) {//REFACTORIZAR
         String dato;
 
-<span class="nc" id="L323">        System.out.println(&quot;Introduce &quot; + mensaje);</span>
-<span class="nc" id="L324">        dato = sn.nextLine();</span>
+<span class="nc" id="L320">        System.out.println(&quot;Introduce &quot; + mensaje);</span>
+<span class="nc" id="L321">        dato = sn.nextLine();</span>
 
-<span class="nc" id="L326">        return dato;</span>
+<span class="nc" id="L323">        return dato;</span>
     }
 
 }

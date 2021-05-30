@@ -7,6 +7,7 @@ import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
 import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
@@ -17,53 +18,55 @@ public class PedidoController {
     PedidoModelo pedidoModelo;
     ProductoController productoController;
     EnvioController envioController;
+    UsuarioController usuarioController;
 
-<span class="fc" id="L21">    public PedidoController() throws PersistenciaException{</span>
-<span class="fc" id="L22">        pedidoModelo = new PedidoModelo();</span>
-<span class="fc" id="L23">        productoController = new ProductoController();</span>
-<span class="fc" id="L24">        envioController = new EnvioController();</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L23">    public PedidoController() throws PersistenciaException{</span>
+<span class="fc" id="L24">        pedidoModelo = new PedidoModelo();</span>
+<span class="fc" id="L25">        productoController = new ProductoController();</span>
+<span class="fc" id="L26">        envioController = new EnvioController();</span>
+<span class="fc" id="L27">        usuarioController = new UsuarioController();</span>
+<span class="fc" id="L28">    }</span>
 
     /**
      * Metodo encargado de validar un pedido
      * @param pedido a validar
      */
     public void validar(Pedido pedido) throws ApiException{
-<span class="fc" id="L32">        String mensaje = &quot;&quot;;</span>
+<span class="fc" id="L35">        String mensaje = &quot;&quot;;</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        if(pedido == null){</span>
-<span class="fc" id="L35">            mensaje = &quot;El pedido que se intenta validar es nulo&quot;;</span>
-<span class="fc" id="L36">            throw new ApiException(mensaje);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(pedido == null){</span>
+<span class="fc" id="L38">            mensaje = &quot;El pedido que se intenta validar es nulo&quot;;</span>
+<span class="fc" id="L39">            throw new ApiException(mensaje);</span>
         }
 
-<span class="pc bpc" id="L39" title="1 of 4 branches missed.">        if(pedido.getIdPedido() == null || pedido.getIdPedido().isEmpty()){</span>
-<span class="fc" id="L40">            mensaje = &quot;El idPedido del pedido es nulo o vacio&quot;;</span>
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">        if(pedido.getIdPedido() == null || pedido.getIdPedido().isEmpty()){</span>
+<span class="fc" id="L43">            mensaje = &quot;El idPedido del pedido es nulo o vacio&quot;;</span>
         }
 
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(pedido.getUnidades() &lt;= 0){</span>
-<span class="fc" id="L44">            mensaje += &quot;Las unidades del pedido es 0 o menor&quot;;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(pedido.getUnidades() &lt;= 0){</span>
+<span class="fc" id="L47">            mensaje += &quot;Las unidades del pedido es 0 o menor&quot;;</span>
         }
         
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if(pedido.getTotal() &lt;= 0){</span>
-<span class="fc" id="L48">            mensaje += &quot;El total del pedido es 0 o menor&quot;;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(pedido.getTotal() &lt;= 0){</span>
+<span class="fc" id="L51">            mensaje += &quot;El total del pedido es 0 o menor&quot;;</span>
         }
 
-<span class="pc bpc" id="L51" title="1 of 4 branches missed.">        if(pedido.getFechaPedido() == null || pedido.getFechaPedido().isEmpty()){</span>
-<span class="fc" id="L52">            mensaje += &quot;La fecha del pedido es nulo o vacio&quot;;</span>
+<span class="pc bpc" id="L54" title="1 of 4 branches missed.">        if(pedido.getFechaPedido() == null || pedido.getFechaPedido().isEmpty()){</span>
+<span class="fc" id="L55">            mensaje += &quot;La fecha del pedido es nulo o vacio&quot;;</span>
         }
 
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        if(pedido.getUsuario() == null){</span>
-<span class="fc" id="L56">            mensaje += &quot;Se esta intentando validar un usuario vacio&quot;;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if(pedido.getUsuario() == null){</span>
+<span class="fc" id="L59">            mensaje += &quot;Se esta intentando validar un usuario vacio&quot;;</span>
         }
 
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        if(pedido.getProducto() == null){</span>
-<span class="fc" id="L60">            mensaje += &quot;Se esta intentando validar un producto vacio&quot;;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if(pedido.getProducto() == null){</span>
+<span class="fc" id="L63">            mensaje += &quot;Se esta intentando validar un producto vacio&quot;;</span>
         }
 
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        if(!mensaje.isEmpty()){</span>
-<span class="fc" id="L64">            throw new ApiException(mensaje);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(!mensaje.isEmpty()){</span>
+<span class="fc" id="L67">            throw new ApiException(mensaje);</span>
         }
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L69">    }</span>
 
     /**
      * Metodo encargado de insertar
@@ -72,13 +75,13 @@ public class PedidoController {
      * @throws PersistenciaException con mensaje controlado
      */
     public void insertar(Pedido pedido) throws ApiException, PersistenciaException{
-<span class="fc" id="L75">        validar(pedido);</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        if(existe(pedido.getIdPedido())){</span>
-<span class="fc" id="L77">            throw new ApiException(&quot;El pedido ya existe&quot;);          </span>
+<span class="fc" id="L78">        validar(pedido);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if(existe(pedido.getIdPedido())){</span>
+<span class="fc" id="L80">            throw new ApiException(&quot;El pedido ya existe&quot;);          </span>
         }
-<span class="fc" id="L79">        pedidoModelo.insertar(pedido);</span>
-<span class="fc" id="L80">        productoController.reducirStock(pedido.getProducto().getIdProducto(), pedido.getUnidades());</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L82">        pedidoModelo.insertar(pedido);</span>
+<span class="fc" id="L83">        productoController.reducirStock(pedido.getProducto().getIdProducto(), pedido.getUnidades());</span>
+<span class="fc" id="L84">    }</span>
 
     /**
      * Metodo encargado de eliminar
@@ -86,11 +89,11 @@ public class PedidoController {
      * @throws PersistenciaException con mensaje controlado
      */
     public void eliminar(String idPedido) throws PersistenciaException, ApiException{
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (!existe(idPedido)) {</span>
-<span class="fc" id="L90">            throw new ApiException(&quot;El pedido que quiere eliminar no existe&quot;);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (!existe(idPedido)) {</span>
+<span class="fc" id="L93">            throw new ApiException(&quot;El pedido que quiere eliminar no existe&quot;);</span>
         }
-<span class="fc" id="L92">        pedidoModelo.eliminar(idPedido);</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L95">        pedidoModelo.eliminar(idPedido);</span>
+<span class="fc" id="L96">    }</span>
 
     /**
      * Metodo encargado de buscar por idPedido
@@ -100,14 +103,14 @@ public class PedidoController {
      * @throws ApiException error controlado
      */
     public Pedido buscar(String idPedido) throws PersistenciaException, ApiException{
-<span class="fc" id="L103">        Pedido pedido = null;</span>
-<span class="fc" id="L104">        pedido = pedidoModelo.buscaPorIdentificador(idPedido);</span>
+<span class="fc" id="L106">        Pedido pedido = null;</span>
+<span class="fc" id="L107">        pedido = pedidoModelo.buscaPorIdentificador(idPedido);</span>
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (pedido == null) {</span>
-<span class="fc" id="L107">            throw new ApiException(&quot;El pedido que quiere buscar no existe.&quot;);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (pedido == null) {</span>
+<span class="fc" id="L110">            throw new ApiException(&quot;El pedido que quiere buscar no existe.&quot;);</span>
         }
 
-<span class="fc" id="L110">        return pedido;</span>
+<span class="fc" id="L113">        return pedido;</span>
     }
 
      /**
@@ -117,12 +120,12 @@ public class PedidoController {
     * @throws PersistenciaException con mensaje controlado
     */
     public void modificar(Pedido pedido) throws ApiException, PersistenciaException {        
-<span class="fc" id="L120">        validar(pedido);</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (!existe(pedido.getIdPedido())) {</span>
-<span class="fc" id="L122">        throw new ApiException(&quot;El pedido que quiere modficar no existe&quot;);</span>
+<span class="fc" id="L123">        validar(pedido);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (!existe(pedido.getIdPedido())) {</span>
+<span class="fc" id="L125">        throw new ApiException(&quot;El pedido que quiere modficar no existe&quot;);</span>
         }
-<span class="fc" id="L124">        pedidoModelo.modificar(pedido);</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L127">        pedidoModelo.modificar(pedido);</span>
+<span class="fc" id="L128">    }</span>
 
     /**
      * Funcion encargada de verificar si existe el pedido
@@ -132,15 +135,15 @@ public class PedidoController {
      * @throws BbddException error a controlar
      */
     private boolean existe(String idPedido) throws PersistenciaException, ApiException{
-<span class="fc" id="L135">        boolean encontrada = false;</span>
+<span class="fc" id="L138">        boolean encontrada = false;</span>
         Pedido pedidoEncontrado;
 
-<span class="fc" id="L138">        pedidoEncontrado = pedidoModelo.buscaPorIdentificador(idPedido);</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">        if(pedidoEncontrado != null){</span>
-<span class="fc" id="L140">            encontrada = true;</span>
+<span class="fc" id="L141">        pedidoEncontrado = pedidoModelo.buscaPorIdentificador(idPedido);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        if(pedidoEncontrado != null){</span>
+<span class="fc" id="L143">            encontrada = true;</span>
         }
         
-<span class="fc" id="L143">        return encontrada;</span>
+<span class="fc" id="L146">        return encontrada;</span>
     }
 
     /**
@@ -150,12 +153,12 @@ public class PedidoController {
      * @throws ApiException error a controlar
      */
     public ArrayList&lt;Pedido&gt; obtenerListado() throws PersistenciaException, ApiException{
-<span class="fc" id="L153">        ArrayList&lt;Pedido&gt; pedidos = null;</span>
-<span class="fc" id="L154">        pedidos = pedidoModelo.obtenerListado();</span>
-<span class="pc bpc" id="L155" title="2 of 4 branches missed.">        if (pedidos == null || pedidos.isEmpty()) {</span>
-<span class="nc" id="L156">            throw new ApiException(&quot;La lista de pedidos es vacia o nula&quot;);</span>
+<span class="fc" id="L156">        ArrayList&lt;Pedido&gt; pedidos = null;</span>
+<span class="fc" id="L157">        pedidos = pedidoModelo.obtenerListado();</span>
+<span class="pc bpc" id="L158" title="2 of 4 branches missed.">        if (pedidos == null || pedidos.isEmpty()) {</span>
+<span class="nc" id="L159">            throw new ApiException(&quot;La lista de pedidos es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L158">        return pedidos;</span>
+<span class="fc" id="L161">        return pedidos;</span>
 
     }
 
@@ -166,12 +169,12 @@ public class PedidoController {
      * @throws ApiException error a controlar
      */
     public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException, ApiException{
-<span class="fc" id="L169">        ArrayList&lt;Pedido&gt; pedidos = null;</span>
-<span class="fc" id="L170">        pedidos = pedidoModelo.obtenerListado(dni);</span>
-<span class="pc bpc" id="L171" title="2 of 4 branches missed.">        if (pedidos == null || pedidos.isEmpty()) {</span>
-<span class="nc" id="L172">            throw new ApiException(&quot;La lista de pedidos es vacia o nula&quot;);</span>
+<span class="fc" id="L172">        ArrayList&lt;Pedido&gt; pedidos = null;</span>
+<span class="fc" id="L173">        pedidos = pedidoModelo.obtenerListado(dni);</span>
+<span class="pc bpc" id="L174" title="2 of 4 branches missed.">        if (pedidos == null || pedidos.isEmpty()) {</span>
+<span class="nc" id="L175">            throw new ApiException(&quot;La lista de pedidos es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L174">        return pedidos;</span>
+<span class="fc" id="L177">        return pedidos;</span>
 
     }
 
@@ -183,28 +186,28 @@ public class PedidoController {
      * @throws PersistenciaException error controlado
      * @throws ApiException error controlado
      */
-    public void realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
+    public Envio realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
         Pedido pedido;
         Producto producto;
-        Envio envio;
-        String idPedido; 
+        Envio envio;     
         String fechaPedido; 
-        String idEnvio;
         
-<span class="fc" id="L194">        idPedido = idProducto +&quot;-&quot;+ usuario.getDni();</span>
-<span class="fc" id="L195">        productoController.reducirStock(idProducto, unidades);</span>
-<span class="fc" id="L196">        producto = productoController.buscar(idProducto); </span>
-<span class="fc" id="L197">        fechaPedido = LocalDate.now().toString();</span>
-<span class="fc" id="L198">        float total = producto.getPrecio() * unidades;</span>
-
-<span class="fc" id="L200">        pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);</span>
+        
+<span class="fc" id="L196">        productoController.reducirStock(idProducto, unidades);</span>
+<span class="fc" id="L197">        producto = productoController.buscar(idProducto); </span>
+<span class="fc" id="L198">        fechaPedido = LocalDate.now().toString();</span>
+<span class="fc" id="L199">        float total = producto.getPrecio() * unidades;</span>
+        
+<span class="fc" id="L201">        usuarioController.reducirSaldo(usuario,total);</span>
+<span class="fc" id="L202">        pedido = new Pedido(unidades, total, fechaPedido, usuario, producto);</span>
     
-<span class="fc" id="L202">        idEnvio = &quot;env_&quot;+idPedido;</span>
-<span class="fc" id="L203">        envio = new Envio(idEnvio, pedido, fechaPedido, &quot;Enviado&quot;);</span>
+<span class="fc" id="L204">        envio = new Envio(pedido, fechaPedido, &quot;Enviado&quot;);</span>
         
-<span class="fc" id="L205">        pedidoModelo.insertar(pedido);</span>
-<span class="fc" id="L206">        envioController.insertar(envio);</span>
-<span class="fc" id="L207">    }</span>
+<span class="fc" id="L206">        pedidoModelo.insertar(pedido);</span>
+<span class="fc" id="L207">        envioController.insertar(envio);</span>
+
+<span class="fc" id="L209">        return envio;</span>
+    }
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

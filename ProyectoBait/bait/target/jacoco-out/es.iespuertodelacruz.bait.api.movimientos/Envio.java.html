@@ -37,12 +37,12 @@ public class Envio extends GeneradorId{
      * @param fechaEnvio del envio
      * @param estado del envio
      */
-<span class="nc" id="L40">    public Envio( Pedido pedido, String fechaEnvio, String estado) {</span>
-<span class="nc" id="L41">        this.idEnvio = getIdAleatorio(&quot;env&quot;);</span>
-<span class="nc" id="L42">        this.pedido = pedido;</span>
-<span class="nc" id="L43">        this.fechaEnvio = fechaEnvio;</span>
-<span class="nc" id="L44">        this.estado = estado;</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L40">    public Envio( Pedido pedido, String fechaEnvio, String estado) {</span>
+<span class="fc" id="L41">        this.idEnvio = getIdAleatorio(&quot;env&quot;);</span>
+<span class="fc" id="L42">        this.pedido = pedido;</span>
+<span class="fc" id="L43">        this.fechaEnvio = fechaEnvio;</span>
+<span class="fc" id="L44">        this.estado = estado;</span>
+<span class="fc" id="L45">    }</span>
 
     //Getters y setters
     public String getIdEnvio() {
@@ -85,7 +85,7 @@ public class Envio extends GeneradorId{
 <span class="nc" id="L85">            return false;</span>
         }
 <span class="fc" id="L87">        Envio envio = (Envio) o;</span>
-<span class="pc bpc" id="L88" title="4 of 8 branches missed.">        return Objects.equals(idEnvio, envio.idEnvio) &amp;&amp; Objects.equals(pedido, envio.pedido) &amp;&amp; Objects.equals(fechaEnvio, envio.fechaEnvio) &amp;&amp; Objects.equals(estado, envio.estado);</span>
+<span class="pc bpc" id="L88" title="3 of 8 branches missed.">        return Objects.equals(idEnvio, envio.idEnvio) &amp;&amp; Objects.equals(pedido, envio.pedido) &amp;&amp; Objects.equals(fechaEnvio, envio.fechaEnvio) &amp;&amp; Objects.equals(estado, envio.estado);</span>
     }
 
     @Override

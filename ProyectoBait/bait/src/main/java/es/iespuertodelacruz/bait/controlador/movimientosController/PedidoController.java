@@ -186,7 +186,7 @@ public class PedidoController {
      * @throws PersistenciaException error controlado
      * @throws ApiException error controlado
      */
-    public void realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
+    public Envio realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
         Pedido pedido;
         Producto producto;
         Envio envio;     
@@ -205,6 +205,8 @@ public class PedidoController {
         
         pedidoModelo.insertar(pedido);
         envioController.insertar(envio);
+
+        return envio;
     }
     
 }

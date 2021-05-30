@@ -2,9 +2,7 @@
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.api.GeneradorId;
-
-public class Categoria extends GeneradorId{
+public class Categoria{
     private static final String DELIMITADOR = &quot;,&quot;;
     private String idCategoria;
     private String nombre;
@@ -12,60 +10,60 @@ public class Categoria extends GeneradorId{
     /**
      * Constructor basico de la clase
      */
-<span class="fc" id="L15">    public Categoria() {</span>
-<span class="fc" id="L16">    }</span>
+<span class="fc" id="L13">    public Categoria() {</span>
+<span class="fc" id="L14">    }</span>
 
     /**
      * Cosntructor con todos los parametros de la clase
      * @param idCategoria de la categoria
      * @param nombre de la categoria
      */
-<span class="fc" id="L23">    public Categoria(String idCategoria, String nombre) {</span>
-<span class="fc" id="L24">        this.idCategoria = idCategoria;</span>
-<span class="fc" id="L25">        this.nombre = nombre;</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L21">    public Categoria(String idCategoria, String nombre) {</span>
+<span class="fc" id="L22">        this.idCategoria = idCategoria;</span>
+<span class="fc" id="L23">        this.nombre = nombre;</span>
+<span class="fc" id="L24">    }</span>
 
     /**
      * Constructor con el generador aleatorio
      * @param idCategoria de la categoria
      * @param nombre de la categoria
      */
-<span class="nc" id="L33">    public Categoria(String nombre) {</span>
-<span class="nc" id="L34">        this.idCategoria= getIdAleatorio(&quot;cat&quot;);</span>
-<span class="nc" id="L35">        this.nombre = nombre;</span>
-<span class="nc" id="L36">    }</span>
+<span class="nc" id="L31">    public Categoria(String nombre) {</span>
+<span class="nc" id="L32">        this.nombre = nombre;</span>
+<span class="nc" id="L33">        this.idCategoria = &quot;cat_&quot;+nombre;</span>
+<span class="nc" id="L34">    }</span>
 
     //GETTERS Y SETTERS
     public String getIdCategoria() {
-<span class="fc" id="L40">        return this.idCategoria;</span>
+<span class="fc" id="L38">        return this.idCategoria;</span>
     }
 
     public void setIdCategoria(String idCategoria) {
-<span class="nc" id="L44">        this.idCategoria = idCategoria;</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L42">        this.idCategoria = idCategoria;</span>
+<span class="nc" id="L43">    }</span>
 
     public String getNombre() {
-<span class="fc" id="L48">        return this.nombre;</span>
+<span class="fc" id="L46">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="fc" id="L52">        this.nombre = nombre;</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L50">        this.nombre = nombre;</span>
+<span class="fc" id="L51">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (o == this)</span>
-<span class="nc" id="L58">            return true;</span>
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (!(o instanceof Categoria)) {</span>
-<span class="nc" id="L60">            return false;</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L56">            return true;</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (!(o instanceof Categoria)) {</span>
+<span class="nc" id="L58">            return false;</span>
         }
-<span class="fc" id="L62">        Categoria categoria = (Categoria) o;</span>
-<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        return Objects.equals(idCategoria, categoria.idCategoria) &amp;&amp; Objects.equals(nombre, categoria.nombre);</span>
+<span class="fc" id="L60">        Categoria categoria = (Categoria) o;</span>
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        return Objects.equals(idCategoria, categoria.idCategoria) &amp;&amp; Objects.equals(nombre, categoria.nombre);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L68">        return getIdCategoria() + DELIMITADOR + getNombre();</span>
+<span class="nc" id="L66">        return getIdCategoria() + DELIMITADOR + getNombre();</span>
     }
 
 }
