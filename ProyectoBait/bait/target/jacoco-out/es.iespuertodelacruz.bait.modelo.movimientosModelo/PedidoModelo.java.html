@@ -186,5 +186,20 @@ public class PedidoModelo {
 <span class="fc" id="L186">        return lista;</span>
     }
 
+    /**
+     * Funcion que obtiene un listado de los envios y los devuelve
+     * 
+     * @return la lista de envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException {
+        ArrayList&lt;Pedido&gt; lista;
+<span class="fc" id="L197">        String sql = utilidadesSQL.setSelectOne(&quot;idCliente&quot;);</span>
+
+<span class="fc" id="L199">        lista = buscarPorElemento(sql, dni);</span>
+
+<span class="fc" id="L201">        return lista;</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

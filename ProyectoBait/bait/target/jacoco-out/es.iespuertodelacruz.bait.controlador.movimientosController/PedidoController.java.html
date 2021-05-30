@@ -160,6 +160,22 @@ public class PedidoController {
     }
 
     /**
+     * Funcion que obtiene una lista de todos los pedidos
+     * @return la lista de pedidos
+     * @throws PersistenciaException error controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList&lt;Pedido&gt; obtenerListado(String dni) throws PersistenciaException, ApiException{
+<span class="fc" id="L169">        ArrayList&lt;Pedido&gt; pedidos = null;</span>
+<span class="fc" id="L170">        pedidos = pedidoModelo.obtenerListado(dni);</span>
+<span class="pc bpc" id="L171" title="2 of 4 branches missed.">        if (pedidos == null || pedidos.isEmpty()) {</span>
+<span class="nc" id="L172">            throw new ApiException(&quot;La lista de pedidos es vacia o nula&quot;);</span>
+        }
+<span class="fc" id="L174">        return pedidos;</span>
+
+    }
+
+    /**
      * Metodo que realiza un pedido y luego envio con los datos dados por el usuario
      * @param usuario que realiza el pedido
      * @param idProducto del producto que va a comprar
@@ -175,20 +191,20 @@ public class PedidoController {
         String fechaPedido; 
         String idEnvio;
         
-<span class="fc" id="L178">        idPedido = idProducto +&quot;-&quot;+ usuario.getDni();</span>
-<span class="fc" id="L179">        productoController.reducirStock(idProducto, unidades);</span>
-<span class="fc" id="L180">        producto = productoController.buscar(idProducto); </span>
-<span class="fc" id="L181">        fechaPedido = LocalDate.now().toString();</span>
-<span class="fc" id="L182">        float total = producto.getPrecio() * unidades;</span>
+<span class="fc" id="L194">        idPedido = idProducto +&quot;-&quot;+ usuario.getDni();</span>
+<span class="fc" id="L195">        productoController.reducirStock(idProducto, unidades);</span>
+<span class="fc" id="L196">        producto = productoController.buscar(idProducto); </span>
+<span class="fc" id="L197">        fechaPedido = LocalDate.now().toString();</span>
+<span class="fc" id="L198">        float total = producto.getPrecio() * unidades;</span>
 
-<span class="fc" id="L184">        pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);</span>
+<span class="fc" id="L200">        pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto);</span>
     
-<span class="fc" id="L186">        idEnvio = &quot;env_&quot;+idPedido;</span>
-<span class="fc" id="L187">        envio = new Envio(idEnvio, pedido, fechaPedido, &quot;Enviado&quot;);</span>
+<span class="fc" id="L202">        idEnvio = &quot;env_&quot;+idPedido;</span>
+<span class="fc" id="L203">        envio = new Envio(idEnvio, pedido, fechaPedido, &quot;Enviado&quot;);</span>
         
-<span class="fc" id="L189">        pedidoModelo.insertar(pedido);</span>
-<span class="fc" id="L190">        envioController.insertar(envio);</span>
-<span class="fc" id="L191">    }</span>
+<span class="fc" id="L205">        pedidoModelo.insertar(pedido);</span>
+<span class="fc" id="L206">        envioController.insertar(envio);</span>
+<span class="fc" id="L207">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

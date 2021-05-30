@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.api.movimientos.Pedido;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
+import es.iespuertodelacruz.bait.controlador.movimientosController.EnvioController;
 import es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController;
 import es.iespuertodelacruz.bait.controlador.personasController.UsuarioController;
 import es.iespuertodelacruz.bait.controlador.productosController.ProductoController;
@@ -14,13 +16,17 @@ import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
 public class MenuUsuario {
+    private static final String ERROR_AL_OBTENER_LISTADO = "**Ha ocurrido un error al obtener la lista**";
+    private static final String ERROR_TIPO_DATO = "**El tipo de dato introducido es incorrecto.**";
     private static final String TIPO_DATO_INCORRECTO = "El tipo de dato introducido es incorrecto.";
     private static final String ELEGIR_OPCION_DEL_MENU = "Tiene que elegir una de las opciones del menu: 0 al ";
+    private static final String OPCION_SALIR = "0. Salir";
 
     Scanner sn;
     UsuarioController usuarioController;
     PedidoController pedidoController;
     ProductoController productoController;
+    EnvioController envioController;
     /**
      * Constructor basico del menu del usuario
      * @throws PersistenciaException
@@ -30,6 +36,7 @@ public class MenuUsuario {
         usuarioController = new UsuarioController();
         pedidoController = new PedidoController();
         productoController = new ProductoController();
+        envioController = new EnvioController();
     }
 
     /**
@@ -45,7 +52,7 @@ public class MenuUsuario {
                 System.out.println("1. Registrarse");
                 System.out.println("2. Iniciar sesion");
                 System.out.println("3. Accerder sin cuenta");
-                System.out.println("0. Salir");
+                System.out.println(OPCION_SALIR);
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -54,23 +61,23 @@ public class MenuUsuario {
                         usuario = registrar();
                         try {
                             usuarioController.insertar(usuario);
-                            System.out.println("Se ha registrado correctamente.");
+                            System.out.println("**Se ha registrado correctamente.**");
                             menuOpciones(usuario);
                         } catch (ApiException | PersistenciaException e) {
-                            System.out.println("Error al realizar el registro");
+                            System.out.println("**Error al realizar el registro**");
                         }
                         break;
                     case 2:
                         try {
                             usuario = validarUsuario();
-                            System.out.println("Sesion iniciada correctamente.");
+                            System.out.println("**Sesion iniciada correctamente.**");
                             menuOpciones(usuario);
                         } catch (ApiException e) {
-                            System.out.println("El usuario o la password no son correctos.");
+                            System.out.println("**El usuario o la password no son correctos.**");
                         }
                         break;
                     case 3:
-                        menuProductos();
+                        menuBuscarProductos();
                         break;
                     case 0:
                         salir = true;
@@ -113,61 +120,68 @@ public class MenuUsuario {
     /**
      * Menu para buscar productos por nombre, categoria y marca
      */
-    public void menuProductos() {//REFACTORIZAR
+    public void menuBuscarProductos() {
         boolean salir = false;
         int opcion;
         ArrayList<Producto> productos;
+        String identificadorBusqueda;
         try {
             while (!salir) {
                 System.out.println("Buscar producto");
                 System.out.println("1. Buscar producto por nombre");
                 System.out.println("2. Buscar producto por categoria");
                 System.out.println("3. Buscar producto por marca");
-                System.out.println("0. Salir");
+                System.out.println("4. Listar todos");
+                System.out.println(OPCION_SALIR);
                 System.out.println("Selecciona opcion:");
                 opcion = sn.nextInt();
                 sn.nextLine();
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Introdusca un nombre");
-                        String nombre = sn.nextLine();
+                        identificadorBusqueda = obtenerDato("el nombre.");
                         try {
-                            productos = productoController.buscarPorNombre(nombre);
-                            recorrerProductos(productos);
+                            productos = productoController.buscarPorNombre(identificadorBusqueda);
+                            System.out.println(productos.toString());//CAMBIAR A UN METODO 
                         } catch (ApiException | PersistenciaException e) {
-                            System.err.println("Error al busca los productos por nombre.");
+                            System.err.println("**Error al busca los productos por nombre.**");
                         }
                         break;
                     case 2:
-                        System.out.println("Introdusca el idCategoria");
-                        String idCategoria = sn.nextLine();
+                        identificadorBusqueda = obtenerDato("el idCategoria");
                         try {
-                            productos = productoController.buscarPorCategoria(idCategoria);
-                            recorrerProductos(productos);
+                            productos = productoController.buscarPorCategoria(identificadorBusqueda);
+                            System.out.println(productos.toString());//CAMBIAR A UN METODO
                         } catch (ApiException | PersistenciaException e) {
-                            System.err.println("Error al busca los productos por categoria.");
+                            System.err.println("**Error al busca los productos por categoria.**");
                         }
                         break;
                     case 3:
-                        System.out.println("Introdusca el id de la marca.");
-                        String idMarca = sn.nextLine();
+                        identificadorBusqueda = obtenerDato("el idMarca");
                         try {
-                            productos = productoController.buscarPorMarca(idMarca);
-                            recorrerProductos(productos);
+                            productos = productoController.buscarPorMarca(identificadorBusqueda);
+                            System.out.println(productos.toString());//CAMBIAR A UN METODO
                         } catch (ApiException | PersistenciaException e) {
-                            System.err.println("Error al busca los productos por marca.");
+                            System.err.println("**Error al busca los productos por marca.**");
+                        }
+                        break;
+                    case 4:
+                        try {
+                            productos = productoController.obtenerListado();
+                            System.out.println(productos.toString());//CAMBIAR A UN METOD 
+                        } catch (PersistenciaException | ApiException e) {
+                            System.out.println(ERROR_AL_OBTENER_LISTADO);
                         }
                         break;
                     case 0:
                         salir = true;
                         break;
                     default:
-                        System.err.println(ELEGIR_OPCION_DEL_MENU + "3");
+                        System.err.println(ERROR_AL_OBTENER_LISTADO + "4");
                 }
             }
         } catch (InputMismatchException ex) {
-            System.out.println(TIPO_DATO_INCORRECTO);
+            System.out.println(ERROR_TIPO_DATO);
         }
     }
 
@@ -190,6 +204,7 @@ public class MenuUsuario {
         boolean salir = false;
         int opcion;
         ArrayList<Pedido> pedidos;
+        ArrayList<Envio> envios;
         try {
             while (!salir) {
                 System.out.println("Menu de opciones usuario");
@@ -197,7 +212,8 @@ public class MenuUsuario {
                 System.out.println("2. Realizar pedido");
                 System.out.println("3. Buscar productos");
                 System.out.println("4. Ver pedidos");
-                System.out.println("5. Editar mis datos");
+                System.out.println("5. Ver envios");
+                System.out.println("6. Editar mis datos");
                 System.out.println("0. Salir");
                 opcion = sn.nextInt();
                 sn.nextLine();
@@ -207,9 +223,9 @@ public class MenuUsuario {
                         float saldo = sn.nextFloat();
                         try {
                             usuarioController.añadirSaldo(usuario, saldo);
-                            System.out.println("Saldo añadido carrectamente.");
+                            System.out.println("**Saldo añadido carrectamente.**");
                         } catch (PersistenciaException e) {
-                            System.err.println("Error al añadir el saldo");
+                            System.err.println("**Error al añadir el saldo**");
                         } catch (ApiException e) {
                             System.out.println(e.getMessage());
                         }
@@ -218,7 +234,7 @@ public class MenuUsuario {
                         realizarPedido(usuario);
                         break;
                     case 3:
-                        menuProductos();
+                        menuBuscarProductos();
                         break;
                     case 4:        
                         try {
@@ -229,6 +245,14 @@ public class MenuUsuario {
                         }
                         break;
                     case 5:
+                        try {
+                            envios = envioController.obtenerListado();
+                            System.out.println(envios.toString());
+                        } catch (PersistenciaException | ApiException e) {
+                            System.out.println("Error al obtener la lista de todos los envios");
+                        }
+                        break;
+                    case 6:
                         Usuario nuevoUsuario = registrar();
                         try {
                             usuarioController.modificar(nuevoUsuario);
@@ -253,22 +277,21 @@ public class MenuUsuario {
      * Metodo que obtienes los datos y realiza un pedido
      */
     private void realizarPedido(Usuario usuario) {
-        System.out.println("Introdusca datos para realizar el pedido.");
+        System.out.println("Introduzca datos para realizar el pedido.");
         String idProducto = obtenerDato("Introduce el id del producto.");
         int unidades = Integer.parseInt(obtenerDato("unidades que quiere comprar."));
         try {
             pedidoController.realizarPedido(usuario ,idProducto, unidades);
             System.out.println("**Pedido realizado correctamente**");
         } catch (PersistenciaException | ApiException e) {
-            System.err.println("Ha ocurrido un error al realizar el pedido");
+            System.err.println("**Ha ocurrido un error al realizar el pedido**");
         }
-        System.out.println("Pedido realizado correctamente.");
     }
 
     /**
      * Menu que registrar un nuevo usuario
      * 
-     * @return el cleinte creado
+     * @return el cliente creado
      */
     public Usuario registrar() {//REFACTORIZAR
         Usuario usuario = null;

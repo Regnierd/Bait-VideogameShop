@@ -130,4 +130,19 @@ public class EnvioController {
         return envios;
         
     }
+
+    /**
+     * Funcion que obtiene la lista de envios y la devuelve
+     * @return la lista de envios
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList<Envio> obtenerListado(String dni) throws PersistenciaException, ApiException{
+        ArrayList<Envio> envios = null;
+        envios = envioModelo.obtenerListado(dni);
+        if(envios == null || envios.isEmpty()){
+            throw new ApiException("La lista de envios es vacia o nula");
+        }
+        return envios;
+        
+    }
 }

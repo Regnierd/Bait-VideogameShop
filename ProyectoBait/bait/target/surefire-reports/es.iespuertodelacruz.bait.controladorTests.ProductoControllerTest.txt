@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.ProductoControllerTest
 -------------------------------------------------------------------------------
-Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.38 s - in es.iespuertodelacruz.bait.controladorTests.ProductoControllerTest
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.733 s - in es.iespuertodelacruz.bait.controladorTests.ProductoControllerTest

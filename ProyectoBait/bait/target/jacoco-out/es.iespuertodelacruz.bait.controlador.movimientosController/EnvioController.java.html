@@ -130,5 +130,20 @@ public class EnvioController {
 <span class="fc" id="L130">        return envios;</span>
         
     }
+
+    /**
+     * Funcion que obtiene la lista de envios y la devuelve
+     * @return la lista de envios
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList&lt;Envio&gt; obtenerListado(String dni) throws PersistenciaException, ApiException{
+<span class="fc" id="L140">        ArrayList&lt;Envio&gt; envios = null;</span>
+<span class="fc" id="L141">        envios = envioModelo.obtenerListado(dni);</span>
+<span class="pc bpc" id="L142" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
+<span class="nc" id="L143">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
+        }
+<span class="fc" id="L145">        return envios;</span>
+        
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

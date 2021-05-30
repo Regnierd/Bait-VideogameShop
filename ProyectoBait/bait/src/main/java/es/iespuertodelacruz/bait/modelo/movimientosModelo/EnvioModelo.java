@@ -156,6 +156,22 @@ public class EnvioModelo {
     }
 
     /**
+     * Funcion que obtiene un listado de los envios y los devuelve
+     * 
+     * @return la lista de envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Envio> obtenerListado(String dni) throws PersistenciaException {
+        ArrayList<Envio> lista;
+        
+        String sql = "SELECT * FROM ENVIOS INNER JOIN PEDIDOS ON ENVIOS.idPedido = PEDIDOS.idPedido WHERE idCliente = ?";
+
+        lista = buscarPorElemento(sql, dni);
+
+        return lista;
+    }
+
+    /**
      * Funcion que busca un envio por su identificador
      * 
      * @param identificador del envio que se va abuscar

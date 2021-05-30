@@ -138,6 +138,17 @@ public class EnvioModeloTest {
     }
 
     @Test
+    public void obtenerListadoPorDniTest() {
+        ArrayList<Envio> lista;
+        try {
+            lista = envioModelo.obtenerListado(DNI);
+            assertTrue(lista.contains(envio), "La lista no contiene el envio correcto");
+        } catch (PersistenciaException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void modificarTest() {
         Envio envioBuscado;
         envio.setEstado("Entregado");

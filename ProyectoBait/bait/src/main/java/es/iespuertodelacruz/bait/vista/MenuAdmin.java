@@ -209,6 +209,32 @@ public class MenuAdmin {
     }
 
     /**
+     * Funcion que obtiene una opcion para realizar un CRUD en la tabla que se pasa
+     * el nombre en los parametros sin la opcion de insertar
+     * 
+     * @param tabla nombre de la tabla en que se va a realizar el CRUD
+     * @return la opcion del CRUD a realizar
+     */
+    private int obtenerOpcionMovimientos(String tabla) {
+        int opcion = -1;
+        Scanner sn = new Scanner(System.in);
+        try {
+            System.out.println("Menu de opciones " + tabla);
+            System.out.println("1. Eliminar " + tabla);
+            System.out.println("2. Modificar " + tabla);
+            System.out.println("3. Buscar " + tabla);
+            System.out.println("4. Lista " + tabla);
+            System.out.println(OPCION_SALIR);
+            opcion = sn.nextInt();
+            sn.nextLine();
+        } catch (InputMismatchException ex) {
+            System.out.println(ERROR_TIPO_DATO);
+        }
+
+        return opcion;
+    }
+
+    /**
      * Menu para realizar el CRUD de productos
      */
     private void menuProductos() {
@@ -216,8 +242,16 @@ public class MenuAdmin {
         boolean salir = false;
         String idProducto;
         while (!salir) {
-            opcion = obtenerOpcion("producto.");
-            System.out.println("6. Añadir stock a un producto.");
+            System.out.println("Menu de opciones Producto");
+            System.out.println("1. Insertar Producto");
+            System.out.println("2. Eliminar Producto");
+            System.out.println("3. Modificar Producto");
+            System.out.println("4. Buscar Producto");
+            System.out.println("5. Lista Producto");
+            System.out.println("6. Añadir stock ");
+            System.out.println(OPCION_SALIR);
+            opcion = sn.nextInt();
+            sn.nextLine();
             switch (opcion) {
                 case 1:
                     try {
@@ -463,20 +497,48 @@ public class MenuAdmin {
     private void menuPedidos() {
         int opcion;
         boolean salir = false;
+        String idPedido;
         while (!salir) {
-            opcion = obtenerOpcion("pedido");
+            opcion = obtenerOpcionMovimientos("pedidos");
             switch (opcion) {
                 case 1:
-                    // Codigo para insertar un pedido
+                    idPedido = obtenerDato("idPedido.");
+                    try {
+                        pedidoController.eliminar(idPedido);
+                        System.out.println("**Pedido eliminado correctamente.**");
+                    } catch (PersistenciaException | ApiException e) {
+                        System.out.println("**Error al eliminar el pedido.**");
+                    }         
                     break;
                 case 2:
-                    // codigo para eliminar un pedido
+                    Pedido nuevoPedido = null;
+                    idPedido = obtenerDato("idPedido");
+                    nuevoPedido = registrarPedido();
+                    try {
+                        pedidoController.modificar(nuevoPedido);
+                        System.out.println("**Marca modificado correctamente.**");
+                    } catch (PersistenciaException | ApiException e) {
+                        System.out.println("**Error al modificar el pedido.**");
+                    }
                     break;
                 case 3:
-                    // codigo para modificar un pedido
+                    idPedido = obtenerDato("idPedido.");
+                    try {
+                        Pedido pedido = pedidoController.buscar(idPedido);
+                        System.out.println(pedido.toString());
+                    } catch (PersistenciaException | ApiException e) {
+                        System.out.println("**Error al buscar el pedido.**");
+                    }
                     break;
                 case 4:
-                    // codigo para buscar un pedido
+                    ArrayList<Pedido> pedidos;
+                    try {
+                        pedidos = pedidoController.obtenerListado();
+                        System.out.println(pedidos.toString());
+                    } catch (PersistenciaException | ApiException e) {
+                        System.out.println("**Ha ocurrido un error al obtener la lista**");
+                    }
+                    break;
                 case 0:
                     salir = true;
                     break;
@@ -487,12 +549,35 @@ public class MenuAdmin {
     }
 
     /**
-     * Menu que registrar un nuevo usuario
+     * Menu que registrar un nuevo pedido
      * 
-     * @return el cleinte creado
+     * @return el pedido creado
      */
     public Pedido registrarPedido() {
-        return null;
+        Pedido pedido = null;
+        Usuario usuario = null;
+        Producto producto = null;
+
+        System.out.println("Datos para el registro");
+        int unidades = Integer.parseInt(obtenerDato("las unidades"));
+        float total = Float.parseFloat(obtenerDato("el total del pedido"));
+        String fechaPedido = obtenerDato("la fecha del pedido");
+        String dni = obtenerDato("el dni del usuario");
+        try {
+            usuario = usuarioController.buscar(dni);
+        } catch (PersistenciaException | ApiException e) {
+            System.err.println("**El usuario que has introducido no existe**");
+        }
+        
+        String idProducto = obtenerDato("el idProducto");
+        try {
+            producto = productoController.buscar(idProducto);
+        } catch (PersistenciaException | ApiException e) {
+            System.err.println("**El producto que has introducido no existe**");
+        }
+
+        pedido = new Pedido("null", unidades, total, fechaPedido, usuario, producto);//CAMBIAR EL NULL
+        return pedido;
     }
 
     /**
@@ -558,7 +643,7 @@ public class MenuAdmin {
 
                 switch (opcion) {
                     case 1:
-                        identificadorBusqueda = obtenerDato("introduce el nombre.");
+                        identificadorBusqueda = obtenerDato("el nombre.");
                         try {
                             productos = productoController.buscarPorNombre(identificadorBusqueda);
                             System.out.println(productos.toString());//CAMBIAR A UN METODO 
@@ -567,7 +652,7 @@ public class MenuAdmin {
                         }
                         break;
                     case 2:
-                        identificadorBusqueda = obtenerDato("Introdusca el idCategoria");
+                        identificadorBusqueda = obtenerDato("el idCategoria");
                         try {
                             productos = productoController.buscarPorCategoria(identificadorBusqueda);
                             System.out.println(productos.toString());//CAMBIAR A UN METODO
@@ -576,7 +661,7 @@ public class MenuAdmin {
                         }
                         break;
                     case 3:
-                        identificadorBusqueda = obtenerDato("Introdusca el idMarca");
+                        identificadorBusqueda = obtenerDato("el idMarca");
                         try {
                             productos = productoController.buscarPorMarca(identificadorBusqueda);
                             System.out.println(productos.toString());//CAMBIAR A UN METODO
