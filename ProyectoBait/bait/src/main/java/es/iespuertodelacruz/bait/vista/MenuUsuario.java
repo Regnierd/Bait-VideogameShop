@@ -241,24 +241,24 @@ public class MenuUsuario {
                             pedidos = pedidoController.obtenerListado();
                             System.out.println(pedidos.toString());
                         } catch (PersistenciaException | ApiException e1) {
-                            System.out.println("Error al obtener la lista de todos los pedidos");
+                            System.out.println("**Error al obtener la lista de todos los pedidos**");
                         }
                         break;
                     case 5:
                         try {
-                            envios = envioController.obtenerListado();
+                            envios = envioController.obtenerListado(usuario.getDni());
                             System.out.println(envios.toString());
                         } catch (PersistenciaException | ApiException e) {
-                            System.out.println("Error al obtener la lista de todos los envios");
+                            System.out.println("**Error al obtener la lista de todos los envios**");
                         }
                         break;
                     case 6:
                         Usuario nuevoUsuario = registrar();
                         try {
                             usuarioController.modificar(nuevoUsuario);
-                            System.out.println("Se ha modificado correctemente.");
+                            System.out.println("**Se ha modificado correctemente.**");
                         } catch (ApiException | PersistenciaException e) {
-                            System.err.println("No se han podido registrar los cambios");
+                            System.err.println("**No se han podido registrar los cambios**");
                         } 
                         break;
                     case 0:

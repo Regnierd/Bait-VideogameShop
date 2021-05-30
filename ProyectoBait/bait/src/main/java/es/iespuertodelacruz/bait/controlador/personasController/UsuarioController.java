@@ -93,7 +93,7 @@ public class UsuarioController {
         Usuario usuario = null;
         usuario = usuarioModelo.buscaPorNombreUsuario(nombreUsuario);
         
-        if (!usuario.getPassword().equals(password)  || !usuario.getRol().equals(rol)) {
+        if (!usuario.getPassword().equals(password)  && !usuario.getRol().equals(rol)) {
             throw new ApiException("Las credenciales introducidas son incorrectas");
         }
 
