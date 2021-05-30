@@ -186,4 +186,19 @@ public class PedidoModelo {
         return lista;
     }
 
+    /**
+     * Funcion que obtiene un listado de los envios y los devuelve
+     * 
+     * @return la lista de envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList<Pedido> obtenerListado(String dni) throws PersistenciaException {
+        ArrayList<Pedido> lista;
+        String sql = utilidadesSQL.setSelectOne("idCliente");
+
+        lista = buscarPorElemento(sql, dni);
+
+        return lista;
+    }
+
 }

@@ -132,6 +132,17 @@ public class PedidoModeloTest {
     }
 
     @Test
+    public void obtenerListadoPorDniTest() {
+        ArrayList<Pedido> lista;
+        try {
+            lista = pedidoModelo.obtenerListado(DNI);
+            assertTrue(lista.contains(pedido), "La lista no contiene el usuario correcto");
+        } catch (PersistenciaException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void modificarTest() {
         Pedido pedidoBuscado;
         pedido.setUnidades(3);

@@ -156,6 +156,22 @@ public class EnvioModelo {
     }
 
     /**
+     * Funcion que obtiene un listado de los envios y los devuelve
+     * 
+     * @return la lista de envios
+     * @throws PersistenciaException error a controlar
+     */
+    public ArrayList&lt;Envio&gt; obtenerListado(String dni) throws PersistenciaException {
+        ArrayList&lt;Envio&gt; lista;
+        
+<span class="fc" id="L167">        String sql = &quot;SELECT * FROM ENVIOS INNER JOIN PEDIDOS ON ENVIOS.idPedido = PEDIDOS.idPedido WHERE idCliente = ?&quot;;</span>
+
+<span class="fc" id="L169">        lista = buscarPorElemento(sql, dni);</span>
+
+<span class="fc" id="L171">        return lista;</span>
+    }
+
+    /**
      * Funcion que busca un envio por su identificador
      * 
      * @param identificador del envio que se va abuscar
@@ -164,15 +180,15 @@ public class EnvioModelo {
      */
     public Envio buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList&lt;Envio&gt; lista;
-<span class="fc" id="L167">        Envio envio = null;</span>
-<span class="fc" id="L168">        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);</span>
-<span class="fc" id="L169">        lista = buscarPorElemento(sql, identificador);</span>
+<span class="fc" id="L183">        Envio envio = null;</span>
+<span class="fc" id="L184">        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);</span>
+<span class="fc" id="L185">        lista = buscarPorElemento(sql, identificador);</span>
 
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
-<span class="fc" id="L172">            envio = lista.get(0);</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L188">            envio = lista.get(0);</span>
         }
 
-<span class="fc" id="L175">        return envio;</span>
+<span class="fc" id="L191">        return envio;</span>
     }
 
     

@@ -203,6 +203,18 @@ public class PedidoControllerTest {
     }
 
     @Test
+    public void obtenerListadoPorDniTest() {
+        ArrayList<Pedido> lista;
+        try {
+            pedido = pedidoController.buscar(IDPEDIDO);
+            lista = pedidoController.obtenerListado(DNI);
+            assertTrue(lista.contains(pedido), "La lista no contiene el pedido correcto");
+        } catch (PersistenciaException | ApiException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void realizarPedidoTest() {
         String idPedido = producto.getIdProducto()+"-"+usuario.getDni();
         String idEnvio = "env_"+ idPedido;

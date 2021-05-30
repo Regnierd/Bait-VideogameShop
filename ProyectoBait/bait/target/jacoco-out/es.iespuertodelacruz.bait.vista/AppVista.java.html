@@ -6,12 +6,12 @@ import java.util.Scanner;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 
-<span class="nc" id="L9">public class AppVista{</span>
+<span class="fc" id="L9">public class AppVista{</span>
     static MenuAdmin menuAdmin;
     static MenuUsuario menuUsuario;
     static Bbdd bbdd;
 
-    public static void main( String[] args ) throws PersistenciaException{
+    public static void main(String[] args) throws PersistenciaException{
 <span class="nc bnc" id="L15" title="All 2 branches missed.">        if(menuAdmin == null){</span>
 <span class="nc" id="L16">            menuAdmin = new MenuAdmin();</span>
         }
@@ -22,7 +22,7 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
 <span class="nc" id="L22">    }</span>
 
     /**
-     * Menu basico para preguntar si es un cliente o un administrador
+     * Menu basico para preguntar si es un usuario o un administrador
      */
     private static void menuPrincipal() {   
 <span class="nc" id="L28">        boolean salir = false;</span>
@@ -31,8 +31,8 @@ import es.iespuertodelacruz.bait.modelo.mysql.Bbdd;
         try{
 <span class="nc bnc" id="L32" title="All 2 branches missed.">            while(!salir){</span>
 <span class="nc" id="L33">                System.out.println(&quot;Menu principal&quot;);</span>
-<span class="nc" id="L34">                System.out.println(&quot;1. Empleado&quot;);</span>
-<span class="nc" id="L35">                System.out.println(&quot;2. Cliente&quot;);</span>
+<span class="nc" id="L34">                System.out.println(&quot;1. Administrador&quot;);</span>
+<span class="nc" id="L35">                System.out.println(&quot;2. Usuario&quot;);</span>
 <span class="nc" id="L36">                System.out.println(&quot;0. Salir&quot;);</span>
 <span class="nc" id="L37">                System.out.println(&quot;¿Quien eres?&quot;);</span>
 <span class="nc" id="L38">                opcion = sn.nextInt();</span>

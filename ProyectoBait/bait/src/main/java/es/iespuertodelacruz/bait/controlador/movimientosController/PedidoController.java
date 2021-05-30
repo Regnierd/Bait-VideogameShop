@@ -160,6 +160,22 @@ public class PedidoController {
     }
 
     /**
+     * Funcion que obtiene una lista de todos los pedidos
+     * @return la lista de pedidos
+     * @throws PersistenciaException error controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList<Pedido> obtenerListado(String dni) throws PersistenciaException, ApiException{
+        ArrayList<Pedido> pedidos = null;
+        pedidos = pedidoModelo.obtenerListado(dni);
+        if (pedidos == null || pedidos.isEmpty()) {
+            throw new ApiException("La lista de pedidos es vacia o nula");
+        }
+        return pedidos;
+
+    }
+
+    /**
      * Metodo que realiza un pedido y luego envio con los datos dados por el usuario
      * @param usuario que realiza el pedido
      * @param idProducto del producto que va a comprar

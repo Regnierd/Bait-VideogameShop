@@ -206,4 +206,16 @@ public class EnvioControllerTest {
         }
     }
 
+    @Test
+    public void obtenerListadoPorDniTest() {
+        ArrayList<Envio> lista;  
+        try {
+            Envio envio = envioController.buscar(IDENVIO);
+            lista = envioController.obtenerListado(DNI);
+            assertTrue(lista.contains(envio), "La lista no contiene el envio correcto");
+        } catch (PersistenciaException | ApiException e) {
+            fail(e.getMessage());
+        }
+    }
+
 }

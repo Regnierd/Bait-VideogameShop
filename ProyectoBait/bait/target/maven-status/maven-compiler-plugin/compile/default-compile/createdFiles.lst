@@ -6,7 +6,6 @@ es\iespuertodelacruz\bait\api\productos\Categoria.class
 es\iespuertodelacruz\bait\modelo\movimientosModelo\PedidoModelo.class
 es\iespuertodelacruz\bait\modelo\productosModelo\MarcaModelo.class
 es\iespuertodelacruz\bait\modelo\personasModelo\UsuarioModelo.class
-es\iespuertodelacruz\bait\api\movimientos\Compra.class
 es\iespuertodelacruz\bait\api\movimientos\Pedido.class
 es\iespuertodelacruz\bait\vista\MenuAdmin.class
 es\iespuertodelacruz\bait\controlador\productosController\ProductoController.class
