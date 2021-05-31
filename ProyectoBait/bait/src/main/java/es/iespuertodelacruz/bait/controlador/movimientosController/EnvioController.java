@@ -2,12 +2,13 @@ package es.iespuertodelacruz.bait.controlador.movimientosController;
 
 import java.util.ArrayList;
 
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.movimientosModelo.EnvioModelo;
 
-public class EnvioController {
+public class EnvioController extends Validar{
     EnvioModelo envioModelo;
 
     public EnvioController() throws PersistenciaException{

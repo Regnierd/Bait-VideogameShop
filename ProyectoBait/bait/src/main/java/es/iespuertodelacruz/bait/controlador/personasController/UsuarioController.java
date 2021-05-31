@@ -2,12 +2,13 @@
 
 import java.util.ArrayList;
 
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 
-public class UsuarioController {
+public class UsuarioController extends Validar{
     UsuarioModelo usuarioModelo;
 
     public UsuarioController() throws PersistenciaException {
@@ -69,6 +70,9 @@ public class UsuarioController {
      */
     public Usuario buscar(String dni) throws PersistenciaException, ApiException {
         Usuario usuario = null;
+        if (!validarDni(dni)) {
+            throw new ApiException("Formato del dni incorrecto");
+        }
 
         usuario = usuarioModelo.buscaPorDni(dni);
 
@@ -123,6 +127,9 @@ public class UsuarioController {
      * @throws ApiException
      */
     public void eliminar(String dni) throws PersistenciaException, ApiException {
+        if (!validarDni(dni)) {
+            throw new ApiException("Formato del dni incorrecto");
+        }
         if (!existe(dni)) {
             throw new ApiException("El usuario que quiere eliminar no existe");
         }
@@ -134,11 +141,12 @@ public class UsuarioController {
      * @param usuario que se va a buscar
      * @return verdadero/falso
      * @throws PersistenciaException
+     * @throws ApiException
      */
-    private boolean existe(String dni) throws PersistenciaException {
+    private boolean existe(String dni) throws PersistenciaException, ApiException {
         boolean encontrada = false;
         Usuario usuarioEncontrado;
-   
+     
         usuarioEncontrado = usuarioModelo.buscaPorDni(dni);
         if (usuarioEncontrado != null) {
            encontrada = true;

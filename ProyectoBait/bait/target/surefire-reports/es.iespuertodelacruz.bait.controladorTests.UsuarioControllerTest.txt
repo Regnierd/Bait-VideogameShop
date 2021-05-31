@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.358 s - in es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
-=======
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.305 s - in es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest
->>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.299 s - in es.iespuertodelacruz.bait.controladorTests.UsuarioControllerTest

@@ -19,7 +19,7 @@ import es.iespuertodelacruz.bait.controlador.productosController.ProductoControl
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 
-public class MenuAdmin {
+public class MenuAdmin extends MenuUsuario{
     private static final String ERROR_AL_OBTENER_LISTADO = "**Ha ocurrido un error al obtener la lista**";
     private static final String OPCION_SALIR = "0. Salir";
     private static final String ERROR_OPCION_ELEGIDA = "**Tiene que elegir una de las opciones del menu: 0 al ";
@@ -61,8 +61,8 @@ public class MenuAdmin {
         try {
             usuario = usuarioController.login(nombreAcceso, password, "Admin");
             menuOpciones(usuario);
-        } catch (ApiException | PersistenciaException ex) {
-            System.err.println("El nombre de acceso o la password son incorrectos.");
+        } catch (ApiException | PersistenciaException e) {
+            System.err.println("**"+e.getMessage()+"**");
         }
     }
 
@@ -134,7 +134,7 @@ public class MenuAdmin {
                         usuarioController.insertar(usuario);
                         System.out.println("**Usuario insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("**Error al insertar al cliente en la base de datos.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 2:
@@ -143,7 +143,7 @@ public class MenuAdmin {
                         usuarioController.eliminar(dni);
                         System.out.println("**Usuario eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al eliminar el usuario.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -153,7 +153,7 @@ public class MenuAdmin {
                         usuarioController.modificar(nuevUsuario);
                         System.out.println("**Usuario modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al modificar el usuario.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
@@ -162,18 +162,14 @@ public class MenuAdmin {
                         usuario = usuarioController.buscar(dni);
                         System.out.println(usuario.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar el usuario.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 5:
                     ArrayList<Usuario> usuarios;
-                    String informacionLista = "";
                     try {
                         usuarios = usuarioController.obtenerListado();
-                        for (Usuario usuarioLista : usuarios) { //DECIDIR SI HACER ESTO O UN METODO
-                            informacionLista += usuarioLista.toString(); 
-                        }
-                        System.out.println(informacionLista);
+                        System.out.println(listarUsuarios(usuarios));
                     } catch (PersistenciaException | ApiException e) {
                         System.out.println(ERROR_AL_OBTENER_LISTADO);
                     }
@@ -187,6 +183,20 @@ public class MenuAdmin {
         }
     }
 
+    /**
+     * Funcion que lista la listas de usuario
+     * @param usuarios lista que va a recorrer
+     * @return string con la lista 
+     */
+    private String listarUsuarios(ArrayList<Usuario> usuarios) {
+        String lista = "";
+        int contador = 1;
+        for (Usuario usuario : usuarios) {
+            lista += "*"+contador+"* | "+ usuario.toString() + "\n";
+            contador++;
+        }
+        return lista;
+    }
 
     /**
      * Funcion que obtiene una opcion para realizar un CRUD en la tabla que se pasa
@@ -266,7 +276,7 @@ public class MenuAdmin {
                         productoController.insertar(producto);
                         System.out.println("**Producto insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("**Error al insertar al producto en la base de datos.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 2:
@@ -275,7 +285,7 @@ public class MenuAdmin {
                         productoController.eliminar(idProducto);
                         System.out.println("**Producto eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al eliminar el producto.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -287,7 +297,7 @@ public class MenuAdmin {
                         productoController.modificar(productoAmodificar);
                         System.out.println("**Producto modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al modificar el producto.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
@@ -296,7 +306,7 @@ public class MenuAdmin {
                         Producto producto = productoController.buscar(idProducto);
                         System.out.println(producto.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar el producto.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 5:
@@ -310,7 +320,7 @@ public class MenuAdmin {
                         productoController.aumentarStock(idProducto, cantidad);
                         System.out.println("**Stock aumentado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.err.println("**Ha ocurrido un error al aumentar el stock del producto**");
+                        System.err.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 0:
@@ -339,7 +349,7 @@ public class MenuAdmin {
         try {
             categoria = categoriaController.buscar(idCategoria);
         } catch (PersistenciaException | ApiException e) {
-            System.err.println("**La categoria que has introducido no existe**");
+            System.err.println("**"+e.getMessage()+"**");
         }
 
         float precio = Float.parseFloat(obtenerDato("el precio por unidad de producto."));   
@@ -351,7 +361,7 @@ public class MenuAdmin {
         try {
             marca = marcaController.buscar(idMarca);
         } catch (PersistenciaException | ApiException e) {
-            System.err.println("**La marca que has introducido no existe**");
+            System.err.println("**"+e.getMessage()+"**");
         }
 
         producto = new Producto(nombre, categoria, precio, descripcion, stock, marca);
@@ -376,7 +386,7 @@ public class MenuAdmin {
                         categoriaController.insertar(categoria);
                         System.out.println("**Categoria insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("**Error al insertar la categoria en la base de datos.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 2:
@@ -385,7 +395,7 @@ public class MenuAdmin {
                         categoriaController.eliminar(idCategoria);
                         System.out.println("**Categoria eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al eliminar la categoria.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -397,7 +407,7 @@ public class MenuAdmin {
                         categoriaController.modificar(nuevaCategoria);
                         System.out.println("**Categoria modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al modificar la categoria.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
@@ -406,16 +416,16 @@ public class MenuAdmin {
                         Categoria categoria = categoriaController.buscar(idCategoria);
                         System.out.println(categoria.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar la categoria.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 5:
                     ArrayList<Categoria> categorias;
                     try {
                         categorias = categoriaController.obtenerListado();
-                        System.out.println(categorias.toString());
+                        System.out.println(listarCategorias(categorias));
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Ha ocurrido un error al obtener la lista**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 0:
@@ -427,6 +437,20 @@ public class MenuAdmin {
         }
     }
 
+    /**
+     * Funcion que recorre un list de categorias
+     * @param categorias que se van a recorrer
+     * @return string con la informacion de la lista
+     */
+    private String listarCategorias(ArrayList<Categoria> categorias) {
+        String lista = "";
+        int contador = 1;
+        for (Categoria categoria : categorias) {
+            lista += "*"+contador+"* | "+ categoria.toString() + "\n";
+            contador++;
+        }
+        return lista;
+    }
 
     /**
      * Menu para realizar el CRUD de marcas
@@ -446,7 +470,7 @@ public class MenuAdmin {
                         marcaController.insertar(marca);
                         System.out.println("**Marca insertado correctamente**");
                     } catch (ApiException | PersistenciaException e) {
-                        System.out.println("**Error al insertar la marca en la base de datos.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 2:
@@ -455,7 +479,7 @@ public class MenuAdmin {
                         marcaController.eliminar(idMarca);
                         System.out.println("**Marca eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al eliminar la marca.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -467,7 +491,7 @@ public class MenuAdmin {
                         marcaController.modificar(nuevaMarca);
                         System.out.println("**Marca modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al modificar la marca.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
@@ -476,16 +500,16 @@ public class MenuAdmin {
                         Marca marca = marcaController.buscar(idMarca);
                         System.out.println(marca.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar la marca.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 5:
                     ArrayList<Marca> marcas;
                     try {
                         marcas = marcaController.obtenerListado();
-                        System.out.println(marcas.toString());
+                        System.out.println(listarMarcas(marcas));
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Ha ocurrido un error al obtener la lista**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 0:
@@ -495,6 +519,21 @@ public class MenuAdmin {
                     System.err.println(ERROR_OPCION_ELEGIDA + "5");
             }
         }
+    }
+
+    /**
+     * Funcion que recorre un list de marcas
+     * @param marcas que se van a recorrer
+     * @return string con la informacion de la lista
+     */
+    private String listarMarcas(ArrayList<Marca> marcas) {
+        String lista = "";
+        int contador = 1;
+        for (Marca marca : marcas) {
+            lista += "*"+contador+"* | "+ marca.toString() + "\n";
+            contador++;
+        }
+        return lista;
     }
 
 
@@ -514,7 +553,7 @@ public class MenuAdmin {
                         pedidoController.eliminar(idPedido);
                         System.out.println("**Pedido eliminado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al eliminar el pedido.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }         
                     break;
                 case 2:
@@ -525,7 +564,7 @@ public class MenuAdmin {
                         pedidoController.modificar(nuevoPedido);
                         System.out.println("**Marca modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al modificar el pedido.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -534,16 +573,16 @@ public class MenuAdmin {
                         Pedido pedido = pedidoController.buscar(idPedido);
                         System.out.println(pedido.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar el pedido.**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
                     ArrayList<Pedido> pedidos;
                     try {
                         pedidos = pedidoController.obtenerListado();
-                        System.out.println(pedidos.toString());
+                        System.out.println(listarPedidos(pedidos));
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Ha ocurrido un error al obtener la lista**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 0:
@@ -553,6 +592,21 @@ public class MenuAdmin {
                     System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
+    }
+
+     /**
+     * Funcion que recorre un lista de pedidos
+     * @param pedidos que se van a recorrer
+     * @return string con la informacion de la lista
+     */
+    private String listarPedidos(ArrayList<Pedido> pedidos) {
+        String lista = "";
+        int contador = 1;
+        for (Pedido pedido : pedidos) {
+            lista += "*"+contador+"* | "+pedido.toString() + "\n";
+            contador++;
+        }
+        return lista;
     }
 
     /**
@@ -572,7 +626,7 @@ public class MenuAdmin {
                         envioController.eliminar(idEnvio);
                         System.out.println("**Envio eliminado correctamente**");
                     } catch (PersistenciaException | ApiException e) {
-                        System.err.println("**Ha ocurrido un error al eliminar el envio**");
+                        System.err.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 2:
@@ -583,7 +637,7 @@ public class MenuAdmin {
                         envioController.modificar(envio);
                         System.out.println("**Se ha modificado correctamente");
                     } catch (ApiException | PersistenciaException e) {
-                        System.err.println("**Ha ocurrido un error al modificar el envio**");
+                        System.err.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 3:
@@ -592,16 +646,16 @@ public class MenuAdmin {
                         envio = envioController.buscar(idEnvio);
                         System.out.println(envio.toString());
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Error al buscar el envio**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 4:
                     ArrayList<Envio> envios;
                     try {
                         envios = envioController.obtenerListado();
-                        System.out.println(envios.toString());
+                        System.out.println(listarEnvios(envios));
                     } catch (PersistenciaException | ApiException e) {
-                        System.out.println("**Ha ocurrido un error al obtener la lista**");
+                        System.out.println("**"+e.getMessage()+"**");
                     }
                     break;
                 case 0:
@@ -611,6 +665,21 @@ public class MenuAdmin {
                     System.err.println(ERROR_OPCION_ELEGIDA + "4");
             }
         }
+    }
+
+    /**
+     * Funcion que recorre un lista de envios
+     * @param envios que se van a recorrer
+     * @return string con la informacion de la lista
+     */
+    private String listarEnvios(ArrayList<Envio> envios) {
+        String lista = "";
+        int contador = 1;
+        for (Envio envio : envios) {
+            lista += "*"+contador+"* | "+envio.toString() + "\n";
+            contador++;
+        }
+        return lista;
     }
 
     /**
@@ -649,127 +718,19 @@ public class MenuAdmin {
         try {
             usuario = usuarioController.buscar(dni);
         } catch (PersistenciaException | ApiException e) {
-            System.err.println("**El usuario que has introducido no existe**");
+            System.err.println("**"+e.getMessage()+"**");
         }
         
         String idProducto = obtenerDato("el idProducto");
         try {
             producto = productoController.buscar(idProducto);
         } catch (PersistenciaException | ApiException e) {
-            System.err.println("**El producto que has introducido no existe**");
+            System.err.println("**"+e.getMessage()+"**");
         }
 
-        pedido = new Pedido("null", unidades, total, fechaPedido, usuario, producto);//CAMBIAR EL NULL
+        pedido = new Pedido(unidades, total, fechaPedido, usuario, producto);
         return pedido;
     }
 
-    /**
-     * Menu que registrar un nuevo usuario
-     * 
-     * @return el cleinte creado
-     */
-    public Usuario registrarUsuario() {
-        Usuario cliente = null;
-        System.out.println("Datos para el registro");
-        String dni = obtenerDato("el dni.");
-        String nombre = obtenerDato("el nombre");
-        String apellidos = obtenerDato("los apellidos.");
-        String email = obtenerDato("el email");
-        String direccion = obtenerDato("la direccion.");
-        String telefono = obtenerDato("el telefono");
-        String pais = obtenerDato("el pais.");
-        String codigoPostal = obtenerDato("el codigo postal");
-        String provincia = obtenerDato("la provincia.");
-        String nombreUsuario = obtenerDato("el nombre usuario");
-        String password = obtenerDato("la password");
-        String rol = obtenerDato("el rol");
-
-        cliente = new Usuario(dni, nombre, apellidos, email, direccion, telefono, pais, codigoPostal, provincia,
-                nombreUsuario, password, rol, 0f);
-        return cliente;
-    }
-
-    /**
-     * Funcion que obtiene un dato y los devuelve
-     * 
-     * @param mensaje del dato que se va a obtener
-     * @return el dato obtenido
-     */
-    public String obtenerDato(String mensaje) {
-        String dato;
-
-        System.out.println("Introduce " + mensaje);
-        dato = sn.nextLine();
-
-        return dato;
-    }
-
-    /**
-     * Menu para buscar productos por nombre, categoria y marca
-     */
-    public void menuBuscarProductos() {
-        boolean salir = false;
-        int opcion;
-        ArrayList<Producto> productos;
-        String identificadorBusqueda;
-        try {
-            while (!salir) {
-                System.out.println("Buscar producto");
-                System.out.println("1. Buscar producto por nombre");
-                System.out.println("2. Buscar producto por categoria");
-                System.out.println("3. Buscar producto por marca");
-                System.out.println("4. Listar todos");
-                System.out.println(OPCION_SALIR);
-                System.out.println("Selecciona opcion:");
-                opcion = sn.nextInt();
-                sn.nextLine();
-
-                switch (opcion) {
-                    case 1:
-                        identificadorBusqueda = obtenerDato("el nombre.");
-                        try {
-                            productos = productoController.buscarPorNombre(identificadorBusqueda);
-                            System.out.println(productos.toString());//CAMBIAR A UN METODO 
-                        } catch (ApiException | PersistenciaException e) {
-                            System.err.println("**Error al busca los productos por nombre.**");
-                        }
-                        break;
-                    case 2:
-                        identificadorBusqueda = obtenerDato("el idCategoria");
-                        try {
-                            productos = productoController.buscarPorCategoria(identificadorBusqueda);
-                            System.out.println(productos.toString());//CAMBIAR A UN METODO
-                        } catch (ApiException | PersistenciaException e) {
-                            System.err.println("**Error al busca los productos por categoria.**");
-                        }
-                        break;
-                    case 3:
-                        identificadorBusqueda = obtenerDato("el idMarca");
-                        try {
-                            productos = productoController.buscarPorMarca(identificadorBusqueda);
-                            System.out.println(productos.toString());//CAMBIAR A UN METODO
-                        } catch (ApiException | PersistenciaException e) {
-                            System.err.println("**Error al busca los productos por marca.**");
-                        }
-                        break;
-                    case 4:
-                        try {
-                            productos = productoController.obtenerListado();
-                            System.out.println(productos.toString());//CAMBIAR A UN METODO
-                        } catch (PersistenciaException | ApiException e) {
-                            System.out.println(ERROR_AL_OBTENER_LISTADO);
-                        }
-                        break;
-                    case 0:
-                        salir = true;
-                        break;
-                    default:
-                        System.err.println(ERROR_OPCION_ELEGIDA + "4");
-                }
-            }
-        } catch (InputMismatchException ex) {
-            System.out.println(ERROR_TIPO_DATO);
-        }
-    }
 
 }

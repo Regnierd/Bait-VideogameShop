@@ -15,7 +15,7 @@ import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 
 public class UsuarioModeloTest {
-    private static final String DNI = "12345678A";
+    private static final String DNI = "12568922L";
     private static final String NOMBRE_USUARIO = "usuario";
 
     UsuarioModelo usuarioModelo;
@@ -30,7 +30,7 @@ public class UsuarioModeloTest {
                 fail(e.getMessage());
             }       
         }
-        usuario = new Usuario(DNI, "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal", "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
+        usuario = new Usuario(DNI, "nombre", "apellidos", "email@gmail.com", "direccion", "telefono", "pais", "codigoPostal", "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
         
         try {
             usuarioModelo.insertar(usuario);

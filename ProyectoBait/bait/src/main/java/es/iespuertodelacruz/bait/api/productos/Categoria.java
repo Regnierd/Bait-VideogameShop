@@ -2,8 +2,9 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-public class Categoria{
-    private static final String DELIMITADOR = ",";
+import es.iespuertodelacruz.bait.api.Validar;
+
+public class Categoria extends Validar{
     private String idCategoria;
     private String nombre;
 
@@ -63,7 +64,7 @@ public class Categoria{
 
     @Override
     public String toString() {
-        return getIdCategoria() + DELIMITADOR + getNombre();
+        return "IdCategoria: "+getIdCategoria() + DELIMITADOR + "Nombre: "+ getNombre();
     }
 
 }

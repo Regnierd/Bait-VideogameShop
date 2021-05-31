@@ -2,12 +2,11 @@
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.api.GeneradorId;
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
-public class Pedido extends GeneradorId{
-    private static final String DELIMITADOR = &quot;,&quot;;
+public class Pedido extends Validar{
     private String idPedido;
     private int unidades;
     private float total;
@@ -18,8 +17,8 @@ public class Pedido extends GeneradorId{
     /**
      * Constructor basico de la clase
      */
-<span class="fc" id="L21">    public Pedido() {</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L20">    public Pedido() {</span>
+<span class="fc" id="L21">    }</span>
 
     /**
      * Contructor con todos los parametros
@@ -30,14 +29,16 @@ public class Pedido extends GeneradorId{
      * @param usuario del pedido
      * @param producto del pedido
      */
-<span class="fc" id="L33">    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {</span>
-<span class="fc" id="L34">        this.idPedido = idPedido;</span>
-<span class="fc" id="L35">        this.unidades = unidades;</span>
-<span class="fc" id="L36">        this.total = total;</span>
-<span class="fc" id="L37">        this.fechaPedido = fechaPedido;</span>
-<span class="fc" id="L38">        this.usuario = usuario;</span>
-<span class="fc" id="L39">        this.producto = producto;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L32">    public Pedido(String idPedido, int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {</span>
+<span class="fc" id="L33">        this.idPedido = idPedido;</span>
+<span class="fc" id="L34">        this.unidades = unidades;</span>
+<span class="fc" id="L35">        this.total = total;</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if(validarFecha(fechaPedido)){</span>
+<span class="fc" id="L37">            this.fechaPedido = fechaPedido;</span>
+        }
+<span class="fc" id="L39">        this.usuario = usuario;</span>
+<span class="fc" id="L40">        this.producto = producto;</span>
+<span class="fc" id="L41">    }</span>
 
     /**
      * Contructor con generador aleatorio
@@ -47,84 +48,88 @@ public class Pedido extends GeneradorId{
      * @param usuario del pedido
      * @param producto del pedido
      */
-<span class="fc" id="L50">    public Pedido(int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {</span>
-<span class="fc" id="L51">        this.idPedido = getIdAleatorio(&quot;ped&quot;);</span>
-<span class="fc" id="L52">        this.unidades = unidades;</span>
-<span class="fc" id="L53">        this.total = total;</span>
-<span class="fc" id="L54">        this.fechaPedido = fechaPedido;</span>
-<span class="fc" id="L55">        this.usuario = usuario;</span>
-<span class="fc" id="L56">        this.producto = producto;</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L51">    public Pedido(int unidades, float total, String fechaPedido, Usuario usuario, Producto producto) {</span>
+<span class="fc" id="L52">        this.idPedido = getIdAleatorio(&quot;ped&quot;);</span>
+<span class="fc" id="L53">        this.unidades = unidades;</span>
+<span class="fc" id="L54">        this.total = total;</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if(validarFecha(fechaPedido)){</span>
+<span class="fc" id="L56">            this.fechaPedido = fechaPedido;</span>
+        }
+<span class="fc" id="L58">        this.usuario = usuario;</span>
+<span class="fc" id="L59">        this.producto = producto;</span>
+<span class="fc" id="L60">    }</span>
 
     //GETTERS Y SETTERS
 
     public String getIdPedido() {
-<span class="fc" id="L62">        return this.idPedido;</span>
+<span class="fc" id="L65">        return this.idPedido;</span>
     }
 
     public void setIdPedido(String idPedido) {
-<span class="nc" id="L66">        this.idPedido = idPedido;</span>
-<span class="nc" id="L67">    }</span>
+<span class="fc" id="L69">        this.idPedido = idPedido;</span>
+<span class="fc" id="L70">    }</span>
 
     public int getUnidades() {
-<span class="fc" id="L70">        return this.unidades;</span>
+<span class="fc" id="L73">        return this.unidades;</span>
     }
 
     public void setUnidades(int unidades) {
-<span class="fc" id="L74">        this.unidades = unidades;</span>
-<span class="fc" id="L75">    }</span>
+<span class="fc" id="L77">        this.unidades = unidades;</span>
+<span class="fc" id="L78">    }</span>
 
     public float getTotal() {
-<span class="fc" id="L78">        return this.total;</span>
+<span class="fc" id="L81">        return this.total;</span>
     }
 
     public void setTotal(float total) {
-<span class="nc" id="L82">        this.total = total;</span>
-<span class="nc" id="L83">    }</span>
+<span class="fc" id="L85">        this.total = total;</span>
+<span class="fc" id="L86">    }</span>
 
     public String getFechaPedido() {
-<span class="fc" id="L86">        return this.fechaPedido;</span>
+<span class="fc" id="L89">        return this.fechaPedido;</span>
     }
 
     public void setFechaPedido(String fechaPedido) {
-<span class="nc" id="L90">        this.fechaPedido = fechaPedido;</span>
-<span class="nc" id="L91">    }</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if(validarFecha(fechaPedido)){</span>
+<span class="fc" id="L94">            this.fechaPedido = fechaPedido;</span>
+        }
+<span class="fc" id="L96">    }</span>
 
     public Usuario getUsuario() {
-<span class="fc" id="L94">        return this.usuario;</span>
+<span class="fc" id="L99">        return this.usuario;</span>
     }
 
     public void setCliente(Usuario usuario) {
-<span class="nc" id="L98">        this.usuario = usuario;</span>
-<span class="nc" id="L99">    }</span>
+<span class="fc" id="L103">        this.usuario = usuario;</span>
+<span class="fc" id="L104">    }</span>
 
     public Producto getProducto() {
-<span class="fc" id="L102">        return this.producto;</span>
+<span class="fc" id="L107">        return this.producto;</span>
     }
 
     public void setProducto(Producto producto) {
-<span class="nc" id="L106">        this.producto = producto;</span>
-<span class="nc" id="L107">    }</span>
+<span class="fc" id="L111">        this.producto = producto;</span>
+<span class="fc" id="L112">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (o == this)</span>
-<span class="nc" id="L112">            return true;</span>
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (!(o instanceof Pedido)) {</span>
-<span class="nc" id="L114">            return false;</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L117">            return true;</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        if (!(o instanceof Pedido)) {</span>
+<span class="nc" id="L119">            return false;</span>
         }
-<span class="fc" id="L116">        Pedido pedido = (Pedido) o;</span>
-<span class="pc bpc" id="L117" title="5 of 12 branches missed.">        return Objects.equals(idPedido, pedido.idPedido) &amp;&amp; unidades == pedido.unidades &amp;&amp; total == pedido.total &amp;&amp; Objects.equals(fechaPedido, pedido.fechaPedido) &amp;&amp; Objects.equals(usuario, pedido.usuario) &amp;&amp; Objects.equals(producto, pedido.producto);</span>
+<span class="fc" id="L121">        Pedido pedido = (Pedido) o;</span>
+<span class="pc bpc" id="L122" title="6 of 12 branches missed.">        return Objects.equals(idPedido, pedido.idPedido) &amp;&amp; unidades == pedido.unidades &amp;&amp; total == pedido.total &amp;&amp; Objects.equals(fechaPedido, pedido.fechaPedido) &amp;&amp; Objects.equals(usuario, pedido.usuario) &amp;&amp; Objects.equals(producto, pedido.producto);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L122">        return getIdPedido() + DELIMITADOR +</span>
-<span class="nc" id="L123">        getUnidades() + DELIMITADOR + </span>
-<span class="nc" id="L124">        getTotal() + DELIMITADOR +</span>
-<span class="nc" id="L125">        getFechaPedido() + DELIMITADOR +</span>
-<span class="nc" id="L126">        getUsuario().getDni() + DELIMITADOR +</span>
-<span class="nc" id="L127">        getProducto().getIdProducto();</span>
+<span class="fc" id="L127">        return &quot;IdPedido: &quot;+getIdPedido() + DELIMITADOR +</span>
+<span class="fc" id="L128">        &quot;Unidaddes: &quot;+getUnidades() + DELIMITADOR + </span>
+<span class="fc" id="L129">        &quot;Total: &quot;+getTotal() + DELIMITADOR +</span>
+<span class="fc" id="L130">        &quot;FechaPedido: &quot;+getFechaPedido() + DELIMITADOR +</span>
+<span class="fc" id="L131">        &quot;dniUsuario: &quot;+getUsuario().getDni() + DELIMITADOR +</span>
+<span class="fc" id="L132">        &quot;idProducto: &quot;+getProducto().getIdProducto();</span>
     }
 
 }

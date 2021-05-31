@@ -2,12 +2,11 @@ package es.iespuertodelacruz.bait.api.movimientos;
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.api.GeneradorId;
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.api.productos.Producto;
 
-public class Pedido extends GeneradorId{
-    private static final String DELIMITADOR = ",";
+public class Pedido extends Validar{
     private String idPedido;
     private int unidades;
     private float total;
@@ -34,7 +33,9 @@ public class Pedido extends GeneradorId{
         this.idPedido = idPedido;
         this.unidades = unidades;
         this.total = total;
-        this.fechaPedido = fechaPedido;
+        if(validarFecha(fechaPedido)){
+            this.fechaPedido = fechaPedido;
+        }
         this.usuario = usuario;
         this.producto = producto;
     }
@@ -51,7 +52,9 @@ public class Pedido extends GeneradorId{
         this.idPedido = getIdAleatorio("ped");
         this.unidades = unidades;
         this.total = total;
-        this.fechaPedido = fechaPedido;
+        if(validarFecha(fechaPedido)){
+            this.fechaPedido = fechaPedido;
+        }
         this.usuario = usuario;
         this.producto = producto;
     }
@@ -87,7 +90,9 @@ public class Pedido extends GeneradorId{
     }
 
     public void setFechaPedido(String fechaPedido) {
-        this.fechaPedido = fechaPedido;
+        if(validarFecha(fechaPedido)){
+            this.fechaPedido = fechaPedido;
+        }
     }
 
     public Usuario getUsuario() {
@@ -119,12 +124,12 @@ public class Pedido extends GeneradorId{
 
     @Override
     public String toString() {
-        return getIdPedido() + DELIMITADOR +
-        getUnidades() + DELIMITADOR + 
-        getTotal() + DELIMITADOR +
-        getFechaPedido() + DELIMITADOR +
-        getUsuario().getDni() + DELIMITADOR +
-        getProducto().getIdProducto();
+        return "IdPedido: "+getIdPedido() + DELIMITADOR +
+        "Unidaddes: "+getUnidades() + DELIMITADOR + 
+        "Total: "+getTotal() + DELIMITADOR +
+        "FechaPedido: "+getFechaPedido() + DELIMITADOR +
+        "dniUsuario: "+getUsuario().getDni() + DELIMITADOR +
+        "idProducto: "+getProducto().getIdProducto();
     }
 
 }

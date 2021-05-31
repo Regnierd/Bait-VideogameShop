@@ -2,10 +2,9 @@ package es.iespuertodelacruz.bait.api.productos;
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.api.GeneradorId;
+import es.iespuertodelacruz.bait.api.Validar;
 
-public class Producto extends GeneradorId{
-    private static final String DELIMITADOR = ",";
+public class Producto extends Validar{
     private String idProducto;
     private String nombre;
     private float precio;
@@ -130,14 +129,13 @@ public class Producto extends GeneradorId{
     
     @Override
     public String toString() {
-        return getIdProducto() + DELIMITADOR +
-            getNombre() + DELIMITADOR + 
-            getCategoria().toString() + DELIMITADOR +
-            getPrecio() + DELIMITADOR +
-            getDescripcion() + DELIMITADOR +
-            getStock() + DELIMITADOR +
-            getCategoria().getIdCategoria() + DELIMITADOR + 
-            getMarca().getIdMarca();
+        return "IdProducto: "+getIdProducto() + DELIMITADOR +
+        "Nombre: "+ getNombre() + DELIMITADOR + 
+        "Precio: "+ getPrecio() + DELIMITADOR +
+        "Descripcion: "+ getDescripcion() + DELIMITADOR +
+        "Stock: "+ getStock() + DELIMITADOR +
+        "IdCategoria: "+ getCategoria().getIdCategoria() + DELIMITADOR + 
+        "IdMarca: "+ getMarca().getIdMarca();
     }
 
 }

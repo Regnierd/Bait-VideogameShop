@@ -2,10 +2,10 @@ package es.iespuertodelacruz.bait.api.movimientos;
 
 import java.util.Objects;
 
-import es.iespuertodelacruz.bait.api.GeneradorId;
+import es.iespuertodelacruz.bait.api.Validar;
 
-public class Envio extends GeneradorId{
-    protected static final String DELIMITADOR = ",";
+public class Envio extends Validar{
+    protected static final String DELIMITADOR = " | ";
     private String idEnvio;
     private Pedido pedido;
     private String fechaEnvio;
@@ -27,7 +27,9 @@ public class Envio extends GeneradorId{
     public Envio(String idEnvio, Pedido pedido, String fechaEnvio, String estado) {
         this.idEnvio = idEnvio;
         this.pedido = pedido;
-        this.fechaEnvio = fechaEnvio;
+        if(validarFecha(fechaEnvio)){
+            this.fechaEnvio = fechaEnvio;
+        }
         this.estado = estado;
     }
 
@@ -40,7 +42,9 @@ public class Envio extends GeneradorId{
     public Envio( Pedido pedido, String fechaEnvio, String estado) {
         this.idEnvio = getIdAleatorio("env");
         this.pedido = pedido;
-        this.fechaEnvio = fechaEnvio;
+        if(validarFecha(fechaEnvio)){
+            this.fechaEnvio = fechaEnvio;
+        }
         this.estado = estado;
     }
 
@@ -66,7 +70,9 @@ public class Envio extends GeneradorId{
     }
 
     public void setFechaEnvio(String fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
+        if(validarFecha(fechaEnvio)){
+            this.fechaEnvio = fechaEnvio;
+        }
     }
 
     public String getEstado() {
@@ -90,10 +96,10 @@ public class Envio extends GeneradorId{
 
     @Override
     public String toString() {
-        return getIdEnvio() +  DELIMITADOR +
-        getPedido() + DELIMITADOR +
-        getFechaEnvio() + DELIMITADOR +
-        getEstado();
+        return "IdEnvio: " +getIdEnvio() +  DELIMITADOR +
+        "IdPedido:" +getPedido().getIdPedido() + DELIMITADOR +
+        "FechaEnvio: " + getFechaEnvio() + DELIMITADOR +
+        "Estado: " + getEstado();
     }
 
 }
