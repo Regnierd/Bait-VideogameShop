@@ -78,8 +78,7 @@ public class UtilidadesSQL  {
     /**
      * Funcion que devuelve la consulta SQL para actualizar un registro de la tabla
      * que se le pase
-     * 
-     * @param atributo a filtrar
+     *
      * @return String
      */
     public String setUpdate() {

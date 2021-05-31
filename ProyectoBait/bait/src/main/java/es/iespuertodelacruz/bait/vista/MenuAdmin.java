@@ -35,7 +35,7 @@ public class MenuAdmin extends MenuUsuario{
 
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public MenuAdmin() throws PersistenciaException {
         sn = new Scanner(System.in);

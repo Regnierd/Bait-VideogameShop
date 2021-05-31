@@ -19,7 +19,7 @@ public class UsuarioModelo {
 
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public UsuarioModelo() throws PersistenciaException {
         persistencia = new BbddSqlite(TABLE_NAME,null, null);

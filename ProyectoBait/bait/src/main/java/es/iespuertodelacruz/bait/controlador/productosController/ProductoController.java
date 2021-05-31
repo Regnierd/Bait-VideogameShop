@@ -13,7 +13,7 @@ public class ProductoController {
     MarcaController marcaController;
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public ProductoController() throws PersistenciaException {
         categoriaController = new CategoriaController();
@@ -107,7 +107,7 @@ public class ProductoController {
      * @param idProducto identificador del producto que se va a buscar
      * @return el producto encontrado
      * @throws PersistenciaException error controlado
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public Producto buscar(String idProducto) throws PersistenciaException, ApiException {
         Producto producto = null;
@@ -188,7 +188,8 @@ public class ProductoController {
     /**
      * Funcion que obtiene la lista de productos y la devuelve
      * @return la lista de prodcutos
-     * @throws PersistenciaException error controlado
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
     public ArrayList<Producto> obtenerListado() throws PersistenciaException, ApiException{
         ArrayList<Producto> productos = null;

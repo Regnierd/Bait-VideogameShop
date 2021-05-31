@@ -12,7 +12,7 @@ public class MarcaController {
 
     /**
      * Constructor basio de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public MarcaController() throws PersistenciaException {
         marcaModelo = new MarcaModelo();
@@ -21,7 +21,7 @@ public class MarcaController {
     /**
      * Metodo que valida un objeto marca
      * @param marca que se va a validar
-     * @throws CategoriaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void validar(Marca marca) throws ApiException{
         String mensaje = "";
@@ -91,7 +91,7 @@ public class MarcaController {
      * @param idMarca de la marca que se va a buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public Marca buscar(String idMarca) throws PersistenciaException, ApiException {
         Marca marca = null;

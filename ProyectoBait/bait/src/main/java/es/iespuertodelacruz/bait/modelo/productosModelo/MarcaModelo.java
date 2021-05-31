@@ -20,7 +20,7 @@ public class MarcaModelo {
     /**
      * Constructor basico de la clase
      * 
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public MarcaModelo() throws PersistenciaException {
         persistencia = new BbddSqlite(TABLE_NAME, null, null);
