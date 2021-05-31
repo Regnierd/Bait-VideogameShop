@@ -26,7 +26,6 @@ public class Categoria extends Validar{
 
     /**
      * Constructor con el generador aleatorio
-     * @param idCategoria de la categoria
      * @param nombre de la categoria
      */
     public Categoria(String nombre) {

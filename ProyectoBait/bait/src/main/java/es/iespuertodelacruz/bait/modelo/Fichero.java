@@ -13,6 +13,7 @@ public class Fichero {
     * 
     * @param nombre nombre del fichero a leer
     * @throws PersistenciaException Error controlado en la lectura del fichero
+    * @return String 
     */
    public String leer(String nombre) throws PersistenciaException {
       StringBuilder informacion = null;
@@ -45,8 +46,8 @@ public class Fichero {
 
    /**
     * Funcion que verifica si el fichero existo
-    * @param fichero
-    * @return
+    * @param fichero fichero a validar
+    * @return true si existe, false si no existe
     */
    public boolean validarFichero(File fichero) {
       return fichero.exists();

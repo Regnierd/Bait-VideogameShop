@@ -90,8 +90,8 @@ public class UsuarioController extends Validar{
      * @param password del usuario
      * @param rol del usuario
      * @return el usuario si es valido
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
         Usuario usuario = null;
@@ -123,8 +123,8 @@ public class UsuarioController extends Validar{
     /**
      * Metodo que elimina un usuario
      * @param dni del usuario qu ese va a borrar
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void eliminar(String dni) throws PersistenciaException, ApiException {
         if (!validarDni(dni)) {

@@ -17,6 +17,7 @@ public class Bbdd {
     /**
      * Constructor basico de la clase Bbdd
      * 
+     * @param tableName nombre de la tabla
      * @param driver   que usuamos para trabajar con Bbdd
      * @param url      de la base de datos o fichero db
      * @param usuario  con acceso a la base de datos
@@ -33,7 +34,10 @@ public class Bbdd {
     }
 
     /**
-     * Constructor vacio
+     * Constructor con 3 paramentros
+     * @param tableName nombre de la tabla
+     * @param usuario usuario de la base de datos
+     * @param password contraseña de la base de datos
      * @throws PersistenciaException error a controlar
      */
     public Bbdd(String tableName , String usuario, String password) throws PersistenciaException {
@@ -119,9 +123,9 @@ public class Bbdd {
     /**
      * Metodo que cierra la conexion con la base de datos
      * 
-     * @param connection
-     * @param statement
-     * @param resultSet
+     * @param connection conexion
+     * @param statement statement
+     * @param resultSet resulset
      * @throws PersistenciaException error a controlar al cerrar la conexion
      */
     public void closeConnection(Connection connection, Statement statement, ResultSet resultSet)
@@ -166,7 +170,9 @@ public class Bbdd {
     * Funcion que se encarga de realizar un lanzar un consulta y devolver 
     * el resultado obtenido de la base de datos 
     * @param sql consulta que se va a realizar 
+    * @param valor valor de la sentencia sql a buscar
     * @throws PersistenciaException error a controlar
+    * @return ResulSet
     */
    public ResultSet buscarElemento(String sql, String valor) throws PersistenciaException {
     Connection connection = null;

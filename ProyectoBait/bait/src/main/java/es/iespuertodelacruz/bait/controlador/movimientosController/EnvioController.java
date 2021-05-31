@@ -57,7 +57,7 @@ public class EnvioController extends Validar{
      * Metodo encargado de eliminar
      * @param idEnvio a eliminar
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public void eliminar(String idEnvio) throws PersistenciaException, ApiException{
         if(!existe(idEnvio)){
@@ -71,7 +71,7 @@ public class EnvioController extends Validar{
      * @param idEnvio del pedido
      * @return Envio
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public Envio buscar(String idEnvio) throws PersistenciaException, ApiException{
         Envio envio = null;
@@ -121,6 +121,7 @@ public class EnvioController extends Validar{
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public ArrayList<Envio> obtenerListado() throws PersistenciaException, ApiException{
         ArrayList<Envio> envios = null;
@@ -135,7 +136,9 @@ public class EnvioController extends Validar{
     /**
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
+     * @param dni del usuario que quiere saber su envio
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado 
      */
     public ArrayList<Envio> obtenerListado(String dni) throws PersistenciaException, ApiException{
         ArrayList<Envio> envios = null;

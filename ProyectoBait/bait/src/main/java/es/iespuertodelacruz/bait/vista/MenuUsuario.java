@@ -29,7 +29,7 @@ public class MenuUsuario {
     private EnvioController envioController;
     /**
      * Constructor basico del menu del usuario
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public MenuUsuario() throws PersistenciaException {
         sn = new Scanner(System.in);

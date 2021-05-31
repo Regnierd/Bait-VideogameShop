@@ -26,7 +26,6 @@ public class Marca extends Validar{
 
     /**
      * Constructor con el generador aleatorio
-     * @param idMarca de la marca
      * @param nombre de la marca
      */
     public Marca(String nombre) {

@@ -12,7 +12,7 @@ public class CategoriaController {
 
     /**
      * Constructor basio de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public CategoriaController() throws PersistenciaException {
         categoriaModelo = new CategoriaModelo();
@@ -21,7 +21,7 @@ public class CategoriaController {
     /**
      * Metodo que valida un objeto Categoria
      * @param categoria que se va a validar
-     * @throws CategoriaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void validar(Categoria categoria) throws ApiException{
         String mensaje = "";
@@ -44,7 +44,7 @@ public class CategoriaController {
     /**
      * Metodo que inserta una categoria
      * @param categoria que se va a insertar
-     * @throws CategoriaException error a controlar
+     * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
      */
     public void insertar(Categoria categoria) throws ApiException, PersistenciaException{
@@ -59,7 +59,7 @@ public class CategoriaController {
      * Metodo que eliminar una categoria
      * @param idCategoria de la categoria que se va aborrar
      * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public void eliminar(String idCategoria) throws PersistenciaException, ApiException {
         if(!existe(idCategoria)){
@@ -91,7 +91,7 @@ public class CategoriaController {
      * @param idCategoria de la categoria que se va a buscar
      * @return la categoria encontrada
      * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public Categoria buscar(String idCategoria) throws PersistenciaException, ApiException {
         Categoria categoria = null;
@@ -107,7 +107,7 @@ public class CategoriaController {
     /**
      * Metodo que modfica una categoria 
      * @param categoria con las cambios 
-     * @throws CategoriaException error a controlar
+     * @throws ApiException error a controlar
      * @throws PersistenciaException error a controlar
      */
     public void modificar(Categoria categoria) throws ApiException, PersistenciaException {
