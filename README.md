@@ -1,4 +1,7 @@
 # Bait-VideoGameShop
+
+![logo](https://drive.google.com/uc?export=view&id=1i8k7-ILr9Bk-SHBkQL-ROnOemP4mjLQx)
+
 ## Autores: Jonay Hernandez Izquierdo - Javier Lima Pérez
 
 <p>En el primer curso del ciclo superior de Desarrollo de Aplicaciones Web
@@ -9,4 +12,6 @@
    online dirigidas para el ámbito gamer. Esto incluye videojuegos, ordenadores,
    periféricos y merchandising</p>
    
-https://github.com/regnierd/Bait-VideogameShop/wiki
+<p>En el siguiente enlace podrás encontrar toda la información de nuestro proyecto:</p>
+   
+[<i>Información</i>](https://github.com/regnierd/Bait-VideogameShop/wiki)
