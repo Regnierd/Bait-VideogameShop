@@ -27,31 +27,31 @@ public class UsuarioController extends Validar{
             throw new ApiException(mensaje);
         }
         if(usuario.getDni() == null || usuario.getDni().isEmpty()){
-            mensaje += "El DNI no puede ser nulo o vacio";
+            mensaje += "El DNI no puede ser nulo o vacio o invalido, ";
         }
         if(usuario.getNombre() == null || usuario.getNombre().isEmpty()){
-            mensaje += "El nombre no pueden ser nulo o vacio";
+            mensaje += "El nombre no pueden ser nulo o vacio, ";
         }
         if(usuario.getApellidos() == null || usuario.getApellidos().isEmpty()){
-            mensaje += "Los apellidos no pueden ser nulo o vacio";
+            mensaje += "Los apellidos no pueden ser nulo o vacio, ";
         }
         if(usuario.getEmail() == null || usuario.getEmail().isEmpty()){
-            mensaje += "El email no puede ser nulo o vacio";
+            mensaje += "El email no puede ser nulo o vacio o invalido, ";
         }
         if(usuario.getDireccion() == null || usuario.getDireccion().isEmpty()){
-            mensaje += "La direccion no puede ser nula o vacia";
+            mensaje += "La direccion no puede ser nula o vacia, ";
         }   
         if(usuario.getTelefono() == null || usuario.getTelefono().isEmpty()){
-            mensaje += "El telefono no puede ser nulo o vacio";
+            mensaje += "El telefono no puede ser nulo o vacio, ";
         }
         if(usuario.getCodigoPostal() == null || usuario.getCodigoPostal().isEmpty()){
-            mensaje += "El codigo postal no puede ser nulo o vacio";
+            mensaje += "El codigo postal no puede ser nulo o vacio, ";
         }
         if(usuario.getProvincia() == null || usuario.getProvincia().isEmpty()){
-            mensaje += "La provincia no puede ser nulo o vacio";
+            mensaje += "La provincia no puede ser nulo o vacio, ";
         }
         if(usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isEmpty()){
-            mensaje += "El nombre de usuario no puede ser nulo o vacio";
+            mensaje += "El nombre de usuario no puede ser nulo o vacio, ";
         }
         if(usuario.getPassword() == null || usuario.getPassword().isEmpty()){
             mensaje += "La contraseña no puede ser nulo o vacio";

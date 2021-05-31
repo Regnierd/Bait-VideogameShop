@@ -19,17 +19,17 @@ public class EnvioController extends Validar{
         String mensaje = "";
 
         if(envio == null){
-            mensaje = "El envio que intenta validar es nulo";
+            mensaje = "El envio que intenta validar es nulo, ";
             throw new ApiException(mensaje);
         }
         if(envio.getIdEnvio() == null || envio.getIdEnvio().isEmpty()){
-            mensaje += "El idEnvio del envio es nulo o vacio";
+            mensaje += "El idEnvio del envio es nulo o vacio, ";
         }
         if(envio.getPedido() == null){
-            mensaje += "Se esta intentando validar un objeto vacio";
+            mensaje += "Se esta intentando validar un objeto vacio, ";
         }
         if(envio.getFechaEnvio() == null || envio.getFechaEnvio().isEmpty()){
-            mensaje += "La fecha del envio es nulo o vacio";
+            mensaje += "La fecha del envio es nulo o vacio, ";
         }
         if(envio.getEstado() == null || envio.getEstado().isEmpty()){
             mensaje += "El estado del envio es nulo o vacio";

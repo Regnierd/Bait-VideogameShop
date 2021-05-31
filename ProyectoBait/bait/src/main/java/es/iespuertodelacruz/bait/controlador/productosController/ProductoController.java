@@ -28,25 +28,25 @@ public class ProductoController {
             throw new ApiException(mensaje);
         }
         if(producto.getIdProducto() == null || producto.getIdProducto().isEmpty()){
-            mensaje += "El idProducto no puede ser nulo o vacio";
+            mensaje += "El idProducto no puede ser nulo o vacio, ";
         }
         if(producto.getNombre() == null || producto.getNombre().isEmpty()){
-            mensaje += "El nombre no pueden ser nulo o vacio";
+            mensaje += "El nombre no pueden ser nulo o vacio, ";
         }
         if(producto.getPrecio() <=0){
-            mensaje += "El precio no pueden ser 0 o negativo.";
+            mensaje += "El precio no pueden ser 0 o negativo, ";
         }
         if (producto.getDescripcion() == null || producto.getDescripcion().isEmpty()) {
-            mensaje += "La descripcion no pueden ser nulo o vacio";
+            mensaje += "La descripcion no pueden ser nulo o vacio, ";
         }
         if (producto.getStock() < 0) {
-            mensaje += "El stock no puede ser negativo";
+            mensaje += "El stock no puede ser negativo, ";
         }
         if (producto.getCategoria() == null) {
-            mensaje += "La categoria no puede ser nula.";
+            mensaje += "La categoria no puede ser nula, ";
         }
         if (producto.getMarca() == null) {
-            mensaje += "La Marca no puede ser nula.";
+            mensaje += "La Marca no puede ser nula";
         }
 
         if(!mensaje.isEmpty()){

@@ -30,7 +30,7 @@ public class MarcaController {
             throw new ApiException(mensaje);
         }
         if(marca.getIdMarca() == null || marca.getIdMarca().isEmpty()){
-            mensaje += "El idMarca no puede ser nulo o vacio";
+            mensaje += "El idMarca no puede ser nulo o vacio, ";
         }
         if(marca.getNombre()== null || marca.getNombre().isEmpty()){
             mensaje += "El nombre no pueden ser nulo o vacio";

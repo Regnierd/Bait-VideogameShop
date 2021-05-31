@@ -30,7 +30,7 @@ public class CategoriaController {
             throw new ApiException(mensaje);
         }
         if(categoria.getIdCategoria() == null || categoria.getIdCategoria().isEmpty()){
-            mensaje += "El IdCategoria no puede ser nulo o vacio";
+            mensaje += "El IdCategoria no puede ser nulo o vacio, ";
         }
         if(categoria.getNombre()== null || categoria.getNombre().isEmpty()){
             mensaje += "El nombre no pueden ser nulo o vacio";

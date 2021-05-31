@@ -40,23 +40,23 @@ public class PedidoController {
         }
 
         if(pedido.getIdPedido() == null || pedido.getIdPedido().isEmpty()){
-            mensaje = "El idPedido del pedido es nulo o vacio";
+            mensaje = "El idPedido del pedido es nulo o vacio, ";
         }
 
         if(pedido.getUnidades() <= 0){
-            mensaje += "Las unidades del pedido es 0 o menor";
+            mensaje += "Las unidades del pedido es 0 o menor, ";
         }
         
         if(pedido.getTotal() <= 0){
-            mensaje += "El total del pedido es 0 o menor";
+            mensaje += "El total del pedido es 0 o menor, ";
         }
 
         if(pedido.getFechaPedido() == null || pedido.getFechaPedido().isEmpty()){
-            mensaje += "La fecha del pedido es nulo o vacio";
+            mensaje += "La fecha del pedido es nulo o vacio, ";
         }
 
         if(pedido.getUsuario() == null){
-            mensaje += "Se esta intentando validar un usuario vacio";
+            mensaje += "Se esta intentando validar un usuario vacio, ";
         }
 
         if(pedido.getProducto() == null){
