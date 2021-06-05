@@ -27,31 +27,31 @@ public class UsuarioController extends Validar{
 <span class="fc" id="L27">            throw new ApiException(mensaje);</span>
         }
 <span class="pc bpc" id="L29" title="1 of 4 branches missed.">        if(usuario.getDni() == null || usuario.getDni().isEmpty()){</span>
-<span class="fc" id="L30">            mensaje += &quot;El DNI no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L30">            mensaje += &quot;El DNI no puede ser nulo o vacio o invalido, &quot;;</span>
         }
 <span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if(usuario.getNombre() == null || usuario.getNombre().isEmpty()){</span>
-<span class="fc" id="L33">            mensaje += &quot;El nombre no pueden ser nulo o vacio&quot;;</span>
+<span class="fc" id="L33">            mensaje += &quot;El nombre no pueden ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L35" title="1 of 4 branches missed.">        if(usuario.getApellidos() == null || usuario.getApellidos().isEmpty()){</span>
-<span class="fc" id="L36">            mensaje += &quot;Los apellidos no pueden ser nulo o vacio&quot;;</span>
+<span class="fc" id="L36">            mensaje += &quot;Los apellidos no pueden ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L38" title="1 of 4 branches missed.">        if(usuario.getEmail() == null || usuario.getEmail().isEmpty()){</span>
-<span class="fc" id="L39">            mensaje += &quot;El email no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L39">            mensaje += &quot;El email no puede ser nulo o vacio o invalido, &quot;;</span>
         }
 <span class="pc bpc" id="L41" title="1 of 4 branches missed.">        if(usuario.getDireccion() == null || usuario.getDireccion().isEmpty()){</span>
-<span class="fc" id="L42">            mensaje += &quot;La direccion no puede ser nula o vacia&quot;;</span>
+<span class="fc" id="L42">            mensaje += &quot;La direccion no puede ser nula o vacia, &quot;;</span>
         }   
 <span class="pc bpc" id="L44" title="1 of 4 branches missed.">        if(usuario.getTelefono() == null || usuario.getTelefono().isEmpty()){</span>
-<span class="fc" id="L45">            mensaje += &quot;El telefono no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L45">            mensaje += &quot;El telefono no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L47" title="1 of 4 branches missed.">        if(usuario.getCodigoPostal() == null || usuario.getCodigoPostal().isEmpty()){</span>
-<span class="fc" id="L48">            mensaje += &quot;El codigo postal no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L48">            mensaje += &quot;El codigo postal no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L50" title="1 of 4 branches missed.">        if(usuario.getProvincia() == null || usuario.getProvincia().isEmpty()){</span>
-<span class="fc" id="L51">            mensaje += &quot;La provincia no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L51">            mensaje += &quot;La provincia no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L53" title="1 of 4 branches missed.">        if(usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isEmpty()){</span>
-<span class="fc" id="L54">            mensaje += &quot;El nombre de usuario no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L54">            mensaje += &quot;El nombre de usuario no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if(usuario.getPassword() == null || usuario.getPassword().isEmpty()){</span>
 <span class="fc" id="L57">            mensaje += &quot;La contraseña no puede ser nulo o vacio&quot;;</span>
@@ -90,8 +90,8 @@ public class UsuarioController extends Validar{
      * @param password del usuario
      * @param rol del usuario
      * @return el usuario si es valido
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
 <span class="fc" id="L97">        Usuario usuario = null;</span>
@@ -123,8 +123,8 @@ public class UsuarioController extends Validar{
     /**
      * Metodo que elimina un usuario
      * @param dni del usuario qu ese va a borrar
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void eliminar(String dni) throws PersistenciaException, ApiException {
 <span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if (!validarDni(dni)) {</span>

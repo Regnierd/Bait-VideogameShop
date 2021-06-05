@@ -13,7 +13,7 @@ public class ProductoController {
     MarcaController marcaController;
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
 <span class="fc" id="L18">    public ProductoController() throws PersistenciaException {</span>
 <span class="fc" id="L19">        categoriaController = new CategoriaController();</span>
@@ -28,25 +28,25 @@ public class ProductoController {
 <span class="fc" id="L28">            throw new ApiException(mensaje);</span>
         }
 <span class="pc bpc" id="L30" title="1 of 4 branches missed.">        if(producto.getIdProducto() == null || producto.getIdProducto().isEmpty()){</span>
-<span class="fc" id="L31">            mensaje += &quot;El idProducto no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L31">            mensaje += &quot;El idProducto no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L33" title="1 of 4 branches missed.">        if(producto.getNombre() == null || producto.getNombre().isEmpty()){</span>
-<span class="fc" id="L34">            mensaje += &quot;El nombre no pueden ser nulo o vacio&quot;;</span>
+<span class="fc" id="L34">            mensaje += &quot;El nombre no pueden ser nulo o vacio, &quot;;</span>
         }
 <span class="fc bfc" id="L36" title="All 2 branches covered.">        if(producto.getPrecio() &lt;=0){</span>
-<span class="fc" id="L37">            mensaje += &quot;El precio no pueden ser 0 o negativo.&quot;;</span>
+<span class="fc" id="L37">            mensaje += &quot;El precio no pueden ser 0 o negativo, &quot;;</span>
         }
 <span class="pc bpc" id="L39" title="1 of 4 branches missed.">        if (producto.getDescripcion() == null || producto.getDescripcion().isEmpty()) {</span>
-<span class="fc" id="L40">            mensaje += &quot;La descripcion no pueden ser nulo o vacio&quot;;</span>
+<span class="fc" id="L40">            mensaje += &quot;La descripcion no pueden ser nulo o vacio, &quot;;</span>
         }
 <span class="fc bfc" id="L42" title="All 2 branches covered.">        if (producto.getStock() &lt; 0) {</span>
-<span class="fc" id="L43">            mensaje += &quot;El stock no puede ser negativo&quot;;</span>
+<span class="fc" id="L43">            mensaje += &quot;El stock no puede ser negativo, &quot;;</span>
         }
 <span class="fc bfc" id="L45" title="All 2 branches covered.">        if (producto.getCategoria() == null) {</span>
-<span class="fc" id="L46">            mensaje += &quot;La categoria no puede ser nula.&quot;;</span>
+<span class="fc" id="L46">            mensaje += &quot;La categoria no puede ser nula, &quot;;</span>
         }
 <span class="fc bfc" id="L48" title="All 2 branches covered.">        if (producto.getMarca() == null) {</span>
-<span class="fc" id="L49">            mensaje += &quot;La Marca no puede ser nula.&quot;;</span>
+<span class="fc" id="L49">            mensaje += &quot;La Marca no puede ser nula&quot;;</span>
         }
 
 <span class="fc bfc" id="L52" title="All 2 branches covered.">        if(!mensaje.isEmpty()){</span>
@@ -107,7 +107,7 @@ public class ProductoController {
      * @param idProducto identificador del producto que se va a buscar
      * @return el producto encontrado
      * @throws PersistenciaException error controlado
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public Producto buscar(String idProducto) throws PersistenciaException, ApiException {
 <span class="fc" id="L113">        Producto producto = null;</span>
@@ -188,15 +188,16 @@ public class ProductoController {
     /**
      * Funcion que obtiene la lista de productos y la devuelve
      * @return la lista de prodcutos
-     * @throws PersistenciaException error controlado
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
     public ArrayList&lt;Producto&gt; obtenerListado() throws PersistenciaException, ApiException{
-<span class="fc" id="L194">        ArrayList&lt;Producto&gt; productos = null;</span>
-<span class="fc" id="L195">        productos = productoModelo.obtenerListado();</span>
-<span class="pc bpc" id="L196" title="2 of 4 branches missed.">        if(productos == null || productos.isEmpty()){</span>
-<span class="nc" id="L197">            throw new ApiException(&quot;La lista de productos es vacia o nula&quot;);</span>
+<span class="fc" id="L195">        ArrayList&lt;Producto&gt; productos = null;</span>
+<span class="fc" id="L196">        productos = productoModelo.obtenerListado();</span>
+<span class="pc bpc" id="L197" title="2 of 4 branches missed.">        if(productos == null || productos.isEmpty()){</span>
+<span class="nc" id="L198">            throw new ApiException(&quot;La lista de productos es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L199">        return productos;</span>
+<span class="fc" id="L200">        return productos;</span>
         
     }
 
@@ -208,22 +209,22 @@ public class ProductoController {
      * @throws ApiException error controlado
      */
     public void reducirStock(String idProducto, int unidades) throws PersistenciaException, ApiException {
-<span class="fc" id="L211">        Producto producto = buscar(idProducto);</span>
+<span class="fc" id="L212">        Producto producto = buscar(idProducto);</span>
         int nuevoStock;
         
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">        if (unidades &lt;=0) {</span>
-<span class="nc" id="L215">            throw new ApiException(&quot;Las unidades son menores o igual a 0&quot;);</span>
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">        if (unidades &lt;=0) {</span>
+<span class="nc" id="L216">            throw new ApiException(&quot;Las unidades son menores o igual a 0&quot;);</span>
         }
 
-<span class="fc" id="L218">        nuevoStock = producto.getStock() - unidades;</span>
-<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        if (nuevoStock &lt; 0) {</span>
-<span class="nc" id="L220">            throw new ApiException(&quot;No hay suficiente stock para la compra&quot;);</span>
+<span class="fc" id="L219">        nuevoStock = producto.getStock() - unidades;</span>
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">        if (nuevoStock &lt; 0) {</span>
+<span class="nc" id="L221">            throw new ApiException(&quot;No hay suficiente stock para la compra&quot;);</span>
         }
 
-<span class="fc" id="L223">        producto.setStock(nuevoStock);    </span>
+<span class="fc" id="L224">        producto.setStock(nuevoStock);    </span>
 
-<span class="fc" id="L225">        modificar(producto);</span>
-<span class="fc" id="L226">    }</span>
+<span class="fc" id="L226">        modificar(producto);</span>
+<span class="fc" id="L227">    }</span>
 
     /**
      * Metodo que aumenta el stock de un productos con la cantidad 
@@ -236,15 +237,15 @@ public class ProductoController {
     public void aumentarStock(String idProducto, int cantidad) throws ApiException, PersistenciaException {
         Producto producto;
         int nuevoStock;
-<span class="pc bpc" id="L239" title="1 of 2 branches missed.">        if (cantidad &lt;=0) {</span>
-<span class="nc" id="L240">            throw new ApiException(&quot;Las cantidad es menor o igual a 0&quot;);</span>
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">        if (cantidad &lt;=0) {</span>
+<span class="nc" id="L241">            throw new ApiException(&quot;Las cantidad es menor o igual a 0&quot;);</span>
         }
-<span class="fc" id="L242">        producto = buscar(idProducto);  </span>
-<span class="fc" id="L243">        nuevoStock = producto.getStock() + cantidad;</span>
+<span class="fc" id="L243">        producto = buscar(idProducto);  </span>
+<span class="fc" id="L244">        nuevoStock = producto.getStock() + cantidad;</span>
 
-<span class="fc" id="L245">        producto.setStock(nuevoStock);</span>
-<span class="fc" id="L246">        modificar(producto);</span>
-<span class="fc" id="L247">    }</span>
+<span class="fc" id="L246">        producto.setStock(nuevoStock);</span>
+<span class="fc" id="L247">        modificar(producto);</span>
+<span class="fc" id="L248">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

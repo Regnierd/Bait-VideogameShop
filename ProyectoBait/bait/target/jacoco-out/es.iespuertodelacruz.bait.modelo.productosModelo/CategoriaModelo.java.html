@@ -20,7 +20,7 @@ public class CategoriaModelo {
 
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
 <span class="fc" id="L25">    public CategoriaModelo() throws PersistenciaException {</span>
 <span class="fc" id="L26">        persistencia = new BbddSqlite(TABLE_NAME,null, null);</span>
@@ -121,7 +121,7 @@ public class CategoriaModelo {
 
     /**
      * Funcion que busca una categoria por su nombre
-     * @param idCategoira de la categoria que se va abuscar
+     * @param nombre de la categoria que se va abuscar
      * @return la categoria encontrada
      * @throws PersistenciaException error a controlar
      */

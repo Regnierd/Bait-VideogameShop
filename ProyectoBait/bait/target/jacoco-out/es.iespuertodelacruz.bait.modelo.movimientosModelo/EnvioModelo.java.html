@@ -20,7 +20,7 @@ public class EnvioModelo {
     PedidoModelo pedidoModelo;
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
 <span class="fc" id="L25">    public EnvioModelo() throws PersistenciaException{</span>
 <span class="fc" id="L26">        persistencia = new BbddSqlite(TABLE_NAME,null, null);</span>
@@ -158,17 +158,18 @@ public class EnvioModelo {
     /**
      * Funcion que obtiene un listado de los envios y los devuelve
      * 
+     * @param dni dni del usuario que ha hecho un pedido y quiere ver el envio
      * @return la lista de envios
      * @throws PersistenciaException error a controlar
      */
     public ArrayList&lt;Envio&gt; obtenerListado(String dni) throws PersistenciaException {
         ArrayList&lt;Envio&gt; lista;
         
-<span class="fc" id="L167">        String sql = &quot;SELECT * FROM ENVIOS INNER JOIN PEDIDOS ON ENVIOS.idPedido = PEDIDOS.idPedido WHERE idCliente = ?&quot;;</span>
+<span class="fc" id="L168">        String sql = &quot;SELECT * FROM ENVIOS INNER JOIN PEDIDOS ON ENVIOS.idPedido = PEDIDOS.idPedido WHERE idCliente = ?&quot;;</span>
 
-<span class="fc" id="L169">        lista = buscarPorElemento(sql, dni);</span>
+<span class="fc" id="L170">        lista = buscarPorElemento(sql, dni);</span>
 
-<span class="fc" id="L171">        return lista;</span>
+<span class="fc" id="L172">        return lista;</span>
     }
 
     /**
@@ -180,15 +181,15 @@ public class EnvioModelo {
      */
     public Envio buscaPorIdentificador(String identificador) throws PersistenciaException {
         ArrayList&lt;Envio&gt; lista;
-<span class="fc" id="L183">        Envio envio = null;</span>
-<span class="fc" id="L184">        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);</span>
-<span class="fc" id="L185">        lista = buscarPorElemento(sql, identificador);</span>
+<span class="fc" id="L184">        Envio envio = null;</span>
+<span class="fc" id="L185">        String sql = utilidadesSQL.setSelectOne(ID_ENVIO);</span>
+<span class="fc" id="L186">        lista = buscarPorElemento(sql, identificador);</span>
 
-<span class="fc bfc" id="L187" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
-<span class="fc" id="L188">            envio = lista.get(0);</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (!lista.isEmpty()) {</span>
+<span class="fc" id="L189">            envio = lista.get(0);</span>
         }
 
-<span class="fc" id="L191">        return envio;</span>
+<span class="fc" id="L192">        return envio;</span>
     }
 
     

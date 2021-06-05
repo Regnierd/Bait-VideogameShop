@@ -1,0 +1,54 @@
+body {
+    background-color: #2C4A76;
+}
+
+.cabecera {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    background-color:#638CCA;
+}
+
+.page {
+    text-align: center;
+    margin-left: 500px;
+    margin-right: 500px;
+
+}
+
+.rol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.login > input {
+    width: 120px;
+    margin: 5px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.row{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.row > div{
+    margin: 10px;
+}
