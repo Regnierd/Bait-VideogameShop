@@ -76,8 +76,7 @@
         <div class="page" id="page">
             <h1>Menu Principal</h1>
             <p>Seleccion que rol quieres iniciar sesion</p>
-
-            
+    
             <form method="post" action="action-page.jsp">
                 <div class="rol">
                     <input type="radio" id="cliente" name="rol" value="Cliente">
@@ -95,7 +94,7 @@
             <div class="bottom-container">
                 <div class="row">
                     <div class="col">
-                        <a href="#" style="color:black" class="btn">Registrarse</a>
+                        <a href="registro.jsp" style="color:black" class="btn">Registrarse</a>
                     </div>
                     <div class="col">
                         <a href="#" style="color:black" class="btn">olvido su Contraseña?</a>
