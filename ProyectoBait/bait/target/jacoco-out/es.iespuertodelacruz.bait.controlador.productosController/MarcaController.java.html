@@ -12,7 +12,7 @@ public class MarcaController {
 
     /**
      * Constructor basio de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
 <span class="fc" id="L17">    public MarcaController() throws PersistenciaException {</span>
 <span class="fc" id="L18">        marcaModelo = new MarcaModelo();</span>
@@ -21,7 +21,7 @@ public class MarcaController {
     /**
      * Metodo que valida un objeto marca
      * @param marca que se va a validar
-     * @throws CategoriaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void validar(Marca marca) throws ApiException{
 <span class="fc" id="L27">        String mensaje = &quot;&quot;;</span>
@@ -30,7 +30,7 @@ public class MarcaController {
 <span class="fc" id="L30">            throw new ApiException(mensaje);</span>
         }
 <span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if(marca.getIdMarca() == null || marca.getIdMarca().isEmpty()){</span>
-<span class="fc" id="L33">            mensaje += &quot;El idMarca no puede ser nulo o vacio&quot;;</span>
+<span class="fc" id="L33">            mensaje += &quot;El idMarca no puede ser nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L35" title="1 of 4 branches missed.">        if(marca.getNombre()== null || marca.getNombre().isEmpty()){</span>
 <span class="fc" id="L36">            mensaje += &quot;El nombre no pueden ser nulo o vacio&quot;;</span>
@@ -91,7 +91,7 @@ public class MarcaController {
      * @param idMarca de la marca que se va a buscar
      * @return la marca encontrada
      * @throws PersistenciaException error a controlar
-     * @throws ApiException
+     * @throws ApiException error a controlar
      */
     public Marca buscar(String idMarca) throws PersistenciaException, ApiException {
 <span class="fc" id="L97">        Marca marca = null;</span>

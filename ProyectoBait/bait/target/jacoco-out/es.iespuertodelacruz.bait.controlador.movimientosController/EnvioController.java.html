@@ -19,17 +19,17 @@ public class EnvioController extends Validar{
 <span class="fc" id="L19">        String mensaje = &quot;&quot;;</span>
 
 <span class="fc bfc" id="L21" title="All 2 branches covered.">        if(envio == null){</span>
-<span class="fc" id="L22">            mensaje = &quot;El envio que intenta validar es nulo&quot;;</span>
+<span class="fc" id="L22">            mensaje = &quot;El envio que intenta validar es nulo, &quot;;</span>
 <span class="fc" id="L23">            throw new ApiException(mensaje);</span>
         }
 <span class="pc bpc" id="L25" title="1 of 4 branches missed.">        if(envio.getIdEnvio() == null || envio.getIdEnvio().isEmpty()){</span>
-<span class="fc" id="L26">            mensaje += &quot;El idEnvio del envio es nulo o vacio&quot;;</span>
+<span class="fc" id="L26">            mensaje += &quot;El idEnvio del envio es nulo o vacio, &quot;;</span>
         }
 <span class="fc bfc" id="L28" title="All 2 branches covered.">        if(envio.getPedido() == null){</span>
-<span class="fc" id="L29">            mensaje += &quot;Se esta intentando validar un objeto vacio&quot;;</span>
+<span class="fc" id="L29">            mensaje += &quot;Se esta intentando validar un objeto vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L31" title="1 of 4 branches missed.">        if(envio.getFechaEnvio() == null || envio.getFechaEnvio().isEmpty()){</span>
-<span class="fc" id="L32">            mensaje += &quot;La fecha del envio es nulo o vacio&quot;;</span>
+<span class="fc" id="L32">            mensaje += &quot;La fecha del envio es nulo o vacio, &quot;;</span>
         }
 <span class="pc bpc" id="L34" title="1 of 4 branches missed.">        if(envio.getEstado() == null || envio.getEstado().isEmpty()){</span>
 <span class="fc" id="L35">            mensaje += &quot;El estado del envio es nulo o vacio&quot;;</span>
@@ -57,7 +57,7 @@ public class EnvioController extends Validar{
      * Metodo encargado de eliminar
      * @param idEnvio a eliminar
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public void eliminar(String idEnvio) throws PersistenciaException, ApiException{
 <span class="fc bfc" id="L63" title="All 2 branches covered.">        if(!existe(idEnvio)){</span>
@@ -71,7 +71,7 @@ public class EnvioController extends Validar{
      * @param idEnvio del pedido
      * @return Envio
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public Envio buscar(String idEnvio) throws PersistenciaException, ApiException{
 <span class="fc" id="L77">        Envio envio = null;</span>
@@ -121,29 +121,32 @@ public class EnvioController extends Validar{
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public ArrayList&lt;Envio&gt; obtenerListado() throws PersistenciaException, ApiException{
-<span class="fc" id="L126">        ArrayList&lt;Envio&gt; envios = null;</span>
-<span class="fc" id="L127">        envios = envioModelo.obtenerListado();</span>
-<span class="pc bpc" id="L128" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
-<span class="nc" id="L129">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
+<span class="fc" id="L127">        ArrayList&lt;Envio&gt; envios = null;</span>
+<span class="fc" id="L128">        envios = envioModelo.obtenerListado();</span>
+<span class="pc bpc" id="L129" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
+<span class="nc" id="L130">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L131">        return envios;</span>
+<span class="fc" id="L132">        return envios;</span>
         
     }
 
     /**
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
+     * @param dni del usuario que quiere saber su envio
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado 
      */
     public ArrayList&lt;Envio&gt; obtenerListado(String dni) throws PersistenciaException, ApiException{
-<span class="fc" id="L141">        ArrayList&lt;Envio&gt; envios = null;</span>
-<span class="fc" id="L142">        envios = envioModelo.obtenerListado(dni);</span>
-<span class="pc bpc" id="L143" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
-<span class="nc" id="L144">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
+<span class="fc" id="L144">        ArrayList&lt;Envio&gt; envios = null;</span>
+<span class="fc" id="L145">        envios = envioModelo.obtenerListado(dni);</span>
+<span class="pc bpc" id="L146" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
+<span class="nc" id="L147">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
         }
-<span class="fc" id="L146">        return envios;</span>
+<span class="fc" id="L149">        return envios;</span>
         
     }
 }
