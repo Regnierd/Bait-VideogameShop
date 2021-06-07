@@ -24,7 +24,7 @@ public class ProductoModelo {
 
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public ProductoModelo() throws PersistenciaException {
         categoriaModelo = new CategoriaModelo();
@@ -142,7 +142,7 @@ public class ProductoModelo {
 
     /**
      * Funcion que busca productos por su categoria
-     * @param idProducto del producto que se va buscar
+     * @param nombre del producto que se va buscar
      * @return la lista de producto encontrado
      * @throws PersistenciaException error a controlar
      */

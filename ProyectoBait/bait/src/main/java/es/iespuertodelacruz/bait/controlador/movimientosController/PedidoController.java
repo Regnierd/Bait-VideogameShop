@@ -30,6 +30,7 @@ public class PedidoController {
     /**
      * Metodo encargado de validar un pedido
      * @param pedido a validar
+     * @throws ApiException error controlado
      */
     public void validar(Pedido pedido) throws ApiException{
         String mensaje = "";
@@ -40,23 +41,23 @@ public class PedidoController {
         }
 
         if(pedido.getIdPedido() == null || pedido.getIdPedido().isEmpty()){
-            mensaje = "El idPedido del pedido es nulo o vacio";
+            mensaje = "El idPedido del pedido es nulo o vacio, ";
         }
 
         if(pedido.getUnidades() <= 0){
-            mensaje += "Las unidades del pedido es 0 o menor";
+            mensaje += "Las unidades del pedido es 0 o menor, ";
         }
         
         if(pedido.getTotal() <= 0){
-            mensaje += "El total del pedido es 0 o menor";
+            mensaje += "El total del pedido es 0 o menor, ";
         }
 
         if(pedido.getFechaPedido() == null || pedido.getFechaPedido().isEmpty()){
-            mensaje += "La fecha del pedido es nulo o vacio";
+            mensaje += "La fecha del pedido es nulo o vacio, ";
         }
 
         if(pedido.getUsuario() == null){
-            mensaje += "Se esta intentando validar un usuario vacio";
+            mensaje += "Se esta intentando validar un usuario vacio, ";
         }
 
         if(pedido.getProducto() == null){
@@ -87,6 +88,7 @@ public class PedidoController {
      * Metodo encargado de eliminar
      * @param idPedido a eliminar
      * @throws PersistenciaException con mensaje controlado
+     * @throws ApiException error controlado
      */
     public void eliminar(String idPedido) throws PersistenciaException, ApiException{
         if (!existe(idPedido)) {
@@ -131,8 +133,8 @@ public class PedidoController {
      * Funcion encargada de verificar si existe el pedido
      * @param pedido a encontrar
      * @return vedadero/falso
-     * @throws ApiException
-     * @throws BbddException error a controlar
+     * @throws ApiException con mensaje controlado
+     * @throws BbddException con mensaje controlado
      */
     private boolean existe(String idPedido) throws PersistenciaException, ApiException{
         boolean encontrada = false;
@@ -165,6 +167,7 @@ public class PedidoController {
     /**
      * Funcion que obtiene una lista de todos los pedidos
      * @return la lista de pedidos
+     * @param dni dni del usuario que ha hecho el pedido
      * @throws PersistenciaException error controlar
      * @throws ApiException error a controlar
      */
@@ -185,6 +188,7 @@ public class PedidoController {
      * @param unidades del producto a comprar
      * @throws PersistenciaException error controlado
      * @throws ApiException error controlado
+     * @return Envio 
      */
     public Envio realizarPedido(Usuario usuario, String idProducto, int unidades) throws PersistenciaException, ApiException {
         Pedido pedido;

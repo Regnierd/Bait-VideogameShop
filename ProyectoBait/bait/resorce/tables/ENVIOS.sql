@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS "ENVIOS" (
-	"idEnvio"	TEXT NOT NULL,
-	"idPedido"	TEXT NOT NULL,
-	"fechaEnvio"	TEXT,
-	"estado"	TEXT,
-	FOREIGN KEY("idPedido") REFERENCES "Pedido"("idPedido"),
+	"idEnvio"	varchar(25) NOT NULL,
+	"idPedido"	varchar(25) NOT NULL,
+	"fechaEnvio"	varchar(25),
+	"estado"	varchar(25),
+	FOREIGN KEY("idPedido") REFERENCES "Pedido"("idPedido") ON DELETE CASCADE,
 	PRIMARY KEY("idEnvio")
 );

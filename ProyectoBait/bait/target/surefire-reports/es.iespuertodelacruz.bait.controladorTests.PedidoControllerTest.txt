@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.controladorTests.PedidoControllerTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.601 s - in es.iespuertodelacruz.bait.controladorTests.PedidoControllerTest
-=======
-Tests run: 10, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.443 s <<< FAILURE! - in es.iespuertodelacruz.bait.controladorTests.PedidoControllerTest
-realizarPedidoTest  Time elapsed: 0.31 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: El pedido que quiere eliminar no existe
-	at es.iespuertodelacruz.bait.controladorTests.PedidoControllerTest.realizarPedidoTest(PedidoControllerTest.java:236)
-
->>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.285 s - in es.iespuertodelacruz.bait.controladorTests.PedidoControllerTest

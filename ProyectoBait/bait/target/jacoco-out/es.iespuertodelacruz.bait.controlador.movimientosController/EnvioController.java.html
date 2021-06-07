@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EnvioController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.controlador.movimientosController</a> &gt; <span class="el_source">EnvioController.java</span></div><h1>EnvioController.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.controlador.movimientosController;
+
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.Validar;
+import es.iespuertodelacruz.bait.api.movimientos.Envio;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.movimientosModelo.EnvioModelo;
+
+public class EnvioController extends Validar{
+    EnvioModelo envioModelo;
+
+<span class="fc" id="L14">    public EnvioController() throws PersistenciaException{</span>
+<span class="fc" id="L15">        envioModelo = new EnvioModelo();</span>
+<span class="fc" id="L16">    }</span>
+
+    public void validar(Envio envio) throws ApiException{
+<span class="fc" id="L19">        String mensaje = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if(envio == null){</span>
+<span class="fc" id="L22">            mensaje = &quot;El envio que intenta validar es nulo&quot;;</span>
+<span class="fc" id="L23">            throw new ApiException(mensaje);</span>
+        }
+<span class="pc bpc" id="L25" title="1 of 4 branches missed.">        if(envio.getIdEnvio() == null || envio.getIdEnvio().isEmpty()){</span>
+<span class="fc" id="L26">            mensaje += &quot;El idEnvio del envio es nulo o vacio&quot;;</span>
+        }
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if(envio.getPedido() == null){</span>
+<span class="fc" id="L29">            mensaje += &quot;Se esta intentando validar un objeto vacio&quot;;</span>
+        }
+<span class="pc bpc" id="L31" title="1 of 4 branches missed.">        if(envio.getFechaEnvio() == null || envio.getFechaEnvio().isEmpty()){</span>
+<span class="fc" id="L32">            mensaje += &quot;La fecha del envio es nulo o vacio&quot;;</span>
+        }
+<span class="pc bpc" id="L34" title="1 of 4 branches missed.">        if(envio.getEstado() == null || envio.getEstado().isEmpty()){</span>
+<span class="fc" id="L35">            mensaje += &quot;El estado del envio es nulo o vacio&quot;;</span>
+        }
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(!mensaje.isEmpty()){</span>
+<span class="fc" id="L38">            throw new ApiException(mensaje);</span>
+        }
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Metodo encargado de insertar
+     * @param envio a insertar
+     * @throws ApiException con mensaje controlado
+     * @throws PersistenciaException con mensaje controlado
+     */
+    public void insertar(Envio envio) throws ApiException, PersistenciaException{
+<span class="fc" id="L49">        validar(envio);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(existe(envio.getIdEnvio())){</span>
+<span class="fc" id="L51">            throw new ApiException(&quot;El pedido ya existe&quot;);          </span>
+        }
+<span class="fc" id="L53">        envioModelo.insertar(envio);</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * Metodo encargado de eliminar
+     * @param idEnvio a eliminar
+     * @throws PersistenciaException con mensaje controlado
+     * @throws ApiException
+     */
+    public void eliminar(String idEnvio) throws PersistenciaException, ApiException{
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if(!existe(idEnvio)){</span>
+<span class="fc" id="L64">            throw new ApiException(&quot;El envio que quiere eliminar no existe&quot;);</span>
+        }
+<span class="fc" id="L66">        envioModelo.eliminar(idEnvio);</span>
+<span class="fc" id="L67">    }</span>
+
+     /**
+     * Metodo encargado de buscar por idEnvio
+     * @param idEnvio del pedido
+     * @return Envio
+     * @throws PersistenciaException con mensaje controlado
+     * @throws ApiException
+     */
+    public Envio buscar(String idEnvio) throws PersistenciaException, ApiException{
+<span class="fc" id="L77">        Envio envio = null;</span>
+
+<span class="fc" id="L79">        envio = envioModelo.buscaPorIdentificador(idEnvio);</span>
+        
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (envio == null) {</span>
+<span class="fc" id="L82">            throw new ApiException(&quot;El envio que quiere buscar no existe.&quot;);</span>
+        }
+
+<span class="fc" id="L85">        return envio;</span>
+    }
+
+     /**
+    * Metodo encargado de realizar la modificacion de un envio
+    * @param envio a modficar
+    * @throws ApiException con mensaje controlado
+    * @throws PersistenciaException con mensaje controlado
+    */
+    public void modificar(Envio envio) throws ApiException, PersistenciaException {
+<span class="fc" id="L95">        validar(envio);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (!existe(envio.getIdEnvio())) {</span>
+<span class="fc" id="L97">            throw new ApiException(&quot;El envio que intenta modificar no existe&quot;);</span>
+        }
+<span class="fc" id="L99">        envioModelo.modificar(envio);</span>
+<span class="fc" id="L100">    }</span>
+
+    /**
+     * Funcion encargada de verificar si existe el envio
+     * @param envio a encontrar
+     * @return boolean
+     * @throws PersistenciaException
+     */
+    private boolean existe(String idEnvio) throws PersistenciaException{
+<span class="fc" id="L109">        boolean encontrada = false;</span>
+<span class="fc" id="L110">        Envio envioEncontrado = null;</span>
+
+<span class="fc" id="L112">        envioEncontrado = envioModelo.buscaPorIdentificador(idEnvio);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if(envioEncontrado != null){</span>
+<span class="fc" id="L114">            encontrada = true;</span>
+        }
+        
+<span class="fc" id="L117">        return encontrada;</span>
+    }
+
+    /**
+     * Funcion que obtiene la lista de envios y la devuelve
+     * @return la lista de envios
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList&lt;Envio&gt; obtenerListado() throws PersistenciaException, ApiException{
+<span class="fc" id="L126">        ArrayList&lt;Envio&gt; envios = null;</span>
+<span class="fc" id="L127">        envios = envioModelo.obtenerListado();</span>
+<span class="pc bpc" id="L128" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
+<span class="nc" id="L129">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
+        }
+<span class="fc" id="L131">        return envios;</span>
+        
+    }
+
+    /**
+     * Funcion que obtiene la lista de envios y la devuelve
+     * @return la lista de envios
+     * @throws PersistenciaException error controlado
+     */
+    public ArrayList&lt;Envio&gt; obtenerListado(String dni) throws PersistenciaException, ApiException{
+<span class="fc" id="L141">        ArrayList&lt;Envio&gt; envios = null;</span>
+<span class="fc" id="L142">        envios = envioModelo.obtenerListado(dni);</span>
+<span class="pc bpc" id="L143" title="2 of 4 branches missed.">        if(envios == null || envios.isEmpty()){</span>
+<span class="nc" id="L144">            throw new ApiException(&quot;La lista de envios es vacia o nula&quot;);</span>
+        }
+<span class="fc" id="L146">        return envios;</span>
+        
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

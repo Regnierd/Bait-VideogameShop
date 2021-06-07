@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s - in es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest
-=======
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.101 s - in es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest
->>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s - in es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest

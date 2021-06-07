@@ -2,12 +2,13 @@
 
 import java.util.ArrayList;
 
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.personas.Usuario;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.modelo.personasModelo.UsuarioModelo;
 
-public class UsuarioController {
+public class UsuarioController extends Validar{
     UsuarioModelo usuarioModelo;
 
     public UsuarioController() throws PersistenciaException {
@@ -26,31 +27,31 @@ public class UsuarioController {
             throw new ApiException(mensaje);
         }
         if(usuario.getDni() == null || usuario.getDni().isEmpty()){
-            mensaje += "El DNI no puede ser nulo o vacio";
+            mensaje += "El DNI no puede ser nulo o vacio o invalido, ";
         }
         if(usuario.getNombre() == null || usuario.getNombre().isEmpty()){
-            mensaje += "El nombre no pueden ser nulo o vacio";
+            mensaje += "El nombre no pueden ser nulo o vacio, ";
         }
         if(usuario.getApellidos() == null || usuario.getApellidos().isEmpty()){
-            mensaje += "Los apellidos no pueden ser nulo o vacio";
+            mensaje += "Los apellidos no pueden ser nulo o vacio, ";
         }
         if(usuario.getEmail() == null || usuario.getEmail().isEmpty()){
-            mensaje += "El email no puede ser nulo o vacio";
+            mensaje += "El email no puede ser nulo o vacio o invalido, ";
         }
         if(usuario.getDireccion() == null || usuario.getDireccion().isEmpty()){
-            mensaje += "La direccion no puede ser nula o vacia";
+            mensaje += "La direccion no puede ser nula o vacia, ";
         }   
         if(usuario.getTelefono() == null || usuario.getTelefono().isEmpty()){
-            mensaje += "El telefono no puede ser nulo o vacio";
+            mensaje += "El telefono no puede ser nulo o vacio, ";
         }
         if(usuario.getCodigoPostal() == null || usuario.getCodigoPostal().isEmpty()){
-            mensaje += "El codigo postal no puede ser nulo o vacio";
+            mensaje += "El codigo postal no puede ser nulo o vacio, ";
         }
         if(usuario.getProvincia() == null || usuario.getProvincia().isEmpty()){
-            mensaje += "La provincia no puede ser nulo o vacio";
+            mensaje += "La provincia no puede ser nulo o vacio, ";
         }
         if(usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isEmpty()){
-            mensaje += "El nombre de usuario no puede ser nulo o vacio";
+            mensaje += "El nombre de usuario no puede ser nulo o vacio, ";
         }
         if(usuario.getPassword() == null || usuario.getPassword().isEmpty()){
             mensaje += "La contraseña no puede ser nulo o vacio";
@@ -69,6 +70,9 @@ public class UsuarioController {
      */
     public Usuario buscar(String dni) throws PersistenciaException, ApiException {
         Usuario usuario = null;
+        if (!validarDni(dni)) {
+            throw new ApiException("Formato del dni incorrecto");
+        }
 
         usuario = usuarioModelo.buscaPorDni(dni);
 
@@ -86,8 +90,8 @@ public class UsuarioController {
      * @param password del usuario
      * @param rol del usuario
      * @return el usuario si es valido
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public Usuario login(String nombreUsuario, String password, String rol) throws PersistenciaException, ApiException{
         Usuario usuario = null;
@@ -119,10 +123,13 @@ public class UsuarioController {
     /**
      * Metodo que elimina un usuario
      * @param dni del usuario qu ese va a borrar
-     * @throws PersistenciaException
-     * @throws ApiException
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
      */
     public void eliminar(String dni) throws PersistenciaException, ApiException {
+        if (!validarDni(dni)) {
+            throw new ApiException("Formato del dni incorrecto");
+        }
         if (!existe(dni)) {
             throw new ApiException("El usuario que quiere eliminar no existe");
         }
@@ -134,11 +141,12 @@ public class UsuarioController {
      * @param usuario que se va a buscar
      * @return verdadero/falso
      * @throws PersistenciaException
+     * @throws ApiException
      */
-    private boolean existe(String dni) throws PersistenciaException {
+    private boolean existe(String dni) throws PersistenciaException, ApiException {
         boolean encontrada = false;
         Usuario usuarioEncontrado;
-   
+     
         usuarioEncontrado = usuarioModelo.buscaPorDni(dni);
         if (usuarioEncontrado != null) {
            encontrada = true;

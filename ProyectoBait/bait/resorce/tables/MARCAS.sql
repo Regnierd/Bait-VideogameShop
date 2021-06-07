@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "MARCAS" (
-	"idMarca"	TEXT NOT NULL,
-	"nombre"	TEXT,
+	"idMarca"	varchar(25) NOT NULL,
+	"nombre"	varchar(25),
 	PRIMARY KEY("idMarca")
 );

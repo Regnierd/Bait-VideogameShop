@@ -38,7 +38,7 @@ public class UsuarioControllerTest {
             }
         }
 
-        usuario = new Usuario(DNI, "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal",
+        usuario = new Usuario(DNI, "nombre", "apellidos", "email@gmail.com", "direccion", "telefono", "pais", "codigoPostal",
                 "provincia", NOMBRE_USUARIO, PASSWORD, ROL, 0f);
 
         try {
@@ -176,7 +176,7 @@ public class UsuarioControllerTest {
 
     @Test
     public void modificarErrorTest() {
-        Usuario usuarioInexistente = new Usuario("dni", "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal", "provincia", "nombreUsuario", "password", "rol", 0f);
+        Usuario usuarioInexistente = new Usuario("12354268I", "nombre", "apellidos", "email@gmail.com", "direccion", "telefono", "pais", "codigoPostal", "provincia", "nombreUsuario", "password", "rol", 0f);
         try {
             usuarioController.modificar(usuarioInexistente);
             fail("No deberia llegar aqui");

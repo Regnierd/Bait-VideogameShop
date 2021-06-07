@@ -20,7 +20,7 @@ public class EnvioModelo {
     PedidoModelo pedidoModelo;
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public EnvioModelo() throws PersistenciaException{
         persistencia = new BbddSqlite(TABLE_NAME,null, null);
@@ -158,6 +158,7 @@ public class EnvioModelo {
     /**
      * Funcion que obtiene un listado de los envios y los devuelve
      * 
+     * @param dni dni del usuario que ha hecho un pedido y quiere ver el envio
      * @return la lista de envios
      * @throws PersistenciaException error a controlar
      */

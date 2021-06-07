@@ -71,12 +71,12 @@ public class EnvioModeloTest {
             fail(e.getMessage());
         }
         
-        usuario = new Usuario(DNI, "nombre", "apellidos", "email", "direccion", "telefono", "pais", "codigoPostal", "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
+        usuario = new Usuario(DNI, "nombre", "apellidos", "email@gmail.com", "direccion", "telefono", "pais", "codigoPostal", "provincia", NOMBRE_USUARIO, "password", "Admin", 0f);
         categoria = new Categoria(IDCATEGORIA, "nombre");
         marca = new Marca(IDMARCA, "nombre");
         producto = new Producto(IDPRODUCTO, "nombre", categoria, 10f, "descripcion", 15, marca);
-        pedido = new Pedido(IDPEDIDO, 2, 20, "20-05-2021", usuario, producto);
-        envio = new Envio(IDENVIO, pedido, "21-05-2021", "Enviado");
+        pedido = new Pedido(IDPEDIDO, 2, 20, "2021-05-26", usuario, producto);
+        envio = new Envio(IDENVIO, pedido, "2021-05-26", "Enviado");
         try {
             usuarioModelo.insertar(usuario);
             categoriaModelo.insertar(categoria);

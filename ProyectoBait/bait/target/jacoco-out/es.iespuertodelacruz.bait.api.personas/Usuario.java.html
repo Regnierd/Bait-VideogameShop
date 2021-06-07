@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.api.personas</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.api.personas;
+
+import java.util.Objects;
+
+import es.iespuertodelacruz.bait.api.Validar;
+
+public class Usuario extends Validar{
+    private String dni;
+    private String nombre;
+    private String apellidos;
+    private String email;
+    private String direccion;
+    private String telefono;
+    private String pais;
+    private String codigoPostal;
+    private String provincia;
+    private String nombreUsuario;
+    private String password;
+    private String rol;
+    private float saldo;
+
+
+    /**
+     * Consturctor vacio de la clase
+     */
+<span class="fc" id="L26">    public Usuario() {</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Constructor con todos los parametros
+     * @param dni del usuario
+     * @param nombre del usuario
+     * @param apellidos del usuario
+     * @param email del usuario
+     * @param direccion del usuario
+     * @param telefono del usuario
+     * @param pais del usuario
+     * @param codigoPostal del usuario
+     * @param provincia del usuario
+     * @param nombreUsuario del usuario
+     * @param password del usuario
+     * @param rol del usuario
+     * @param saldo del usuario
+     */
+<span class="fc" id="L45">    public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, String rol, float saldo ) {</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (validarDni(dni)) {</span>
+<span class="fc" id="L47">            this.dni = dni;</span>
+        }
+<span class="fc" id="L49">        this.nombre = nombre;</span>
+<span class="fc" id="L50">        this.apellidos = apellidos;</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (validarEmail(email)) {</span>
+<span class="fc" id="L52">            this.email = email;</span>
+        }
+<span class="fc" id="L54">        this.direccion = direccion;</span>
+<span class="fc" id="L55">        this.telefono = telefono;</span>
+<span class="fc" id="L56">        this.pais = pais;</span>
+<span class="fc" id="L57">        this.codigoPostal = codigoPostal;</span>
+<span class="fc" id="L58">        this.provincia = provincia;</span>
+<span class="fc" id="L59">        this.nombreUsuario = nombreUsuario;</span>
+<span class="fc" id="L60">        this.password = password;</span>
+<span class="fc" id="L61">        this.rol = rol;</span>
+<span class="fc" id="L62">        this.saldo = saldo;  </span>
+<span class="fc" id="L63">    }</span>
+    
+
+
+    // GETTERS Y SETTERS
+
+    public String getDni() {
+<span class="fc" id="L70">        return this.dni;</span>
+    }
+
+    public void setDni(String dni) {
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (validarDni(dni)) {</span>
+<span class="fc" id="L75">            this.dni = dni;</span>
+        }
+<span class="fc" id="L77">    }</span>
+
+    public String getNombre() {
+<span class="fc" id="L80">        return this.nombre;</span>
+    }
+
+    public void setNombre(String nombre) {
+<span class="fc" id="L84">        this.nombre = nombre;</span>
+<span class="fc" id="L85">    }</span>
+
+    public String getApellidos() {
+<span class="fc" id="L88">        return this.apellidos;</span>
+    }
+
+    public void setApellidos(String apellidos) {
+<span class="fc" id="L92">        this.apellidos = apellidos;</span>
+<span class="fc" id="L93">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L96">        return this.email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (validarEmail(email)) {</span>
+<span class="fc" id="L101">            this.email = email;</span>
+        }
+<span class="fc" id="L103">    }</span>
+
+    public String getDireccion() {
+<span class="fc" id="L106">        return this.direccion;</span>
+    }
+
+    public void setDireccion(String direccion) {
+<span class="fc" id="L110">        this.direccion = direccion;</span>
+<span class="fc" id="L111">    }</span>
+
+    public String getTelefono() {
+<span class="fc" id="L114">        return this.telefono;</span>
+    }
+
+    public void setTelefono(String telefono) {
+<span class="fc" id="L118">        this.telefono = telefono;</span>
+<span class="fc" id="L119">    }</span>
+
+    public String getPais() {
+<span class="fc" id="L122">        return this.pais;</span>
+    }
+
+    public void setPais(String pais) {
+<span class="fc" id="L126">        this.pais = pais;</span>
+<span class="fc" id="L127">    }</span>
+
+    public String getCodigoPostal() {
+<span class="fc" id="L130">        return this.codigoPostal;</span>
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+<span class="fc" id="L134">        this.codigoPostal = codigoPostal;</span>
+<span class="fc" id="L135">    }</span>
+
+    public String getProvincia() {
+<span class="fc" id="L138">        return this.provincia;</span>
+    }
+
+    public void setProvincia(String provincia) {
+<span class="fc" id="L142">        this.provincia = provincia;</span>
+<span class="fc" id="L143">    }</span>
+
+    public String getNombreUsuario() {
+<span class="fc" id="L146">        return this.nombreUsuario;</span>
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+<span class="fc" id="L150">        this.nombreUsuario = nombreUsuario;</span>
+<span class="fc" id="L151">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L154">        return this.password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L158">        this.password = password;</span>
+<span class="fc" id="L159">    }</span>
+
+    public float getSaldo() {
+<span class="fc" id="L162">        return this.saldo;</span>
+    }
+
+    public void setSaldo(float saldo) {
+<span class="fc" id="L166">        this.saldo = saldo;</span>
+<span class="fc" id="L167">    }</span>
+
+    public String getRol() {
+<span class="fc" id="L170">        return this.rol;</span>
+    }
+
+    public void setRol(String rol) {
+<span class="fc" id="L174">        this.rol = rol;</span>
+<span class="fc" id="L175">    }</span>
+
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L180" title="1 of 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L181">            return true;</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">        if (!(o instanceof Usuario)) {</span>
+<span class="nc" id="L183">            return false;</span>
+        }
+<span class="fc" id="L185">        Usuario usuario = (Usuario) o;</span>
+<span class="pc bpc" id="L186" title="12 of 26 branches missed.">        return Objects.equals(dni, usuario.dni) &amp;&amp; Objects.equals(nombre, usuario.nombre) &amp;&amp; Objects.equals(apellidos, usuario.apellidos) &amp;&amp; Objects.equals(email, usuario.email) &amp;&amp; Objects.equals(direccion, usuario.direccion) &amp;&amp; Objects.equals(telefono, usuario.telefono) &amp;&amp; Objects.equals(pais, usuario.pais) &amp;&amp; Objects.equals(codigoPostal, usuario.codigoPostal) &amp;&amp; Objects.equals(provincia, usuario.provincia) &amp;&amp; Objects.equals(nombreUsuario, usuario.nombreUsuario) &amp;&amp; Objects.equals(password, usuario.password) &amp;&amp; Objects.equals(rol, usuario.rol) &amp;&amp; saldo == usuario.saldo;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L191">        return &quot;Dni: &quot;+getDni() + DELIMITADOR </span>
+<span class="fc" id="L192">        + &quot;Nombre: &quot;+ getNombre() + DELIMITADOR </span>
+<span class="fc" id="L193">        + &quot;Apellidos: &quot;+ getApellidos() + DELIMITADOR </span>
+<span class="fc" id="L194">        + &quot;Email: &quot;+ getEmail() + DELIMITADOR </span>
+<span class="fc" id="L195">        + &quot;Direccion: &quot;+ getDireccion() + DELIMITADOR </span>
+<span class="fc" id="L196">        + &quot;Telefono: &quot;+ getTelefono() + DELIMITADOR </span>
+<span class="fc" id="L197">        + &quot;Pais: &quot;+ getPais() + DELIMITADOR</span>
+<span class="fc" id="L198">        + &quot;CodigoPostal: &quot;+ getCodigoPostal() + DELIMITADOR </span>
+<span class="fc" id="L199">        + &quot;Provincia: &quot;+ getProvincia() + DELIMITADOR </span>
+<span class="fc" id="L200">        + &quot;NombreUsuario: &quot;+ getNombreUsuario() + DELIMITADOR </span>
+<span class="fc" id="L201">        + &quot;Password: &quot;+ getPassword() + DELIMITADOR</span>
+<span class="fc" id="L202">        + &quot;Saldo: &quot;+ getSaldo() + DELIMITADOR </span>
+<span class="fc" id="L203">        + &quot;Rol: &quot;+ getRol();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

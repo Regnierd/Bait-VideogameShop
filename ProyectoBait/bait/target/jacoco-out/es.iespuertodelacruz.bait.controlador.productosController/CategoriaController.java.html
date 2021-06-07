@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoriaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bait</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.bait.controlador.productosController</a> &gt; <span class="el_source">CategoriaController.java</span></div><h1>CategoriaController.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.bait.controlador.productosController;
+
+import java.util.ArrayList;
+
+import es.iespuertodelacruz.bait.api.productos.Categoria;
+import es.iespuertodelacruz.bait.exceptions.ApiException;
+import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
+import es.iespuertodelacruz.bait.modelo.productosModelo.CategoriaModelo;
+
+public class CategoriaController {
+    CategoriaModelo categoriaModelo;
+
+    /**
+     * Constructor basio de la clase
+     * @throws PersistenciaException
+     */
+<span class="fc" id="L17">    public CategoriaController() throws PersistenciaException {</span>
+<span class="fc" id="L18">        categoriaModelo = new CategoriaModelo();</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Metodo que valida un objeto Categoria
+     * @param categoria que se va a validar
+     * @throws CategoriaException error a controlar
+     */
+    public void validar(Categoria categoria) throws ApiException{
+<span class="fc" id="L27">        String mensaje = &quot;&quot;;</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if(categoria == null){</span>
+<span class="fc" id="L29">            mensaje = &quot;La categoria no puede ser nulo&quot;;</span>
+<span class="fc" id="L30">            throw new ApiException(mensaje);</span>
+        }
+<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if(categoria.getIdCategoria() == null || categoria.getIdCategoria().isEmpty()){</span>
+<span class="fc" id="L33">            mensaje += &quot;El IdCategoria no puede ser nulo o vacio&quot;;</span>
+        }
+<span class="pc bpc" id="L35" title="1 of 4 branches missed.">        if(categoria.getNombre()== null || categoria.getNombre().isEmpty()){</span>
+<span class="fc" id="L36">            mensaje += &quot;El nombre no pueden ser nulo o vacio&quot;;</span>
+        }
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if(!mensaje.isEmpty()){</span>
+<span class="fc" id="L40">            throw new ApiException(mensaje);</span>
+        }
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Metodo que inserta una categoria
+     * @param categoria que se va a insertar
+     * @throws CategoriaException error a controlar
+     * @throws PersistenciaException error a controlar
+     */
+    public void insertar(Categoria categoria) throws ApiException, PersistenciaException{
+<span class="fc" id="L51">        validar(categoria);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (existe(categoria.getIdCategoria())) {</span>
+<span class="fc" id="L53">           throw new ApiException(&quot;La categoria indicada ya existe.&quot;);</span>
+        }
+<span class="fc" id="L55">        categoriaModelo.insertar(categoria);</span>
+<span class="fc" id="L56">    }</span>
+
+    /**
+     * Metodo que eliminar una categoria
+     * @param idCategoria de la categoria que se va aborrar
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException
+     */
+    public void eliminar(String idCategoria) throws PersistenciaException, ApiException {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if(!existe(idCategoria)){</span>
+<span class="fc" id="L66">            throw new ApiException(&quot;La categoria que quiere eliminar no existe&quot;);</span>
+        }
+<span class="fc" id="L68">        categoriaModelo.eliminar(idCategoria);</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Funcion que comprueba si una categoria existe
+     * @param categoria que se va comprar 
+     * @return verdadero/falso
+     * @throws PersistenciaException
+     */
+    private boolean existe(String idCategoria) throws PersistenciaException {
+<span class="fc" id="L78">        boolean encontrada = false;</span>
+<span class="fc" id="L79">        Categoria categoriaEncontrada = null;</span>
+   
+<span class="fc" id="L81">        categoriaEncontrada = categoriaModelo.buscarPorId(idCategoria);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (categoriaEncontrada != null) {</span>
+<span class="fc" id="L83">           encontrada = true;</span>
+        }  
+
+<span class="fc" id="L86">        return encontrada;</span>
+    }
+
+    /**
+     * Funcion que busca una categoria y la devuelve
+     * @param idCategoria de la categoria que se va a buscar
+     * @return la categoria encontrada
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException
+     */
+    public Categoria buscar(String idCategoria) throws PersistenciaException, ApiException {
+<span class="fc" id="L97">        Categoria categoria = null;</span>
+<span class="fc" id="L98">        categoria = categoriaModelo.buscarPorId(idCategoria);</span>
+        
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (categoria == null) {</span>
+<span class="nc" id="L101">            throw new ApiException(&quot;La categoria que quiere buscar no existe.&quot;);</span>
+        }
+
+<span class="fc" id="L104">        return categoria;</span>
+    }
+
+    /**
+     * Metodo que modfica una categoria 
+     * @param categoria con las cambios 
+     * @throws CategoriaException error a controlar
+     * @throws PersistenciaException error a controlar
+     */
+    public void modificar(Categoria categoria) throws ApiException, PersistenciaException {
+<span class="fc" id="L114">        validar(categoria);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (!existe(categoria.getIdCategoria())) {</span>
+<span class="fc" id="L116">            throw new ApiException(&quot;La categoria que quiere modifcar no existe.&quot;);</span>
+        }
+<span class="fc" id="L118">        categoriaModelo.modificar(categoria);</span>
+<span class="fc" id="L119">    }</span>
+
+    /**
+     * Funcion que obtiene la lista de categorias y la devuelve
+     * @return la lista de categorias
+     * @throws PersistenciaException error a controlar
+     * @throws ApiException error a controlar
+     */
+    public ArrayList&lt;Categoria&gt; obtenerListado() throws PersistenciaException, ApiException {
+        ArrayList&lt;Categoria&gt; categorias;
+<span class="fc" id="L129">        categorias = categoriaModelo.obtenerListado();</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if ( categorias == null || categorias.isEmpty()) {</span>
+<span class="nc" id="L131">            throw new ApiException(&quot;La lista de categorias es vacia o nula&quot;);</span>
+        }
+<span class="fc" id="L133">        return categorias;</span>
+        
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

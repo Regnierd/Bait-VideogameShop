@@ -1,6 +1,14 @@
 # Bait-VideoGameShop
-## Autores: Jonay Hernandez Izquierdo - Javier Lima Pérez
 
+![logo](https://drive.google.com/uc?export=view&id=1i8k7-ILr9Bk-SHBkQL-ROnOemP4mjLQx)
+
+## Autores
+Jonay Hernandez Izquierdo
+> [GitHub de Jonay](https://github.com/lawD17)
+
+Javier Lima Pérez
+>[GitHub de Javier](https://github.com/Regnierd)
+***
 <p>En el primer curso del ciclo superior de Desarrollo de Aplicaciones Web
    se nos ha pedido realizar un proyecto con todos los conocimientos que hemos
    obtenido durante el curso.</p>
@@ -8,5 +16,8 @@
 <p>Hemos optado por realizar un programa incluyendo una base de datos para tiendas
    online dirigidas para el ámbito gamer. Esto incluye videojuegos, ordenadores,
    periféricos y merchandising</p>
+
+***
+<p>En el siguiente enlace podrás encontrar toda la información de nuestro proyecto:</p>
    
-https://github.com/regnierd/Bait-VideogameShop/wiki
+[<i>Información</i>](https://github.com/regnierd/Bait-VideogameShop/wiki)

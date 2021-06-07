@@ -2,12 +2,13 @@ package es.iespuertodelacruz.bait.controlador.movimientosController;
 
 import java.util.ArrayList;
 
+import es.iespuertodelacruz.bait.api.Validar;
 import es.iespuertodelacruz.bait.api.movimientos.Envio;
 import es.iespuertodelacruz.bait.exceptions.ApiException;
 import es.iespuertodelacruz.bait.exceptions.PersistenciaException;
 import es.iespuertodelacruz.bait.modelo.movimientosModelo.EnvioModelo;
 
-public class EnvioController {
+public class EnvioController extends Validar{
     EnvioModelo envioModelo;
 
     public EnvioController() throws PersistenciaException{
@@ -18,17 +19,17 @@ public class EnvioController {
         String mensaje = "";
 
         if(envio == null){
-            mensaje = "El envio que intenta validar es nulo";
+            mensaje = "El envio que intenta validar es nulo, ";
             throw new ApiException(mensaje);
         }
         if(envio.getIdEnvio() == null || envio.getIdEnvio().isEmpty()){
-            mensaje += "El idEnvio del envio es nulo o vacio";
+            mensaje += "El idEnvio del envio es nulo o vacio, ";
         }
         if(envio.getPedido() == null){
-            mensaje += "Se esta intentando validar un objeto vacio";
+            mensaje += "Se esta intentando validar un objeto vacio, ";
         }
         if(envio.getFechaEnvio() == null || envio.getFechaEnvio().isEmpty()){
-            mensaje += "La fecha del envio es nulo o vacio";
+            mensaje += "La fecha del envio es nulo o vacio, ";
         }
         if(envio.getEstado() == null || envio.getEstado().isEmpty()){
             mensaje += "El estado del envio es nulo o vacio";
@@ -56,7 +57,7 @@ public class EnvioController {
      * Metodo encargado de eliminar
      * @param idEnvio a eliminar
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public void eliminar(String idEnvio) throws PersistenciaException, ApiException{
         if(!existe(idEnvio)){
@@ -70,7 +71,7 @@ public class EnvioController {
      * @param idEnvio del pedido
      * @return Envio
      * @throws PersistenciaException con mensaje controlado
-     * @throws ApiException
+     * @throws ApiException con mensaje controlado
      */
     public Envio buscar(String idEnvio) throws PersistenciaException, ApiException{
         Envio envio = null;
@@ -120,6 +121,7 @@ public class EnvioController {
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado
      */
     public ArrayList<Envio> obtenerListado() throws PersistenciaException, ApiException{
         ArrayList<Envio> envios = null;
@@ -134,7 +136,9 @@ public class EnvioController {
     /**
      * Funcion que obtiene la lista de envios y la devuelve
      * @return la lista de envios
+     * @param dni del usuario que quiere saber su envio
      * @throws PersistenciaException error controlado
+     * @throws ApiException error controlado 
      */
     public ArrayList<Envio> obtenerListado(String dni) throws PersistenciaException, ApiException{
         ArrayList<Envio> envios = null;

@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.iespuertodelacruz.bait.modeloTests.PedidoModeloTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.699 s - in es.iespuertodelacruz.bait.modeloTests.PedidoModeloTest
-=======
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.763 s - in es.iespuertodelacruz.bait.modeloTests.PedidoModeloTest
->>>>>>> 7645cb0eda7731c1bb935ec6ff4d312daa49dd35
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.582 s - in es.iespuertodelacruz.bait.modeloTests.PedidoModeloTest

@@ -25,7 +25,7 @@ public class PedidoModelo {
 
     /**
      * Constructor basico de la clase
-     * @throws PersistenciaException
+     * @throws PersistenciaException error a controlar
      */
     public PedidoModelo() throws PersistenciaException{     
         usuarioModelo = new UsuarioModelo();
@@ -67,7 +67,7 @@ public class PedidoModelo {
      * Metodo encargado de eliminar un pedido en la base de datos
      * 
      * @param idPedido identificador del pedido
-     * @param PersistenciaException error en caso de no poder eliminar
+     * @throws PersistenciaException error en caso de no poder eliminar
      */
     public void eliminar(String idPedido) throws PersistenciaException {
         Connection connection = null;
@@ -189,6 +189,7 @@ public class PedidoModelo {
     /**
      * Funcion que obtiene un listado de los envios y los devuelve
      * 
+     * @param dni dni del usuario
      * @return la lista de envios
      * @throws PersistenciaException error a controlar
      */

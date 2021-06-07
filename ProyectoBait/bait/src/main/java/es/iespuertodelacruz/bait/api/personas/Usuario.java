@@ -2,8 +2,9 @@ package es.iespuertodelacruz.bait.api.personas;
 
 import java.util.Objects;
 
-public class Usuario {
-    private static final String DELIMITADOR = ",";
+import es.iespuertodelacruz.bait.api.Validar;
+
+public class Usuario extends Validar{
     private String dni;
     private String nombre;
     private String apellidos;
@@ -42,10 +43,14 @@ public class Usuario {
      * @param saldo del usuario
      */
     public Usuario(String dni, String nombre, String apellidos, String email, String direccion, String telefono, String pais, String codigoPostal, String provincia, String nombreUsuario, String password, String rol, float saldo ) {
-        this.dni = dni;
+        if (validarDni(dni)) {
+            this.dni = dni;
+        }
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.email = email;
+        if (validarEmail(email)) {
+            this.email = email;
+        }
         this.direccion = direccion;
         this.telefono = telefono;
         this.pais = pais;
@@ -66,7 +71,9 @@ public class Usuario {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        if (validarDni(dni)) {
+            this.dni = dni;
+        }
     }
 
     public String getNombre() {
@@ -90,7 +97,9 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (validarEmail(email)) {
+            this.email = email;
+        }
     }
 
     public String getDireccion() {
@@ -179,19 +188,19 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return getDni() + DELIMITADOR 
-        + getNombre() + DELIMITADOR 
-        + getApellidos() + DELIMITADOR 
-        + getEmail() + DELIMITADOR 
-        + getDireccion() + DELIMITADOR 
-        + getTelefono() + DELIMITADOR 
-        + getPais() + DELIMITADOR
-        + getCodigoPostal() + DELIMITADOR 
-        + getProvincia() + DELIMITADOR 
-        + getNombreUsuario() + DELIMITADOR 
-        + getPassword() + DELIMITADOR
-        + getSaldo() + DELIMITADOR 
-        + getRol();
+        return "Dni: "+getDni() + DELIMITADOR 
+        + "Nombre: "+ getNombre() + DELIMITADOR 
+        + "Apellidos: "+ getApellidos() + DELIMITADOR 
+        + "Email: "+ getEmail() + DELIMITADOR 
+        + "Direccion: "+ getDireccion() + DELIMITADOR 
+        + "Telefono: "+ getTelefono() + DELIMITADOR 
+        + "Pais: "+ getPais() + DELIMITADOR
+        + "CodigoPostal: "+ getCodigoPostal() + DELIMITADOR 
+        + "Provincia: "+ getProvincia() + DELIMITADOR 
+        + "NombreUsuario: "+ getNombreUsuario() + DELIMITADOR 
+        + "Password: "+ getPassword() + DELIMITADOR
+        + "Saldo: "+ getSaldo() + DELIMITADOR 
+        + "Rol: "+ getRol();
     }
 
 }
