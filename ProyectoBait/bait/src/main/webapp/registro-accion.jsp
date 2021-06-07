@@ -5,32 +5,12 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pagina de verificacion de usuario</title>
-        <style>
-            body {
-                background-color: #2C4A76;
-            }
-
-            .cabecera {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                border-radius: 5px;
-                background-color:#638CCA;
-            }
-        </style>
+        <title>Verificacion</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        <%@include file="include/cabecera.jsp" %>
     </head>
 
     <body>
-        <div class="cabecera" id="cabecera">
-            <h1>BAIT</h1>
-            <div class="divBusqueda" id="divBusqueda">
-                <input type="text" id="barraBusqueda" placeholder="¿Qué buscas?" />
-                <input type="image" src="http://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="Submit"
-                    width="15px" height="15px"/>
-            </div>
-        </div>
         <h1>Pagina del usuario</h1>
 
         <jsp:useBean id="controller" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />

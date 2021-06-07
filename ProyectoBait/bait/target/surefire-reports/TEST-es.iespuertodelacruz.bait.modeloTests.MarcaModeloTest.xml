@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.104" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.133" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\test-classes;C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\classes;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\jonay_j3ffsjc\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\javax\servlet\jstl\1.2\jstl-1.2.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\xerial\sqlite-jdbc\3.34.0\sqlite-jdbc-3.34.0.jar;"/>
+    <property name="java.class.path" value="C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\test-classes;C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\classes;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\javiv\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\javiv\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\javiv\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\javiv\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\javiv\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\javiv\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\javiv\.m2\repository\javax\servlet\jstl\1.2\jstl-1.2.jar;C:\Users\javiv\.m2\repository\org\xerial\sqlite-jdbc\3.34.0\sqlite-jdbc-3.34.0.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -16,53 +16,53 @@
     <property name="os.name" value="Windows 10"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.10\bin"/>
-    <property name="sun.java.command" value="C:\Users\jonay_j3ffsjc\AppData\Local\Temp\surefire1225728709705132717\surefirebooter1208571256124882739.jar C:\Users\jonay_j3ffsjc\AppData\Local\Temp\surefire1225728709705132717 2021-06-05T10-57-44_074-jvmRun1 surefire12406496152078708098tmp surefire_010077512436078786206tmp"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.9\bin"/>
+    <property name="sun.java.command" value="C:\Users\javiv\AppData\Local\Temp\surefire6320974439821191902\surefirebooter11077302672706305852.jar C:\Users\javiv\AppData\Local\Temp\surefire6320974439821191902 2021-06-07T15-24-41_830-jvmRun1 surefire3582760981033702850tmp surefire_013302532065802410845tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\test-classes;C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\classes;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\jonay_j3ffsjc\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\jonay_j3ffsjc\.m2\repository\javax\servlet\jstl\1.2\jstl-1.2.jar;C:\Users\jonay_j3ffsjc\.m2\repository\org\xerial\sqlite-jdbc\3.34.0\sqlite-jdbc-3.34.0.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\test-classes;C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait\target\classes;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\javiv\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\javiv\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\javiv\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\javiv\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\javiv\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\javiv\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\javiv\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\javiv\.m2\repository\javax\servlet\jstl\1.2\jstl-1.2.jar;C:\Users\javiv\.m2\repository\org\xerial\sqlite-jdbc\3.34.0\sqlite-jdbc-3.34.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\jonay_j3ffsjc"/>
+    <property name="user.home" value="C:\Users\javiv"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2021-01-19"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-11.0.10"/>
+    <property name="java.version.date" value="2020-10-20"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-11.0.9"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait"/>
-    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="basedir" value="C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\jonay_j3ffsjc\AppData\Local\Temp\surefire1225728709705132717\surefirebooter1208571256124882739.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\javiv\AppData\Local\Temp\surefire6320974439821191902\surefirebooter11077302672706305852.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="11.0.10+8-LTS-162"/>
-    <property name="user.name" value="jonay_j3ffsjc"/>
+    <property name="java.runtime.version" value="11.0.9+7-LTS"/>
+    <property name="user.name" value="Javi"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="java.vendor.version" value="18.9"/>
-    <property name="localRepository" value="C:\Users\jonay_j3ffsjc\.m2\repository"/>
+    <property name="localRepository" value="C:\Users\javiv\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\jonay_j3ffsjc\AppData\Local\Temp\"/>
-    <property name="java.version" value="11.0.10"/>
-    <property name="user.dir" value="C:\Users\jonay_j3ffsjc\Desktop\Bait-VideogameShop\ProyectoBait\bait"/>
+    <property name="java.io.tmpdir" value="C:\Users\javiv\AppData\Local\Temp\"/>
+    <property name="java.version" value="11.0.9"/>
+    <property name="user.dir" value="C:\Users\javiv\Desktop\Bait-VideogameShop\ProyectoBait\bait"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.10\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Java\jdk-11.0.10\bin;C:\Program Files\apache-maven-3.6.3\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;D:\Programas\Git\cmd;D:\Programas\Git\mingw64\bin;D:\Programas\Git\usr\bin;D:\Programas\Vagrant\bin;C:\Users\jonay_j3ffsjc\AppData\Local\Microsoft\WindowsApps;C:\Users\jonay_j3ffsjc\AppData\Local\atom\bin;C:\Users\jonay_j3ffsjc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jonay_j3ffsjc\AppData\Local\Microsoft\WindowsApps;C:\Users\jonay_j3ffsjc\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\SQLite\sqlite-tools-win32-x86-3350500;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.9\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Java\jdk-11.0.9\bin;C:\Program Files\apache-maven-3.6.3\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Users\javiv\AppData\Local\Microsoft\WindowsApps;C:\Users\javiv\AppData\Local\GitHubDesktop\bin;C:\Users\javiv\AppData\Roaming\Composer\vendor\bin;C:\Users\javiv\AppData\Local\Programs\Microsoft VS Code\bin;."/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.vm.version" value="11.0.10+8-LTS-162"/>
+    <property name="java.vm.version" value="11.0.9+7-LTS"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="buscarPorNombreTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.003"/>
-  <testcase name="insertarErrorTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.017"/>
-  <testcase name="modificarTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.026"/>
-  <testcase name="obtenerListadoTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.017"/>
-  <testcase name="buscarPorIdTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.037"/>
+  <testcase name="buscarPorNombreTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0"/>
+  <testcase name="insertarErrorTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.01"/>
+  <testcase name="modificarTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.033"/>
+  <testcase name="obtenerListadoTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.022"/>
+  <testcase name="buscarPorIdTest" classname="es.iespuertodelacruz.bait.modeloTests.MarcaModeloTest" time="0.019"/>
 </testsuite>

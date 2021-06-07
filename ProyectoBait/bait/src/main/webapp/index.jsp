@@ -5,74 +5,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>menuPrincipal</title>
-        <style>
-            body {
-                background-color: #2C4A76;
-            }
-
-            .cabecera {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                border-radius: 5px;
-                background-color:#638CCA;
-            }
-
-            .page {
-                text-align: center;
-                margin-left: 500px;
-                margin-right: 500px;
-
-            }
-
-            .rol{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: row;
-                margin: 10px;
-            }
-
-            .login {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                margin: 10px;
-            }
-
-            .login > input {
-                width: 120px;
-                margin: 5px;
-                border-radius: 5px;
-                margin: 5px;
-            }
-
-            .row{
-                margin: 10px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .row > div{
-                margin: 10px;
-            }
-        </style>
+        <link rel="stylesheet" href="css/estilo.css">
+        <%@include file="include/cabecera.jsp" %>
     </head>
-
     <body>
-        <div class="cabecera" id="cabecera">
-            <h1>BAIT</h1>
-            <div class="divBusqueda" id="divBusqueda">
-                <input type="text" id="barraBusqueda" placeholder="¿Qué buscas?" />
-                <input type="image" src="http://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="Submit"
-                    width="15px" height="15px"></input>
-            </div>
-        </div>
-        <br>
+
         <div class="page" id="page">
             <h1>Menu Principal</h1>
             <p>Seleccion que rol quieres iniciar sesion</p>
