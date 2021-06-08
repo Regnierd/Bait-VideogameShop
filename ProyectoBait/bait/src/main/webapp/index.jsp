@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "include/error/showError.jsp" %>
+
     <!DOCTYPE html>
     <html>
 
@@ -39,6 +40,7 @@
                 </div>
             </div>
         </div>
+        
     </body>
     <%@include file="include/footer.jsp" %>
     </html>
