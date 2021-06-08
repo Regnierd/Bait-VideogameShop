@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
+
     <!DOCTYPE html>
     <html>
 
