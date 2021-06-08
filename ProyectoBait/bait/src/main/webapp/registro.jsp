@@ -1,3 +1,4 @@
+<%@ page errorPage = "include/error/showError.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pagina de verificacion de usuario</title>
         <link rel="stylesheet" href="css/estilo.css">
-        <%@include file="include/cabecera.jsp" %>
+        <%@include file="include/header.jsp" %>
+        <%@include file="include/footer.jsp" %>
     </head>
     <body>
         
