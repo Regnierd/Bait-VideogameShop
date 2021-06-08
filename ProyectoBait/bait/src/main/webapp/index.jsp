@@ -7,14 +7,14 @@
         <title>menuPrincipal</title>
         <link rel="stylesheet" href="css/estilo.css">
         <%@include file="include/cabecera.jsp" %>
+        
     </head>
     <body>
-
+        
         <div class="page" id="page">
             <h1>Menu Principal</h1>
             <p>Seleccion que rol quieres iniciar sesion</p>
-    
-            <form method="post" action="action-page.jsp">
+            <form method="post" action="admin-page.jsp">
                 <div class="rol">
                     <input type="radio" id="cliente" name="rol" value="Cliente">
                     <label for="cliente">Cliente</label><br>
@@ -38,7 +38,8 @@
                     </div>
                 </div>
             </div>
-
+            
+            
 
         </div>
     </body>

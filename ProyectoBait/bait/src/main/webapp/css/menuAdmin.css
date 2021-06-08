@@ -1,0 +1,57 @@
+.header{
+    margin:auto;
+    width: 800px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul, li{
+    list-style: none;
+}
+
+.nav li a{
+    background-color: blue;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.nav > li {
+    float:left;
+}
+
+.nav li a:hover{
+    background-color: grey;
+
+}
+
+.nav li ul {
+    display: none;
+    position: absolute;
+    min-width: 140px;
+}
+
+.nav li:hover > ul{
+    display: block;
+}
+
+.cuerpo{
+    margin: auto;
+    width: 500px;
+    margin-top: 100px;
+    
+}
+
+.formulario{
+    display: none;
+}
+
+a:target + .formulario {
+    display: block;
+}
+
+input{
+    margin-left: 20px;
+    margin-top: 20px;
+    
+}
