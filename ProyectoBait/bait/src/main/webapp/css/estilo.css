@@ -1,61 +1,97 @@
 body {
-    background-color: #2C4A76;
+  background-color: #2c4a76;
 }
 
-.cabecera {
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: #638cca;
+  margin: 0px 220px;
+}
+
+footer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-radius: 5px;
-    background-color:#638CCA;
+    background-color: #28292c;
+    margin-top: 100%;
+    margin-left: 220px;
+    margin-right: 220px;
+    margin-bottom: 0%;
 }
 
 .page {
-    text-align: center;
-    margin-left: 500px;
-    margin-right: 500px;
-
+  text-align: center;
+  margin: 0px 220px;
+  height: 100%;
 }
 
-.rol{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    margin: 10px;
+.rol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px;
 }
 
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
 }
 
 .login > input {
-    width: 120px;
-    margin: 5px;
-    border-radius: 5px;
-    margin: 5px;
+  width: 120px;
+  margin: 5px;
+  border-radius: 5px;
+  margin: 5px;
 }
 
-.row{
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.row {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-.row > div{
-    margin: 10px;
+.row > div {
+  margin: 10px;
 }
 
-table, th,td{
-    border: 1px solid black;
-    border-radius: 2px;
-    margin: 1px;
-    padding: 1px;
+table,
+th,
+td {
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 1px;
+  padding: 1px;
 }
+
+.left-spam {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .right-spam {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
