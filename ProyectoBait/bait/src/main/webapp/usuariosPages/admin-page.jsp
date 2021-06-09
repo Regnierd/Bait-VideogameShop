@@ -9,7 +9,8 @@
         <title>menuPrincipal</title>
         <link rel="stylesheet" href="css/estilo.css">
         <link rel="stylesheet" href="css/menuAdmin.css">
-        <%@include file="include/cabecera.jsp" %>
+        <%@include file="include/header.jsp" %>
+        <%@include file="include/spam.jsp" %>
     </head>
     <body> 
         <div class="header">
@@ -99,7 +100,7 @@
             </div>    
             <a name="eliminarP"></a>
             <div class="formulario">
-                <h3>Eliminar un uproductosuario</h3>
+                <h3>Eliminar un producto</h3>
                 <%@include file="productosPages/eliminarProducto.jsp" %>
             </div> 
             <a name="modificarP"></a>
@@ -200,5 +201,5 @@
         
         
     </body>
-
+    <%@include file="include/footer.jsp" %>
     </html>

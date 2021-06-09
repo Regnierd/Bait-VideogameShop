@@ -1,44 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InicioSesion</title>
-    <link rel="stylesheet" href="css/estilo.css">
-    <%@include file="include/header.jsp" %>
-    <%@include file="include/spam.jsp" %>
-</head>
-<body>
-    <div class="page">
-        <h1>Inicio Sesion</h1>
-        <p>Seleccion que rol quieres iniciar sesion</p>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "include/error/showError.jsp" %>
 
-        <form method="post" action="login/action-login.jsp">
-            <div class="rol">
-                <input type="radio" id="cliente" name="rol" value="Cliente">
-                <label for="cliente">Cliente</label><br>
-                <input type="radio" id="admin" name="rol" value="Admin">
-                <label for="admin">Admin</label><br>
-            </div>
-            <div class="login">
-                <input type="text" name="nombreUsuario" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <input type="submit" value="Continuar"> <br>
-        </form>
+    <!DOCTYPE html>
+    <html>
 
-        <div class="bottom-container">
-            <div class="row">
-                <div class="col">
-                    <a href="registro.jsp" style="color:black" class="btn">Registrarse</a>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>menuPrincipal</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/login.css">
+        <%@include file="include/header.jsp" %>
+        <%@include file="include/spam.jsp" %>
+    </head>
+    <body>
+
+        <div class="login-box">
+            <img class="avatar" src="img/logotipoBait.png" alt="logo bait">
+            <h1>Iniciar sesion</h1>
+            <form method="post" action="action-login.jsp">
+                <div class="rol">
+                    <input type="radio" id="cliente" name="rol" value="Cliente">
+                    <label for="cliente">Cliente</label><br>
+                    <input type="radio" id="admin" name="rol" value="Admin">
+                    <label for="admin">Admin</label><br>
                 </div>
-                <div class="col">
-                    <a href="#" style="color:black" class="btn">olvido su Contraseña?</a>
-                </div>
-            </div>
+                <!--Nombre de usuario-->
+                <label for="nombreUsuario">Nombre de usuario</label>
+                <input type="text" placeholder="Nombre usuario">
+
+                <!--Contraseña-->
+                <label for="password">Contraseña</label>
+                <input type="password" placeholder="Contraseña">
+
+                <input type="submit" value="Entrar">
+
+                <a href="registro.jsp">Registrarse</a><br/>
+                <a href="#">Olvidó su Contraseña?</a>
+
+            </form>
         </div>
-    </div>
+    </body>
     <%@include file="include/footer.jsp" %>
-</body>
-</html>
+    </html>
