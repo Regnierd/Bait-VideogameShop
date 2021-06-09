@@ -7,11 +7,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>menuPrincipal</title>
         <link rel="stylesheet" href="css/estilo.css">
+
         <%@include file="include/header.jsp" %>
         <%@include file="include/spam.jsp" %>
     </head>
     <body>
-        <div class="page" id="page">
+
+        <!--<div class="page" id="page">
             <h1>Menu Principal</h1>
             <p>Seleccion que rol quieres iniciar sesion</p>
     
@@ -39,7 +41,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+
         
     </body>
     <%@include file="include/footer.jsp" %>

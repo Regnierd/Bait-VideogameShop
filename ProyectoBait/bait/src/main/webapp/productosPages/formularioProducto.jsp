@@ -1,4 +1,4 @@
-<form method="post" action="actionProducto.jsp">
+<form method="post" action="insertarActionProducto.jsp">
     Nombre: <input type="text" name="nombre" placeholder="Auriculares MarsGaming"><br>
     Categoria: <input type="text" name="categoria" placeholder="Auriculares"><br>
     Precio: <input type="text" name="categoria" placeholder="20,00"><br>  

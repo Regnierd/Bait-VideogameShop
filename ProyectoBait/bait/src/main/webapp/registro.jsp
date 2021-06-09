@@ -7,6 +7,7 @@
         <title>Pagina de verificacion de usuario</title>
         <link rel="stylesheet" href="css/estilo.css">
         <%@include file="include/header.jsp" %>
+        <%@include file="include/spam.jsp" %>
         <%@include file="include/footer.jsp" %>
     </head>
     <body>
