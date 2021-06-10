@@ -3,43 +3,34 @@ body {
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
   color: #666;
-  background: #c2baba; 
+  background: #ffffff; 
   font-size: 1em;
   line-height: 1.5em;
 }
 /* Header css */
+.page {
+  margin: 0px 300px;
+  text-align: center;
+}
+
 .page-header{
   flex: 0 0 auto;
   overflow: hidden;
-  background-color: rgba(63, 65, 70, 0.333);
-  margin: 0px 220px;
-  padding: 20px 10px;
+  background-color: rgb(56, 56, 56);
+  margin: 0px 300px;
+  padding: 10px 10px;
+  
 }
 
 .page-header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
+  margin-top: 10px;
+  margin-left: 15px;
 }
 
-.page-header a.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
+.page-header .logo {
+  margin-top: 5px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 5px black;
 }
 
 .header-right {
@@ -50,11 +41,35 @@ body {
   justify-content: right;
 }
 
+.buscador{
+    border: none;
+    border-bottom: 1px solid rgb(22, 22, 22) ;
+    background-color: rgb(243, 243, 243);
+    outline: none;
+    height: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    box-shadow: 3px 3px 3px black;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/*admin*/
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
 /* Footer css */
 .page-footer{
   overflow: hidden;
   background-color: #2C2827;
-  margin: 0px 220px;
+  margin: 0px 300px;
   padding: 20px 10px;
 }
 
@@ -80,7 +95,7 @@ body {
 /* Barras de Spam css*/
 .left-spam {
   height: 100%;
-  width: 220px;
+  width: 300px;
   position: fixed;
   top: 0;
   left: 0;
@@ -89,7 +104,7 @@ body {
 
 .right-spam {
   height: 100%;
-  width: 220px;
+  width: 300px;
   position: fixed;
   top: 0;
   right: 0;
@@ -98,12 +113,12 @@ body {
 
 .right-spam img { 
   object-fit: cover;
-  width: 220px;
+  width: 300px;
   height: 99%;
 }
 
 .left-spam img { 
   object-fit: cover;
-  width: 220px;
+  width: 300px;
   height: 99%;
 }
