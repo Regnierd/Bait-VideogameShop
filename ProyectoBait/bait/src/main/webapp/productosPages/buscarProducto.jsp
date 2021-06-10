@@ -3,7 +3,7 @@
 <%@page import='java.util.ArrayList' %>
 <%@page errorPage = "include/error/showError.jsp" %>
 <form method="post">
-    Introduce el id del producto a buscar: <input type="text" name="id" placeholder="pro_00000001"><br>
+    <label>Introduce el id del producto a buscar:</label> <input type="text" name="id" placeholder="pro_00000001"><br>
     <input type="submit" value="Buscar"> <br>
 </form>
 

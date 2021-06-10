@@ -12,9 +12,8 @@
         <%@include file="include/spam.jsp" %>
     </head>
     <body>
-        <div class="page" id="page">
-            ESTA ES LA PAGINA DE CONTENIDO
-        </div>
-        <%@include file="include/footer.jsp" %>
+
+        
+        
     </body>
     </html>
