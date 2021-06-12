@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "include/error/showError.jsp" %>
 <%@ page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
 <%@ page errorPage = "../include/error/showError.jsp" %>
     
