@@ -3,7 +3,7 @@
     <div class="header-right">
         <form action="">
             <input class="buscador" type="search" name="buscador">
-        </form>
+        </form>     
         <a href="../login/login.jsp" ><img class="login" src="../img/iniciarSesion.png" alt="Icono-usuario" width="40px" height="40px"></a>
     </div>
 </header>

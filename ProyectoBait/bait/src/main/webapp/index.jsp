@@ -15,7 +15,7 @@
         <body>
             <div class="page">
                 <div class="tablas">
-                    <%@include file="productos.jsp" %>
+                    <%@include file="productosPages/obtenerProductos.jsp" %>
                 </div>
                 
             </div>

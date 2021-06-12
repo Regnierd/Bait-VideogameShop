@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "include/error/showError.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "../include/error/showError.jsp" %>
 <%@ page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
     <!DOCTYPE html>
     <html>
@@ -6,9 +6,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Verificacion</title>
-        <link rel="stylesheet" href="css/estilo.css">
-        <%@include file="include/header.jsp" %>
-        <%@include file="include/footer.jsp" %>
+        <link rel="stylesheet" href="../css/estilo.css">
+        <%@include file="../include/header.jsp" %>
+        <%@include file="../include/footer.jsp" %>
     </head>
 
     <body>

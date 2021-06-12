@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "include/error/showError.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
 
     <!DOCTYPE html>
@@ -7,10 +7,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>menuPrincipal</title>
-        <link rel="stylesheet" href="css/estilo.css">
-        <link rel="stylesheet" href="css/menuAdmin.css">
-        <%@include file="include/header.jsp" %>
-        <%@include file="include/spam.jsp" %>
+        <link rel="stylesheet" href="../css/estilo.css">
+        <link rel="stylesheet" href="../css/menuAdmin.css">
+        <%@include file="../include/header.jsp" %>
+        <%@include file="../include/spam.jsp" %>
         <jsp:useBean id="categoriaController" class="es.iespuertodelacruz.bait.controlador.productosController.CategoriaController" />
 
     </head>
@@ -31,7 +31,13 @@
                             <li><a href="#insertarProducto">Insertar productos</a></li>
                             <li><a href="#eliminarProducto">Eliminar productos</a></li>
                             <li><a href="#modificarProducto">Modificar productos</a></li>
-                            <li><a href="#buscarProducto">Buscar productos</a></li>
+                            <li><a>Buscar productos</a>
+                                <ul>
+                                    <li><a href="#buscarProductoNombre">Buscar productos nombre</a></li>
+                                    <li><a href="#buscarProductoCategoria">Buscar productos categoria</a></li>
+                                    <li><a href="#buscarProductoMarca">Buscar productos marca</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li><a href="">Categorias</a>
@@ -73,7 +79,7 @@
                 <a name="insertarUsuario"></a>
                 <div class="formulario">
                     <h2>Registrar un nuevo usuario</h2>
-                    <form method="post" action="usuariosPages/insertarUsuario.jsp">
+                    <form method="post" action="../usuariosPages/insertarUsuario.jsp">
                         <label>Dni:</label>  <input type="text" name="dni" placeholder="78548922L"><br>
                         <label>Nombre:</label> <input type="text" name="nombre" placeholder="Jose"><br>
                         <label>Apellidos:</label> <input type="text" name="apellidos" placeholder="Perez"><br>
@@ -97,7 +103,7 @@
                 <a name="eliminarUsuario"></a>
                 <div class="formulario">
                     <h2>Eliminar un usuario</h2>
-                    <form method="post" action="usuariosPages/eliminarUsuario.jsp">
+                    <form method="post" action="../usuariosPages/eliminarUsuario.jsp">
                         <label>Introduce el dni del usuario a eliminar: </label><input type="text" name="dni" placeholder="78648921P"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>
@@ -105,7 +111,7 @@
                 <a name="modificarUsuario"></a>
                 <div class="formulario">
                     <h2>Modificar un usuario</h2>
-                    <form method="post" action="usuariosPages/modificarUsuario.jsp">
+                    <form method="post" action="../usuariosPages/modificarUsuario.jsp">
                         <label>Dni:</label>  <input type="text" name="dni" placeholder="78548922L"><br>
                         <label>Nombre:</label> <input type="text" name="nombre" placeholder="Jose"><br>
                         <label>Apellidos:</label> <input type="text" name="apellidos" placeholder="Perez"><br>
@@ -129,7 +135,7 @@
                 <a name="buscarUsuario"></a>
                 <div class="formulario">
                     <h2>Buscar un usuario</h2>
-                    <form method="post" action="usuariosPages/buscarUsuario.jsp">
+                    <form method="post" action="../usuariosPages/buscarUsuario.jsp">
                         <label>Introduce el dni del usuario a buscar: </label><input type="text" name="dni" placeholder="78648921P"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
@@ -139,7 +145,7 @@
                 <a name="insertarProducto"></a>
                 <div class="formulario">
                     <h2>Registrar un nuevo producto</h2>
-                    <form method="post" action="productosPages/insertarProducto.jsp">
+                    <form method="post" action="../productosPages/insertarProducto.jsp">
                         <label>Nombre:</label> <input type="text" name="nombreProducto" placeholder="ordenador gaming"><br>
                         <label>Categoria:</label>  <input type="text" name="idCategoria" placeholder="cat_pc"><br>
                         <label>Precio:</label> <input type="text" name="precio" placeholder="20,00"><br>  
@@ -152,7 +158,7 @@
                 <a name="eliminarProducto"></a>
                 <div class="formulario">
                     <h2>Eliminar un producto</h2>
-                    <form method="post" action="productosPages/eliminarProducto.jsp">
+                    <form method="post" action="../productosPages/eliminarProducto.jsp">
                         <label>Introduce el  id del producto a eliminar: </label><input type="text" name="idProducto" placeholder="pro_00000001"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>
@@ -160,7 +166,7 @@
                 <a name="modificarProducto"></a>
                 <div class="formulario">
                     <h2>Modificar un producto</h2>
-                    <form method="post" action="productosPages/modificarProducto.jsp">
+                    <form method="post" action="../productosPages/modificarProducto.jsp">
                         <label>idProducto:</label> <input type="text" name="idProducto" placeholder="pro_00000006"><br>
                         <label>Nombre:</label> <input type="text" name="nombreProducto" placeholder="ordenador gaming"><br>
                         <label>Categoria:</label>  <input type="text" name="idCategoria" placeholder="cat_pc"><br>
@@ -171,11 +177,27 @@
                         <input type="submit" value="Registrar"> <br>
                     </form> 
                 </div>  
-                <a name="buscarProducto"></a>
+                <a name="buscarProductoNombre"></a>
                 <div class="formulario">
                     <h2>Buscar un producto</h2>
                     <form method="post">
-                        <label>Introduce el id del producto a buscar:</label> <input type="text" name="id" placeholder="pro_00000001"><br>
+                        <label>Introduce el nombre del producto a buscar:</label> <input type="text" name="id" placeholder="The Last of Us"><br>
+                        <input type="submit" value="Buscar"> <br>
+                    </form>
+                </div> 
+                <a name="buscarProductoCategoria"></a>
+                <div class="formulario">
+                    <h2>Buscar un producto</h2>
+                    <form method="post">
+                        <label>Introduce el categoria del producto a buscar:</label> <input type="text" name="id" placeholder="cat_videojuego"><br>
+                        <input type="submit" value="Buscar"> <br>
+                    </form>
+                </div> 
+                <a name="buscarProductoMarca"></a>
+                <div class="formulario">
+                    <h2>Buscar un producto</h2>
+                    <form method="post">
+                        <label>Introduce el marca del producto a buscar:</label> <input type="text" name="id" placeholder="mar_sony"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div> 
@@ -184,7 +206,7 @@
                 <a name="insertarCategoria"></a>
                 <div class="formulario">
                     <h2>Insertar una categoria</h2>
-                    <form method="post" action="categoriasPages/insertarCategoria.jsp">
+                    <form method="post" action="../categoriasPages/insertarCategoria.jsp">
                         <label>Nombre de la categoria:</label> <input type="text" name="nombreCategoria" placeholder="Videojuego"><br>
                         <input type="submit" value="Registrar"> <br>
                     </form>
@@ -192,7 +214,7 @@
                 <a name="eliminarCategoria"></a>
                 <div class="formulario">
                     <h2>Eliminar una categoria</h2>
-                    <form method="post" action="categoriasPages/eliminarCategoria.jsp">
+                    <form method="post" action="../categoriasPages/eliminarCategoria.jsp">
                         <label>Introduce el id de la categoria a eliminar:</label> <input type="text" name="idCategoria" placeholder="cat_pc"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>
@@ -200,7 +222,7 @@
                 <a name="modificarCategoria"></a>
                 <div class="formulario">
                     <h2>Modificar una categoria</h2>
-                    <form method="post" action="categoriasPages/modificarCategoria.jsp">
+                    <form method="post" action="../categoriasPages/modificarCategoria.jsp">
                         <label>Introduce el id de la categoria a modificar:</label> <input type="text" name="idCategoria" placeholder="cat_pc"><br>
                         <label>Nombre:</label> <input type="text" name="nombreCategoria" placeholder="Ordenadores"><br>
                         <input type="submit" value="Modificar"> <br>
@@ -209,7 +231,7 @@
                 <a name="buscarCategoria"></a>
                 <div class="formulario">
                     <h2>Buscar una categoria</h2>
-                    <form method="post" action="categoriasPages/buscarCategoria.jsp">
+                    <form method="post" action="../categoriasPages/buscarCategoria.jsp">
                         <label>Introduce el id de la categoria a buscar:</label> <input type="text" name="idCategoria" placeholder="cat_pc"><br>
                         <input type="submit" value="Buscar"><br>
                     </form>                        
@@ -219,7 +241,7 @@
                 <a name="insertarMarca"></a>
                 <div class="formulario">
                     <h2>Registrar una nueva marca</h2>
-                    <form method="post" action="marcasPages/insertarMarca.jsp">
+                    <form method="post" action="../marcasPages/insertarMarca.jsp">
                         <label>Nombre de la marca:</label> <input type="text" name="nombreMarca" placeholder="SONY"><br>
                         <input type="submit" value="Registrar"> <br>
                     </form>
@@ -227,7 +249,7 @@
                 <a name="eliminarMarca"></a>
                 <div class="formulario">
                     <h2>Eliminar una marca</h2>
-                    <form method="post" action="marcasPages/eliminarMarca.jsp">
+                    <form method="post" action="../marcasPages/eliminarMarca.jsp">
                         <label>Introduce el id de la marca a eliminar:</label> <input type="text" name="idMarca" placeholder="mar_sony"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>
@@ -235,7 +257,7 @@
                 <a name="modificarMarca"></a>
                 <div class="formulario">
                     <h2>Modificar una marca</h2>
-                    <form method="post" action="marcasPages/modificarMarca.jsp">
+                    <form method="post" action="../marcasPages/modificarMarca.jsp">
                         <label>Introduce el id de la marca a modificar:</label> <input type="text" name="idMarca" placeholder="mar_sony"><br>
                         <label>Nombre:</label> <input type="text" name="nombreMarca" placeholder="SONY"><br>
                         <input type="submit" value="Modificar"> <br>
@@ -244,7 +266,7 @@
                 <a name="buscarMarca"></a>
                 <div class="formulario">
                     <h2>Buscar una marca</h2>
-                        <form method="post" action="marcasPages/buscarMarca.jsp">
+                        <form method="post" action="../marcasPages/buscarMarca.jsp">
                         <label>Introduce el id de la marca a buscar:</label> <input type="text" name="idMarca" placeholder="mar_sony"><br>
                         <input type="submit" value="Buscar"><br>
                     </form>  
@@ -254,7 +276,7 @@
                 <a name="eliminarPedido"></a>
                 <div class="formulario">
                     <h2>Eliminar un pedido</h2>
-                    <form method="post" action="./pedidosPages/eliminarPedido.jsp">
+                    <form method="post" action="../pedidosPages/eliminarPedido.jsp">
                         <label>Introduce el id del pedido a eliminar:</label> <input type="text" name="idPedido" placeholder="ped_xxxxxxxx"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>                
@@ -262,7 +284,7 @@
                 <a name="modificarPedido"></a>
                 <div class="formulario">
                     <h2>Modificar un pedido</h2>
-                    <form method="post" action="./pedidosPages/modificarPedido.jsp">
+                    <form method="post" action="../pedidosPages/modificarPedido.jsp">
                         <label>IdPedido:</label> <input type="text" name="idPedido" placeholder="ped_xxxxxxxx"><br>
                         <label>Unidades:</label> <input type="text" name="unidades" placeholder="2"><br>
                         <label>Total:</label> <input type="text" name="total" placeholder="20.50"><br>
@@ -275,7 +297,7 @@
                 <a name="buscarPedido"></a>
                 <div class="formulario">
                     <h2>Buscar un pedido</h2>
-                    <form method="post" action="./pedidosPages/buscarPedido.jsp">
+                    <form method="post" action="../pedidosPages/buscarPedido.jsp">
                         <label>Introduce el id del pedido a buscar:</label> <input type="text" name="idPedido" placeholder="ped_xxxxxxxx"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>                 
@@ -285,7 +307,7 @@
                 <a name="eliminarEnvio"></a>
                 <div class="formulario">
                     <h2>Eliminar un envio</h2>
-                    <form method="post" action="./enviosPages/eliminarEnvio.jsp">
+                    <form method="post" action="../enviosPages/eliminarEnvio.jsp">
                         Introduce el id del envio a eliminar: <input type="text" name="idEnvio" placeholder="env_xxxxxxxx"><br>
                         <input type="submit" value="Eliminar"> <br>
                     </form>
@@ -293,7 +315,7 @@
                 <a name="modificarEnvio"></a>
                 <div class="formulario">
                     <h2>Modificar un envio</h2>   
-                    <form method="post" action="./enviosPages/modificarEnvio.jsp">
+                    <form method="post" action="../enviosPages/modificarEnvio.jsp">
                         Id del envio: <input type="text" name="idEnvio" placeholder="env_xxxxxxxx"><br>
                         Id del pedido: <input type="text" name="idPedido" placeholder="ped_xxxxxxxx"><br>
                         Fecha del envio: <input type="date" name="fechaEnvio" placeholder="2021-06-12"><br>
@@ -305,7 +327,7 @@
                 <a name="buscarEnvio"></a>
                 <div class="formulario">
                     <h2>Buscar un envio</h2>
-                    <form method="post" action="./enviosPages/buscarEnvio.jsp">
+                    <form method="post" action="../enviosPages/buscarEnvio.jsp">
                         Introduce el id del envio a buscar: <input type="text" name="idEnvio" placeholder="env_xxxxxxxx"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
@@ -314,5 +336,5 @@
 
         </div>   
     </body>
-    <%@include file="include/footer.jsp" %>
+    <%@include file="../include/footer.jsp" %>
     </html>

@@ -1,14 +1,14 @@
-<%@ page errorPage = "include/error/showError.jsp" %>
+<%@ page errorPage = "../include/error/showError.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pagina de verificacion de usuario</title>
-        <link rel="stylesheet" href="css/estilo.css">
-        <link rel="stylesheet" href="css/menuAdmin.css">
-        <%@include file="include/header.jsp" %>
-        <%@include file="include/spam.jsp" %>
+        <link rel="stylesheet" href="../css/estilo.css">
+        <link rel="stylesheet" href="../css/menuAdmin.css">
+        <%@include file="../include/header.jsp" %>
+        <%@include file="../include/spam.jsp" %>
         
     </head>
     <body>
@@ -33,5 +33,5 @@
             </div>        
         </div>    
     </body>
-    <%@include file="include/footer.jsp" %>
+    <%@include file="../include/footer.jsp" %>
 </html>
