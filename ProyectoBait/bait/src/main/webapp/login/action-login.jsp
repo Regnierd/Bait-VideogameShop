@@ -1,11 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
-<%@ page errorPage = "include/error/showError.jsp" %>
+<%@ page errorPage = "../include/error/showError.jsp" %>
     
-<%@include file="include/header.jsp" %>
-<%@include file="include/footer.jsp" %>
-
-
 <jsp:useBean id="controller" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />
 
 <% String nombreUsuario = request.getParameter("nombreUsuario"); %>
@@ -18,7 +14,7 @@
 }
 %>
 <% if (usuario.getRol().equals("Cliente")){
-    response.sendRedirect("http://localhost:8080/index.jsp"); 
+    response.sendRedirect("http://localhost:8080/cliente.jsp"); 
 }
 %>
 

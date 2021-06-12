@@ -1,28 +1,33 @@
 <%@page import="es.iespuertodelacruz.bait.exceptions.ApiException"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true"%>
 <html>
-<head>
-    <title>Error Message</title>
-    <link rel="stylesheet" href="css/estilo.css">
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Error Message</title>
+        <link rel="stylesheet" href="css/estilo.css">
+        
+        <%@include file="../header.jsp" %>
+        <%@include file="../spam.jsp" %>
+    </head>
 
-<body>
+    <body>
 
-<form action="" method="post" >
-        <br><br>
-        <table class="exception" width="90%" height="100px"
-               style="  -moz-border-radius: 8px;  -webkit-border-radius: 8px;border-radius: 8px;border: 2px solid #467aa7;">
-            <tr>
-                <td style="color:#467aa7;">
-                    <% 
-                        ApiException e = (ApiException) exception;
-                        String message = e.getMessage();
-                    %>
+        <form action="" method="post" >
+                <br><br>
+                <table class="exception">
+                    <tr>
+                        <td>
+                            <% 
+                                ApiException e = (ApiException) exception;
+                                String message = e.getMessage();
+                            %>
 
-                    <label><%=message %></label>
-                </td>
-            </tr>
-        </table>
-</form>
-</body>
+                            <label><%=message %></label>
+                        </td>
+                    </tr>
+                </table>
+        </form>
+        <%@include file="../footer.jsp" %>
+    </body>
+    
 </html>

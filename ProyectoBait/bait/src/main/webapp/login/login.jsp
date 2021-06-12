@@ -6,10 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>menuPrincipal</title>
-        <link rel="stylesheet" href="css/estilo.css">
-        <link rel="stylesheet" href="css/login.css">
-        <%@include file="include/header.jsp" %>
-        <%@include file="include/spam.jsp" %>
+        <link rel="stylesheet" href="../css/estilo.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <%@include file="../include/header.jsp" %>
+        <%@include file="../include/spam.jsp" %>
     </head>
     <body>
         <div class="page">
@@ -33,11 +33,11 @@
                     <input type="submit" value="Entrar">
                 </form>
 
-                <a href="registro.jsp">Registrarse</a><br/>
+                <a href="../registro.jsp">Registrarse</a><br/>
                 <a href="#">Olvidó su Contraseña?</a>
          
             </div>
         </div>    
     </body>
-    <%@include file="include/footer.jsp" %>
+    <%@include file="../include/footer.jsp" %>
     </html>

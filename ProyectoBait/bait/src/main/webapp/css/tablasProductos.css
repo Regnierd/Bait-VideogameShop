@@ -1,0 +1,27 @@
+.tablas{
+    width: 40%;
+    display: flex;
+    margin: auto;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -webkit-flex-direction: column;
+    padding: 10px 10px;
+}
+.tablas table{
+    padding: 10px;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.tablas table td{
+    border-bottom: 1px solid grey;
+}
+
+.tablas table:hover{
+    padding: 15px;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px grey;
+}

@@ -19,7 +19,8 @@ body {
   background-color: rgb(56, 56, 56);
   margin: 0px 300px;
   padding: 10px 10px;
-  
+  border: 1px solid black;
+
 }
 
 .page-header a {
@@ -40,6 +41,7 @@ body {
   align-items: center;
   justify-content: right;
 }
+
 
 .buscador{
     border: none;
@@ -71,6 +73,7 @@ body {
   background-color: #2C2827;
   margin: 0px 300px;
   padding: 20px 10px;
+  border: 1px solid black;
 }
 
 .page-footer .elementos {
@@ -121,4 +124,14 @@ body {
   object-fit: cover;
   width: 300px;
   height: 99%;
+}
+
+/* Exceptions */
+.exception{
+  margin-left: 320px;
+  width: 400px;
+  height:100px;
+  border-radius: 8px;
+  border: 2px solid #e63232;
+  color: #e63232;
 }
