@@ -2,10 +2,7 @@
 <%@page import='es.iespuertodelacruz.bait.api.productos.Producto' %>
 <%@page import='java.util.ArrayList' %>
 <%@page errorPage = "include/error/showError.jsp" %>
-<form method="post">
-    <label>Introduce el id del producto a buscar:</label> <input type="text" name="id" placeholder="pro_00000001"><br>
-    <input type="submit" value="Buscar"> <br>
-</form>
+
 
 <jsp:useBean id="productoController" class="es.iespuertodelacruz.bait.controlador.productosController.ProductoController" />
 
@@ -15,20 +12,30 @@
         <% Producto producto = productos.get(i); %>
         <tr>
             <th>IdProducto</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Descripcion</th>
-            <th>Stock</th>
-            <th>IdCategoria</th>
-            <th>IdMarca</th>
+            <td><%= producto.getIdProducto()%></td>
         </tr>
         <tr>
-            <td><%= producto.getIdProducto()%></td>
+            <th>Nombre</th>
             <td><%= producto.getNombre()%></td>
+        </tr>
+        <tr>
+            <th>Precio</th>
             <td><%= producto.getPrecio()%></td>
+        </tr>
+        <tr>
+            <th>Descripcion</th>
             <td><%= producto.getDescripcion()%></td>
+        </tr>
+        <tr>
+            <th>Stock</th>
             <td><%= producto.getStock()%></td>
+        </tr>
+        <tr>
+            <th>IdCategoria</th>
             <td><%= producto.getCategoria().getIdCategoria()%></td>
+        </tr>
+        <tr>
+            <th>IdMarca</th>
             <td><%= producto.getMarca().getIdMarca()%></td>
         </tr>
     <% } %> 

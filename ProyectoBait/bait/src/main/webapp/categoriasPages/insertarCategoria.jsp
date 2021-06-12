@@ -12,8 +12,11 @@
 <body>
     <div class="page">
         <jsp:useBean id="categoriaController" class="es.iespuertodelacruz.bait.controlador.productosController.CategoriaController" />
-        <% String idCategoria = request.getParameter("idCategoria"); %>
-        <% Categoria categoria = categoriaController.buscar(idCategoria); %>
+        <% String nombreCategoria = request.getParameter("nombreCategoria"); %>
+        <% Categoria categoria = new Categoria(nombreCategoria); %>
+        <% categoriaController.insertar(categoria); %>
+        <h3>Insertado corretamente</h3> 
+        <% categoria = categoriaController.buscar(categoria.getIdCategoria()); %>
         <table>
             <tr >
                 <th>IdCategoria</th>
@@ -23,8 +26,13 @@
                 <th>Nombre</th>
                 <td><%= categoria.getNombre()%></td>
             </tr>
-        </table>   
+        </table>  
     </div>
 </body>
 <%@include file="../include/footer.jsp" %>
 </html>
+
+
+
+
+

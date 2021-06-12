@@ -1,5 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "../include/error/showError.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage = "../include/error/showError.jsp"%>
 <%@ page import='es.iespuertodelacruz.bait.api.movimientos.Pedido' %>
+<%@ page import='es.iespuertodelacruz.bait.api.productos.Producto' %>
+<%@ page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +16,23 @@
 <body>
     <div class="page">
         <jsp:useBean id="pedidoController" class="es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController" />
+        <jsp:useBean id="productoController" class="es.iespuertodelacruz.bait.controlador.productosController.ProductoController" />
+        <jsp:useBean id="usuarioController" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />
 
         <% String idPedido = request.getParameter("idPedido"); %>
-        <% Pedido pedido = pedidoController.buscar(idPedido); %>
+        <% int unidades = Integer.parseInt(request.getParameter("unidades")); %>
+        <% float total = Float.parseFloat(request.getParameter("total")); %>
+        <% String fechaPedido = "" + request.getParameter("fechaPedido"); %>
+        <% String dni = request.getParameter("dni");%>
+        <% String idProducto = request.getParameter("idProducto");%>
+        <% Usuario usuario = usuarioController.buscar(dni); %>
+        <% Producto producto = productoController.buscar(idProducto); %>
+
+
+        <% Pedido pedido = new Pedido(idPedido, unidades, total, fechaPedido, usuario, producto); %>
+        <% pedidoController.modificar(pedido); %>
+
+        <% pedido = pedidoController.buscar(idPedido); %>
         <table>
             <tr>
                 <td>IdPedido</td>
@@ -37,7 +55,7 @@
                 <td><%= pedido.getUsuario().getDni() %></td>
             </tr>
             <tr>
-                <td>Producto</td>
+                <td>Categoria</td>
                 <td><%= pedido.getProducto().getIdProducto() %></td>
             </tr>
         </table>   

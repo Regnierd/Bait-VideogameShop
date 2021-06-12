@@ -13,7 +13,11 @@
     <div class="page">
         <jsp:useBean id="categoriaController" class="es.iespuertodelacruz.bait.controlador.productosController.CategoriaController" />
         <% String idCategoria = request.getParameter("idCategoria"); %>
-        <% Categoria categoria = categoriaController.buscar(idCategoria); %>
+        <% String nombreCategoria = request.getParameter("nombreCategoria"); %>
+        <% Categoria categoria = new Categoria(idCategoria,nombreCategoria); %>
+        <% categoriaController.modificar(categoria); %>
+        <h3>Modificado corretamente</h3>
+        <% categoria = categoriaController.buscar(idCategoria); %>
         <table>
             <tr >
                 <th>IdCategoria</th>
@@ -23,7 +27,7 @@
                 <th>Nombre</th>
                 <td><%= categoria.getNombre()%></td>
             </tr>
-        </table>   
+        </table>  
     </div>
 </body>
 <%@include file="../include/footer.jsp" %>

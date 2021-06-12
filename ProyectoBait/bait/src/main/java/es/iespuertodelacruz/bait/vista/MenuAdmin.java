@@ -560,9 +560,10 @@ public class MenuAdmin extends MenuUsuario{
                     Pedido nuevoPedido = null;
                     idPedido = obtenerDato("idPedido");
                     nuevoPedido = registrarPedido();
+                    nuevoPedido.setIdPedido(idPedido);
                     try {
                         pedidoController.modificar(nuevoPedido);
-                        System.out.println("**Marca modificado correctamente.**");
+                        System.out.println("**Pedido modificado correctamente.**");
                     } catch (PersistenciaException | ApiException e) {
                         System.out.println("**"+e.getMessage()+"**");
                     }
