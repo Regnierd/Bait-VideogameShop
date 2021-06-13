@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Error Message</title>
-        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="../css/estilo.css">
         
         <%@include file="../header.jsp" %>
         <%@include file="../spam.jsp" %>

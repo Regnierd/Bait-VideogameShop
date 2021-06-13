@@ -183,24 +183,24 @@
                 <a name="buscarProductoNombre"></a>
                 <div class="formulario">
                     <h2>Buscar un producto</h2>
-                    <form method="post">
-                        <label>Introduce el nombre del producto a buscar:</label> <input type="text" name="id" placeholder="The Last of Us"><br>
+                    <form method="post" action="../productosPages/buscarProducto.jsp">
+                        <label>Introduce el nombre del producto a buscar:</label> <input type="text" name="nombre" placeholder="The Last of Us"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div> 
                 <a name="buscarProductoCategoria"></a>
                 <div class="formulario">
                     <h2>Buscar un producto</h2>
-                    <form method="post">
-                        <label>Introduce el categoria del producto a buscar:</label> <input type="text" name="id" placeholder="cat_videojuego"><br>
+                    <form method="post" action="../productosPages/buscarProducto.jsp">
+                        <label>Introduce la categoria del producto a buscar:</label> <input type="text" name="idCategoria" placeholder="cat_game"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div> 
                 <a name="buscarProductoMarca"></a>
                 <div class="formulario">
                     <h2>Buscar un producto</h2>
-                    <form method="post">
-                        <label>Introduce el marca del producto a buscar:</label> <input type="text" name="id" placeholder="mar_sony"><br>
+                    <form method="post" action="../productosPages/buscarProducto.jsp">
+                        <label>Introduce la marca del producto a buscar:</label> <input type="text" name="idMarca" placeholder="mar_sony"><br>
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div> 
