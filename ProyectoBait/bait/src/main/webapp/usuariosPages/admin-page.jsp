@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import='es.iespuertodelacruz.bait.api.personas.Usuario' %>
+<%@page import='java.util.ArrayList' %>
 
     <!DOCTYPE html>
     <html>
@@ -12,8 +13,7 @@
         <link rel="stylesheet" href="../css/tablasProductos.css">
         <%@include file="../include/header.jsp" %>
         <%@include file="../include/spam.jsp" %>
-        <jsp:useBean id="categoriaController" class="es.iespuertodelacruz.bait.controlador.productosController.CategoriaController" />
-
+        <jsp:useBean id="usuarioController" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />
     </head>
     <body>
         <div class="page">
@@ -151,14 +151,17 @@
                     </form>
                 </div>
                 <a name="listarUsuario"></a>
-                <div class="tablas">
-                    <h2>Usuario</h2>
-                    <%include file="usuariosPages/listarUsuarios.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de usuario</h2>
+                        <%@include file="./listarUsuarios.jsp" %>
+                    </div>
                 </div>
+
+                <div class="formulario">
 
                 <!--Formularios de productos-->
                 <a name="insertarProducto"></a>
-                <div class="formulario">
                     <h2>Registrar un nuevo producto</h2>
                     <form method="post" action="../productosPages/insertarProducto.jsp">
                         <label>Nombre:</label> <input type="text" name="nombreProducto" placeholder="ordenador gaming"><br>
@@ -193,9 +196,11 @@
                     </form> 
                 </div>  
                 <a name="listarProducto"></a>
-                <div class="tablas">
-                    <h2>Productos</h2>
-                    <%include file="productosPages/listarProductos.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de Productos</h2>
+                        <%@include file="../productosPages/obtenerProductos.jsp" %>
+                    </div>
                 </div>
                 <a name="buscarProductoNombre"></a>
                 <div class="formulario">
@@ -257,9 +262,11 @@
                     </form>                        
                 </div>  
                 <a name="listarCategoria"></a>
-                <div class="tablas">
-                    <h2>Categorias</h2>
-                    <%include file="categoriasPages/listarCategorias.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de Categorias</h2>
+                        <%@include file="../categoriasPages/listarCategorias.jsp" %>
+                    </div>
                 </div>
 
                 <!--Formularios de marcas-->       
@@ -297,9 +304,11 @@
                     </form>  
                 </div> 
                 <a name="listarMarca"></a>
-                <div class="tablas">
-                    <h2>Marcas</h2>
-                    <%include file="marcasPages/listarMarcas.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de Marcas</h2>
+                        <%@include file="../marcasPages/listarMarcas.jsp" %>
+                    </div>
                 </div>
 
                 <!--Formularios de pedidos-->   
@@ -333,9 +342,11 @@
                     </form>                 
                 </div> 
                 <a name="listarPedido"></a>
-                <div class="tablas">
-                    <h2>Pedidos</h2>
-                    <%include file="pedidosPages/listarPedidos.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de Pedidos</h2>
+                        <%@include file="../pedidosPages/listarPedidos.jsp" %>
+                    </div>
                 </div>
 
                 <!--Formularios de envios-->  
@@ -368,9 +379,11 @@
                     </form>
                 </div> 
                 <a name="listarEnvio"></a>
-                <div class="tablas">
-                    <h2>Envios</h2>
-                    <%include file="enviosPages/listarEnvios.jsp" %>
+                <div class="formulario">
+                    <div class="tablas">
+                        <h2>Lista de Envios</h2>
+                        <%@include file="../enviosPages/listarEnvios.jsp" %>
+                    </div>
                 </div>
             </div>
             
