@@ -29,39 +29,10 @@
         <% String password = request.getParameter("password"); %>
         <% Usuario usuario = new Usuario(dni, nombre, apellidos, correo, direccion, telefono, pais, codigoPostal, provincia, nombreUsuario, password, "Cliente", 0f); %>
         <% controller.insertar(usuario); %>
-        <% Usuario usuarioRegistrado = controller.buscar(dni); %>
-        <table style>
-            <tr>
-                <th>DNI</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Correo</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Pais</th>
-                <th>Codigo Postal</th>
-                <th>Provincia</th>
-                <th>User</th>
-                <th>Password</th>
-                <th>Rol</th>
-                <th>Saldo</th>
-            </tr>
-            <tr>
-                <td><%= usuarioRegistrado.getDni()%></td>
-                <td><%= usuarioRegistrado.getNombre()%></td>
-                <td><%= usuarioRegistrado.getApellidos()%></td>
-                <td><%= usuarioRegistrado.getEmail()%></td>
-                <td><%= usuarioRegistrado.getDireccion()%></td>
-                <td><%= usuarioRegistrado.getTelefono()%></td>
-                <td><%= usuarioRegistrado.getPais()%></td>
-                <td><%= usuarioRegistrado.getCodigoPostal()%></td>
-                <td><%= usuarioRegistrado.getProvincia()%></td>
-                <td><%= usuarioRegistrado.getNombreUsuario()%></td>
-                <td><%= usuarioRegistrado.getPassword()%></td>
-                <td><%= usuarioRegistrado.getRol()%></td>
-                <td><%= usuarioRegistrado.getSaldo()%></td>
-            </tr>
-        </table>
+        <% usuario = controller.buscar(usuario.getDni()); %>
+        <%  session.setAttribute("usuario", usuario); %>
+        <% response.sendRedirect("http://localhost:8080/usuariosPages/cliente.jsp"); %>
+        
     </body>
 
     </html>

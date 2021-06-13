@@ -9,6 +9,7 @@
         <title>menuPrincipal</title>
         <link rel="stylesheet" href="../css/estilo.css">
         <link rel="stylesheet" href="../css/menuAdmin.css">
+        <link rel="stylesheet" href="../css/tablasProductos.css">
         <%@include file="../include/header.jsp" %>
         <%@include file="../include/spam.jsp" %>
         <jsp:useBean id="categoriaController" class="es.iespuertodelacruz.bait.controlador.productosController.CategoriaController" />
@@ -24,50 +25,56 @@
                             <li><a href="#eliminarUsuario">Eliminar usuario</a></li>
                             <li><a href="#modificarUsuario">Modificar usuario</a></li>
                             <li><a href="#buscarUsuario">Buscar usuario</a></li>
+                            <li><a href="#listarUsuario">Listado de usuarios</a></li>
                         </ul>
                     </li>
                     <li><a href="">Productos</a>
                         <ul>
-                            <li><a href="#insertarProducto">Insertar productos</a></li>
-                            <li><a href="#eliminarProducto">Eliminar productos</a></li>
-                            <li><a href="#modificarProducto">Modificar productos</a></li>
+                            <li><a href="#insertarProducto">Insertar producto</a></li>
+                            <li><a href="#eliminarProducto">Eliminar producto</a></li>
+                            <li><a href="#modificarProducto">Modificar producto</a></li>
+                            <li><a href="#listarProducto">Listado de productos</a></li>
                             <li><a>Buscar productos</a>
                                 <ul>
-                                    <li><a href="#buscarProductoNombre">Buscar productos nombre</a></li>
-                                    <li><a href="#buscarProductoCategoria">Buscar productos categoria</a></li>
-                                    <li><a href="#buscarProductoMarca">Buscar productos marca</a></li>
+                                    <li><a href="#buscarProductoNombre">Buscar productos por nombre</a></li>
+                                    <li><a href="#buscarProductoCategoria">Buscar productos por categoria</a></li>
+                                    <li><a href="#buscarProductoMarca">Buscar productos por marca</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li><a href="">Categorias</a>
                         <ul>
-                            <li><a href="#insertarCategoria">Insertar categorias</a></li>
-                            <li><a href="#eliminarCategoria">Eliminar categorias</a></li>
-                            <li><a href="#modificarCategoria">Modificar categorias</a></li>
+                            <li><a href="#insertarCategoria">Insertar categoria</a></li>
+                            <li><a href="#eliminarCategoria">Eliminar categoria</a></li>
+                            <li><a href="#modificarCategoria">Modificar categoria</a></li>
                             <li><a href="#buscarCategoria">Buscar categorias</a></li>
+                            <li><a href="#listarCategoria">Listado de categorias</a></li>
                         </ul>
                     </li>
                     <li><a href="">Marcas</a>
                         <ul>
-                            <li><a href="#insertarMarca">Insertar marcas</a></li>
-                            <li><a href="#eliminarMarca">Eliminar marcas</a></li>
-                            <li><a href="#modificarMarca">Modificar marcas</a></li>
+                            <li><a href="#insertarMarca">Insertar marca</a></li>
+                            <li><a href="#eliminarMarca">Eliminar marca</a></li>
+                            <li><a href="#modificarMarca">Modificar marca</a></li>
                             <li><a href="#buscarMarca">Buscar marcas</a></li>
+                            <li><a href="#listarMarca">Listado de marcas</a></li>
                         </ul>
                     </li>
                     <li><a href="">Pedidos</a>
                         <ul>
                             <li><a href="#eliminarPedido">Eliminar pedido</a></li>
                             <li><a href="#modificarPedido">Modificar pedido</a></li>
-                            <li><a href="#buscarPedido">Buscar pedido</a></li>
+                            <li><a href="#buscarPedido">Buscar pedidos</a></li>
+                            <li><a href="#listarPedido">Listado de pedidos</a></li>
                         </ul>
                     </li>
                     <li><a href="" >Envios</a>
                         <ul class="envios">
                             <li><a href="#eliminarEnvio">Eliminar envio</a></li>
                             <li><a href="#modificarEnvio">Modificar envio</a></li>
-                            <li><a href="#buscarEnvio">Buscar envio</a></li>
+                            <li><a href="#buscarEnvio">Buscar envios</a></li>
+                            <li><a href="#listarEnvio">Listado de envios</a></li>
                         </ul>
                     </li>
                 </ul>  
@@ -143,6 +150,11 @@
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div>
+                <a name="listarUsuario"></a>
+                <div class="tablas">
+                    <h2>Usuario</h2>
+                    <%include file="usuariosPages/listarUsuarios.jsp" %>
+                </div>
 
                 <!--Formularios de productos-->
                 <a name="insertarProducto"></a>
@@ -180,6 +192,11 @@
                         <input type="submit" value="Registrar"> <br>
                     </form> 
                 </div>  
+                <a name="listarProducto"></a>
+                <div class="tablas">
+                    <h2>Productos</h2>
+                    <%include file="productosPages/listarProductos.jsp" %>
+                </div>
                 <a name="buscarProductoNombre"></a>
                 <div class="formulario">
                     <h2>Buscar un producto</h2>
@@ -239,6 +256,11 @@
                         <input type="submit" value="Buscar"><br>
                     </form>                        
                 </div>  
+                <a name="listarCategoria"></a>
+                <div class="tablas">
+                    <h2>Categorias</h2>
+                    <%include file="categoriasPages/listarCategorias.jsp" %>
+                </div>
 
                 <!--Formularios de marcas-->       
                 <a name="insertarMarca"></a>
@@ -274,6 +296,11 @@
                         <input type="submit" value="Buscar"><br>
                     </form>  
                 </div> 
+                <a name="listarMarca"></a>
+                <div class="tablas">
+                    <h2>Marcas</h2>
+                    <%include file="marcasPages/listarMarcas.jsp" %>
+                </div>
 
                 <!--Formularios de pedidos-->   
                 <a name="eliminarPedido"></a>
@@ -305,6 +332,11 @@
                         <input type="submit" value="Buscar"> <br>
                     </form>                 
                 </div> 
+                <a name="listarPedido"></a>
+                <div class="tablas">
+                    <h2>Pedidos</h2>
+                    <%include file="pedidosPages/listarPedidos.jsp" %>
+                </div>
 
                 <!--Formularios de envios-->  
                 <a name="eliminarEnvio"></a>
@@ -335,6 +367,11 @@
                         <input type="submit" value="Buscar"> <br>
                     </form>
                 </div> 
+                <a name="listarEnvio"></a>
+                <div class="tablas">
+                    <h2>Envios</h2>
+                    <%include file="enviosPages/listarEnvios.jsp" %>
+                </div>
             </div>
             
         </div>   

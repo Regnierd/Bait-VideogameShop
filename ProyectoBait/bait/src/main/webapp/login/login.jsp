@@ -33,8 +33,7 @@
                     <input type="submit" value="Entrar">
                 </form>
 
-                <a href="../registro.jsp">Registrarse</a><br/>
-                <a href="#">Olvidó su Contraseña?</a>
+                <a href="../registro/registro.jsp">Registrarse</a><br/>
          
             </div>
         </div>    

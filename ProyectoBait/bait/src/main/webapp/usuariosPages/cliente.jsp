@@ -21,7 +21,7 @@
                     </div>
                     <ul class="perfil">
                         <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
-                        <li><%= usuario.getNombre() %></li>
+                        <li><%= usuario.getNombreUsuario() %></li>
                         <li><a href="perfilCliente.jsp">Perfil</a></li>
                         <li><a href="ingresarDinero.jsp">Añadir saldo</a></li>
                         <li><a href="hacerPedido.jsp">Realizar pedido</a></li>
