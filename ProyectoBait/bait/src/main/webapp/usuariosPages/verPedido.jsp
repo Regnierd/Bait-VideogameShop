@@ -19,6 +19,7 @@
             <jsp:useBean id="pedidoController" class="es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController" />
             <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>                 
             <% ArrayList<Pedido> pedidos = pedidoController.obtenerListado(usuario.getDni()); %>
+                <h1>Tu pedido</h1>
             <% for(Pedido pedido : pedidos){ %> 
                 <table>
                     <tr>

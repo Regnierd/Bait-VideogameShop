@@ -19,6 +19,7 @@
             <jsp:useBean id="envioController" class="es.iespuertodelacruz.bait.controlador.movimientosController.EnvioController" />
             <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>                 
             <% ArrayList<Envio> envios = envioController.obtenerListado(usuario.getDni()); %>
+                <h1>Tu envio</h1>
             <% for(Envio envio : envios){ %> 
                 <table>
                     <tr>
@@ -39,14 +40,7 @@
                     </tr>
                 </table>         
             <%}%> 
-            <ul class="perfil">
-                <li><%= usuario.getNombre() %></li>
-                <li><a href="perfilCliente.jsp">Perfil</a></li>
-                <li><a href="ingresarDinero.jsp">Añadir saldo</a></li>
-                <li><a href="hacerPedido.jsp">Realizar pedido</a></li>
-                <li><a href="verPedido.jsp">Ver pedido</a></li>
-                <li><a href="verEnvio.jsp">Ver envio</a></li>
-            </ul>
+            
         </div>
     </div>
 </body>

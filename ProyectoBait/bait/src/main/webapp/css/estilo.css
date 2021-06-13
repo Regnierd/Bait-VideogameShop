@@ -91,6 +91,12 @@ body {
 .social-media {
   margin-left: 120px;
   margin-right: 120px;
+  
+}
+
+.social-media a{
+  margin-left: 10px ;
+  text-decoration: none;
 }
 
 .text-left, .text-right {
