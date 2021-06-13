@@ -1,9 +1,13 @@
 <%@ page import='es.iespuertodelacruz.bait.api.productos.Producto' %>
 <%@page import='java.util.ArrayList' %>
 
-<jsp:useBean id="productosController" class="es.iespuertodelacruz.bait.controlador.productosController.ProductoController" />
-<% ArrayList<Producto> productos = productosController.obtenerListado(); %>
-
+<jsp:useBean id="productoController" class="es.iespuertodelacruz.bait.controlador.productosController.ProductoController" />
+<% ArrayList<Producto> productos = productoController.obtenerListado(); %>
+<% String buscador = request.getParameter("buscador"); %>
+<% if (buscador != null){
+    productos = productoController.buscarPorNombre(buscador);
+}
+%>
 <% for(Producto producto : productos){ %>  
     <table>
         <tr>
