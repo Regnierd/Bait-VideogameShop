@@ -14,21 +14,22 @@
 </head>
 <body>
     <div class="page">
-        <form method="post" action="#">
-            <label>Introduce el idProducto:</label> <input type="text" name="idProducto" placeholder="pro_00000001"><br>
-            <label>Introduce las unidades que quiere comprar:</label> <input type="text" name="unidades" placeholder="2"><br>
-            <input type="submit" value="Añadir"><br>
-        </form>
-        <jsp:useBean id="pedidoController" class="es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController" />
-        <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
-        <% String idProducto = request.getParameter("idProducto"); %>
-        <% if(idProducto != null ){
-            int unidades = Integer.parseInt(request.getParameter("unidades"));
-            pedidoController.realizarPedido(usuario, idProducto, unidades);
-        %> 
-        <h3>realizado correctamente</h3>
-        <% } %>
-
+        <div class="cuerpo">
+            <form method="post" action="#">
+                <label>Introduce el idProducto:</label> <input type="text" name="idProducto" placeholder="pro_00000001"><br>
+                <label>Introduce las unidades que quiere comprar:</label> <input type="text" name="unidades" placeholder="2"><br>
+                <input type="submit" value="Añadir"><br>
+            </form>
+            <jsp:useBean id="pedidoController" class="es.iespuertodelacruz.bait.controlador.movimientosController.PedidoController" />
+            <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
+            <% String idProducto = request.getParameter("idProducto"); %>
+            <% if(idProducto != null ){
+                int unidades = Integer.parseInt(request.getParameter("unidades"));
+                pedidoController.realizarPedido(usuario, idProducto, unidades);
+            %> 
+            <h3>realizado correctamente</h3>
+            <% } %>
+        </div>
     </div>
 </body>
 <%@include file="../include/footer.jsp" %>

@@ -12,19 +12,20 @@
 </head>
 <body>
     <div class="page">
-        <form method="post" action="#">
-            <label>Introduce la cantidad de saldo:</label> <input type="text" name="saldo" placeholder="20.0"><br>
-            <input type="submit" value="Añadir"> <br>
-        </form>
-        <jsp:useBean id="usuarioController" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />
-        <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
-        <% String parameter = request.getParameter("saldo");
-        if (parameter != null){
-            float saldo = Float.parseFloat(parameter);
-            usuarioController.añadirSaldo(usuario, saldo);
-        %>    <h3>Añadido correctamente</h3>
-        <%}%>
-        
+        <div class="cuerpo">          
+            <form method="post" action="#">
+                <label>Introduce la cantidad de saldo:</label> <input type="text" name="saldo" placeholder="20.0"><br>
+                <input type="submit" value="Añadir"> <br>
+            </form>
+            <jsp:useBean id="usuarioController" class="es.iespuertodelacruz.bait.controlador.personasController.UsuarioController" />
+            <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
+            <% String parameter = request.getParameter("saldo");
+            if (parameter != null){
+                float saldo = Float.parseFloat(parameter);
+                usuarioController.añadirSaldo(usuario, saldo);
+            %>    <h3>Añadido correctamente</h3>
+            <%}%>
+        </div>     
     </div>
 </body>
 <%@include file="../include/footer.jsp" %>

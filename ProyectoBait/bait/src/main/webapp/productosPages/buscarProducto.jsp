@@ -8,6 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="../css/estilo.css">
     <link rel="stylesheet" href="../css/menuAdmin.css">
+    <link rel="stylesheet" href="../css/tablasProductos.css">
     <%@include file="../include/header.jsp" %>
     <%@include file="../include/spam.jsp" %>
 </head>
@@ -34,38 +35,42 @@
         }
     %>
     <div class="page">
-        <table>
+        <div class="tablas">
             <% for( Producto producto : productos){ %>
-                <tr>
-                    <th>IdProducto</th>
-                    <td><%= producto.getIdProducto()%></td>
-                </tr>
-                <tr>
-                    <th>Nombre</th>
-                    <td><%= producto.getNombre()%></td>
-                </tr>
-                <tr>
-                    <th>Precio</th>
-                    <td><%= producto.getPrecio()%></td>
-                </tr>
-                <tr>
-                    <th>Descripcion</th>
-                    <td><%= producto.getDescripcion()%></td>
-                </tr>
-                <tr>
-                    <th>Stock</th>
-                    <td><%= producto.getStock()%></td>
-                </tr>
-                <tr>
-                    <th>IdCategoria</th>
-                    <td><%= producto.getCategoria().getIdCategoria()%></td>
-                </tr>
-                <tr>
-                    <th>IdMarca</th>
-                    <td><%= producto.getMarca().getIdMarca()%></td>
-                </tr>
+                <table>
+                    
+                        <tr>
+                            <th>IdProducto</th>
+                            <td><%= producto.getIdProducto()%></td>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <td><%= producto.getNombre()%></td>
+                        </tr>
+                        <tr>
+                            <th>Precio</th>
+                            <td><%= producto.getPrecio()%></td>
+                        </tr>
+                        <tr>
+                            <th>Descripcion</th>
+                            <td><%= producto.getDescripcion()%></td>
+                        </tr>
+                        <tr>
+                            <th>Stock</th>
+                            <td><%= producto.getStock()%></td>
+                        </tr>
+                        <tr>
+                            <th>IdCategoria</th>
+                            <td><%= producto.getCategoria().getIdCategoria()%></td>
+                        </tr>
+                        <tr>
+                            <th>IdMarca</th>
+                            <td><%= producto.getMarca().getIdMarca()%></td>
+                        </tr>
+                
+                </table>
             <% } %> 
-        </table>
+        </div>    
     </div>
 </body>
 <%@include file="../include/footer.jsp" %>

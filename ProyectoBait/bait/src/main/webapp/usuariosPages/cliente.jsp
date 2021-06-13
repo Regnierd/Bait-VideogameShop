@@ -25,6 +25,8 @@
                         <li><a href="perfilCliente.jsp">Perfil</a></li>
                         <li><a href="ingresarDinero.jsp">Añadir saldo</a></li>
                         <li><a href="hacerPedido.jsp">Realizar pedido</a></li>
+                        <li><a href="verPedido.jsp">Ver pedido</a></li>
+                        <li><a href="verEnvio.jsp">Ver envio</a></li>
                     </ul>
                 </div>
                 
