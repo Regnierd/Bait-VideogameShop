@@ -75,6 +75,9 @@
             <br/>
     
             <div class="cuerpo">
+                <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>
+                <h1> Bienvenido <%= usuario.getNombre() %></h1>
+                <br/>
                 <!--Formularios de usuarios-->
                 <a name="insertarUsuario"></a>
                 <div class="formulario">
@@ -333,7 +336,7 @@
                     </form>
                 </div> 
             </div>
-
+            
         </div>   
     </body>
     <%@include file="../include/footer.jsp" %>

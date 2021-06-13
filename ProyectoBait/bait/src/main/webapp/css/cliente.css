@@ -35,6 +35,14 @@ li:hover a{
     list-style: none;
 }
 
+.perfil li:first-child{
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: black;
+    border-bottom: 1px solid black;
+}
+
 
 
 

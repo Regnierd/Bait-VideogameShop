@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="../css/estilo.css">
         <link rel="stylesheet" href="../css/menuAdmin.css">
         <link rel="stylesheet" href="../css/perfilCliente.css">
-        <link rel="stylesheet" href="../css/tablasProductos.css">
         <%@include file="../include/header.jsp" %>
         <%@include file="../include/spam.jsp" %>
         
@@ -20,7 +19,7 @@
                 
                 <h2>Perfil: </h2>
                 <% Usuario usuario = (Usuario) session.getAttribute("usuario"); %>                 
-                <table >
+                <table>
                     <tr>
                         <td>Dni</td>
                         <td><%= usuario.getDni()%></td>
@@ -38,7 +37,7 @@
                         <td><%= usuario.getEmail()%></td>
                     </tr>
                     <tr>
-                        <td>Dirección</td>
+                        <td>Direccion</td>
                         <td><%= usuario.getDireccion()%></td>
                     </tr>
                     <tr>
@@ -74,7 +73,7 @@
                         <td><%= usuario.getSaldo()%></td>
                     </tr>
                 </table>
-
+                <br/>
                 <a class="modificar" href="#modificarPerfil">Modificar perfil</a>
                 <a name="modificarPerfil"></a>
                 <div class="formulario">

@@ -58,12 +58,8 @@ ul, li{
     right: 308px;
 }
 
-h2{
-    margin: 0;
-    padding: 0 0 20px;
-    text-align: center;
-    font-size: 22px;
-}
+
+
 
 /*formularios*/
 .cuerpo{
@@ -77,6 +73,19 @@ h2{
     padding: 70px 50px;
     font-family: sans-serif;
 }
+
+.cuerpo h1{
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+h2{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
 .cuerpo label{
     margin: 0;
     padding: 0;
@@ -121,6 +130,8 @@ input[type="submit"]{
     font-size: 18px;
     border-radius: 20px;
 }
+
+
 
 
 
