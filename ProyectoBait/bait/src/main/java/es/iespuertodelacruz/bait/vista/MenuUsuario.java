@@ -240,7 +240,7 @@ public class MenuUsuario {
                         break;
                     case 4:        
                         try {
-                            pedidos = pedidoController.obtenerListado();
+                            pedidos = pedidoController.obtenerListado(usuario.getDni());
                             System.out.println(pedidos.toString());
                         } catch (PersistenciaException | ApiException e) {
                             System.out.println("**"+e.getMessage()+"**");
