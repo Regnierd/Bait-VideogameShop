@@ -34,6 +34,11 @@ body {
   box-shadow: 5px 5px 5px black;
 }
 
+.header-left span{
+  font-size: 20px;
+  
+}
+
 .header-right {
   float: right;
   display: flex;
@@ -43,7 +48,7 @@ body {
 }
 
 
-.buscador{
+.buscador{  
     border: none;
     border-bottom: 1px solid rgb(22, 22, 22) ;
     background-color: rgb(243, 243, 243);

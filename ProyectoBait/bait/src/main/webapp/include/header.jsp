@@ -1,5 +1,5 @@
 <header class="page-header">
-    <a href="../index.jsp" ><img class="logo" src="../img/logotipoBait.png" alt="logo" width="50px" height="50px"></a>
+    <a href="../index.jsp" ><img class="logo" src="../img/logotipoBait.png" alt="logo" width="50px" height="50px"></a> 
     <div class="header-right">
         <form action="">
             <input class="buscador" type="search" name="buscador">
